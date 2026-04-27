@@ -4,10 +4,21 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Gallery – COMSA | ATU</title>
+<meta name="description" content="Browse photos from COMSA events, executives, campus life, and more at Accra Technical University."/>
+<meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech"/>
+<link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
+<link rel="apple-touch-icon" href="images/logo.jpg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://comsa-atu.vercel.app/gallery.html"/>
+<meta property="og:title" content="Gallery – COMSA ATU"/>
+<meta property="og:description" content="Browse photos from COMSA events, executives, campus life, and more."/>
+<meta property="og:image" content="images/comsa1.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="images/comsa1.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--white:#fff;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)}
 [data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
@@ -15,22 +26,22 @@ img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
-
-/* NAV */
 #nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
 #nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
 [data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
 .nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);letter-spacing:.05em;flex-shrink:0}
+.brand-logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.brand-logo-img{width:100%;height:100%;object-fit:cover}
+.brand-logo-fb{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);display:none}
 .brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
 .brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
 [data-theme=light] .brand-txt span{color:var(--muted)}
 .nav-links{display:flex;align-items:center;gap:2px}
-.nav-links a{padding:7px 14px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
+.nav-links a{padding:7px 13px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
 [data-theme=light] .nav-links a{color:var(--muted)}
-.nav-links a::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 20px);height:2px;background:var(--gold);border-radius:2px;transition:transform .3s var(--spring)}
-.nav-links a:hover,.nav-links a.act{color:var(--white);background:rgba(244,180,0,.08)}
+.nav-links a::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 18px);height:2px;background:var(--gold);border-radius:2px;transition:transform .3s var(--spring)}
+.nav-links a:hover,.nav-links a.act{color:#fff;background:rgba(244,180,0,.08)}
 [data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
 .nav-links a:hover::after,.nav-links a.act::after{transform:translateX(-50%) scaleX(1)}
 .nav-r{display:flex;align-items:center;gap:10px}
@@ -41,9 +52,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .tog-thumb::before{content:'🌙'}
 .tog input:checked~.tog-thumb{transform:translateX(24px)}
 .tog input:checked~.tog-thumb::before{content:'☀️'}
-.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px;transition:background .3s}
-.ham:hover{background:rgba(244,180,0,.1)}
-.ham span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px}
+.ham span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
 [data-theme=light] .ham span{background:var(--navy)}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
@@ -51,166 +61,148 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
 [data-theme=light] .mob{background:rgba(244,244,240,.97)}
 .mob.open{transform:translateY(0);opacity:1}
-.mob a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
+.mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
 [data-theme=light] .mob a{color:var(--muted)}
 .mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
 .mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
-.mob-lbl{font-size:.75rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
-
+.mob-lbl{font-size:.72rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
 /* PAGE HERO */
-.page-hero{height:380px;position:relative;overflow:hidden;background:var(--navy2);display:flex;align-items:flex-end;padding-bottom:52px;padding-top:var(--nav)}
+.page-hero{min-height:400px;position:relative;overflow:hidden;background:var(--navy2);display:flex;align-items:flex-end;padding-bottom:52px;padding-top:var(--nav)}
+.ph-slides{position:absolute;inset:0}
 .ph-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--ease)}
 .ph-slide.act{opacity:1}
-.ph-s1{background:linear-gradient(135deg,#071528,#0B2040)}
-.ph-s2{background:linear-gradient(135deg,#200810,#400a20)}
-.ph-s3{background:linear-gradient(135deg,#071520,#0a2a3a)}
-.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,30,.92) 40%,rgba(7,16,30,.4));pointer-events:none}
-.ph-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none}
+.ph-slide img{width:100%;height:100%;object-fit:cover;object-position:center}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,30,.95) 30%,rgba(7,16,30,.5) 70%,rgba(7,16,30,.3));pointer-events:none;z-index:1}
+.ph-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none;z-index:1}
 .ph-content{position:relative;z-index:2;max-width:1300px;margin:0 auto;padding:0 28px;width:100%}
 .breadcrumb{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:12px}
-.breadcrumb a{color:var(--gold)}
-.breadcrumb span{color:rgba(255,255,255,.2)}
+.breadcrumb a{color:var(--gold)}.breadcrumb span{color:rgba(255,255,255,.2)}
 .ph-lbl{font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .ph-lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
-.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:12px}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.5vw,4rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:14px}
 .ph-h1 em{color:var(--gold);font-style:italic}
-.ph-p{font-size:1rem;color:rgba(255,255,255,.5);max-width:500px}
-.ph-dots{position:absolute;bottom:14px;right:28px;display:flex;gap:7px;z-index:5}
+.ph-p{font-size:1rem;color:rgba(255,255,255,.5);max-width:520px}
+.ph-dots{position:absolute;bottom:16px;right:28px;display:flex;gap:7px;z-index:5}
 .ph-dot{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.25);transition:all .4s var(--spring);cursor:pointer;border:none}
-.ph-dot.act{background:var(--gold);width:22px}
-
+.ph-dot.act{background:var(--gold);width:24px}
 /* UTILS */
 .container{max-width:1300px;margin:0 auto;padding:0 28px}
 .sp{padding:96px 0}
 .sp-sm{padding:60px 0}
 .lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
-.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
+.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px;flex-shrink:0}
 .h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:700;line-height:1.15;margin-bottom:18px}
 .h2 em{color:var(--gold);font-style:italic}
-.desc{font-size:1rem;color:var(--muted);line-height:1.82;max-width:600px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;letter-spacing:.04em;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
-.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.14);opacity:0;transition:opacity .3s}
+.desc{font-size:.98rem;color:var(--muted);line-height:1.82;max-width:600px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.13);opacity:0;transition:opacity .3s}
 .btn:hover::after{opacity:1}
 .btn:hover{transform:translateY(-3px)}
 .btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
 .btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
 .rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.in{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
-
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 /* GALLERY FILTERS */
-.gal-s{background:var(--bg)}
-.gal-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
-.gfilt{padding:8px 20px;border-radius:99px;font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;border:1px solid var(--bdr);background:transparent;transition:all .3s;font-family:'Outfit',sans-serif}
+.gal-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px}
+.gfilt{padding:7px 18px;border-radius:99px;font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;border:1px solid var(--bdr);background:transparent;transition:all .3s;font-family:'Outfit',sans-serif}
 .gfilt.act,.gfilt:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+/* STATS BAR */
+.gal-stats{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:32px;padding:18px 22px;background:var(--card);border:1px solid var(--bdr);border-radius:14px}
+.gs-n{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:3px}
+.gs-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+/* MASONRY GRID */
+.gal-grid{columns:4 220px;column-gap:14px}
+.gal-item{break-inside:avoid;margin-bottom:14px;position:relative;border-radius:14px;overflow:hidden;cursor:pointer;background:var(--card);border:1px solid var(--bdr);transition:transform .4s var(--ease),box-shadow .4s}
+.gal-item:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 18px 50px rgba(0,0,0,.4)}
+/* =====================================================
+  GALLERY PLACEHOLDER AREAS
+  Each .gal-ph holds the background and img tag.
+  Replace img src with your real photo.
+  comsa70.jpg–comsa75.jpg = default gallery images
 
-/* MASONRY GALLERY GRID */
-.gal-grid{
-  columns:4 240px;
-  column-gap:16px;
-}
-.gal-item{
-  break-inside:avoid;
-  margin-bottom:16px;
-  position:relative;
-  border-radius:14px;
-  overflow:hidden;
-  cursor:pointer;
-  background:var(--card);
-  border:1px solid var(--bdr);
-  transition:transform .4s var(--ease),box-shadow .4s;
-}
-.gal-item:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 20px 50px rgba(0,0,0,.4)}
-.gal-item img{
-  width:100%;
-  height:auto;
-  display:block;
-  transition:transform .6s var(--ease);
-}
-.gal-item:hover img{transform:scale(1.06)}
-/* Placeholder items (before real photos added) */
-.gal-placeholder{
-  width:100%;
-  background:linear-gradient(135deg,var(--navy),var(--navy3));
-  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;
-  color:rgba(255,255,255,.25);font-size:.8rem;
-  letter-spacing:.08em;text-transform:uppercase;
-}
-.gal-placeholder-ic{font-size:2rem;opacity:.4}
-.gal-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(7,16,30,.85) 0%,transparent 50%);
-  opacity:0;transition:opacity .4s;
-  display:flex;align-items:flex-end;padding:16px;
-}
-.gal-item:hover .gal-overlay{opacity:1}
-.gal-caption{color:var(--white)}
-.gal-cap-title{font-weight:600;font-size:.88rem;line-height:1.3;margin-bottom:3px}
-.gal-cap-cat{font-size:.7rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.gal-zoom-ic{position:absolute;top:12px;right:12px;width:34px;height:34px;background:rgba(244,180,0,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;opacity:0;transform:scale(.7);transition:opacity .3s,transform .3s var(--spring)}
-.gal-item:hover .gal-zoom-ic{opacity:1;transform:scale(1)}
-.gal-cat-badge{position:absolute;top:12px;left:12px;padding:3px 10px;border-radius:99px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(7,16,30,.7);color:var(--gold);backdrop-filter:blur(4px)}
-
+  Photo naming for gallery:
+  comsa70.jpg = Events – COMSA Week
+  comsa71.jpg = Executives – Group Photo
+  comsa72.jpg = Flyers – COMSA Week Flyer
+  comsa73.jpg = Campus – ATU Campus
+  comsa74.jpg = Events – Freshers Orientation
+  comsa75.jpg = Flyers – Career Fair Flyer
+===================================================== */
+.gal-ph{position:relative;background:linear-gradient(135deg,var(--navy),var(--navy3));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:rgba(255,255,255,.2);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;overflow:hidden}
+.gal-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .6s var(--ease)}
+.gal-item:hover .gal-ph img{transform:scale(1.06)}
+.gal-ph-ic{font-size:1.8rem;opacity:.35;position:relative;z-index:1}
+.gal-ph-txt{position:relative;z-index:1;font-size:.7rem;padding:0 12px;text-align:center}
+/* Overlay */
+.gal-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,30,.85) 0%,transparent 50%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:14px;z-index:2}
+.gal-item:hover .gal-ov{opacity:1}
+.gal-cap{color:#fff}
+.gal-cap-title{font-weight:600;font-size:.86rem;line-height:1.3;margin-bottom:2px}
+.gal-cap-cat{font-size:.68rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.gal-zoom{position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;background:rgba(244,180,0,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;opacity:0;transform:scale(.7);transition:opacity .3s,transform .3s var(--spring)}
+.gal-item:hover .gal-zoom{opacity:1;transform:scale(1)}
+.gal-cat-pill{position:absolute;top:10px;left:10px;z-index:3;padding:3px 10px;border-radius:99px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(7,16,30,.7);color:var(--gold);backdrop-filter:blur(4px)}
 /* LIGHTBOX */
-.lightbox{position:fixed;inset:0;z-index:6000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.lightbox.show{opacity:1;visibility:visible}
-.lb-bg{position:absolute;inset:0;background:rgba(4,8,18,.95);backdrop-filter:blur(16px)}
-.lb-box{position:relative;z-index:1;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:16px}
-.lb-img-wrap{position:relative;max-width:900px;max-height:75vh;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.lb{position:fixed;inset:0;z-index:6000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.lb.show{opacity:1;visibility:visible}
+.lb-bg{position:absolute;inset:0;background:rgba(4,8,18,.96);backdrop-filter:blur(16px)}
+.lb-box{position:relative;z-index:1;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:14px}
+.lb-img-wrap{border-radius:14px;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.7);max-width:900px;max-height:72vh}
 .lb-img-wrap img{max-width:90vw;max-height:72vh;object-fit:contain;display:block}
-.lb-placeholder{width:480px;max-width:90vw;height:360px;background:linear-gradient(135deg,var(--navy),var(--navy3));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:rgba(255,255,255,.3);font-size:1rem;text-align:center}
-.lb-placeholder span{font-size:3rem}
+.lb-ph{width:480px;max-width:90vw;height:340px;background:linear-gradient(135deg,var(--navy),var(--navy3));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:rgba(255,255,255,.3);border-radius:14px}
+.lb-ph span{font-size:3rem}
 .lb-info{text-align:center}
-.lb-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--white);margin-bottom:4px}
+.lb-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:4px}
 .lb-cat{font-size:.72rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase}
-.lb-close{position:fixed;top:20px;right:24px;width:42px;height:42px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--white);z-index:2;transition:background .3s,transform .3s;cursor:pointer;border:none}
+.lb-close{position:fixed;top:18px;right:22px;width:42px;height:42px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;z-index:2;transition:background .3s,transform .3s;cursor:pointer;border:none}
 .lb-close:hover{background:rgba(244,180,0,.4);transform:rotate(90deg)}
-.lb-arr{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--white);z-index:2;transition:background .3s;cursor:pointer;border:none}
+.lb-arr{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;z-index:2;transition:background .3s;cursor:pointer;border:none}
 .lb-arr:hover{background:rgba(244,180,0,.3)}
-.lb-prev{left:16px}
-.lb-next{right:16px}
-.lb-counter{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-size:.78rem;color:rgba(255,255,255,.4);letter-spacing:.12em}
-
-/* UPLOAD SECTION */
+.lb-prev{left:14px}
+.lb-next{right:14px}
+.lb-counter{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);font-size:.78rem;color:rgba(255,255,255,.4);letter-spacing:.12em}
+/* UPLOAD */
 .upload-s{background:var(--surf)}
-.upload-form{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:44px;max-width:720px;margin:0 auto}
+.upload-form-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:44px;max-width:720px;margin:0 auto}
 .fg{margin-bottom:20px}
 .fg label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
 .fg input,.fg select{width:100%;padding:13px 16px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);font-family:'Outfit',sans-serif;font-size:.92rem;color:var(--txt);outline:none;transition:border-color .3s}
 .fg input:focus,.fg select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,180,0,.1)}
-.fg select option{background:var(--navy)}
-.upload-zone{border:2px dashed rgba(244,180,0,.3);border-radius:var(--r);padding:44px 28px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(244,180,0,.02);position:relative}
+.fg select option{background:var(--navy2)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.upload-zone{border:2px dashed rgba(244,180,0,.3);border-radius:var(--r);padding:40px 24px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(244,180,0,.02);position:relative}
 .upload-zone:hover{border-color:var(--gold);background:rgba(244,180,0,.06)}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
-.upload-ic{font-size:2.8rem;margin-bottom:12px}
-.upload-t{font-size:1rem;font-weight:600;color:var(--txt);margin-bottom:6px}
-.upload-s-txt{font-size:.8rem;color:var(--muted)}
-.preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:20px}
-.prev-thumb{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:var(--surf)}
-.prev-thumb img{width:100%;height:100%;object-fit:cover}
-.prev-rm{position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(239,68,68,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff;cursor:pointer;z-index:1}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.upload-success{display:none;text-align:center;padding:36px;flex-direction:column;align-items:center;gap:14px}
-.upload-success.show{display:flex}
-.us-ic{font-size:3rem}
+.upload-ic{font-size:2.6rem;margin-bottom:10px}
+.upload-t{font-size:.95rem;font-weight:600;color:var(--txt);margin-bottom:5px}
+.upload-sub{font-size:.78rem;color:var(--muted)}
+.prev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:18px}
+.prev-th{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:var(--surf)}
+.prev-th img{width:100%;height:100%;object-fit:cover}
+.prev-rm{position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(239,68,68,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff;cursor:pointer;z-index:1;border:none}
+.up-success{display:none;text-align:center;padding:36px;flex-direction:column;align-items:center;gap:14px}
+.up-success.show{display:flex}
+.us-ic{font-size:3rem;animation:pop .5s var(--spring)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
 .us-h{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--txt)}
 .us-p{color:var(--muted)}
-
-/* STATS BAR */
-.gal-stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:36px;padding:20px 24px;background:var(--card);border:1px solid var(--bdr);border-radius:14px}
-.gal-stat{text-align:center}
-.gal-stat-n{font-family:'Orbitron',monospace;font-size:1.5rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:3px}
-.gal-stat-l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
-
+/* NO PHOTOS */
+.no-gal{display:none;text-align:center;padding:52px;color:var(--muted)}
+.no-gal-ic{font-size:3rem;margin-bottom:12px}
 /* FOOTER */
-footer{background:var(--navy2);position:relative;overflow:hidden;padding:72px 0 0}
+footer{background:var(--navy2);padding:72px 0 0;position:relative;overflow:hidden}
 footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:52px;padding-bottom:52px}
-.ft-p{font-size:.86rem;color:rgba(255,255,255,.42);line-height:1.8;max-width:290px;margin-bottom:20px;margin-top:16px}
+.ft-brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.ft-logo-wrap{width:48px;height:48px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ft-logo-img{width:100%;height:100%;object-fit:cover}
+.ft-logo-fb{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;color:var(--navy);display:none}
+.ft-p{font-size:.86rem;color:rgba(255,255,255,.4);line-height:1.8;max-width:290px;margin-bottom:20px}
 .ft-soc{display:flex;gap:10px}
 .ft-so{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .3s}
 .ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px)}
-.ft-col h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--white);margin-bottom:18px;padding-bottom:10px;position:relative}
+.ft-col h4{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;margin-bottom:18px;padding-bottom:10px;position:relative}
 .ft-col h4::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--gold);border-radius:2px}
 .ft-col li{margin-bottom:9px}
 .ft-col a{font-size:.84rem;color:rgba(255,255,255,.4);transition:color .3s,padding-left .3s}
@@ -221,196 +213,234 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .ft-ct strong{display:block;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:2px}
 .ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .ft-copy{font-size:.78rem;color:rgba(255,255,255,.25)}
-.ft-dev{font-size:.75rem;color:rgba(255,255,255,.22);text-align:right}
-.ft-dev a{color:var(--gold);opacity:.65;transition:opacity .3s;font-weight:500}
+.ft-dev{font-size:.75rem;color:rgba(255,255,255,.22)}
+.ft-dev a{color:var(--gold);opacity:.65;font-weight:500;transition:opacity .3s}
 .ft-dev a:hover{opacity:1}
-
-@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.gal-grid{columns:2 150px}.form-row{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}.ft-dev{text-align:center}}
-@media(max-width:480px){.gal-grid{columns:1}}
+/* CHATBOT */
+#cb-toggle{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;z-index:4000;box-shadow:0 8px 28px rgba(244,180,0,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+#cb-toggle:hover{transform:scale(1.12)}
+#cb-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#EF4444;color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg,#07101E)}
+#chatbot{position:fixed;bottom:100px;right:28px;width:360px;max-width:calc(100vw - 40px);height:520px;max-height:calc(100vh - 130px);background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.18);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.5);z-index:3999;display:none;flex-direction:column;overflow:hidden}
+#chatbot.open{display:flex}
+#cb-head{padding:14px 16px;background:linear-gradient(135deg,#0B1F3B,#122847);display:flex;align-items:center;gap:11px;flex-shrink:0;border-bottom:1px solid rgba(244,180,0,.1)}
+#cb-head-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+#cb-logo{width:100%;height:100%;object-fit:cover;border-radius:50%}
+#cb-logo-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;color:#0B1F3B}
+#cb-head-name{font-weight:700;font-size:.9rem;color:#F0EFE9}
+#cb-head-status{font-size:.68rem;color:#10B981;margin-top:1px}
+#cb-close{margin-left:auto;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:background .3s;flex-shrink:0}
+#cb-close:hover{background:rgba(239,68,68,.3);color:#fff}
+#cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+#cb-msgs::-webkit-scrollbar{width:4px}
+#cb-msgs::-webkit-scrollbar-thumb{background:rgba(244,180,0,.2);border-radius:2px}
+.cb-msg{max-width:84%;animation:cbPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cbPop{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.cb-msg-bot{align-self:flex-start}.cb-msg-user{align-self:flex-end}
+.cb-bubble{padding:10px 13px;border-radius:16px;font-size:.84rem;line-height:1.65;word-break:break-word}
+.cb-bubble-bot{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.12);color:var(--txt,#F0EFE9);border-bottom-left-radius:4px}
+.cb-bubble-user{background:linear-gradient(135deg,#F4B400,#C99300);color:#0B1F3B;font-weight:500;border-bottom-right-radius:4px}
+.cb-time{font-size:.62rem;color:rgba(255,255,255,.28);margin-top:3px;padding:0 4px}
+.cb-msg-user .cb-time{text-align:right}
+.cb-typing{display:flex;align-items:center;gap:4px;padding:10px 13px;background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.1);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+.cb-dot{width:7px;height:7px;border-radius:50%;background:rgba(244,180,0,.6);animation:cbDot 1.2s ease-in-out infinite}
+.cb-dot:nth-child(2){animation-delay:.2s}.cb-dot:nth-child(3){animation-delay:.4s}
+@keyframes cbDot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+#cb-quick{padding:0 12px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.cb-qr{padding:6px 12px;background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.74rem;font-weight:600;color:#F4B400;cursor:pointer;transition:background .3s;white-space:nowrap;font-family:'Outfit',sans-serif}
+.cb-qr:hover{background:rgba(244,180,0,.22)}
+#cb-input-wrap{padding:10px 12px;border-top:1px solid rgba(244,180,0,.1);display:flex;gap:8px;align-items:center;flex-shrink:0}
+#cb-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:9px 13px;font-family:'Outfit',sans-serif;font-size:.84rem;color:var(--txt,#F0EFE9);outline:none;transition:border-color .3s}
+#cb-input:focus{border-color:#F4B400}
+#cb-input::placeholder{color:rgba(255,255,255,.3)}
+[data-theme=light] #cb-input{color:#0B1F3B;background:rgba(0,0,0,.05)}
+[data-theme=light] #cb-input::placeholder{color:rgba(0,0,0,.3)}
+#cb-send{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;color:#0B1F3B;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0}
+#cb-send:hover{transform:scale(1.08)}
+#cb-send:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.gal-grid{columns:2 150px}.form-row{grid-template-columns:1fr}.upload-form-wrap{padding:24px}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}}
+@media(max-width:480px){.gal-grid{columns:1}#chatbot{right:12px;bottom:88px;width:calc(100vw - 24px)}#cb-toggle{bottom:20px;right:20px}}
 </style>
 </head>
 <body>
-
 <nav id="nav">
   <div class="nav-i">
-    <a href="index.html" class="brand"><div class="brand-ico">ATU</div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></a>
+    <a href="index.html" class="brand">
+      <div class="brand-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="brand-logo-fb">ATU</span></div>
+      <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
+    </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html" class="act">Gallery</a></li><li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="nav-r">
-      <label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
-      <button class="ham" id="ham"><span></span><span></span><span></span></button>
-    </div>
+    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham"><span></span><span></span><span></span></button></div>
   </div>
 </nav>
 <div class="mob" id="mob">
   <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html" class="act">Gallery</a><a href="contact.html">Contact</a>
-  <div class="mob-bot"><span class="mob-lbl">Toggle Theme</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+  <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
 </div>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
-  <div class="ph-slide ph-s1 act"></div>
-  <div class="ph-slide ph-s2"></div>
-  <div class="ph-slide ph-s3"></div>
-  <div class="ph-overlay"></div>
-  <div class="ph-mesh"></div>
+  <div class="ph-slides">
+    <div class="ph-slide act"><img src="images/comsa1.jpg" alt="COMSA Gallery"/></div>
+    <div class="ph-slide"><img src="images/comsa2.jpg" alt="COMSA"/></div>
+    <div class="ph-slide"><img src="images/comsa3.jpg" alt="COMSA Campus"/></div>
+  </div>
+  <div class="ph-overlay"></div><div class="ph-mesh"></div>
   <div class="ph-content">
     <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Gallery</span></div>
     <div class="ph-lbl">Visual Memories</div>
     <h1 class="ph-h1">COMSA <em>Gallery</em></h1>
-    <p class="ph-p">A visual journey through the events, moments, and memories of our association.</p>
+    <p class="ph-p">A visual journey through our events, moments, and memories. Click any photo to view full size.</p>
   </div>
   <div class="ph-dots" id="ph-dots"></div>
 </section>
 
-<!-- GALLERY -->
-<section class="gal-s sp">
+<!-- GALLERY SECTION -->
+<section class="sp" style="background:var(--bg)">
   <div class="container">
-
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:32px" class="rv">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px" class="rv">
       <div><div class="lbl">Our Photos</div><h2 class="h2">Moments &amp; <em>Memories</em></h2></div>
       <a href="#upload" class="btn btn-g">+ Upload Photos</a>
     </div>
 
-    <!-- Stats bar -->
+    <!-- STATS BAR -->
     <div class="gal-stats rv d1">
-      <div class="gal-stat"><div class="gal-stat-n" id="stat-total">6</div><div class="gal-stat-l">Total Photos</div></div>
-      <div class="gal-stat"><div class="gal-stat-n" id="stat-events">2</div><div class="gal-stat-l">Events</div></div>
-      <div class="gal-stat"><div class="gal-stat-n" id="stat-exec">1</div><div class="gal-stat-l">Executives</div></div>
-      <div class="gal-stat"><div class="gal-stat-n" id="stat-campus">1</div><div class="gal-stat-l">Campus</div></div>
-      <div class="gal-stat"><div class="gal-stat-n" id="stat-flyer">2</div><div class="gal-stat-l">Flyers</div></div>
+      <div><div class="gs-n" id="st-total">6</div><div class="gs-l">Total Photos</div></div>
+      <div><div class="gs-n" id="st-events">2</div><div class="gs-l">Events</div></div>
+      <div><div class="gs-n" id="st-exec">1</div><div class="gs-l">Executives</div></div>
+      <div><div class="gs-n" id="st-campus">1</div><div class="gs-l">Campus Life</div></div>
+      <div><div class="gs-n" id="st-flyer">2</div><div class="gs-l">Flyers</div></div>
     </div>
 
-    <!-- Filters -->
+    <!-- FILTERS -->
     <div class="gal-filters rv d2">
       <button class="gfilt act" data-cat="all">All Photos</button>
-      <button class="gfilt" data-cat="events">Events</button>
-      <button class="gfilt" data-cat="executives">Executives</button>
-      <button class="gfilt" data-cat="campus">Campus Life</button>
-      <button class="gfilt" data-cat="flyers">Flyers</button>
-      <button class="gfilt" data-cat="academic">Academic</button>
+      <button class="gfilt" data-cat="events">📅 Events</button>
+      <button class="gfilt" data-cat="executives">👔 Executives</button>
+      <button class="gfilt" data-cat="campus">🏛️ Campus Life</button>
+      <button class="gfilt" data-cat="flyers">📢 Flyers</button>
+      <button class="gfilt" data-cat="academic">📚 Academic</button>
     </div>
 
-    <!-- MASONRY GRID -->
+    <!-- MASONRY GALLERY GRID -->
     <div class="gal-grid" id="gal-grid">
 
-      <!--
-      ======================================================
-      📸 HOW TO ADD YOUR PHOTOS:
-      Each .gal-item has an <img> tag with src="".
-      Replace src="" with your image path.
-      Example: src="images/event1.jpg"
+      <!-- ============================================================
+        GALLERY ITEMS
+        Each item has an <img> tag. Replace src with your comsa images.
+        comsa70.jpg–comsa75.jpg are the default gallery photos.
 
-      To add a new photo, copy any .gal-item block and:
-      1. Set the src on the <img> tag
-      2. Change data-cat to: events / executives / campus / flyers / academic
-      3. Edit data-title and data-cap for the caption
-      ======================================================
-      -->
+        data-cat options: events / executives / campus / flyers / academic
+        data-title: caption shown in lightbox
 
-      <!-- ITEM 1 -->
-      <div class="gal-item rv" data-cat="events" data-title="COMSA Week 2025 Opening" data-cap="events">
-        <div class="gal-placeholder" style="height:260px">
-          <!-- 📸 Replace src below with your event photo -->
-          <img src="" alt="COMSA Week Opening" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none" class="gal-real-img"/>
-          <span class="gal-placeholder-ic">🎉</span>
-          <span>events/comsa-week-opening.jpg</span>
+        To add a new photo:
+        1. Copy any .gal-item block
+        2. Change the img src to your image (e.g. comsa76.jpg)
+        3. Update data-cat and data-title
+        4. Paste inside #gal-grid
+      ============================================================ -->
+
+      <!-- ITEM 1 — Events: COMSA Week -->
+      <div class="gal-item rv" data-cat="events" data-title="COMSA Week 2025 — Opening Ceremony">
+        <div class="gal-ph" style="height:260px">
+          <!-- comsa70.jpg — COMSA Week event photo -->
+          <img src="images/comsa70.jpg" alt="COMSA Week Opening"/>
+          <div class="gal-ph-ic">🎉</div>
+          <div class="gal-ph-txt">comsa70.jpg</div>
         </div>
-        <div class="gal-cat-badge">Events</div>
-        <div class="gal-zoom-ic">🔍</div>
-        <div class="gal-overlay"><div class="gal-caption"><div class="gal-cap-title">COMSA Week 2025 Opening</div><div class="gal-cap-cat">Events</div></div></div>
+        <div class="gal-cat-pill">Events</div>
+        <div class="gal-zoom">🔍</div>
+        <div class="gal-ov"><div class="gal-cap"><div class="gal-cap-title">COMSA Week 2025 Opening</div><div class="gal-cap-cat">Events</div></div></div>
       </div>
 
-      <!-- ITEM 2 -->
-      <div class="gal-item rv d1" data-cat="executives" data-title="Executive Body 2025/26" data-cap="executives">
-        <div class="gal-placeholder" style="height:320px">
-          <img src="" alt="Executives" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none" class="gal-real-img"/>
-          <span class="gal-placeholder-ic">👔</span>
-          <span>executives/group-photo.jpg</span>
+      <!-- ITEM 2 — Executives: Group Photo -->
+      <div class="gal-item rv d1" data-cat="executives" data-title="Executive Body 2025/26 — Group Photo">
+        <div class="gal-ph" style="height:320px">
+          <!-- comsa71.jpg — Executive group photo -->
+          <img src="images/comsa71.jpg" alt="Executives Group Photo"/>
+          <div class="gal-ph-ic">👔</div>
+          <div class="gal-ph-txt">comsa71.jpg</div>
         </div>
-        <div class="gal-cat-badge">Executives</div>
-        <div class="gal-zoom-ic">🔍</div>
-        <div class="gal-overlay"><div class="gal-caption"><div class="gal-cap-title">Executive Body 2025/26</div><div class="gal-cap-cat">Executives</div></div></div>
+        <div class="gal-cat-pill">Executives</div>
+        <div class="gal-zoom">🔍</div>
+        <div class="gal-ov"><div class="gal-cap"><div class="gal-cap-title">Executive Body 2025/26</div><div class="gal-cap-cat">Executives</div></div></div>
       </div>
 
-      <!-- ITEM 3 -->
-      <div class="gal-item rv d2" data-cat="flyers" data-title="COMSA Week 2026 Flyer" data-cap="flyers">
-        <div class="gal-placeholder" style="height:380px">
-          <img src="" alt="COMSA Week Flyer" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none" class="gal-real-img"/>
-          <span class="gal-placeholder-ic">📢</span>
-          <span>flyers/comsa-week-2026.jpg</span>
+      <!-- ITEM 3 — Flyers: COMSA Week Flyer -->
+      <div class="gal-item rv d2" data-cat="flyers" data-title="COMSA Week 2026 — Official Flyer">
+        <div class="gal-ph" style="height:380px">
+          <!-- comsa72.jpg — COMSA Week flyer -->
+          <img src="images/comsa72.jpg" alt="COMSA Week Flyer"/>
+          <div class="gal-ph-ic">📢</div>
+          <div class="gal-ph-txt">comsa72.jpg</div>
         </div>
-        <div class="gal-cat-badge">Flyer</div>
-        <div class="gal-zoom-ic">🔍</div>
-        <div class="gal-overlay"><div class="gal-caption"><div class="gal-cap-title">COMSA Week 2026 Flyer</div><div class="gal-cap-cat">Flyers</div></div></div>
+        <div class="gal-cat-pill">Flyer</div>
+        <div class="gal-zoom">🔍</div>
+        <div class="gal-ov"><div class="gal-cap"><div class="gal-cap-title">COMSA Week 2026 Flyer</div><div class="gal-cap-cat">Flyers</div></div></div>
       </div>
 
-      <!-- ITEM 4 -->
-      <div class="gal-item rv d3" data-cat="campus" data-title="ATU Campus Life" data-cap="campus">
-        <div class="gal-placeholder" style="height:220px">
-          <img src="" alt="Campus Life" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none" class="gal-real-img"/>
-          <span class="gal-placeholder-ic">🏛️</span>
-          <span>campus/atu-campus.jpg</span>
+      <!-- ITEM 4 — Campus Life -->
+      <div class="gal-item rv d3" data-cat="campus" data-title="ATU Campus Life — Department of Communication Studies">
+        <div class="gal-ph" style="height:220px">
+          <!-- comsa73.jpg — ATU campus photo -->
+          <img src="images/comsa73.jpg" alt="ATU Campus Life"/>
+          <div class="gal-ph-ic">🏛️</div>
+          <div class="gal-ph-txt">comsa73.jpg</div>
         </div>
-        <div class="gal-cat-badge">Campus</div>
-        <div class="gal-zoom-ic">🔍</div>
-        <div class="gal-overlay"><div class="gal-caption"><div class="gal-cap-title">ATU Campus Life</div><div class="gal-cap-cat">Campus</div></div></div>
+        <div class="gal-cat-pill">Campus</div>
+        <div class="gal-zoom">🔍</div>
+        <div class="gal-ov"><div class="gal-cap"><div class="gal-cap-title">ATU Campus Life</div><div class="gal-cap-cat">Campus Life</div></div></div>
       </div>
 
-      <!-- ITEM 5 -->
-      <div class="gal-item rv d1" data-cat="events" data-title="Freshers' Orientation 2025" data-cap="events">
-        <div class="gal-placeholder" style="height:290px">
-          <img src="" alt="Freshers Orientation" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none" class="gal-real-img"/>
-          <span class="gal-placeholder-ic">🎓</span>
-          <span>events/freshers-orientation.jpg</span>
+      <!-- ITEM 5 — Events: Freshers Orientation -->
+      <div class="gal-item rv d1" data-cat="events" data-title="Freshers' Orientation 2025">
+        <div class="gal-ph" style="height:290px">
+          <!-- comsa74.jpg — Freshers orientation photo -->
+          <img src="images/comsa74.jpg" alt="Freshers Orientation"/>
+          <div class="gal-ph-ic">🎓</div>
+          <div class="gal-ph-txt">comsa74.jpg</div>
         </div>
-        <div class="gal-cat-badge">Events</div>
-        <div class="gal-zoom-ic">🔍</div>
-        <div class="gal-overlay"><div class="gal-caption"><div class="gal-cap-title">Freshers' Orientation 2025</div><div class="gal-cap-cat">Events</div></div></div>
+        <div class="gal-cat-pill">Events</div>
+        <div class="gal-zoom">🔍</div>
+        <div class="gal-ov"><div class="gal-cap"><div class="gal-cap-title">Freshers' Orientation 2025</div><div class="gal-cap-cat">Events</div></div></div>
       </div>
 
-      <!-- ITEM 6 -->
-      <div class="gal-item rv d2" data-cat="flyers" data-title="Career Fair 2026 Flyer" data-cap="flyers">
-        <div class="gal-placeholder" style="height:360px">
-          <img src="" alt="Career Fair Flyer" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none" class="gal-real-img"/>
-          <span class="gal-placeholder-ic">💼</span>
-          <span>flyers/career-fair-2026.jpg</span>
+      <!-- ITEM 6 — Flyers: Career Fair -->
+      <div class="gal-item rv d2" data-cat="flyers" data-title="Communications Career Fair 2026 — Official Flyer">
+        <div class="gal-ph" style="height:360px">
+          <!-- comsa75.jpg — Career Fair flyer -->
+          <img src="images/comsa75.jpg" alt="Career Fair Flyer"/>
+          <div class="gal-ph-ic">💼</div>
+          <div class="gal-ph-txt">comsa75.jpg</div>
         </div>
-        <div class="gal-cat-badge">Flyer</div>
-        <div class="gal-zoom-ic">🔍</div>
-        <div class="gal-overlay"><div class="gal-caption"><div class="gal-cap-title">Career Fair 2026 Flyer</div><div class="gal-cap-cat">Flyers</div></div></div>
+        <div class="gal-cat-pill">Flyer</div>
+        <div class="gal-zoom">🔍</div>
+        <div class="gal-ov"><div class="gal-cap"><div class="gal-cap-title">Career Fair 2026 Flyer</div><div class="gal-cap-cat">Flyers</div></div></div>
       </div>
 
     </div><!-- /gal-grid -->
 
-    <div id="no-gal" style="display:none;text-align:center;padding:52px;color:var(--muted)">
-      <div style="font-size:3rem;margin-bottom:12px">📷</div>
-      <p>No photos in this category yet.</p>
-    </div>
+    <div class="no-gal" id="no-gal"><div class="no-gal-ic">📷</div><p>No photos in this category yet. Upload some above!</p></div>
 
   </div>
 </section>
 
-<!-- UPLOAD PHOTOS -->
+<!-- UPLOAD SECTION -->
 <section class="upload-s sp" id="upload">
   <div class="container">
     <div style="text-align:center;max-width:600px;margin:0 auto 44px" class="rv">
       <div class="lbl" style="justify-content:center">Add Photos</div>
       <h2 class="h2" style="text-align:center">Upload to <em>Gallery</em></h2>
-      <p class="desc" style="text-align:center;margin:0 auto">Upload photos, flyers, or any images to the COMSA gallery. They will appear instantly.</p>
+      <p class="desc" style="text-align:center;margin:0 auto">Upload photos, flyers, or any COMSA images. They appear in the gallery instantly.</p>
     </div>
-    <div class="upload-form rv d1">
-      <form id="upload-form" onsubmit="uploadPhotos(event)">
+    <div class="upload-form-wrap rv d1">
+      <form id="upload-form" onsubmit="uploadPhotos(event)" novalidate>
         <div class="form-row" style="margin-bottom:20px">
-          <div class="fg">
-            <label>Caption / Title *</label>
-            <input type="text" id="uf-caption" placeholder="e.g. COMSA Week Opening Ceremony" required/>
-          </div>
-          <div class="fg">
-            <label>Category *</label>
+          <div class="fg"><label>Caption / Title *</label><input type="text" id="uf-cap" placeholder="e.g. COMSA Week Opening Ceremony" required/></div>
+          <div class="fg"><label>Category *</label>
             <select id="uf-cat" required>
-              <option value="">Select category...</option>
+              <option value="">Select category…</option>
               <option value="events">📅 Events</option>
               <option value="executives">👔 Executives</option>
               <option value="campus">🏛️ Campus Life</option>
@@ -419,23 +449,22 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
             </select>
           </div>
         </div>
-        <!-- UPLOAD ZONE -->
         <div class="fg">
           <label>Select Photos (up to 10 at once)</label>
           <div class="upload-zone">
             <input type="file" id="uf-files" accept="image/*" multiple onchange="previewFiles(this)"/>
             <div class="upload-ic">📸</div>
             <div class="upload-t">Click or drag photos here</div>
-            <div class="upload-s-txt">JPG, PNG, WEBP — any size. Multiple files supported.</div>
+            <div class="upload-sub">JPG, PNG, WEBP — any size · Multiple files supported</div>
           </div>
-          <div class="preview-grid" id="preview-grid"></div>
+          <div class="prev-grid" id="prev-grid"></div>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
           <button type="submit" class="btn btn-g">Add to Gallery →</button>
           <button type="button" class="btn btn-o" onclick="clearUpload()">Clear</button>
         </div>
       </form>
-      <div class="upload-success" id="upload-success">
+      <div class="up-success" id="up-success">
         <div class="us-ic">🖼️</div>
         <h3 class="us-h">Photos Added!</h3>
         <p class="us-p">Your photos are now visible in the gallery above.</p>
@@ -446,20 +475,17 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </section>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
+<div class="lb" id="lb">
   <div class="lb-bg" onclick="closeLB()"></div>
   <button class="lb-close" onclick="closeLB()">✕</button>
   <button class="lb-arr lb-prev" onclick="lbNav(-1)">‹</button>
   <button class="lb-arr lb-next" onclick="lbNav(1)">›</button>
   <div class="lb-box">
     <div class="lb-img-wrap" id="lb-img-wrap">
-      <div class="lb-placeholder" id="lb-placeholder"><span>📷</span><p id="lb-ph-text">Add your photo to see it here</p></div>
+      <div class="lb-ph" id="lb-ph"><span>📷</span><p id="lb-ph-txt">Add your photo to see it here</p></div>
       <img id="lb-img" src="" alt="" style="display:none"/>
     </div>
-    <div class="lb-info">
-      <div class="lb-title" id="lb-title">Photo Title</div>
-      <div class="lb-cat" id="lb-cat">Category</div>
-    </div>
+    <div class="lb-info"><div class="lb-title" id="lb-title">Photo Title</div><div class="lb-cat" id="lb-cat">Category</div></div>
   </div>
   <div class="lb-counter" id="lb-counter">1 / 6</div>
 </div>
@@ -467,105 +493,91 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <footer>
   <div class="container">
     <div class="ft-grid">
-      <div><div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><div class="brand-ico">ATU</div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a><a href="https://wa.me/233530099371" target="_blank" class="ft-so">💬</a></div></div>
+      <div><div class="ft-brand"><div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a><a href="https://wa.me/233530099371" target="_blank" class="ft-so">💬</a></div></div>
       <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div class="ft-col"><h4>Gallery</h4><ul><li><a href="#" onclick="filterGal('events')">Events</a></li><li><a href="#" onclick="filterGal('executives')">Executives</a></li><li><a href="#" onclick="filterGal('campus')">Campus Life</a></li><li><a href="#" onclick="filterGal('flyers')">Flyers</a></li><li><a href="#upload">Upload Photos</a></li></ul></div>
+      <div class="ft-col"><h4>Gallery</h4><ul><li><a href="#" onclick="filterGal('events')">📅 Events</a></li><li><a href="#" onclick="filterGal('executives')">👔 Executives</a></li><li><a href="#" onclick="filterGal('campus')">🏛️ Campus Life</a></li><li><a href="#" onclick="filterGal('flyers')">📢 Flyers</a></li><li><a href="#upload">Upload Photos</a></li></ul></div>
       <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div><div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>President</strong><a href="tel:+233530099371" style="color:var(--gold)">0530 099 371</a></div></div></div>
     </div>
     <div class="ft-bot"><div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div><div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">0544823484</a></div></div>
   </div>
 </footer>
 
-<script>
-// THEME
-(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=t==='light'});})();
-function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=l});}
-document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
+<!-- CHATBOT -->
+<button id="cb-toggle"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
+<div id="chatbot">
+  <div id="cb-head"><div id="cb-head-av"><img src="images/logo.jpg" id="cb-logo" onerror="this.style.display='none';document.getElementById('cb-logo-fb').style.display='flex'"/><div id="cb-logo-fb">C</div></div><div id="cb-head-info"><div id="cb-head-name">COMSA Assistant</div><div id="cb-head-status">● Online — Here to help</div></div><button id="cb-close">✕</button></div>
+  <div id="cb-msgs"></div><div id="cb-quick"></div>
+  <div id="cb-input-wrap"><input type="text" id="cb-input" placeholder="Type your question…" autocomplete="off" maxlength="200"/><button id="cb-send">➤</button></div>
+</div>
 
-// NAV
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+<script>
+(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
+function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
+document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
 const ham=document.getElementById('ham'),mob=document.getElementById('mob');
 ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
 mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
-
-// PAGE HERO SLIDER
-let phCur=0;
-const phSlides=Array.from(document.querySelectorAll('.ph-slide'));
-const phDots=document.getElementById('ph-dots');
+// Hero slider
+let phCur=0;const phSlides=Array.from(document.querySelectorAll('.ph-slide'));const phDots=document.getElementById('ph-dots');
 phSlides.forEach((_,i)=>{const d=document.createElement('button');d.className='ph-dot'+(i===0?' act':'');d.onclick=()=>phGo(i);phDots.appendChild(d)});
 function phGo(n){phSlides[phCur].classList.remove('act');document.querySelectorAll('.ph-dot')[phCur].classList.remove('act');phCur=(n+phSlides.length)%phSlides.length;phSlides[phCur].classList.add('act');document.querySelectorAll('.ph-dot')[phCur].classList.add('act')}
-setInterval(()=>phGo(phCur+1),4500);
-
-// SCROLL REVEAL
-const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+setInterval(()=>phGo(phCur+1),5000);
+// Scroll reveal
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 
-// Gallery items registry
+// GALLERY FILTER
 let galItems=[];
-function buildRegistry(){
-  galItems=Array.from(document.querySelectorAll('.gal-item'));
-}
-
-// FILTER GALLERY
+function buildReg(){galItems=Array.from(document.querySelectorAll('.gal-item'))}
 function filterGal(cat){
   document.querySelectorAll('.gfilt').forEach(f=>f.classList.toggle('act',f.dataset.cat===cat));
-  let visible=0;
-  galItems.forEach(item=>{
-    const match=cat==='all'||item.dataset.cat===cat;
-    item.style.display=match?'':'none';
-    if(match)visible++;
-  });
-  document.getElementById('no-gal').style.display=visible===0?'block':'none';
+  buildReg();
+  let vis=0;
+  galItems.forEach(item=>{const show=cat==='all'||item.dataset.cat===cat;item.style.display=show?'':'none';if(show)vis++;});
+  document.getElementById('no-gal').style.display=vis===0?'block':'none';
 }
 document.querySelectorAll('.gfilt').forEach(f=>f.addEventListener('click',function(){filterGal(this.dataset.cat)}));
 
 // LIGHTBOX
-let lbCur=0,lbVisible=[];
+let lbCur=0,lbVis=[];
 function openLB(item){
-  buildRegistry();
-  lbVisible=galItems.filter(i=>i.style.display!=='none');
-  lbCur=lbVisible.indexOf(item);
+  buildReg();
+  lbVis=galItems.filter(i=>i.style.display!=='none');
+  lbCur=lbVis.indexOf(item);
   showLB(lbCur);
-  document.getElementById('lightbox').classList.add('show');
+  document.getElementById('lb').classList.add('show');
   document.body.style.overflow='hidden';
 }
 function showLB(idx){
-  const item=lbVisible[idx];
-  if(!item)return;
-  const img=item.querySelector('.gal-real-img');
+  const item=lbVis[idx];if(!item)return;
+  const img=item.querySelector('.gal-ph img');
   const lbImg=document.getElementById('lb-img');
-  const lbPh=document.getElementById('lb-placeholder');
-  if(img&&img.src&&!img.src.endsWith('/')){
-    lbImg.src=img.src;
-    lbImg.style.display='block';
-    lbPh.style.display='none';
-  } else {
-    lbImg.style.display='none';
-    lbPh.style.display='flex';
-    document.getElementById('lb-ph-text').textContent=item.dataset.title||'No photo yet — add your image to this item';
-  }
+  const lbPh=document.getElementById('lb-ph');
+  if(img&&img.naturalWidth>0&&img.src&&!img.src.endsWith('/')){
+    lbImg.src=img.src;lbImg.style.display='block';lbPh.style.display='none';
+  }else{lbImg.style.display='none';lbPh.style.display='flex';document.getElementById('lb-ph-txt').textContent=item.dataset.title||'Add your photo';}
   document.getElementById('lb-title').textContent=item.dataset.title||'';
   document.getElementById('lb-cat').textContent=item.dataset.cat||'';
-  document.getElementById('lb-counter').textContent=`${idx+1} / ${lbVisible.length}`;
+  document.getElementById('lb-counter').textContent=(idx+1)+' / '+lbVis.length;
   lbCur=idx;
 }
-function lbNav(dir){showLB((lbCur+dir+lbVisible.length)%lbVisible.length)}
-function closeLB(){document.getElementById('lightbox').classList.remove('show');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('show'))return;if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);if(e.key==='Escape')closeLB()});
-// Touch swipe on lightbox
+function lbNav(dir){showLB((lbCur+dir+lbVis.length)%lbVis.length)}
+function closeLB(){document.getElementById('lb').classList.remove('show');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('show'))return;if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);if(e.key==='Escape')closeLB()});
 let lbSx=0;
-document.getElementById('lightbox').addEventListener('touchstart',e=>{lbSx=e.touches[0].clientX},{passive:true});
-document.getElementById('lightbox').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-lbSx;if(Math.abs(dx)>50)lbNav(dx<0?1:-1)});
-
-// Attach click to gallery items
+document.getElementById('lb').addEventListener('touchstart',e=>{lbSx=e.touches[0].clientX},{passive:true});
+document.getElementById('lb').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-lbSx;if(Math.abs(dx)>50)lbNav(dx<0?1:-1)});
 document.querySelectorAll('.gal-item').forEach(item=>item.addEventListener('click',function(){openLB(this)}));
+buildReg();
 
-// Show real images if src is set (auto-detect)
-document.querySelectorAll('.gal-real-img').forEach(img=>{
+// AUTO-SHOW REAL IMAGES if src is set
+document.querySelectorAll('.gal-ph img').forEach(img=>{
   if(img.getAttribute('src')&&img.getAttribute('src')!==''){
     img.style.display='block';
-    img.closest('.gal-placeholder')&&(img.closest('.gal-placeholder').querySelector('.gal-placeholder-ic').style.display='none');
-    img.closest('.gal-placeholder')&&(img.closest('.gal-placeholder').querySelectorAll('span:not(.gal-placeholder-ic)').forEach(s=>s.style.display='none'));
+    const ic=img.closest('.gal-ph').querySelector('.gal-ph-ic');
+    const tx=img.closest('.gal-ph').querySelector('.gal-ph-txt');
+    if(ic)ic.style.display='none';if(tx)tx.style.display='none';
   }
 });
 
@@ -573,27 +585,24 @@ document.querySelectorAll('.gal-real-img').forEach(img=>{
 let uploadedFiles=[];
 function previewFiles(input){
   const files=Array.from(input.files).slice(0,10);
-  const grid=document.getElementById('preview-grid');
-  grid.innerHTML='';
-  uploadedFiles=[];
+  const grid=document.getElementById('prev-grid');
+  grid.innerHTML='';uploadedFiles=[];
   files.forEach((file,i)=>{
     const reader=new FileReader();
     reader.onload=e=>{
       uploadedFiles[i]={data:e.target.result,name:file.name};
-      const thumb=document.createElement('div');
-      thumb.className='prev-thumb';
-      thumb.innerHTML=`<img src="${e.target.result}" alt=""/><div class="prev-rm" onclick="removeThumb(this,${i})">✕</div>`;
-      grid.appendChild(thumb);
+      const th=document.createElement('div');th.className='prev-th';
+      th.innerHTML=`<img src="${e.target.result}" alt=""/><button class="prev-rm" onclick="removeThumb(this,${i})">✕</button>`;
+      grid.appendChild(th);
     };
     reader.readAsDataURL(file);
   });
 }
 function removeThumb(el,idx){el.parentElement.remove();uploadedFiles[idx]=null}
-
-const catLabels={events:'Events',executives:'Executives',campus:'Campus Life',flyers:'Flyers',academic:'Academic'};
+const catLbls={events:'Events',executives:'Executives',campus:'Campus Life',flyers:'Flyers',academic:'Academic'};
 function uploadPhotos(e){
   e.preventDefault();
-  const caption=document.getElementById('uf-caption').value.trim();
+  const cap=document.getElementById('uf-cap').value.trim();
   const cat=document.getElementById('uf-cat').value;
   const files=uploadedFiles.filter(Boolean);
   if(!files.length){alert('Please select at least one photo.');return}
@@ -602,47 +611,57 @@ function uploadPhotos(e){
     const item=document.createElement('div');
     item.className='gal-item';
     item.dataset.cat=cat;
-    item.dataset.title=caption+(files.length>1?` (${i+1})`:'');
-    item.dataset.cap=cat;
+    item.dataset.title=cap+(files.length>1?` (${i+1})`:'');
     const h=180+Math.floor(Math.random()*180);
-    item.innerHTML=`
-      <div style="position:relative;height:${h}px;overflow:hidden">
-        <img src="${f.data}" alt="${caption}" style="width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)" class="gal-real-img"/>
-      </div>
-      <div class="gal-cat-badge">${catLabels[cat]||cat}</div>
-      <div class="gal-zoom-ic">🔍</div>
-      <div class="gal-overlay"><div class="gal-caption"><div class="gal-cap-title">${caption}</div><div class="gal-cap-cat">${catLabels[cat]||cat}</div></div></div>`;
-    item.addEventListener('click',function(){buildRegistry();openLB(this)});
-    // Hover scale
+    item.innerHTML=`<div class="gal-ph" style="height:${h}px"><img src="${f.data}" alt="${cap}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s"/></div><div class="gal-cat-pill">${catLbls[cat]||cat}</div><div class="gal-zoom">🔍</div><div class="gal-ov"><div class="gal-cap"><div class="gal-cap-title">${cap}</div><div class="gal-cap-cat">${catLbls[cat]||cat}</div></div></div>`;
+    item.addEventListener('click',function(){openLB(this)});
     item.addEventListener('mouseenter',()=>{item.querySelector('img').style.transform='scale(1.06)'});
     item.addEventListener('mouseleave',()=>{item.querySelector('img').style.transform='scale(1)'});
-    // Animate in
-    item.style.opacity='0';item.style.transform='translateY(24px)';
+    item.style.opacity='0';item.style.transform='translateY(20px)';
     grid.prepend(item);
     setTimeout(()=>{item.style.transition='opacity .5s,transform .5s';item.style.opacity='1';item.style.transform='translateY(0)'},50*i);
   });
-  buildRegistry();
-  updateStats();
+  buildReg();updateStats();
   document.getElementById('upload-form').style.display='none';
-  document.getElementById('upload-success').classList.add('show');
+  document.getElementById('up-success').classList.add('show');
 }
 function updateStats(){
   const all=galItems.length;
-  document.getElementById('stat-total').textContent=all;
+  document.getElementById('st-total').textContent=all;
   ['events','executives','campus','flyers','academic'].forEach(c=>{
-    const el=document.getElementById('stat-'+c);
+    const el=document.getElementById('st-'+c);
     if(el)el.textContent=galItems.filter(i=>i.dataset.cat===c).length;
   });
 }
-function resetUpload(){document.getElementById('upload-form').style.display='block';document.getElementById('upload-success').classList.remove('show');document.getElementById('upload-form').reset();document.getElementById('preview-grid').innerHTML='';uploadedFiles=[]}
-function clearUpload(){document.getElementById('preview-grid').innerHTML='';uploadedFiles=[];document.getElementById('uf-files').value='';}
+function resetUpload(){document.getElementById('upload-form').reset();document.getElementById('upload-form').style.display='block';document.getElementById('up-success').classList.remove('show');document.getElementById('prev-grid').innerHTML='';uploadedFiles=[];}
+function clearUpload(){document.getElementById('prev-grid').innerHTML='';uploadedFiles=[];document.getElementById('uf-files').value='';}
 
-// Init
-buildRegistry();
-
-// PAGE FADE
+// Page fade
 document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
-document.querySelectorAll('a[href$=".html"]').forEach(a=>{a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)})});
+document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
+
+// CHATBOT
+(function(){
+const toggle=document.getElementById('cb-toggle'),bot=document.getElementById('chatbot'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-msgs'),input=document.getElementById('cb-input'),send=document.getElementById('cb-send'),quickWrap=document.getElementById('cb-quick'),badge=document.getElementById('cb-badge');
+let open=false,badgeShown=false;
+const KB=[{k:['hello','hi','hey'],r:'Hello! 👋 I\'m the COMSA Gallery Assistant. Ask me anything!'},{k:['upload','how to upload','add photo'],r:'To upload photos:<br/>1. Scroll down to the <strong>Upload to Gallery</strong> section<br/>2. Enter a caption and select a category<br/>3. Click the upload zone and select your photos (up to 10 at once!)<br/>4. Click "Add to Gallery" — they appear instantly! 📸'},{k:['category','categories'],r:'Gallery categories:<br/>📅 <strong>Events</strong> — event photos<br/>👔 <strong>Executives</strong> — executive photos<br/>🏛️ <strong>Campus Life</strong> — campus shots<br/>📢 <strong>Flyers</strong> — event flyers and posters<br/>📚 <strong>Academic</strong> — academic activities'},{k:['lightbox','view','click','full size','zoom'],r:'Click any photo to open it full size in our lightbox viewer! You can also:<br/>• Use arrow keys to navigate<br/>• Swipe left/right on mobile<br/>• Press Escape to close'},{k:['download','save'],r:'To save a photo, open it in the lightbox by clicking on it, then right-click the image and choose "Save Image As".'},{k:['filter'],r:'Use the filter buttons above the gallery to browse by category: Events, Executives, Campus Life, Flyers, or Academic!'},{k:['event','events'],r:'Check our <a href="events.html" style="color:#F4B400">Events page →</a> for all upcoming COMSA events!'},{k:['president','contact'],r:'President: <strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},{k:['join','membership'],r:'WhatsApp the President to join COMSA: <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">0530 099 371</a>'},{k:['thank','thanks'],r:'You\'re welcome! 😊'},{k:['bye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'}];
+const FALLBACK=`I don't have that answer. Please contact the President:<br/><strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>`;
+const QUICK_Qs=[{label:'📸 Upload Photos',q:'How do I upload photos?'},{label:'🔍 View Full Size',q:'How do I view photos full size?'},{label:'🏷️ Filter Photos',q:'How do I filter the gallery?'},{label:'💾 Save Photos',q:'How do I download a photo?'},{label:'📅 Events',q:'What events are coming up?'},{label:'📞 Contact',q:'How do I contact COMSA?'}];
+function getReply(t){const l=t.toLowerCase().trim();for(const e of KB)if(e.k.some(k=>l.includes(k)))return e.r;return FALLBACK;}
+function now(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
+function addMsg(html,role){const w=document.createElement('div');w.className='cb-msg cb-msg-'+role;const b=document.createElement('div');b.className='cb-bubble cb-bubble-'+role;b.innerHTML=html;const t=document.createElement('div');t.className='cb-time';t.textContent=now();w.appendChild(b);w.appendChild(t);msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;}
+function showTyping(){const el=document.createElement('div');el.id='cb-typ';el.className='cb-msg cb-msg-bot';el.innerHTML='<div class="cb-typing"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>';msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;}
+function removeTyping(){const el=document.getElementById('cb-typ');if(el)el.remove();}
+function botReply(html){send.disabled=true;input.disabled=true;showTyping();setTimeout(()=>{removeTyping();addMsg(html,'bot');send.disabled=false;input.disabled=false;input.focus();},900+Math.random()*500);}
+function buildQR(){quickWrap.innerHTML='';QUICK_Qs.forEach(q=>{const btn=document.createElement('button');btn.className='cb-qr';btn.textContent=q.label;btn.onclick=()=>handleSend(q.q);quickWrap.appendChild(btn)});}
+function handleSend(text){const t=(text||input.value).trim();if(!t)return;addMsg(t,'user');input.value='';quickWrap.innerHTML='';botReply(getReply(t));}
+function greet(){if(!msgs.children.length){addMsg('👋 Hi! I\'m the <strong>COMSA Gallery Assistant</strong>.<br/>I can help you upload photos, navigate the gallery, or answer questions about COMSA!','bot');buildQR();}}
+toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'💬';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
+closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='💬';});
+send.addEventListener('click',()=>handleSend());
+input.addEventListener('keydown',e=>{if(e.key==='Enter')handleSend()});
+setTimeout(()=>{if(!badgeShown&&!open)badge.style.display='flex';},5000);
+})();
 </script>
 </body>
 </html>
