@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>About COMSA – Communications Students' Association | ATU</title>
+<meta name="description" content="Learn about COMSA's mission, vision, history, core values, and the Department of Communication Studies at Accra Technical University."/>
+<meta name="keywords" content="COMSA, About, Mission, Vision, ATU, Communications Students"/>
+<meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech"/>
+<link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
+<link rel="apple-touch-icon" href="images/logo.jpg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://comsa-atu.vercel.app/about.html"/>
+<meta property="og:title" content="About COMSA – Accra Technical University"/>
+<meta property="og:description" content="Discover the mission, values, and legacy of COMSA – The Communications Students' Association at ATU."/>
+<meta property="og:image" content="images/comsa1.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="About COMSA – ATU"/>
+<meta name="twitter:image" content="images/comsa1.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)}
+[data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
+#nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
+[data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
+.nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.brand-logo-img{width:100%;height:100%;object-fit:cover}
+.brand-logo-fb{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);display:none}
+.brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
+.brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
+[data-theme=light] .brand-txt span{color:var(--muted)}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:7px 13px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
+[data-theme=light] .nav-links a{color:var(--muted)}
+.nav-links a::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 18px);height:2px;background:var(--gold);border-radius:2px;transition:transform .3s var(--spring)}
+.nav-links a:hover,.nav-links a.act{color:#fff;background:rgba(244,180,0,.08)}
+[data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
+.nav-links a:hover::after,.nav-links a.act::after{transform:translateX(-50%) scaleX(1)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.tog{position:relative;width:50px;height:26px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;transition:.3s}
+.tog-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:10px}
+.tog-thumb::before{content:'🌙'}
+.tog input:checked~.tog-thumb{transform:translateX(24px)}
+.tog input:checked~.tog-thumb::before{content:'☀️'}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px}
+.ham span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+[data-theme=light] .ham span{background:var(--navy)}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
+[data-theme=light] .mob{background:rgba(244,244,240,.97)}
+.mob.open{transform:translateY(0);opacity:1}
+.mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
+[data-theme=light] .mob a{color:var(--muted)}
+.mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
+.mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+.mob-lbl{font-size:.72rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
+/* PAGE HERO */
+.page-hero{min-height:440px;position:relative;overflow:hidden;background:var(--navy2);display:flex;align-items:flex-end;padding-bottom:60px;padding-top:var(--nav)}
+.ph-slides{position:absolute;inset:0}
+.ph-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--ease)}
+.ph-slide.act{opacity:1}
+/* =====================================================
+  HERO BACKGROUND IMAGES
+  Slide 1 → comsa1.jpg | Slide 2 → comsa2.jpg | Slide 3 → comsa3.jpg
+===================================================== */
+.ph-slide img{width:100%;height:100%;object-fit:cover;object-position:center}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,30,.95) 30%,rgba(7,16,30,.5) 70%,rgba(7,16,30,.3));pointer-events:none;z-index:1}
+.ph-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none;z-index:1}
+.ph-content{position:relative;z-index:2;max-width:1300px;margin:0 auto;padding:0 28px;width:100%}
+.breadcrumb{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:12px}
+.breadcrumb a{color:var(--gold)}
+.breadcrumb span{color:rgba(255,255,255,.2)}
+.ph-lbl{font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ph-lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.5vw,4rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:14px}
+.ph-h1 em{color:var(--gold);font-style:italic}
+.ph-p{font-size:1rem;color:rgba(255,255,255,.5);max-width:520px;line-height:1.8}
+.ph-dots{position:absolute;bottom:16px;right:28px;display:flex;gap:7px;z-index:5}
+.ph-dot{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.25);transition:all .4s var(--spring);cursor:pointer;border:none}
+.ph-dot.act{background:var(--gold);width:24px}
+/* UTILS */
+.container{max-width:1300px;margin:0 auto;padding:0 28px}
+.sp{padding:96px 0}
+.sp-sm{padding:60px 0}
+.lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:700;line-height:1.15;margin-bottom:18px}
+.h2 em{color:var(--gold);font-style:italic}
+.divider{width:52px;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:4px;margin:18px 0}
+.desc{font-size:.98rem;color:var(--muted);line-height:1.82;max-width:600px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.13);opacity:0;transition:opacity .3s}
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-3px)}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
+.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+.rv-l{opacity:0;transform:translateX(-36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-l.in{opacity:1;transform:translateX(0)}
+.rv-r{opacity:0;transform:translateX(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-r.in{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+/* MISSION VISION */
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}
+.mv-c{padding:44px 38px;background:var(--card);border:1px solid var(--bdr);border-radius:20px;position:relative;overflow:hidden;transition:transform .4s,box-shadow .4s}
+.mv-c:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.mv-c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.mv-ic{font-size:2.4rem;margin-bottom:18px}
+.mv-lbl{font-size:.7rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.mv-h{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--txt);margin-bottom:14px}
+.mv-p{font-size:.92rem;color:var(--muted);line-height:1.82}
+/* HISTORY TIMELINE */
+.hist-s{background:var(--surf)}
+.tl{position:relative;margin-top:52px}
+.tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),rgba(244,180,0,.1));transform:translateX(-50%)}
+.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;margin-bottom:52px;align-items:start}
+.tl-item:nth-child(odd) .tl-c{grid-column:1;text-align:right;padding-right:36px}
+.tl-item:nth-child(odd) .tl-dot{grid-column:2}
+.tl-item:nth-child(odd) .tl-sp{grid-column:3}
+.tl-item:nth-child(even) .tl-sp{grid-column:1}
+.tl-item:nth-child(even) .tl-dot{grid-column:2}
+.tl-item:nth-child(even) .tl-c{grid-column:3;text-align:left;padding-left:36px}
+.tl-dot{display:flex;align-items:center;justify-content:center;padding-top:4px}
+.tl-dot-i{width:16px;height:16px;background:var(--gold);border-radius:50%;box-shadow:0 0 0 4px rgba(244,180,0,.18),0 0 0 8px rgba(244,180,0,.08);position:relative;z-index:1}
+.tl-year{font-family:'Orbitron',monospace;font-size:.78rem;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:.1em}
+.tl-h{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--txt);margin-bottom:8px}
+.tl-p{font-size:.86rem;color:var(--muted);line-height:1.75}
+/* =====================================================
+  HISTORY IMAGES — one per timeline event
+  tl-img-wrap holds the photo beside the text
+===================================================== */
+.tl-img-wrap{width:100%;height:160px;border-radius:12px;overflow:hidden;margin-top:12px;background:linear-gradient(135deg,var(--navy),var(--navy3))}
+.tl-img-wrap img{width:100%;height:100%;object-fit:cover}
+/* CORE VALUES */
+.cv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.cv-c{padding:34px 28px;background:var(--card);border:1px solid var(--bdr);border-radius:18px;text-align:center;position:relative;overflow:hidden;transition:transform .4s var(--spring),box-shadow .4s,border-color .4s}
+.cv-c:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 50px rgba(0,0,0,.25);border-color:rgba(244,180,0,.28)}
+.cv-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform:scaleX(0);transition:transform .4s var(--ease)}
+.cv-c:hover::after{transform:scaleX(1)}
+.cv-ic{font-size:2.4rem;margin-bottom:14px}
+.cv-h{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--txt);margin-bottom:10px}
+.cv-p{font-size:.84rem;color:var(--muted);line-height:1.72}
+/* DEPT SECTION */
+.dept-s{background:linear-gradient(135deg,var(--navy2),var(--navy));position:relative;overflow:hidden}
+.dept-s::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(244,180,0,.07),transparent 60%)}
+.dept-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;position:relative;z-index:1}
+/* =====================================================
+  DEPARTMENT PHOTO — comsa20.jpg
+===================================================== */
+.dept-img{border-radius:18px;overflow:hidden;height:360px;background:linear-gradient(135deg,var(--navy3),#1a3a66)}
+.dept-img img{width:100%;height:100%;object-fit:cover;object-position:center}
+.dept-feats{display:flex;flex-direction:column;gap:16px}
+.dept-feat{display:flex;align-items:flex-start;gap:16px;padding:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;transition:background .3s,border-color .3s}
+.dept-feat:hover{background:rgba(244,180,0,.06);border-color:rgba(244,180,0,.18)}
+.dept-feat-ic{width:42px;height:42px;flex-shrink:0;background:rgba(244,180,0,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.dept-feat-h{font-weight:600;color:#fff;margin-bottom:3px;font-size:.9rem}
+.dept-feat-p{font-size:.8rem;color:rgba(255,255,255,.42);line-height:1.6}
+/* PHILOSOPHY */
+.phil-s{background:var(--bg)}
+.phil-inner{max-width:760px;margin:0 auto;text-align:center}
+.phil-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.3rem,2.5vw,1.7rem);color:var(--gold);margin:28px 0 12px;line-height:1.4}
+/* FOOTER */
+footer{background:var(--navy2);padding:72px 0 0;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:52px;padding-bottom:52px}
+.ft-brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.ft-logo-wrap{width:48px;height:48px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ft-logo-img{width:100%;height:100%;object-fit:cover}
+.ft-logo-fb{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;color:var(--navy);display:none}
+.ft-p{font-size:.86rem;color:rgba(255,255,255,.4);line-height:1.8;max-width:290px;margin-bottom:20px}
+.ft-soc{display:flex;gap:10px}
+.ft-so{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .3s}
+.ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px)}
+.ft-col h4{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;margin-bottom:18px;padding-bottom:10px;position:relative}
+.ft-col h4::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--gold);border-radius:2px}
+.ft-col li{margin-bottom:9px}
+.ft-col a{font-size:.84rem;color:rgba(255,255,255,.4);transition:color .3s,padding-left .3s}
+.ft-col a:hover{color:var(--gold);padding-left:5px}
+.ft-ci{display:flex;align-items:flex-start;gap:10px;margin-bottom:13px;font-size:.84rem}
+.ft-cion{width:32px;height:32px;flex-shrink:0;background:rgba(244,180,0,.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--gold)}
+.ft-ct{color:rgba(255,255,255,.45);line-height:1.5}
+.ft-ct strong{display:block;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:2px}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:.78rem;color:rgba(255,255,255,.25)}
+.ft-dev{font-size:.75rem;color:rgba(255,255,255,.22)}
+.ft-dev a{color:var(--gold);opacity:.65;font-weight:500;transition:opacity .3s}
+.ft-dev a:hover{opacity:1}
+/* CHATBOT */
+#cb-toggle{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;z-index:4000;box-shadow:0 8px 28px rgba(244,180,0,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+#cb-toggle:hover{transform:scale(1.12)}
+#cb-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#EF4444;color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg,#07101E)}
+#chatbot{position:fixed;bottom:100px;right:28px;width:360px;max-width:calc(100vw - 40px);height:520px;max-height:calc(100vh - 130px);background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.18);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.5);z-index:3999;display:none;flex-direction:column;overflow:hidden}
+#chatbot.open{display:flex}
+#cb-head{padding:14px 16px;background:linear-gradient(135deg,#0B1F3B,#122847);display:flex;align-items:center;gap:11px;flex-shrink:0;border-bottom:1px solid rgba(244,180,0,.1)}
+#cb-head-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+#cb-logo{width:100%;height:100%;object-fit:cover;border-radius:50%}
+#cb-logo-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;color:#0B1F3B}
+#cb-head-name{font-weight:700;font-size:.9rem;color:#F0EFE9}
+#cb-head-status{font-size:.68rem;color:#10B981;margin-top:1px}
+#cb-close{margin-left:auto;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:background .3s;flex-shrink:0}
+#cb-close:hover{background:rgba(239,68,68,.3);color:#fff}
+#cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+#cb-msgs::-webkit-scrollbar{width:4px}
+#cb-msgs::-webkit-scrollbar-thumb{background:rgba(244,180,0,.2);border-radius:2px}
+.cb-msg{max-width:84%;animation:cbPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cbPop{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.cb-msg-bot{align-self:flex-start}.cb-msg-user{align-self:flex-end}
+.cb-bubble{padding:10px 13px;border-radius:16px;font-size:.84rem;line-height:1.65;word-break:break-word}
+.cb-bubble-bot{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.12);color:var(--txt,#F0EFE9);border-bottom-left-radius:4px}
+.cb-bubble-user{background:linear-gradient(135deg,#F4B400,#C99300);color:#0B1F3B;font-weight:500;border-bottom-right-radius:4px}
+.cb-time{font-size:.62rem;color:rgba(255,255,255,.28);margin-top:3px;padding:0 4px}
+.cb-msg-user .cb-time{text-align:right}
+.cb-typing{display:flex;align-items:center;gap:4px;padding:10px 13px;background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.1);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+.cb-dot{width:7px;height:7px;border-radius:50%;background:rgba(244,180,0,.6);animation:cbDot 1.2s ease-in-out infinite}
+.cb-dot:nth-child(2){animation-delay:.2s}.cb-dot:nth-child(3){animation-delay:.4s}
+@keyframes cbDot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+#cb-quick{padding:0 12px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.cb-qr{padding:6px 12px;background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.74rem;font-weight:600;color:#F4B400;cursor:pointer;transition:background .3s;white-space:nowrap;font-family:'Outfit',sans-serif}
+.cb-qr:hover{background:rgba(244,180,0,.22)}
+#cb-input-wrap{padding:10px 12px;border-top:1px solid rgba(244,180,0,.1);display:flex;gap:8px;align-items:center;flex-shrink:0}
+#cb-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:9px 13px;font-family:'Outfit',sans-serif;font-size:.84rem;color:var(--txt,#F0EFE9);outline:none;transition:border-color .3s}
+#cb-input:focus{border-color:#F4B400}
+#cb-input::placeholder{color:rgba(255,255,255,.3)}
+[data-theme=light] #cb-input{color:#0B1F3B;background:rgba(0,0,0,.05)}
+[data-theme=light] #cb-input::placeholder{color:rgba(0,0,0,.3)}
+#cb-send{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;color:#0B1F3B;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0}
+#cb-send:hover{transform:scale(1.08)}
+#cb-send:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:1024px){.mv-grid{grid-template-columns:1fr}.cv-grid{grid-template-columns:1fr 1fr}.dept-grid{grid-template-columns:1fr;gap:40px}.dept-img{height:280px}.ft-grid{grid-template-columns:1fr 1fr;gap:36px}.tl::before{left:30px}.tl-item{grid-template-columns:60px 1fr}.tl-item:nth-child(odd) .tl-c,.tl-item:nth-child(even) .tl-c{grid-column:2;text-align:left;padding-left:24px;padding-right:0}.tl-item:nth-child(odd) .tl-dot,.tl-item:nth-child(even) .tl-dot{grid-column:1}.tl-item:nth-child(odd) .tl-sp,.tl-item:nth-child(even) .tl-sp{display:none}}
+@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.cv-grid{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}}
+@media(max-width:480px){#chatbot{right:12px;bottom:88px;width:calc(100vw - 24px)}#cb-toggle{bottom:20px;right:20px}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-i">
+    <a href="index.html" class="brand">
+      <div class="brand-logo-wrap">
+        <img src="images/logo.jpg" alt="COMSA Logo" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <span class="brand-logo-fb">ATU</span>
+      </div>
+      <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li><li><a href="about.html" class="act">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-r">
+      <label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
+      <button class="ham" id="ham"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="index.html">Home</a><a href="about.html" class="act">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+  <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="ph-slides">
+    <!-- comsa1.jpg | comsa2.jpg | comsa3.jpg -->
+    <div class="ph-slide act"><img src="images/comsa1.jpg" alt="COMSA"/></div>
+    <div class="ph-slide"><img src="images/comsa2.jpg" alt="COMSA Events"/></div>
+    <div class="ph-slide"><img src="images/comsa3.jpg" alt="COMSA Campus"/></div>
+  </div>
+  <div class="ph-overlay"></div><div class="ph-mesh"></div>
+  <div class="ph-content">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>About</span></div>
+    <div class="ph-lbl">Our Story</div>
+    <h1 class="ph-h1">About <em>COMSA</em></h1>
+    <p class="ph-p">Discover the mission, values, and legacy that drive the Communications Students' Association at Accra Technical University.</p>
+  </div>
+  <div class="ph-dots" id="ph-dots"></div>
+</section>
+
+<!-- MISSION & VISION -->
+<section class="sp" id="mission" style="background:var(--bg)">
+  <div class="container">
+    <div class="rv" style="text-align:center;max-width:640px;margin:0 auto">
+      <div class="lbl" style="justify-content:center">Our Purpose</div>
+      <h2 class="h2" style="text-align:center">Mission &amp; <em>Vision</em></h2>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-c rv d1"><div class="mv-ic">🎯</div><div class="mv-lbl">Mission</div><h3 class="mv-h">Our Mission</h3><p class="mv-p">To foster academic excellence, professional development, and personal growth among Communication Studies students at ATU. We create a supportive, inclusive environment where every student's voice matters — providing platforms for skill development, networking, and leadership that prepare our members for successful careers in communications and beyond.</p></div>
+      <div class="mv-c rv d2" id="vision"><div class="mv-ic">🌟</div><div class="mv-lbl">Vision</div><h3 class="mv-h">Our Vision</h3><p class="mv-p">To be the most vibrant, impactful, and well-organised students' association in Ghana — one that sets the standard for student governance, academic engagement, and community service. We envision a COMSA synonymous with excellence, integrity, and innovation, producing communicators who are the heartbeat of Ghana's professional landscape.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY TIMELINE -->
+<section class="hist-s sp" id="history">
+  <div class="container">
+    <div class="rv" style="text-align:center;max-width:640px;margin:0 auto 0">
+      <div class="lbl" style="justify-content:center">Our Journey</div>
+      <h2 class="h2" style="text-align:center">The History of <em>COMSA</em></h2>
+      <p class="desc" style="text-align:center;margin:0 auto">From humble beginnings to a thriving association — every chapter has shaped who we are today.</p>
+    </div>
+    <div class="tl">
+      <!-- TIMELINE ITEM 1 -->
+      <div class="tl-item">
+        <div class="tl-c rv-l">
+          <div class="tl-year">2004</div>
+          <h4 class="tl-h">Foundation</h4>
+          <p class="tl-p">COMSA was formally established by pioneering students of the Communications Department at ATU, laying the groundwork for a community dedicated to academic and professional excellence.</p>
+          <!-- comsa21.jpg — optional history photo -->
+          <div class="tl-img-wrap"><img src="images/comsa8.jpg" alt="COMSA Foundation 2004"/></div>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-i"></div></div>
+        <div class="tl-sp"></div>
+      </div>
+      <!-- TIMELINE ITEM 2 -->
+      <div class="tl-item">
+        <div class="tl-sp"></div>
+        <div class="tl-dot"><div class="tl-dot-i"></div></div>
+        <div class="tl-c rv-r">
+          <div class="tl-year">2008</div>
+          <h4 class="tl-h">First Association Week</h4>
+          <p class="tl-p">COMSA hosted its inaugural Association Week, bringing together students, faculty, and industry professionals for a week of celebration, learning, and networking.</p>
+          <!-- comsa22.jpg — optional history photo -->
+          <div class="tl-img-wrap"><img src="images/comsa19.jpg" alt="First COMSA Week"/></div>
+        </div>
+      </div>
+      <!-- TIMELINE ITEM 3 -->
+      <div class="tl-item">
+        <div class="tl-c rv-l">
+          <div class="tl-year">2013</div>
+          <h4 class="tl-h">Expanded Leadership Structure</h4>
+          <p class="tl-p">The association expanded its executive framework to include portfolios for welfare, women's representation (WOCOM), and part-time student representation, ensuring comprehensive coverage for all members.</p>
+          <div class="tl-img-wrap"><img src="images/comsa12.jpg" alt="Leadership Expansion"/></div>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-i"></div></div>
+        <div class="tl-sp"></div>
+      </div>
+      <!-- TIMELINE ITEM 4 -->
+      <div class="tl-item">
+        <div class="tl-sp"></div>
+        <div class="tl-dot"><div class="tl-dot-i"></div></div>
+        <div class="tl-c rv-r">
+          <div class="tl-year">2019</div>
+          <h4 class="tl-h">Community Outreach Programme</h4>
+          <p class="tl-p">COMSA launched its first major community outreach initiative, extending beyond campus to bring communication skills workshops to secondary schools in Greater Accra.</p>
+          <div class="tl-img-wrap"><img src="images/comsa7.jpg" alt="Community Outreach"/></div>
+        </div>
+      </div>
+      <!-- TIMELINE ITEM 5 -->
+      <div class="tl-item">
+        <div class="tl-c rv-l">
+          <div class="tl-year">2025</div>
+          <h4 class="tl-h">"The All Inclusive Administration"</h4>
+          <p class="tl-p">Under President Abdul Jalil Sani, COMSA enters a new era committed to representation, transparency, and excellence for every member of the COMSA family.</p>
+          <div class="tl-img-wrap"><img src="images/comsa15.jpg" alt="All Inclusive Administration 2025"/></div>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-i"></div></div>
+        <div class="tl-sp"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="sp" id="values" style="background:var(--bg)">
+  <div class="container">
+    <div class="rv" style="text-align:center;max-width:640px;margin:0 auto 0">
+      <div class="lbl" style="justify-content:center">What Drives Us</div>
+      <h2 class="h2" style="text-align:center">Our Core <em>Values</em></h2>
+      <p class="desc" style="text-align:center;margin:0 auto">These principles guide our decisions, shape our culture, and define our legacy.</p>
+    </div>
+    <div class="cv-grid">
+      <div class="cv-c rv d1"><div class="cv-ic">🤝</div><h3 class="cv-h">Inclusivity</h3><p class="cv-p">Every student belongs. We create an environment where every voice — regardless of background, year, or programme — is valued, heard, and represented.</p></div>
+      <div class="cv-c rv d2"><div class="cv-ic">🏆</div><h3 class="cv-h">Excellence</h3><p class="cv-p">We set high standards and pursue them relentlessly — in academics, events, leadership, and every aspect of association life.</p></div>
+      <div class="cv-c rv d3"><div class="cv-ic">💎</div><h3 class="cv-h">Integrity</h3><p class="cv-p">Transparency, honesty, and accountability underpin everything we do. We lead by example and hold ourselves to the highest ethical standards.</p></div>
+      <div class="cv-c rv d1"><div class="cv-ic">💡</div><h3 class="cv-h">Innovation</h3><p class="cv-p">We embrace creative thinking and fresh approaches to problem-solving. COMSA is a space where new ideas are welcomed, tested, and celebrated.</p></div>
+      <div class="cv-c rv d2"><div class="cv-ic">🌱</div><h3 class="cv-h">Growth</h3><p class="cv-p">We invest in the development of every member — providing opportunities to learn, lead, and grow personally and professionally throughout their time at ATU.</p></div>
+      <div class="cv-c rv d3"><div class="cv-ic">🔗</div><h3 class="cv-h">Unity</h3><p class="cv-p">Together, we are stronger. COMSA thrives on the collective energy and dedication of its members — one community, one purpose, one voice.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENT -->
+<section class="dept-s sp">
+  <div class="container">
+    <div class="dept-grid">
+      <div>
+        <div class="lbl" style="color:var(--gold)">Department</div>
+        <h2 class="h2 rv" style="color:#fff">Department of <em>Communication Studies</em></h2>
+        <div class="divider"></div>
+        <p class="rv d1" style="color:rgba(255,255,255,.52);font-size:.97rem;line-height:1.82;max-width:480px">The Department of Communication Studies at Accra Technical University is one of Ghana's leading programmes in media, journalism, and strategic communication. COMSA serves as the student voice and social engine of this department.</p>
+        <a href="contact.html" class="btn btn-g rv d2" style="margin-top:28px">Get In Touch →</a>
+      </div>
+      <div>
+        <!-- =====================================================
+          DEPARTMENT PHOTO — comsa20.jpg
+        ===================================================== -->
+        <div class="dept-img rv-r">
+          <img src="images/comsa17.jpg" alt="ATU Communications Department"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="phil-s sp">
+  <div class="container">
+    <div class="phil-inner rv">
+      <div class="lbl" style="justify-content:center">Leadership Philosophy</div>
+      <h2 class="h2" style="text-align:center">Servant Leadership at <em>Its Finest</em></h2>
+      <div class="divider" style="margin:18px auto"></div>
+      <p class="desc" style="text-align:center;margin:0 auto">COMSA's leadership philosophy is rooted in servant leadership — the belief that the greatest leaders are those who put the needs of their members first. Our executives are not above the membership; they are the membership, elevated to serve.</p>
+      <div class="phil-quote">"Leadership is not about titles. It's about impact, influence, and inspiring others to be the best versions of themselves."</div>
+      <p style="font-size:.82rem;color:var(--muted)">— COMSA Leadership Motto</p>
+      <div style="display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap">
+        <a href="executives.html" class="btn btn-g">Meet Our Executives →</a>
+        <a href="contact.html" class="btn btn-o">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-brand">
+          <div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div>
+          <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
+        </div>
+        <p class="ft-p">Communications Students' Association — empowering students to communicate with confidence, persuade with purpose, and transform their world.</p>
+        <div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a><a href="https://wa.me/233530099371" target="_blank" class="ft-so">💬</a></div>
+      </div>
+      <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="ft-col"><h4>About</h4><ul><li><a href="#mission">Mission</a></li><li><a href="#vision">Vision</a></li><li><a href="#history">History</a></li><li><a href="#values">Core Values</a></li></ul></div>
+      <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div><div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>President</strong><a href="tel:+233530099371" style="color:var(--gold)">0530 099 371</a></div></div><div class="ft-ci"><div class="ft-cion">🌐</div><div class="ft-ct"><strong>Social</strong>@comsa-atu</div></div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div><div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">0544823484</a></div></div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button id="cb-toggle"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
+<div id="chatbot">
+  <div id="cb-head"><div id="cb-head-av"><img src="images/logo.jpg" id="cb-logo" onerror="this.style.display='none';document.getElementById('cb-logo-fb').style.display='flex'"/><div id="cb-logo-fb">C</div></div><div id="cb-head-info"><div id="cb-head-name">COMSA Assistant</div><div id="cb-head-status">● Online — Here to help</div></div><button id="cb-close">✕</button></div>
+  <div id="cb-msgs"></div>
+  <div id="cb-quick"></div>
+  <div id="cb-input-wrap"><input type="text" id="cb-input" placeholder="Type your question…" autocomplete="off" maxlength="200"/><button id="cb-send">➤</button></div>
+</div>
+
+<script>
+// THEME
+(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
+function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
+document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
+// NAV
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+// PAGE HERO SLIDER
+let phCur=0;
+const phSlides=Array.from(document.querySelectorAll('.ph-slide'));
+const phDots=document.getElementById('ph-dots');
+phSlides.forEach((_,i)=>{const d=document.createElement('button');d.className='ph-dot'+(i===0?' act':'');d.onclick=()=>phGo(i);phDots.appendChild(d)});
+function phGo(n){phSlides[phCur].classList.remove('act');document.querySelectorAll('.ph-dot')[phCur].classList.remove('act');phCur=(n+phSlides.length)%phSlides.length;phSlides[phCur].classList.add('act');document.querySelectorAll('.ph-dot')[phCur].classList.add('act')}
+setInterval(()=>phGo(phCur+1),5000);
+// SCROLL REVEAL
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>ro.observe(el));
+// PAGE FADE
+document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
+document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
+// CHATBOT
+(function(){
+const toggle=document.getElementById('cb-toggle'),bot=document.getElementById('chatbot'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-msgs'),input=document.getElementById('cb-input'),send=document.getElementById('cb-send'),quickWrap=document.getElementById('cb-quick'),badge=document.getElementById('cb-badge');
+let open=false,badgeShown=false;
+const KB=[{k:['hello','hi','hey'],r:'Hello! 👋 Welcome to COMSA! How can I help you today?'},{k:['what is comsa','about comsa'],r:'COMSA is the <strong>Communications Students\' Association</strong> at Accra Technical University 🎓. Visit our <a href="about.html" style="color:#F4B400">About page</a> for the full story.'},{k:['president','jalil'],r:'President: <strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},{k:['vice president','kelvin','vp'],r:'VP: <strong>Kelvin Otiboateng</strong><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a>'},{k:['secretary','jochebed'],r:'Secretary: <strong>Jochebed Ofori</strong><br/>📞 <a href="tel:+233537868041" style="color:#F4B400">0537 868 041</a>'},{k:['pro','theophilus'],r:'P.R.O: <strong>Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a>'},{k:['welfare','stephen'],r:'Welfare: <strong>Stephen Ato Mensah</strong><br/>📞 <a href="tel:+233205915904" style="color:#F4B400">0205 915 904</a>'},{k:['wocom','abigail'],r:'WOCOM: <strong>Abigail Enu Ninson</strong><br/>📞 <a href="tel:+233537646489" style="color:#F4B400">0537 646 489</a>'},{k:['finance','kennedy'],r:'Finance: <strong>Kennedy A. Holdbrook</strong><br/>📞 <a href="tel:+233200632333" style="color:#F4B400">0200 632 333</a>'},{k:['organizer','martin'],r:'Organizer: <strong>Martin Laryea Mensah</strong><br/>📞 <a href="tel:+233533241149" style="color:#F4B400">0533 241 149</a>'},{k:['part time','isaac'],r:'Part-Time Rep: <strong>Isaac N. Quansah</strong><br/>📞 <a href="tel:+233556720552" style="color:#F4B400">0556 720 552</a>'},{k:['executive','executives'],r:'Meet all 9 executives on our <a href="executives.html" style="color:#F4B400">Executives page →</a> Hover any card to flip it and see contact details!'},{k:['event','events','upcoming'],r:'🗓️ Upcoming: COMSA Week (Mar 20–27), Career Fair (Apr 5), Speaking Masterclass (Apr 12). See <a href="events.html" style="color:#F4B400">Events →</a>'},{k:['join','membership'],r:'To join COMSA, WhatsApp the President: <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">0530 099 371</a>'},{k:['location','where','address'],r:'📍 Accra Technical University, Barnes Road, Accra. <a href="https://maps.google.com/?q=Accra+Technical+University" target="_blank" style="color:#F4B400">Google Maps →</a>'},{k:['contact','whatsapp','reach'],r:'📞 President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="contact.html" style="color:#F4B400">Contact Form →</a>'},{k:['social','instagram','facebook'],r:'Follow us @comsa-atu on 📘 <a href="https://facebook.com/comsa-atu" target="_blank" style="color:#F4B400">Facebook</a> · 📸 <a href="https://instagram.com/comsa-atu" target="_blank" style="color:#F4B400">Instagram</a> · 🎵 <a href="https://tiktok.com/@comsa-atu" target="_blank" style="color:#F4B400">TikTok</a>'},{k:['mission','vision'],r:'🎯 Mission: Foster academic excellence and growth for all Comm Studies students at ATU.<br/>🌟 Vision: Be the most vibrant student association in Ghana.'},{k:['history','founded','established'],r:'COMSA was founded in <strong>2004</strong>. Learn the full story on our <a href="about.html#history" style="color:#F4B400">About page →</a>'},{k:['motto','slogan','communicate'],r:'✨ COMSA motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em>'},{k:['thank','thanks'],r:'You\'re welcome! 😊 Anything else?'},{k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},{k:['blog','news'],r:'Read the latest on our <a href="blog.html" style="color:#F4B400">Blog →</a>'},{k:['gallery','photo'],r:'View event photos on our <a href="gallery.html" style="color:#F4B400">Gallery →</a>'},{k:['developer','ibrahim'],r:'Built by <strong>Ibrahim Mohammed Lotsu</strong> (Ibratech)<br/>💬 <a href="https://wa.me/233544823484" target="_blank" style="color:#F4B400">0544823484</a>'}];
+const FALLBACK=`I don't have a specific answer for that. Please contact our President directly:<br/><strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>💬 <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>`;
+const QUICK_Qs=[{label:'📅 Events',q:'What are the upcoming events?'},{label:'👔 Executives',q:'Who are the executives?'},{label:'🎓 Join COMSA',q:'How do I join COMSA?'},{label:'📍 Location',q:'Where is COMSA?'},{label:'📞 Contact',q:'How do I contact COMSA?'},{label:'ℹ️ About',q:'What is COMSA?'}];
+function getReply(t){const l=t.toLowerCase().trim();for(const e of KB)if(e.k.some(k=>l.includes(k)))return e.r;return FALLBACK;}
+function now(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
+function addMsg(html,role){const w=document.createElement('div');w.className='cb-msg cb-msg-'+role;const b=document.createElement('div');b.className='cb-bubble cb-bubble-'+role;b.innerHTML=html;const t=document.createElement('div');t.className='cb-time';t.textContent=now();w.appendChild(b);w.appendChild(t);msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;}
+function showTyping(){const el=document.createElement('div');el.id='cb-typ';el.className='cb-msg cb-msg-bot';el.innerHTML='<div class="cb-typing"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>';msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;}
+function removeTyping(){const el=document.getElementById('cb-typ');if(el)el.remove();}
+function botReply(html){send.disabled=true;input.disabled=true;showTyping();setTimeout(()=>{removeTyping();addMsg(html,'bot');send.disabled=false;input.disabled=false;input.focus();},900+Math.random()*500);}
+function buildQR(){quickWrap.innerHTML='';QUICK_Qs.forEach(q=>{const btn=document.createElement('button');btn.className='cb-qr';btn.textContent=q.label;btn.onclick=()=>handleSend(q.q);quickWrap.appendChild(btn)});}
+function handleSend(text){const t=(text||input.value).trim();if(!t)return;addMsg(t,'user');input.value='';quickWrap.innerHTML='';botReply(getReply(t));}
+function greet(){if(!msgs.children.length){addMsg('👋 Hi! I\'m the <strong>COMSA Assistant</strong>. Ask me anything about COMSA!','bot');buildQR();}}
+toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'💬';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
+closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='💬';});
+send.addEventListener('click',()=>handleSend());
+input.addEventListener('keydown',e=>{if(e.key==='Enter')handleSend()});
+setTimeout(()=>{if(!badgeShown&&!open)badge.style.display='flex';},5000);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Blog – COMSA | ATU</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--white:#fff;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)}
+[data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
+#nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
+[data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
+.nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);letter-spacing:.05em;flex-shrink:0}
+.brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
+.brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
+[data-theme=light] .brand-txt span{color:var(--muted)}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:7px 14px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
+[data-theme=light] .nav-links a{color:var(--muted)}
+.nav-links a::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 20px);height:2px;background:var(--gold);border-radius:2px;transition:transform .3s var(--spring)}
+.nav-links a:hover,.nav-links a.act{color:var(--white);background:rgba(244,180,0,.08)}
+[data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
+.nav-links a:hover::after,.nav-links a.act::after{transform:translateX(-50%) scaleX(1)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.tog{position:relative;width:50px;height:26px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;transition:.3s}
+.tog-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:10px}
+.tog-thumb::before{content:'🌙'}
+.tog input:checked~.tog-thumb{transform:translateX(24px)}
+.tog input:checked~.tog-thumb::before{content:'☀️'}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px;transition:background .3s}
+.ham:hover{background:rgba(244,180,0,.1)}
+.ham span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+[data-theme=light] .ham span{background:var(--navy)}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
+[data-theme=light] .mob{background:rgba(244,244,240,.97)}
+.mob.open{transform:translateY(0);opacity:1}
+.mob a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
+[data-theme=light] .mob a{color:var(--muted)}
+.mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
+.mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+.mob-lbl{font-size:.75rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
+
+/* PAGE HERO */
+.page-hero{height:380px;position:relative;overflow:hidden;background:var(--navy2);display:flex;align-items:flex-end;padding-bottom:52px;padding-top:var(--nav)}
+.ph-slides{position:absolute;inset:0}
+.ph-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--ease)}
+.ph-slide.act{opacity:1}
+.ph-s1{background:linear-gradient(135deg,#071528,#0B1F3B)}
+.ph-s2{background:linear-gradient(135deg,#0d1020,#1a2040)}
+.ph-s3{background:linear-gradient(135deg,#200810,#400a20)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,30,.92) 40%,rgba(7,16,30,.4));pointer-events:none}
+.ph-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none}
+.ph-content{position:relative;z-index:2;max-width:1300px;margin:0 auto;padding:0 28px;width:100%}
+.breadcrumb{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:12px}
+.breadcrumb a{color:var(--gold)}
+.breadcrumb span{color:rgba(255,255,255,.2)}
+.ph-lbl{font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ph-lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:12px}
+.ph-h1 em{color:var(--gold);font-style:italic}
+.ph-p{font-size:1rem;color:rgba(255,255,255,.5);max-width:500px}
+.ph-dots{position:absolute;bottom:14px;right:28px;display:flex;gap:7px;z-index:5}
+.ph-dot{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.25);transition:all .4s var(--spring);cursor:pointer;border:none}
+.ph-dot.act{background:var(--gold);width:22px}
+
+/* UTILS */
+.container{max-width:1300px;margin:0 auto;padding:0 28px}
+.sp{padding:96px 0}
+.sp-sm{padding:60px 0}
+.lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:700;line-height:1.15;margin-bottom:18px}
+.h2 em{color:var(--gold);font-style:italic}
+.divider{width:52px;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:4px;margin:18px 0}
+.desc{font-size:1rem;color:var(--muted);line-height:1.82;max-width:600px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;letter-spacing:.04em;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.14);opacity:0;transition:opacity .3s}
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-3px)}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
+.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* BLOG LAYOUT */
+.blog-s{background:var(--bg)}
+.blog-layout{display:grid;grid-template-columns:1fr 340px;gap:44px;margin-top:52px}
+
+/* FILTER TABS */
+.blog-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px}
+.filt{padding:8px 20px;border-radius:99px;font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;border:1px solid var(--bdr);background:transparent;transition:all .3s;font-family:'Outfit',sans-serif}
+.filt.act,.filt:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+
+/* BLOG POSTS GRID */
+.posts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+
+/* POST CARD */
+.post-c{background:var(--card);border:1px solid var(--bdr);border-radius:18px;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s;cursor:pointer}
+.post-c:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.3);border-color:rgba(244,180,0,.28)}
+.post-c.featured{grid-column:span 2}
+/* ======================================================
+   📸 POST FLYER / IMAGE
+   Each post card has a .post-img area.
+   To add a flyer: put an <img> inside .post-img with src="images/your-flyer.jpg"
+   The image will fill the card top automatically.
+====================================================== */
+.post-img{height:200px;background:linear-gradient(135deg,var(--navy),var(--navy3));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.post-c.featured .post-img{height:280px}
+.post-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s var(--ease)}
+.post-c:hover .post-img img{transform:scale(1.05)}
+.post-img-ic{font-size:2.8rem;position:relative;z-index:1;opacity:.4}
+.post-cat{position:absolute;top:14px;left:14px;z-index:2;padding:4px 12px;border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.post-cat-news{background:rgba(244,180,0,.9);color:var(--navy)}
+.post-cat-event{background:rgba(59,130,246,.85);color:#fff}
+.post-cat-flyer{background:rgba(168,85,247,.85);color:#fff}
+.post-cat-academic{background:rgba(16,185,129,.85);color:#fff}
+.post-cat-social{background:rgba(239,68,68,.85);color:#fff}
+.post-feat-badge{position:absolute;top:14px;right:14px;z-index:2;padding:4px 12px;background:var(--gold);border-radius:99px;font-size:.65rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.1em}
+.post-body{padding:22px}
+.post-meta{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.post-author{font-size:.75rem;color:var(--gold);font-weight:600}
+.post-date{font-size:.72rem;color:var(--muted)}
+.post-read{font-size:.72rem;color:var(--muted)}
+.post-tt{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--txt);line-height:1.35;margin-bottom:9px}
+.post-c.featured .post-tt{font-size:1.3rem}
+.post-dd{font-size:.84rem;color:var(--muted);line-height:1.72;margin-bottom:16px;overflow:hidden;max-height:3.44em}
+.post-foot{display:flex;align-items:center;justify-content:space-between}
+.post-tags{display:flex;gap:6px;flex-wrap:wrap}
+.post-tag{font-size:.68rem;font-weight:500;padding:2px 9px;background:var(--surf);border-radius:99px;color:var(--muted)}
+.post-read-btn{font-size:.78rem;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:4px;transition:gap .3s}
+.post-c:hover .post-read-btn{gap:8px}
+
+/* SIDEBAR */
+.blog-side{display:flex;flex-direction:column;gap:24px}
+.side-card{background:var(--card);border:1px solid var(--bdr);border-radius:18px;padding:24px;transition:border-color .3s}
+.side-card:hover{border-color:rgba(244,180,0,.25)}
+.side-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--txt);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(244,180,0,.15);display:flex;align-items:center;gap:8px}
+.side-post{display:flex;gap:12px;margin-bottom:14px;cursor:pointer;transition:transform .3s}
+.side-post:hover{transform:translateX(4px)}
+.side-post:last-child{margin-bottom:0}
+.side-post-img{width:60px;height:60px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy3));flex-shrink:0;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.side-post-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.side-post-tt{font-size:.82rem;font-weight:600;color:var(--txt);line-height:1.35;margin-bottom:4px}
+.side-post-date{font-size:.72rem;color:var(--muted)}
+.side-cats{display:flex;flex-direction:column;gap:8px}
+.side-cat{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:10px;background:var(--surf);transition:background .3s,transform .3s;cursor:pointer}
+.side-cat:hover{background:rgba(244,180,0,.08);transform:translateX(4px)}
+.side-cat-n{font-size:.84rem;font-weight:500;color:var(--txt)}
+.side-cat-c{font-size:.72rem;font-weight:700;color:var(--gold)}
+.side-tags{display:flex;flex-wrap:wrap;gap:8px}
+.side-tag{padding:5px 13px;border-radius:99px;background:var(--surf);border:1px solid var(--bdr);font-size:.76rem;color:var(--muted);cursor:pointer;transition:all .3s}
+.side-tag:hover{background:rgba(244,180,0,.1);border-color:rgba(244,180,0,.28);color:var(--gold)}
+
+/* POST MODAL (READ MORE) */
+.modal-ov{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.modal-ov.show{opacity:1;visibility:visible}
+.modal-bg{position:absolute;inset:0;background:rgba(7,16,30,.88);backdrop-filter:blur(10px)}
+.modal-box{position:relative;z-index:1;background:var(--card);border:1px solid var(--bdr);border-radius:20px;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(28px) scale(.96);transition:transform .45s var(--spring)}
+.modal-ov.show .modal-box{transform:translateY(0) scale(1)}
+.modal-hdr{position:relative}
+.modal-hdr-img{height:240px;background:linear-gradient(135deg,var(--navy),var(--navy2));overflow:hidden;display:flex;align-items:center;justify-content:center}
+.modal-hdr-img img{width:100%;height:100%;object-fit:cover}
+.modal-hdr-icon{font-size:4rem;opacity:.4;position:absolute}
+.modal-close{position:absolute;top:14px;right:14px;z-index:2;width:34px;height:34px;background:rgba(0,0,0,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--white);transition:background .3s,transform .3s;cursor:pointer;border:none}
+.modal-close:hover{background:rgba(244,180,0,.5);transform:rotate(90deg)}
+.modal-body{padding:32px 36px 36px}
+.modal-cat{font-size:.7rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.modal-tt{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--txt);line-height:1.2;margin-bottom:14px}
+.modal-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--bdr)}
+.modal-meta span{font-size:.78rem;color:var(--muted)}
+.modal-meta strong{color:var(--txt)}
+.modal-content{font-size:.95rem;color:var(--muted);line-height:1.85}
+.modal-content p{margin-bottom:16px}
+
+/* ADD POST SECTION */
+.add-post-s{background:var(--surf)}
+.add-form{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:44px;max-width:800px;margin:0 auto}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.fg{margin-bottom:20px}
+.fg label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;padding:13px 16px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);font-family:'Outfit',sans-serif;font-size:.92rem;color:var(--txt);transition:border-color .3s,box-shadow .3s;outline:none}
+.fg input:focus,.fg select,.fg textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,180,0,.1)}
+.fg textarea{min-height:120px;resize:vertical}
+.fg select option{background:var(--navy)}
+/* Upload zone */
+.upload-zone{border:2px dashed rgba(244,180,0,.3);border-radius:var(--r);padding:32px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(244,180,0,.02);position:relative}
+.upload-zone:hover{border-color:var(--gold);background:rgba(244,180,0,.05)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-ic{font-size:2.2rem;margin-bottom:10px}
+.upload-t{font-size:.9rem;font-weight:600;color:var(--txt);margin-bottom:4px}
+.upload-s{font-size:.78rem;color:var(--muted)}
+.upload-preview{margin-top:16px;border-radius:10px;overflow:hidden;max-height:220px;display:none}
+.upload-preview img{width:100%;height:100%;object-fit:contain}
+/* Char counter */
+.char-cnt{font-size:.72rem;color:var(--muted);text-align:right;margin-top:4px}
+.add-success{display:none;text-align:center;padding:40px}
+.add-success.show{display:flex;flex-direction:column;align-items:center;gap:14px}
+.add-success-ic{font-size:3rem}
+.add-success h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--txt)}
+.add-success p{color:var(--muted)}
+
+/* FOOTER */
+footer{background:var(--navy2);position:relative;overflow:hidden;padding:72px 0 0}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:52px;padding-bottom:52px}
+.ft-p{font-size:.86rem;color:rgba(255,255,255,.42);line-height:1.8;max-width:290px;margin-bottom:20px;margin-top:16px}
+.ft-soc{display:flex;gap:10px}
+.ft-so{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .3s}
+.ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px)}
+.ft-col h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--white);margin-bottom:18px;padding-bottom:10px;position:relative}
+.ft-col h4::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--gold);border-radius:2px}
+.ft-col li{margin-bottom:9px}
+.ft-col a{font-size:.84rem;color:rgba(255,255,255,.4);transition:color .3s,padding-left .3s}
+.ft-col a:hover{color:var(--gold);padding-left:5px}
+.ft-ci{display:flex;align-items:flex-start;gap:10px;margin-bottom:13px;font-size:.84rem}
+.ft-cion{width:32px;height:32px;flex-shrink:0;background:rgba(244,180,0,.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--gold)}
+.ft-ct{color:rgba(255,255,255,.45);line-height:1.5}
+.ft-ct strong{display:block;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:2px}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:.78rem;color:rgba(255,255,255,.25)}
+.ft-dev{font-size:.75rem;color:rgba(255,255,255,.22);text-align:right}
+.ft-dev a{color:var(--gold);opacity:.65;transition:opacity .3s;font-weight:500}
+.ft-dev a:hover{opacity:1}
+
+@media(max-width:1024px){.blog-layout{grid-template-columns:1fr}.blog-side{display:grid;grid-template-columns:repeat(2,1fr)}.ft-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.posts-grid{grid-template-columns:1fr}.post-c.featured{grid-column:span 1}.blog-side{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}.ft-dev{text-align:center}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-i">
+    <a href="index.html" class="brand"><div class="brand-ico">ATU</div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html" class="act">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-r">
+      <label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
+      <button class="ham" id="ham"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html" class="act">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+  <div class="mob-bot"><span class="mob-lbl">Toggle Theme</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="ph-slides">
+    <div class="ph-slide ph-s1 act"></div>
+    <div class="ph-slide ph-s2"></div>
+    <div class="ph-slide ph-s3"></div>
+  </div>
+  <div class="ph-overlay"></div>
+  <div class="ph-mesh"></div>
+  <div class="ph-content">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Blog</span></div>
+    <div class="ph-lbl">Latest Updates</div>
+    <h1 class="ph-h1">COMSA <em>Blog</em></h1>
+    <p class="ph-p">News, flyers, announcements, and stories from the Communications Students' Association.</p>
+  </div>
+  <div class="ph-dots" id="ph-dots"></div>
+</section>
+
+<!-- BLOG POSTS -->
+<section class="blog-s sp">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px" class="rv">
+      <div><div class="lbl">All Posts</div><h2 class="h2">Latest from <em>COMSA</em></h2></div>
+      <a href="#add-post" class="btn btn-g" style="text-decoration:none">+ Add New Post</a>
+    </div>
+
+    <!-- FILTER TABS -->
+    <div class="blog-filters rv d1">
+      <button class="filt act" data-cat="all">All Posts</button>
+      <button class="filt" data-cat="news">News</button>
+      <button class="filt" data-cat="flyer">Flyers</button>
+      <button class="filt" data-cat="event">Events</button>
+      <button class="filt" data-cat="academic">Academic</button>
+      <button class="filt" data-cat="social">Social</button>
+    </div>
+
+    <div class="blog-layout">
+      <!-- POSTS -->
+      <div>
+        <div class="posts-grid" id="posts-grid">
+
+          <!-- ======================================================
+            HOW TO ADD POSTS:
+            Copy a .post-c block below. Edit:
+            - data-cat: the category (news/flyer/event/academic/social)
+            - .post-img: add <img src="images/your-flyer.jpg"> inside
+            - .post-cat: change category label class and text
+            - .post-tt: post title
+            - .post-dd: short description
+            - data-full: the full post text shown in the popup
+            - data-date, data-author, data-read: metadata
+          ====================================================== -->
+
+          <!-- FEATURED POST 1 -->
+          <div class="post-c featured rv" data-cat="news"
+            data-title="COMSA Week 2026 — Everything You Need to Know"
+            data-cat-label="News"
+            data-icon="🎉"
+            data-author="COMSA PRO"
+            data-date="March 5, 2026"
+            data-read="3 min read"
+            data-full="COMSA Week 2026 is officially here! This year's theme is 'The All Inclusive Administration' and we have packed a full week of exciting events for every single member of our association.
+
+The week kicks off on March 20 with the Opening Ceremony at the ATU Auditorium, featuring performances, the unveiling of the COMSA Week branding, and an address from President Abdul Jalil Sani.
+
+Throughout the week, expect: Academic Panel Sessions with industry professionals, a Talent Show & Cultural Night, Inter-Level Debate Championship, Sports & Games Day, and the Grand Gala Dinner on March 27.
+
+Attendance is open to all COMSA members. Some events require registration — watch our social media @comsa-atu for updates. See you there!">
+            <div class="post-img">
+              <!-- 📸 FEATURED POST FLYER: <img src="images/blog-comsaweek.jpg"> -->
+              <div class="post-img-ic">🎉</div>
+              <span class="post-cat post-cat-news">News</span>
+              <span class="post-feat-badge">⭐ Featured</span>
+            </div>
+            <div class="post-body">
+              <div class="post-meta"><span class="post-author">COMSA PRO</span><span class="post-date">March 5, 2026</span><span class="post-read">3 min read</span></div>
+              <h3 class="post-tt">COMSA Week 2026 — Everything You Need to Know</h3>
+              <p class="post-dd">Get the full breakdown of events, times, and venues for this year's COMSA Week. From the Opening Ceremony to the Grand Gala Dinner — it's going to be legendary.</p>
+              <div class="post-foot"><div class="post-tags"><span class="post-tag">COMSA Week</span><span class="post-tag">Events</span></div><span class="post-read-btn">Read More →</span></div>
+            </div>
+          </div>
+
+          <!-- POST 2 -->
+          <div class="post-c rv d1" data-cat="flyer"
+            data-title="Career Fair 2026 — Official Flyer"
+            data-cat-label="Flyer"
+            data-icon="💼"
+            data-author="COMSA Secretariat"
+            data-date="March 10, 2026"
+            data-read="1 min read"
+            data-full="The official flyer for the COMSA Career Fair & Networking Night 2026 is here!
+
+Date: April 5, 2026
+Time: 10:00 AM – 6:00 PM
+Venue: ATU Main Hall
+
+This event is FREE for all registered COMSA members. Bring your CV and dress professionally.
+
+Companies and organisations attending include media houses, PR agencies, and NGOs from across Ghana. Don't miss this incredible opportunity to kickstart your career in communications!
+
+Contact the PRO for more information: 0544 487 799">
+            <div class="post-img">
+              <!-- 📸 FLYER IMAGE: <img src="images/blog-careerfair-flyer.jpg"> -->
+              <div class="post-img-ic">💼</div>
+              <span class="post-cat post-cat-flyer">Flyer</span>
+            </div>
+            <div class="post-body">
+              <div class="post-meta"><span class="post-author">COMSA Secretariat</span><span class="post-date">March 10, 2026</span><span class="post-read">1 min read</span></div>
+              <h3 class="post-tt">Career Fair 2026 — Official Flyer</h3>
+              <p class="post-dd">The official flyer for our Annual Career Fair & Networking Night. Check the details and mark your calendar!</p>
+              <div class="post-foot"><div class="post-tags"><span class="post-tag">Career</span><span class="post-tag">Flyer</span></div><span class="post-read-btn">Read More →</span></div>
+            </div>
+          </div>
+
+          <!-- POST 3 -->
+          <div class="post-c rv d2" data-cat="academic"
+            data-title="How to Ace Your Communications Exams — Tips from Top Students"
+            data-cat-label="Academic"
+            data-icon="📚"
+            data-author="COMSA Welfare"
+            data-date="February 20, 2026"
+            data-read="5 min read"
+            data-full="Exam season is approaching and the COMSA Welfare desk has compiled the best study tips from top-performing Communication Studies students at ATU.
+
+1. UNDERSTAND THE THEORIES — Don't just memorize. Understand how communication theories like the Agenda-Setting Theory, Two-Step Flow, and Uses & Gratifications apply to real-world examples.
+
+2. PAST QUESTIONS ARE GOLD — Review past exam questions from previous years. They reveal the pattern of what lecturers like to test.
+
+3. GROUP STUDY WORKS — Form study groups with 3-5 members. Teaching a concept to someone else is the fastest way to master it.
+
+4. MANAGE YOUR TIME — Use the Pomodoro technique: 25 minutes of focused study, 5 minutes break.
+
+5. TAKE CARE OF YOUR HEALTH — Sleep at least 7 hours, eat well, and stay hydrated. Your brain performs best when your body is rested.
+
+Good luck from all of us at COMSA!">
+            <div class="post-img">
+              <!-- 📸 POST IMAGE: <img src="images/blog-study-tips.jpg"> -->
+              <div class="post-img-ic">📚</div>
+              <span class="post-cat post-cat-academic">Academic</span>
+            </div>
+            <div class="post-body">
+              <div class="post-meta"><span class="post-author">COMSA Welfare</span><span class="post-date">Feb 20, 2026</span><span class="post-read">5 min read</span></div>
+              <h3 class="post-tt">How to Ace Your Communications Exams</h3>
+              <p class="post-dd">Top tips from high-performing Communication Studies students to help you smash your exams this semester.</p>
+              <div class="post-foot"><div class="post-tags"><span class="post-tag">Study Tips</span><span class="post-tag">Academic</span></div><span class="post-read-btn">Read More →</span></div>
+            </div>
+          </div>
+
+          <!-- POST 4 -->
+          <div class="post-c rv d1" data-cat="event"
+            data-title="Freshers' Orientation 2025 — Highlights"
+            data-cat-label="Event"
+            data-icon="🎓"
+            data-author="COMSA PRO"
+            data-date="September 20, 2025"
+            data-read="2 min read"
+            data-full="What a day! The COMSA Freshers' Orientation 2025 was a massive success. We welcomed over 150 new students to the Communications Studies family at ATU.
+
+The day kicked off with a warm address from President Abdul Jalil Sani, followed by introductions from all nine executives. Freshers were taken on a campus tour, participated in fun icebreaker games, and were briefed on all COMSA services available to them throughout the year.
+
+Special thanks to the entire executive team for pulling off a flawless event, and to our senior students who volunteered as guides.
+
+To all our new members — welcome to the family. COMSA will always have your back. Communicate, Persuade, Transform! 🏆">
+            <div class="post-img">
+              <!-- 📸 POST IMAGE: <img src="images/blog-freshers.jpg"> -->
+              <div class="post-img-ic">🎓</div>
+              <span class="post-cat post-cat-event">Event</span>
+            </div>
+            <div class="post-body">
+              <div class="post-meta"><span class="post-author">COMSA PRO</span><span class="post-date">Sep 20, 2025</span><span class="post-read">2 min read</span></div>
+              <h3 class="post-tt">Freshers' Orientation 2025 — Highlights</h3>
+              <p class="post-dd">Relive the best moments from our Freshers' Orientation. Over 150 new students were welcomed into the COMSA family!</p>
+              <div class="post-foot"><div class="post-tags"><span class="post-tag">Freshers</span><span class="post-tag">Orientation</span></div><span class="post-read-btn">Read More →</span></div>
+            </div>
+          </div>
+
+          <!-- POST 5 -->
+          <div class="post-c rv d2" data-cat="social"
+            data-title="End-of-Semester Social — Photo Recap"
+            data-cat-label="Social"
+            data-icon="🎊"
+            data-author="COMSA Organizer"
+            data-date="December 10, 2025"
+            data-read="2 min read"
+            data-full="The COMSA End-of-Semester Social was EVERYTHING we hoped for and more! Members came out in their best looks, enjoyed great food, music, and fun games at the ATU Recreation Grounds.
+
+Some highlights:
+• 🏆 Fufu-eating competition (yes, really)
+• 🎵 Live DJ set by a COMSA member
+• 📸 Photo booth with COMSA branded props
+• 🎮 Outdoor games tournament
+
+Thank you to everyone who came out. You made the atmosphere incredible. The Welfare Officer and Organizer put in tremendous work to make this happen — big shoutout to Stephen and Martin!
+
+Photos from the event are available on our Instagram page @comsa-atu. Drop a like and tag yourself!">
+            <div class="post-img">
+              <!-- 📸 POST IMAGE: <img src="images/blog-social.jpg"> -->
+              <div class="post-img-ic">🎊</div>
+              <span class="post-cat post-cat-social">Social</span>
+            </div>
+            <div class="post-body">
+              <div class="post-meta"><span class="post-author">COMSA Organizer</span><span class="post-date">Dec 10, 2025</span><span class="post-read">2 min read</span></div>
+              <h3 class="post-tt">End-of-Semester Social — Photo Recap</h3>
+              <p class="post-dd">A look back at the best moments from our End-of-Semester Social — games, food, music, and great memories!</p>
+              <div class="post-foot"><div class="post-tags"><span class="post-tag">Social</span><span class="post-tag">Fun</span></div><span class="post-read-btn">Read More →</span></div>
+            </div>
+          </div>
+
+          <!-- POST 6 (dynamically added posts appear here) -->
+        </div>
+        <div id="no-posts" style="display:none;text-align:center;padding:40px;color:var(--muted)">No posts in this category yet.</div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="blog-side rv-r" style="opacity:0;transform:translateX(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)">
+        <div class="side-card">
+          <div class="side-title">🔥 Recent Posts</div>
+          <div class="side-post">
+            <div class="side-post-img"><!-- 📸 <img src="images/blog-1-thumb.jpg"> -->🎉</div>
+            <div><div class="side-post-tt">COMSA Week 2026 — Everything You Need to Know</div><div class="side-post-date">March 5, 2026</div></div>
+          </div>
+          <div class="side-post">
+            <div class="side-post-img">💼</div>
+            <div><div class="side-post-tt">Career Fair 2026 — Official Flyer</div><div class="side-post-date">March 10, 2026</div></div>
+          </div>
+          <div class="side-post">
+            <div class="side-post-img">📚</div>
+            <div><div class="side-post-tt">How to Ace Your Communications Exams</div><div class="side-post-date">Feb 20, 2026</div></div>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-title">📂 Categories</div>
+          <div class="side-cats">
+            <div class="side-cat" onclick="filterPosts('all')"><span class="side-cat-n">All Posts</span><span class="side-cat-c" id="cnt-all">5</span></div>
+            <div class="side-cat" onclick="filterPosts('news')"><span class="side-cat-n">News</span><span class="side-cat-c" id="cnt-news">1</span></div>
+            <div class="side-cat" onclick="filterPosts('flyer')"><span class="side-cat-n">Flyers</span><span class="side-cat-c" id="cnt-flyer">1</span></div>
+            <div class="side-cat" onclick="filterPosts('event')"><span class="side-cat-n">Events</span><span class="side-cat-c" id="cnt-event">1</span></div>
+            <div class="side-cat" onclick="filterPosts('academic')"><span class="side-cat-n">Academic</span><span class="side-cat-c" id="cnt-academic">1</span></div>
+            <div class="side-cat" onclick="filterPosts('social')"><span class="side-cat-n">Social</span><span class="side-cat-c" id="cnt-social">1</span></div>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-title">🏷️ Popular Tags</div>
+          <div class="side-tags">
+            <span class="side-tag" onclick="filterPosts('news')">COMSA Week</span>
+            <span class="side-tag" onclick="filterPosts('event')">Events</span>
+            <span class="side-tag" onclick="filterPosts('flyer')">Flyers</span>
+            <span class="side-tag" onclick="filterPosts('academic')">Study Tips</span>
+            <span class="side-tag" onclick="filterPosts('social')">Social</span>
+            <span class="side-tag">ATU</span>
+            <span class="side-tag">Announcements</span>
+            <span class="side-tag">Leadership</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD NEW POST -->
+<section class="add-post-s sp" id="add-post">
+  <div class="container">
+    <div style="text-align:center;max-width:640px;margin:0 auto 44px" class="rv">
+      <div class="lbl" style="justify-content:center">Publish</div>
+      <h2 class="h2" style="text-align:center">Add a New <em>Post</em></h2>
+      <p class="desc" style="text-align:center;margin:0 auto">Share news, upload flyers, or write an article. Your post will appear instantly on the blog.</p>
+    </div>
+    <div class="add-form rv d1">
+      <form id="add-form" onsubmit="submitPost(event)">
+        <div class="form-row">
+          <div class="fg"><label>Post Title *</label><input type="text" id="pf-title" placeholder="Enter a catchy title..." maxlength="120" required oninput="updateChar(this,'tc-title',120)"/><div class="char-cnt"><span id="tc-title">0</span>/120</div></div>
+          <div class="fg"><label>Category *</label>
+            <select id="pf-cat" required>
+              <option value="">Select category...</option>
+              <option value="news">📰 News</option>
+              <option value="flyer">📢 Flyer</option>
+              <option value="event">📅 Event</option>
+              <option value="academic">📚 Academic</option>
+              <option value="social">🎊 Social</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Author Name</label><input type="text" id="pf-author" placeholder="e.g. COMSA PRO" value="COMSA"/></div>
+          <div class="fg"><label>Short Description *</label><input type="text" id="pf-desc" placeholder="One-line summary..." maxlength="160" required oninput="updateChar(this,'tc-desc',160)"/><div class="char-cnt"><span id="tc-desc">0</span>/160</div></div>
+        </div>
+        <!-- FLYER / IMAGE UPLOAD -->
+        <div class="fg">
+          <label>Flyer / Image (optional)</label>
+          <div class="upload-zone">
+            <input type="file" id="pf-img" accept="image/*" onchange="previewImg(this)"/>
+            <div class="upload-ic">🖼️</div>
+            <div class="upload-t">Click or drag & drop your flyer here</div>
+            <div class="upload-s">JPG, PNG, WEBP — max 5MB</div>
+            <div class="upload-preview" id="img-preview"><img id="preview-img" src="" alt="Preview"/></div>
+          </div>
+        </div>
+        <!-- FULL CONTENT -->
+        <div class="fg">
+          <label>Full Post Content *</label>
+          <textarea id="pf-content" placeholder="Write the full content of your post here. You can use line breaks to separate paragraphs." maxlength="3000" required oninput="updateChar(this,'tc-content',3000)"></textarea>
+          <div class="char-cnt"><span id="tc-content">0</span>/3000</div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button type="submit" class="btn btn-g">Publish Post →</button>
+          <button type="reset" class="btn btn-o" onclick="clearForm()">Clear Form</button>
+        </div>
+      </form>
+      <div class="add-success" id="add-success">
+        <div class="add-success-ic">✅</div>
+        <h3>Post Published!</h3>
+        <p>Your post has been added to the blog and is now visible above.</p>
+        <button class="btn btn-g" onclick="resetForm()">Add Another Post</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST READ MODAL -->
+<div class="modal-ov" id="post-modal">
+  <div class="modal-bg" onclick="closeModal()"></div>
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-hdr-img"><span class="modal-hdr-icon" id="m-icon">📰</span><img id="m-img" src="" alt="" style="display:none"/></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat" id="m-cat">Category</div>
+      <h2 class="modal-tt" id="m-title">Post Title</h2>
+      <div class="modal-meta">
+        <span>✍️ <strong id="m-author">Author</strong></span>
+        <span>📅 <strong id="m-date">Date</strong></span>
+        <span>⏱️ <strong id="m-read">Read time</strong></span>
+      </div>
+      <div class="modal-content" id="m-content"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div><div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><div class="brand-ico">ATU</div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a><a href="https://wa.me/233530099371" target="_blank" class="ft-so">💬</a></div></div>
+      <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="ft-col"><h4>Blog Categories</h4><ul><li><a href="#" onclick="filterPosts('news')">News</a></li><li><a href="#" onclick="filterPosts('flyer')">Flyers</a></li><li><a href="#" onclick="filterPosts('event')">Events</a></li><li><a href="#" onclick="filterPosts('academic')">Academic</a></li><li><a href="#" onclick="filterPosts('social')">Social</a></li></ul></div>
+      <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div><div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>President</strong><a href="tel:+233530099371" style="color:var(--gold)">0530 099 371</a></div></div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div><div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">0544823484</a></div></div>
+  </div>
+</footer>
+
+<script>
+// THEME
+(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=t==='light'});})();
+function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=l});}
+document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
+
+// NAV
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+
+// PAGE HERO SLIDER
+let phCur=0;
+const phSlides=Array.from(document.querySelectorAll('.ph-slide'));
+const phDots=document.getElementById('ph-dots');
+phSlides.forEach((_,i)=>{const d=document.createElement('button');d.className='ph-dot'+(i===0?' act':'');d.onclick=()=>phGo(i);phDots.appendChild(d)});
+function phGo(n){phSlides[phCur].classList.remove('act');document.querySelectorAll('.ph-dot')[phCur].classList.remove('act');phCur=(n+phSlides.length)%phSlides.length;phSlides[phCur].classList.add('act');document.querySelectorAll('.ph-dot')[phCur].classList.add('act')}
+setInterval(()=>phGo(phCur+1),4500);
+
+// SCROLL REVEAL
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,.rv-r').forEach(el=>ro.observe(el));
+
+// FILTER POSTS
+function filterPosts(cat){
+  document.querySelectorAll('.filt').forEach(f=>f.classList.toggle('act',f.dataset.cat===cat));
+  const posts=Array.from(document.querySelectorAll('.post-c'));
+  let visible=0;
+  posts.forEach(p=>{
+    const match=cat==='all'||p.dataset.cat===cat;
+    p.style.display=match?'':'none';
+    if(match) visible++;
+  });
+  document.getElementById('no-posts').style.display=visible===0?'block':'none';
+}
+document.querySelectorAll('.filt').forEach(f=>f.addEventListener('click',function(){filterPosts(this.dataset.cat)}));
+
+// POST MODAL
+function openModal(card){
+  const m=document.getElementById('post-modal');
+  document.getElementById('m-icon').textContent=card.dataset.icon||'📰';
+  document.getElementById('m-cat').textContent=card.dataset.catLabel||card.dataset.cat;
+  document.getElementById('m-title').textContent=card.dataset.title||'';
+  document.getElementById('m-author').textContent=card.dataset.author||'COMSA';
+  document.getElementById('m-date').textContent=card.dataset.date||'';
+  document.getElementById('m-read').textContent=card.dataset.read||'';
+  // Content — split by newlines into paragraphs
+  const content=card.dataset.full||'';
+  document.getElementById('m-content').innerHTML=content.split('\n').filter(l=>l.trim()).map(l=>`<p>${l}</p>`).join('');
+  // Image
+  const imgEl=card.querySelector('.post-img img');
+  const mImg=document.getElementById('m-img');
+  const mIcon=document.getElementById('m-icon');
+  if(imgEl&&imgEl.src){mImg.src=imgEl.src;mImg.style.display='block';mIcon.style.display='none';}
+  else{mImg.style.display='none';mIcon.style.display='block';}
+  m.classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('post-modal').classList.remove('show');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+document.querySelectorAll('.post-c').forEach(c=>c.addEventListener('click',function(){openModal(this)}));
+
+// CHAR COUNTER
+function updateChar(el,id,max){document.getElementById(id).textContent=el.value.length}
+
+// IMAGE PREVIEW
+function previewImg(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const prev=document.getElementById('img-preview');
+    const img=document.getElementById('preview-img');
+    img.src=e.target.result;
+    prev.style.display='block';
+  };
+  reader.readAsDataURL(file);
+}
+
+// SUBMIT NEW POST
+let postImgData='';
+document.getElementById('pf-img').addEventListener('change',function(){
+  const file=this.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{postImgData=e.target.result};
+  reader.readAsDataURL(file);
+});
+
+const catColors={news:'post-cat-news',flyer:'post-cat-flyer',event:'post-cat-event',academic:'post-cat-academic',social:'post-cat-social'};
+const catIcons={news:'📰',flyer:'📢',event:'📅',academic:'📚',social:'🎊'};
+const catLabels={news:'News',flyer:'Flyer',event:'Event',academic:'Academic',social:'Social'};
+
+function submitPost(e){
+  e.preventDefault();
+  const title=document.getElementById('pf-title').value.trim();
+  const cat=document.getElementById('pf-cat').value;
+  const author=document.getElementById('pf-author').value.trim()||'COMSA';
+  const desc=document.getElementById('pf-desc').value.trim();
+  const content=document.getElementById('pf-content').value.trim();
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const wordCount=content.split(/\s+/).length;
+  const readMin=Math.max(1,Math.ceil(wordCount/200));
+
+  const card=document.createElement('div');
+  card.className='post-c';
+  card.dataset.cat=cat;
+  card.dataset.title=title;
+  card.dataset.catLabel=catLabels[cat]||cat;
+  card.dataset.icon=catIcons[cat]||'📰';
+  card.dataset.author=author;
+  card.dataset.date=dateStr;
+  card.dataset.read=readMin+' min read';
+  card.dataset.full=content;
+
+  card.innerHTML=`
+    <div class="post-img">
+      ${postImgData?`<img src="${postImgData}" alt="${title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`:''}
+      <div class="post-img-ic" style="${postImgData?'display:none':''}">${catIcons[cat]||'📰'}</div>
+      <span class="post-cat ${catColors[cat]||'post-cat-news'}">${catLabels[cat]||cat}</span>
+    </div>
+    <div class="post-body">
+      <div class="post-meta"><span class="post-author">${author}</span><span class="post-date">${dateStr}</span><span class="post-read">${readMin} min read</span></div>
+      <h3 class="post-tt">${title}</h3>
+      <p class="post-dd">${desc}</p>
+      <div class="post-foot"><div class="post-tags"><span class="post-tag">${catLabels[cat]}</span><span class="post-tag">New</span></div><span class="post-read-btn">Read More →</span></div>
+    </div>`;
+
+  card.addEventListener('click',function(){openModal(this)});
+  document.getElementById('posts-grid').prepend(card);
+
+  // Animate in
+  card.style.opacity='0';card.style.transform='translateY(24px)';
+  setTimeout(()=>{card.style.transition='opacity .5s,transform .5s';card.style.opacity='1';card.style.transform='translateY(0)'},50);
+
+  // Show success
+  document.getElementById('add-form').style.display='none';
+  document.getElementById('add-success').classList.add('show');
+  postImgData='';
+}
+function resetForm(){
+  document.getElementById('add-form').style.display='block';
+  document.getElementById('add-success').classList.remove('show');
+  document.getElementById('add-form').reset();
+  document.getElementById('img-preview').style.display='none';
+  ['tc-title','tc-desc','tc-content'].forEach(id=>document.getElementById(id).textContent='0');
+}
+function clearForm(){document.getElementById('img-preview').style.display='none';postImgData='';}
+
+// PAGE FADE
+document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
+document.querySelectorAll('a[href$=".html"]').forEach(a=>{a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)})});
+</script>
+</body>
+</html>

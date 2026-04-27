@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Events – COMSA | ATU</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--white:#fff;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)}
+[data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+#nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
+#nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
+[data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
+.nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);letter-spacing:.05em;flex-shrink:0}
+.brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
+.brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
+[data-theme=light] .brand-txt span{color:var(--muted)}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:7px 14px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
+[data-theme=light] .nav-links a{color:var(--muted)}
+.nav-links a::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 20px);height:2px;background:var(--gold);border-radius:2px;transition:transform .3s var(--spring)}
+.nav-links a:hover,.nav-links a.act{color:var(--white);background:rgba(244,180,0,.08)}
+[data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
+.nav-links a:hover::after,.nav-links a.act::after{transform:translateX(-50%) scaleX(1)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.tog{position:relative;width:50px;height:26px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;transition:.3s}
+.tog-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:10px}
+.tog-thumb::before{content:'🌙'}
+.tog input:checked~.tog-thumb{transform:translateX(24px)}
+.tog input:checked~.tog-thumb::before{content:'☀️'}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px}
+.ham span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+[data-theme=light] .ham span{background:var(--navy)}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
+[data-theme=light] .mob{background:rgba(244,244,240,.97)}
+.mob.open{transform:translateY(0);opacity:1}
+.mob a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
+[data-theme=light] .mob a{color:var(--muted)}
+.mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
+.mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+.mob-lbl{font-size:.75rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
+/* PAGE HERO */
+.page-hero{height:400px;position:relative;overflow:hidden;background:var(--navy2);display:flex;align-items:flex-end;padding-bottom:52px;padding-top:var(--nav)}
+.ph-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--ease)}
+.ph-slide.act{opacity:1}
+.ph-s1{background:linear-gradient(135deg,#071528,#0B1F3B)}
+.ph-s2{background:linear-gradient(135deg,#1a0810,#401020)}
+.ph-s3{background:linear-gradient(135deg,#071820,#0a2038)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,30,.92) 40%,rgba(7,16,30,.4));pointer-events:none}
+.ph-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none}
+.ph-content{position:relative;z-index:2;max-width:1300px;margin:0 auto;padding:0 28px;width:100%}
+.breadcrumb{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:12px}
+.breadcrumb a{color:var(--gold)}
+.breadcrumb span{color:rgba(255,255,255,.2)}
+.ph-lbl{font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ph-lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:var(--white);line-height:1.08;margin-bottom:12px}
+.ph-h1 em{color:var(--gold);font-style:italic}
+.ph-p{font-size:1rem;color:rgba(255,255,255,.5);max-width:500px}
+.ph-dots{position:absolute;bottom:14px;right:28px;display:flex;gap:7px;z-index:5}
+.ph-dot{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.25);transition:all .4s var(--spring);cursor:pointer;border:none}
+.ph-dot.act{background:var(--gold);width:22px}
+/* UTILS */
+.container{max-width:1300px;margin:0 auto;padding:0 28px}
+.sp{padding:96px 0}.sp-sm{padding:60px 0}
+.lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:700;line-height:1.15;margin-bottom:18px}
+.h2 em{color:var(--gold);font-style:italic}
+.desc{font-size:1rem;color:var(--muted);line-height:1.82;max-width:600px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.14);opacity:0;transition:opacity .3s}
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-3px)}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
+.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+/* TABS */
+.ev-tabs{display:flex;gap:6px;padding:6px;background:var(--surf);border-radius:var(--r);display:inline-flex}
+.ev-tab{padding:10px 26px;border-radius:10px;font-size:.86rem;font-weight:600;color:var(--muted);transition:all .3s;font-family:'Outfit',sans-serif}
+.ev-tab.act{background:var(--navy);color:var(--gold)}
+/* EVENTS GRID */
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.ev-c{background:var(--card);border:1px solid var(--bdr);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.ev-c:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.3);border-color:rgba(244,180,0,.28)}
+.ev-img{height:200px;background:linear-gradient(135deg,var(--navy),var(--navy3));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+/* ======================================================
+   📸 EVENT PHOTOS: Add <img src="images/event.jpg"> inside each .ev-img
+====================================================== */
+.ev-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.ev-c:hover .ev-img img{transform:scale(1.06)}
+.ev-img-ic{font-size:2.8rem;position:relative;z-index:1;opacity:.45}
+.ev-status{position:absolute;top:14px;right:14px;padding:4px 12px;border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.ev-status.up{background:rgba(244,180,0,.9);color:var(--navy)}
+.ev-status.past{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7)}
+.ev-date-b{position:absolute;bottom:14px;left:14px;background:rgba(7,16,30,.8);backdrop-filter:blur(8px);border:1px solid rgba(244,180,0,.2);border-radius:10px;padding:7px 11px;text-align:center;min-width:50px}
+.ev-date-d{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:var(--gold);line-height:1}
+.ev-date-m{font-size:.62rem;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.55);text-transform:uppercase}
+.ev-body{padding:22px}
+.ev-cat{font-size:.68rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.ev-tt{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:700;color:var(--txt);margin-bottom:9px;line-height:1.35}
+.ev-dd{font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:14px;overflow:hidden;max-height:3.4em}
+.ev-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:.76rem;color:var(--muted)}
+.ev-meta span{display:flex;align-items:center;gap:4px}
+/* EVENT MODAL */
+.modal-ov{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.modal-ov.show{opacity:1;visibility:visible}
+.modal-bg{position:absolute;inset:0;background:rgba(7,16,30,.88);backdrop-filter:blur(10px)}
+.modal-box{position:relative;z-index:1;background:var(--card);border:1px solid var(--bdr);border-radius:20px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(28px) scale(.96);transition:transform .45s var(--spring)}
+.modal-ov.show .modal-box{transform:translateY(0) scale(1)}
+.modal-hdr{height:200px;background:linear-gradient(135deg,var(--navy),var(--navy2));position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.modal-hdr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.modal-hdr img.show{display:block}
+.modal-hdr-ic{font-size:4rem;position:relative;z-index:1;opacity:.5}
+.modal-close{position:absolute;top:14px;right:14px;z-index:2;width:34px;height:34px;background:rgba(0,0,0,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--white);transition:background .3s,transform .3s;cursor:pointer;border:none}
+.modal-close:hover{background:rgba(244,180,0,.5);transform:rotate(90deg)}
+.modal-body{padding:32px}
+.modal-cat{font-size:.7rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.modal-tt{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--txt);line-height:1.2;margin-bottom:18px}
+.modal-details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.modal-det{padding:13px;background:var(--surf);border-radius:var(--r)}
+.modal-det-l{font-size:.68rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.modal-det-v{font-size:.9rem;font-weight:600;color:var(--txt)}
+.modal-desc{font-size:.92rem;color:var(--muted);line-height:1.8}
+/* FOOTER */
+footer{background:var(--navy2);position:relative;overflow:hidden;padding:72px 0 0}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:52px;padding-bottom:52px}
+.ft-p{font-size:.86rem;color:rgba(255,255,255,.42);line-height:1.8;max-width:290px;margin-bottom:20px;margin-top:16px}
+.ft-soc{display:flex;gap:10px}
+.ft-so{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .3s}
+.ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px)}
+.ft-col h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--white);margin-bottom:18px;padding-bottom:10px;position:relative}
+.ft-col h4::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--gold);border-radius:2px}
+.ft-col li{margin-bottom:9px}
+.ft-col a{font-size:.84rem;color:rgba(255,255,255,.4);transition:color .3s,padding-left .3s}
+.ft-col a:hover{color:var(--gold);padding-left:5px}
+.ft-ci{display:flex;align-items:flex-start;gap:10px;margin-bottom:13px;font-size:.84rem}
+.ft-cion{width:32px;height:32px;flex-shrink:0;background:rgba(244,180,0,.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--gold)}
+.ft-ct{color:rgba(255,255,255,.45);line-height:1.5}
+.ft-ct strong{display:block;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:2px}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:.78rem;color:rgba(255,255,255,.25)}
+.ft-dev{font-size:.75rem;color:rgba(255,255,255,.22)}
+.ft-dev a{color:var(--gold);opacity:.65;transition:opacity .3s;font-weight:500}
+.ft-dev a:hover{opacity:1}
+@media(max-width:1024px){.ev-grid{grid-template-columns:1fr 1fr}.ft-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.ev-grid{grid-template-columns:1fr}.ev-tabs{flex-direction:column;width:100%}.modal-details{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-i">
+    <a href="index.html" class="brand"><div class="brand-ico">ATU</div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></a>
+    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html" class="act">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html" class="act">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+  <div class="mob-bot"><span class="mob-lbl">Toggle Theme</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+</div>
+<section class="page-hero">
+  <div class="ph-slide ph-s1 act"></div><div class="ph-slide ph-s2"></div><div class="ph-slide ph-s3"></div>
+  <div class="ph-overlay"></div><div class="ph-mesh"></div>
+  <div class="ph-content">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Events</span></div>
+    <div class="ph-lbl">Calendar</div>
+    <h1 class="ph-h1">Events &amp; <em>Activities</em></h1>
+    <p class="ph-p">Stay informed about upcoming COMSA events, workshops, socials, and academic programmes.</p>
+  </div>
+  <div class="ph-dots" id="ph-dots"></div>
+</section>
+
+<section class="sp" style="background:var(--bg)">
+  <div class="container">
+    <div class="rv" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:36px">
+      <div><div class="lbl">Calendar</div><h2 class="h2">COMSA <em>Events</em></h2></div>
+      <div class="ev-tabs">
+        <button class="ev-tab act" data-panel="upcoming">Upcoming</button>
+        <button class="ev-tab" data-panel="past">Past Events</button>
+      </div>
+    </div>
+
+    <!-- UPCOMING -->
+    <div class="ev-grid ev-panel" id="panel-upcoming" style="display:grid">
+      <div class="ev-c rv d1" data-icon="🎉" data-cat="Annual Celebration" data-title="COMSA Week 2026" data-date="March 20–27, 2026" data-time="All Day" data-venue="ATU Campus" data-aud="All COMSA Members" data-desc="The most anticipated event of the COMSA calendar! A full week of academic panels, talent shows, debates, outdoor games, cultural displays, and a grand gala dinner celebrating our association.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-comsaweek.jpg"> --><div class="ev-img-ic">🎉</div><span class="ev-status up">Upcoming</span><div class="ev-date-b"><div class="ev-date-d">20</div><div class="ev-date-m">Mar</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Annual Celebration</div><h3 class="ev-tt">COMSA Week 2026</h3><p class="ev-dd">A full week of academic panels, talent shows, debates, outdoor games, cultural displays, and a grand gala dinner.</p><div class="ev-meta"><span>📅 Mar 20–27</span><span>📍 ATU Campus</span></div></div>
+      </div>
+      <div class="ev-c rv d2" data-icon="💼" data-cat="Career Development" data-title="Communications Career Fair & Networking Night" data-date="April 5, 2026" data-time="10:00 AM – 6:00 PM" data-venue="ATU Main Hall" data-aud="All Students" data-desc="Connect with leading communications professionals, media houses, PR agencies, and NGOs. Explore internship and job opportunities, polish your CV, and expand your professional network.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-careerfair.jpg"> --><div class="ev-img-ic">💼</div><span class="ev-status up">Upcoming</span><div class="ev-date-b"><div class="ev-date-d">5</div><div class="ev-date-m">Apr</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Career Development</div><h3 class="ev-tt">Communications Career Fair &amp; Networking Night</h3><p class="ev-dd">Connect with industry professionals and explore internship opportunities in media and communications.</p><div class="ev-meta"><span>📅 Apr 5, 2026</span><span>🕙 10 AM – 6 PM</span><span>📍 ATU Main Hall</span></div></div>
+      </div>
+      <div class="ev-c rv d3" data-icon="🎙️" data-cat="Workshop" data-title="Public Speaking Masterclass Series" data-date="April 12, 2026" data-time="9:00 AM – 3:00 PM" data-venue="Dept. Lecture Hall" data-aud="COMSA Members" data-desc="An intensive, hands-on masterclass led by experienced coaches. Participants will learn advanced techniques in public speaking, presentation delivery, vocal projection, body language, and storytelling.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-masterclass.jpg"> --><div class="ev-img-ic">🎙️</div><span class="ev-status up">Upcoming</span><div class="ev-date-b"><div class="ev-date-d">12</div><div class="ev-date-m">Apr</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Workshop</div><h3 class="ev-tt">Public Speaking Masterclass Series</h3><p class="ev-dd">Intensive training to sharpen your presentation, debate, and public speaking skills with industry coaches.</p><div class="ev-meta"><span>📅 Apr 12, 2026</span><span>🕘 9 AM – 3 PM</span></div></div>
+      </div>
+      <div class="ev-c rv d1" data-icon="📸" data-cat="Workshop" data-title="Media & Photography Bootcamp" data-date="May 3, 2026" data-time="8:00 AM – 5:00 PM" data-venue="ATU Studios" data-aud="All Students" data-desc="A full-day bootcamp introducing students to media production, photography fundamentals, video editing, and content creation for social media using professional equipment.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-bootcamp.jpg"> --><div class="ev-img-ic">📸</div><span class="ev-status up">Upcoming</span><div class="ev-date-b"><div class="ev-date-d">3</div><div class="ev-date-m">May</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Workshop</div><h3 class="ev-tt">Media &amp; Photography Bootcamp</h3><p class="ev-dd">Full-day bootcamp on media production, photography, video editing, and social media content creation.</p><div class="ev-meta"><span>📅 May 3, 2026</span><span>📍 ATU Studios</span></div></div>
+      </div>
+      <div class="ev-c rv d2" data-icon="🏆" data-cat="Competition" data-title="Inter-Level Debate Championship" data-date="May 17, 2026" data-time="12:00 PM – 6:00 PM" data-venue="ATU Auditorium" data-aud="All Levels" data-desc="An exciting inter-level debate competition covering current affairs, communications ethics, media policy, and social issues. Open to all COMSA members. Prizes for top debaters!">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-debate.jpg"> --><div class="ev-img-ic">🏆</div><span class="ev-status up">Upcoming</span><div class="ev-date-b"><div class="ev-date-d">17</div><div class="ev-date-m">May</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Competition</div><h3 class="ev-tt">Inter-Level Debate Championship</h3><p class="ev-dd">Students from all levels compete covering current affairs, media ethics, and communications policy.</p><div class="ev-meta"><span>📅 May 17, 2026</span><span>📍 ATU Auditorium</span></div></div>
+      </div>
+      <div class="ev-c rv d3" data-icon="🌟" data-cat="Gala Night" data-title="COMSA Annual Awards Night" data-date="June 14, 2026" data-time="6:00 PM – 11:00 PM" data-venue="TBA – Accra" data-aud="All Members & Guests" data-desc="The grandest evening in the COMSA calendar — our Annual Awards Night recognises outstanding students, dedicated executives, and remarkable contributors to the association. Awards, entertainment, and dinner!">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-awards.jpg"> --><div class="ev-img-ic">🌟</div><span class="ev-status up">Upcoming</span><div class="ev-date-b"><div class="ev-date-d">14</div><div class="ev-date-m">Jun</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Gala Night</div><h3 class="ev-tt">COMSA Annual Awards Night</h3><p class="ev-dd">A glamorous evening celebrating outstanding students and executives with awards, dinner, and entertainment.</p><div class="ev-meta"><span>📅 Jun 14, 2026</span><span>🕕 6 PM – 11 PM</span></div></div>
+      </div>
+    </div>
+
+    <!-- PAST -->
+    <div class="ev-grid ev-panel" id="panel-past" style="display:none">
+      <div class="ev-c rv d1" data-icon="🎓" data-cat="Orientation" data-title="Freshers' Orientation & Welcome Day" data-date="September 15, 2025" data-time="9:00 AM – 4:00 PM" data-venue="ATU Auditorium" data-aud="New Students" data-desc="COMSA welcomed the 2025/26 freshers with a vibrant orientation day featuring departmental introductions, executive presentations, campus tours, and fun icebreaker activities.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-freshers.jpg"> --><div class="ev-img-ic">🎓</div><span class="ev-status past">Completed</span><div class="ev-date-b"><div class="ev-date-d">15</div><div class="ev-date-m">Sep</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Orientation</div><h3 class="ev-tt">Freshers' Orientation &amp; Welcome Day</h3><p class="ev-dd">A vibrant welcome for 2025/26 freshers with departmental introductions, campus tours, and icebreakers.</p><div class="ev-meta"><span>📅 Sep 15, 2025</span><span>📍 ATU Auditorium</span></div></div>
+      </div>
+      <div class="ev-c rv d2" data-icon="🗳️" data-cat="Elections" data-title="2025/26 Executive Elections" data-date="October 10, 2025" data-time="8:00 AM – 5:00 PM" data-venue="ATU Campus" data-aud="All Registered Members" data-desc="COMSA members voted to elect their 2025/26 executive body in a free, fair, and transparent election. The newly elected executives were inaugurated marking the beginning of 'The All Inclusive Administration'.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-elections.jpg"> --><div class="ev-img-ic">🗳️</div><span class="ev-status past">Completed</span><div class="ev-date-b"><div class="ev-date-d">10</div><div class="ev-date-m">Oct</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Elections</div><h3 class="ev-tt">2025/26 Executive Elections</h3><p class="ev-dd">Free and fair elections for the executive body, followed by the inauguration of "The All Inclusive Administration".</p><div class="ev-meta"><span>📅 Oct 10, 2025</span><span>📍 ATU Campus</span></div></div>
+      </div>
+      <div class="ev-c rv d3" data-icon="📚" data-cat="Academic" data-title="Study Skills & Research Seminar" data-date="November 22, 2025" data-time="10:00 AM – 2:00 PM" data-venue="Seminar Room" data-aud="All COMSA Members" data-desc="An academic support seminar providing students with practical study skills, research methodology, and academic writing techniques. Led by senior lecturers and attended by over 100 participants.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-seminar.jpg"> --><div class="ev-img-ic">📚</div><span class="ev-status past">Completed</span><div class="ev-date-b"><div class="ev-date-d">22</div><div class="ev-date-m">Nov</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Academic</div><h3 class="ev-tt">Study Skills &amp; Research Seminar</h3><p class="ev-dd">Practical academic support covering study skills, research methodology, and academic writing — 100+ attendees.</p><div class="ev-meta"><span>📅 Nov 22, 2025</span><span>📍 Seminar Room</span></div></div>
+      </div>
+      <div class="ev-c rv d1" data-icon="🎄" data-cat="Social Event" data-title="COMSA End-of-Year Social" data-date="December 5, 2025" data-time="4:00 PM – 10:00 PM" data-venue="ATU Recreation Grounds" data-aud="All Members" data-desc="COMSA wrapped up the first semester with a memorable end-of-year social event. Members enjoyed games, music, food, and fellowship in a relaxed outdoor setting.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-social.jpg"> --><div class="ev-img-ic">🎄</div><span class="ev-status past">Completed</span><div class="ev-date-b"><div class="ev-date-d">5</div><div class="ev-date-m">Dec</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Social Event</div><h3 class="ev-tt">COMSA End-of-Year Social</h3><p class="ev-dd">An outdoor celebration with games, music, food, and fellowship marking the end of the first semester.</p><div class="ev-meta"><span>📅 Dec 5, 2025</span><span>📍 Recreation Grounds</span></div></div>
+      </div>
+      <div class="ev-c rv d2" data-icon="🤝" data-cat="Outreach" data-title="Community Outreach – Senior High Schools" data-date="January 17, 2026" data-time="9:00 AM – 3:00 PM" data-venue="Selected SHS, Greater Accra" data-aud="SHS Students" data-desc="COMSA executives visited senior high schools in Greater Accra to deliver talks on communication skills, career opportunities in media, and the importance of higher education at ATU.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-outreach.jpg"> --><div class="ev-img-ic">🤝</div><span class="ev-status past">Completed</span><div class="ev-date-b"><div class="ev-date-d">17</div><div class="ev-date-m">Jan</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Outreach</div><h3 class="ev-tt">Community Outreach – Senior High Schools</h3><p class="ev-dd">Visits to Greater Accra SHS schools delivering talks on communication careers and ATU opportunities.</p><div class="ev-meta"><span>📅 Jan 17, 2026</span></div></div>
+      </div>
+      <div class="ev-c rv d3" data-icon="📡" data-cat="Academic Forum" data-title="Digital Media & Social Trends Forum" data-date="February 14, 2026" data-time="11:00 AM – 4:00 PM" data-venue="ATU Conference Room" data-aud="Students & Industry Guests" data-desc="A thought-provoking forum exploring digital media, social platforms, influencer culture, and the impact of AI on communications. Guest speakers included media professionals and academic researchers.">
+        <div class="ev-img"><!-- 📸 <img src="images/ev-forum.jpg"> --><div class="ev-img-ic">📡</div><span class="ev-status past">Completed</span><div class="ev-date-b"><div class="ev-date-d">14</div><div class="ev-date-m">Feb</div></div></div>
+        <div class="ev-body"><div class="ev-cat">Academic Forum</div><h3 class="ev-tt">Digital Media &amp; Social Trends Forum</h3><p class="ev-dd">Forum on digital media evolution, social platforms, influencer culture, and AI in communications.</p><div class="ev-meta"><span>📅 Feb 14, 2026</span><span>📍 ATU Conference Room</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT MODAL -->
+<div class="modal-ov" id="ev-modal">
+  <div class="modal-bg" onclick="closeMod()"></div>
+  <div class="modal-box">
+    <div class="modal-hdr"><span class="modal-hdr-ic" id="m-ic">📅</span><img id="m-img" src="" alt=""/><button class="modal-close" onclick="closeMod()">✕</button></div>
+    <div class="modal-body">
+      <div class="modal-cat" id="m-cat"></div>
+      <h2 class="modal-tt" id="m-tt"></h2>
+      <div class="modal-details">
+        <div class="modal-det"><div class="modal-det-l">Date</div><div class="modal-det-v" id="m-date"></div></div>
+        <div class="modal-det"><div class="modal-det-l">Time</div><div class="modal-det-v" id="m-time"></div></div>
+        <div class="modal-det"><div class="modal-det-l">Venue</div><div class="modal-det-v" id="m-venue"></div></div>
+        <div class="modal-det"><div class="modal-det-l">Audience</div><div class="modal-det-v" id="m-aud"></div></div>
+      </div>
+      <p class="modal-desc" id="m-desc"></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div><div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><div class="brand-ico">ATU</div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a><a href="https://wa.me/233530099371" target="_blank" class="ft-so">💬</a></div></div>
+      <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="ft-col"><h4>Upcoming Events</h4><ul><li><a href="#">COMSA Week 2026</a></li><li><a href="#">Career Fair</a></li><li><a href="#">Speaking Masterclass</a></li><li><a href="#">Debate Championship</a></li><li><a href="#">Awards Night</a></li></ul></div>
+      <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div><div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>President</strong><a href="tel:+233530099371" style="color:var(--gold)">0530 099 371</a></div></div></div>
+    </div>
+    <div class="ft-bot"><div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div><div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">0544823484</a></div></div>
+  </div>
+</footer>
+<script>
+(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=t==='light'});})();
+function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=l});}
+document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+let phCur=0;const phSlides=Array.from(document.querySelectorAll('.ph-slide'));const phDots=document.getElementById('ph-dots');
+phSlides.forEach((_,i)=>{const d=document.createElement('button');d.className='ph-dot'+(i===0?' act':'');d.onclick=()=>phGo(i);phDots.appendChild(d)});
+function phGo(n){phSlides[phCur].classList.remove('act');document.querySelectorAll('.ph-dot')[phCur].classList.remove('act');phCur=(n+phSlides.length)%phSlides.length;phSlides[phCur].classList.add('act');document.querySelectorAll('.ph-dot')[phCur].classList.add('act')}
+setInterval(()=>phGo(phCur+1),4500);
+// TABS
+document.querySelectorAll('.ev-tab').forEach(tab=>tab.addEventListener('click',function(){
+  document.querySelectorAll('.ev-tab').forEach(t=>t.classList.remove('act'));
+  this.classList.add('act');
+  document.querySelectorAll('.ev-panel').forEach(p=>p.style.display='none');
+  document.getElementById('panel-'+this.dataset.panel).style.display='grid';
+}));
+// MODAL
+function openMod(card){
+  const m=document.getElementById('ev-modal');
+  document.getElementById('m-ic').textContent=card.dataset.icon||'📅';
+  document.getElementById('m-cat').textContent=card.dataset.cat||'';
+  document.getElementById('m-tt').textContent=card.dataset.title||'';
+  document.getElementById('m-date').textContent=card.dataset.date||'';
+  document.getElementById('m-time').textContent=card.dataset.time||'';
+  document.getElementById('m-venue').textContent=card.dataset.venue||'';
+  document.getElementById('m-aud').textContent=card.dataset.aud||'';
+  document.getElementById('m-desc').textContent=card.dataset.desc||'';
+  const imgEl=card.querySelector('.ev-img img');
+  const mImg=document.getElementById('m-img');
+  if(imgEl&&imgEl.src&&!imgEl.src.endsWith('/')){mImg.src=imgEl.src;mImg.classList.add('show');}else{mImg.classList.remove('show');}
+  m.classList.add('show');document.body.style.overflow='hidden';
+}
+function closeMod(){document.getElementById('ev-modal').classList.remove('show');document.body.style.overflow='';}
+document.querySelectorAll('.ev-c').forEach(c=>c.addEventListener('click',function(){openMod(this)}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMod()});
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
+document.querySelectorAll('a[href$=".html"]').forEach(a=>{a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)})});
+</script>
+</body>
+</html>
