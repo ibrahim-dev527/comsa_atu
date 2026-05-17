@@ -4,31 +4,37 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Setup Guide – COMSA Website</title>
+<meta name="description" content="Complete setup guide for the COMSA website. Image slots, popup config, blog, gallery, lecturers, and deployment."/>
+<meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech"/>
+<link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
+<link rel="apple-touch-icon" href="images/logo.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--white:#fff;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12);--green:#10B981;--red:#EF4444;--blue:#3B82F6;--purple:#8B5CF6}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12);--green:#10B981;--blue:#3B82F6;--purple:#8B5CF6}
 [data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
+img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
-
 /* NAV */
 #nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
 #nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
 [data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
 .nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--gold3));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);flex-shrink:0}
+.brand-logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.brand-logo-img{width:100%;height:100%;object-fit:cover}
+.brand-logo-fb{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);display:none}
 .brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
 .brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
 [data-theme=light] .brand-txt span{color:var(--muted)}
 .nav-links{display:flex;align-items:center;gap:2px}
-.nav-links a{padding:7px 14px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s}
+.nav-links a{padding:7px 13px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s}
 [data-theme=light] .nav-links a{color:var(--muted)}
-.nav-links a:hover,.nav-links a.act{color:var(--white);background:rgba(244,180,0,.08)}
+.nav-links a:hover,.nav-links a.act{color:#fff;background:rgba(244,180,0,.08)}
 [data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
 .nav-r{display:flex;align-items:center;gap:10px}
 .tog{position:relative;width:50px;height:26px;cursor:pointer;flex-shrink:0}
@@ -39,7 +45,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .tog input:checked~.tog-thumb{transform:translateX(24px)}
 .tog input:checked~.tog-thumb::before{content:'☀️'}
 .ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px}
-.ham span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+.ham span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
 [data-theme=light] .ham span{background:var(--navy)}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
@@ -47,173 +53,146 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
 [data-theme=light] .mob{background:rgba(244,244,240,.97)}
 .mob.open{transform:translateY(0);opacity:1}
-.mob a{display:block;padding:14px 0;font-size:1.05rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
+.mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
 [data-theme=light] .mob a{color:var(--muted)}
 .mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
 .mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
-.mob-lbl{font-size:.75rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
-
+.mob-lbl{font-size:.72rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
 /* HERO */
-.setup-hero{padding:calc(var(--nav) + 60px) 0 60px;background:linear-gradient(135deg,var(--navy2) 0%,var(--navy) 60%,#1a3060 100%);position:relative;overflow:hidden}
-.setup-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(244,180,0,.08),transparent 60%)}
+.setup-hero{padding:calc(var(--nav) + 56px) 0 60px;background:linear-gradient(135deg,var(--navy2) 0%,var(--navy) 60%,#1a3060 100%);position:relative;overflow:hidden}
+.setup-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(244,180,0,.07),transparent 60%)}
 .setup-hero-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none}
 .hero-inner{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 28px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(244,180,0,.1);border:1px solid rgba(244,180,0,.25);border-radius:99px;font-size:.75rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:20px}
-.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:var(--white);line-height:1.08;margin-bottom:18px}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:18px}
 .hero-h1 em{color:var(--gold);font-style:italic}
-.hero-desc{font-size:1.05rem;color:rgba(255,255,255,.55);max-width:560px;line-height:1.8;margin-bottom:32px}
-.hero-stats{display:flex;flex-wrap:wrap;gap:28px;margin-bottom:40px}
-.h-stat{text-align:left}
-.h-stat-n{font-family:'Orbitron',monospace;font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1}
-.h-stat-l{font-size:.72rem;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.1em;margin-top:3px}
-.toc{background:rgba(255,255,255,.04);border:1px solid rgba(244,180,0,.15);border-radius:16px;padding:24px 28px;max-width:520px}
-.toc-title{font-size:.75rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.toc-links{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
-.toc-link{font-size:.84rem;color:rgba(255,255,255,.6);transition:color .3s,padding-left .3s;display:flex;align-items:center;gap:6px}
-.toc-link:hover{color:var(--gold);padding-left:4px}
-.toc-link::before{content:'→';color:var(--gold);flex-shrink:0;font-size:.75rem}
-
+.hero-desc{font-size:1rem;color:rgba(255,255,255,.52);max-width:560px;line-height:1.82;margin-bottom:32px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:32px;margin-bottom:40px}
+.hs{text-align:left}
+.hs-n{font-family:'Orbitron',monospace;font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.hs-l{font-size:.7rem;color:rgba(255,255,255,.36);text-transform:uppercase;letter-spacing:.12em}
+/* TABLE OF CONTENTS */
+.toc{background:rgba(255,255,255,.04);border:1px solid rgba(244,180,0,.15);border-radius:16px;padding:24px 28px;max-width:560px}
+.toc-title{font-size:.73rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.toc-links{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
+.toc-link{font-size:.82rem;color:rgba(255,255,255,.55);transition:color .3s,padding-left .3s;display:flex;align-items:center;gap:6px;padding:3px 0}
+.toc-link:hover{color:var(--gold)}
+.toc-link::before{content:'→';color:var(--gold);flex-shrink:0;font-size:.72rem}
 /* UTILS */
 .container{max-width:1300px;margin:0 auto;padding:0 28px}
 .sp{padding:80px 0}
+.sp-sm{padding:52px 0}
 .lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
 .lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
-.h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;line-height:1.15;margin-bottom:16px}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;line-height:1.15;margin-bottom:14px}
 .h2 em{color:var(--gold);font-style:italic}
-.rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rv.in{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-size:.86rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;font-family:'Outfit',sans-serif;position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.14);opacity:0;transition:opacity .3s}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-size:.86rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.13);opacity:0;transition:opacity .3s}
 .btn:hover::after{opacity:1}
 .btn:hover{transform:translateY(-2px)}
 .btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 6px 22px rgba(244,180,0,.28)}
 .btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
-
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
 /* SECTION CARD */
-.s-card{background:var(--card);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;margin-bottom:24px}
-.s-card-head{padding:22px 28px;background:linear-gradient(135deg,var(--navy),var(--navy3));display:flex;align-items:center;gap:14px}
+.s-card{background:var(--card);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;margin-bottom:22px}
+.s-card-head{padding:20px 26px;background:linear-gradient(135deg,var(--navy),var(--navy3));display:flex;align-items:center;gap:14px}
 .s-card-ic{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.s-card-ic-gold{background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.25)}
-.s-card-ic-green{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25)}
-.s-card-ic-blue{background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.25)}
-.s-card-ic-purple{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25)}
-.s-card-ic-red{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.25)}
-.s-card-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--white)}
-.s-card-sub{font-size:.8rem;color:rgba(255,255,255,.42);margin-top:2px}
-.s-card-body{padding:28px}
-
-/* STEP LIST */
-.step-list{display:flex;flex-direction:column;gap:18px}
-.step{display:flex;gap:16px;align-items:flex-start}
-.step-num{width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:'Orbitron',monospace;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.step-content{}
-.step-title{font-weight:700;color:var(--txt);margin-bottom:4px;font-size:.95rem}
-.step-desc{font-size:.86rem;color:var(--muted);line-height:1.7}
-
+.ic-gold{background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.25)}
+.ic-green{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25)}
+.ic-blue{background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.25)}
+.ic-purple{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25)}
+.s-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff}
+.s-card-sub{font-size:.78rem;color:rgba(255,255,255,.38);margin-top:2px}
+.s-card-body{padding:26px}
+/* STEPS */
+.step-list{display:flex;flex-direction:column;gap:16px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step-num{width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-title{font-weight:700;color:var(--txt);margin-bottom:4px;font-size:.92rem}
+.step-desc{font-size:.84rem;color:var(--muted);line-height:1.7}
 /* CODE BLOCK */
-.code{background:var(--navy2);border:1px solid rgba(244,180,0,.12);border-radius:10px;padding:16px 18px;font-family:'Courier New',monospace;font-size:.82rem;color:#a8d8a8;line-height:1.7;margin:12px 0;position:relative;overflow-x:auto}
-.code .comment{color:#6a8f6a}
-.code .tag{color:#7ecfff}
-.code .attr{color:#f7c98b}
-.code .val{color:#f48b7c}
-.code .highlight{color:var(--gold);font-weight:700}
-.copy-btn{position:absolute;top:10px;right:10px;padding:4px 10px;background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.25);border-radius:6px;font-size:.68rem;color:var(--gold);cursor:pointer;transition:background .3s}
+.code{background:var(--navy2);border:1px solid rgba(244,180,0,.1);border-radius:10px;padding:16px 18px;font-family:'Courier New',monospace;font-size:.8rem;color:#a8d8a8;line-height:1.75;margin:12px 0;position:relative;overflow-x:auto;white-space:pre}
+.cm{color:#6a8f6a}
+.ck{color:#7ecfff}
+.ca{color:#f7c98b}
+.cv{color:#f48b7c}
+.ch{color:var(--gold);font-weight:700}
+.copy-btn{position:absolute;top:10px;right:10px;padding:4px 10px;background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.25);border-radius:6px;font-size:.68rem;color:var(--gold);cursor:pointer;transition:background .3s;font-family:'Outfit',sans-serif;white-space:nowrap}
 .copy-btn:hover{background:rgba(244,180,0,.3)}
-
+/* ALERT */
+.alert{border-radius:11px;padding:14px 16px;margin:12px 0;display:flex;gap:11px;align-items:flex-start;font-size:.86rem;line-height:1.65}
+.alert-ic{font-size:1.05rem;flex-shrink:0;margin-top:1px}
+.a-green{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2)}
+.a-gold{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2)}
+.a-blue{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2)}
+.a-red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)}
 /* IMAGE SLOT TABLE */
-.slot-table{width:100%;border-collapse:collapse;margin-top:12px}
-.slot-table th{text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--bdr)}
-.slot-table td{padding:10px 12px;border-bottom:1px solid rgba(244,180,0,.06);font-size:.84rem;color:var(--txt);vertical-align:top}
+.slot-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.83rem}
+.slot-table th{text-align:left;font-size:.7rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--bdr)}
+.slot-table td{padding:9px 12px;border-bottom:1px solid rgba(244,180,0,.05);vertical-align:top}
 .slot-table tr:last-child td{border-bottom:none}
 .slot-table tr:hover td{background:rgba(244,180,0,.03)}
-.slot-num{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;color:var(--gold);background:rgba(244,180,0,.1);padding:2px 8px;border-radius:4px;white-space:nowrap}
-.slot-file{font-family:'Courier New',monospace;font-size:.78rem;color:#7ecfff}
-.slot-loc{font-size:.78rem;color:var(--muted)}
-.slot-size{font-size:.75rem;color:var(--muted);white-space:nowrap}
-
-/* ALERT BOXES */
-.alert{border-radius:12px;padding:16px 18px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:.88rem;line-height:1.65}
-.alert-ic{font-size:1.1rem;flex-shrink:0;margin-top:1px}
-.alert-green{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:var(--txt)}
-.alert-yellow{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2);color:var(--txt)}
-.alert-blue{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--txt)}
-.alert-red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:var(--txt)}
-.alert strong{color:var(--txt);font-weight:700}
-
-/* CHECKLIST */
-.checklist{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-.cl-item{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--surf);border-radius:10px;transition:background .3s}
-.cl-item:hover{background:rgba(244,180,0,.06)}
-.cl-check{width:20px;height:20px;border-radius:50%;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;margin-top:1px}
-.cl-text{font-size:.86rem;color:var(--txt);line-height:1.6}
-.cl-text strong{color:var(--txt);font-weight:600}
-.cl-text code{font-family:'Courier New',monospace;font-size:.8rem;background:rgba(244,180,0,.1);padding:1px 6px;border-radius:4px;color:var(--gold)}
-
-/* FEATURE GRID */
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
-.feat-c{background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:20px;transition:border-color .3s,transform .3s}
-.feat-c:hover{border-color:rgba(244,180,0,.25);transform:translateY(-3px)}
-.feat-ic{font-size:1.6rem;margin-bottom:10px}
-.feat-title{font-weight:700;font-size:.88rem;color:var(--txt);margin-bottom:5px}
-.feat-desc{font-size:.78rem;color:var(--muted);line-height:1.6}
-
+.sn{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--gold);background:rgba(244,180,0,.1);padding:2px 7px;border-radius:4px;white-space:nowrap}
+.sf{font-family:'Courier New',monospace;font-size:.78rem;color:#7ecfff}
+.sl{font-size:.78rem;color:var(--muted)}
 /* PAGE MAP */
-.page-map{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
-.pm-c{background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:18px;transition:border-color .3s,transform .3s;cursor:pointer;text-decoration:none;display:block}
-.pm-c:hover{border-color:rgba(244,180,0,.28);transform:translateY(-4px)}
-.pm-ic{font-size:1.8rem;margin-bottom:10px}
-.pm-file{font-family:'Courier New',monospace;font-size:.75rem;color:var(--gold);margin-bottom:4px}
-.pm-title{font-weight:700;font-size:.9rem;color:var(--txt);margin-bottom:4px}
-.pm-desc{font-size:.75rem;color:var(--muted);line-height:1.55}
-.pm-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
-.pm-tag{font-size:.64rem;padding:2px 7px;border-radius:4px;font-weight:600}
-.pm-tag-g{background:rgba(16,185,129,.12);color:#10B981}
-.pm-tag-b{background:rgba(59,130,246,.12);color:#3B82F6}
-.pm-tag-y{background:rgba(244,180,0,.12);color:var(--gold)}
-
-/* PROGRESS TRACKER */
-.tracker{background:var(--surf);border-radius:16px;padding:24px;margin-top:16px}
-.tracker-title{font-weight:700;font-size:.95rem;color:var(--txt);margin-bottom:16px}
-.tracker-items{display:flex;flex-direction:column;gap:10px}
-.tr-item{display:flex;align-items:center;gap:12px}
-.tr-check{width:24px;height:24px;border-radius:6px;border:2px solid var(--bdr);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0}
-.tr-check.done{background:var(--green);border-color:var(--green);color:#fff;font-size:.8rem}
-.tr-label{font-size:.86rem;color:var(--txt);flex:1}
-.tr-label.done{text-decoration:line-through;color:var(--muted)}
-.tr-page{font-size:.72rem;color:var(--muted);background:var(--surf);padding:2px 7px;border-radius:4px;white-space:nowrap}
-
+.page-map{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.pm-c{background:var(--surf);border:1px solid var(--bdr);border-radius:13px;padding:16px;transition:border-color .3s,transform .3s;cursor:pointer}
+.pm-c:hover{border-color:rgba(244,180,0,.28);transform:translateY(-3px)}
+.pm-ic{font-size:1.7rem;margin-bottom:8px}
+.pm-file{font-family:'Courier New',monospace;font-size:.72rem;color:var(--gold);margin-bottom:3px}
+.pm-title{font-weight:700;font-size:.88rem;color:var(--txt);margin-bottom:3px}
+.pm-desc{font-size:.74rem;color:var(--muted);line-height:1.55}
+.pm-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.pm-tag{font-size:.62rem;padding:2px 6px;border-radius:4px;font-weight:600}
+.pt-g{background:rgba(16,185,129,.12);color:#10B981}
+.pt-b{background:rgba(59,130,246,.12);color:#3B82F6}
+.pt-y{background:rgba(244,180,0,.12);color:var(--gold)}
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.cl-item{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;background:var(--surf);border-radius:10px;transition:background .3s}
+.cl-item:hover{background:rgba(244,180,0,.05)}
+.cl-chk{width:20px;height:20px;border-radius:50%;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.28);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .2s}
+.cl-chk.done{background:var(--green);border-color:var(--green);color:#fff}
+.cl-text{font-size:.84rem;color:var(--txt);line-height:1.6}
+.cl-text.done{text-decoration:line-through;color:var(--muted)}
+.cl-text code{font-family:'Courier New',monospace;font-size:.78rem;background:rgba(244,180,0,.1);padding:1px 5px;border-radius:4px;color:var(--gold)}
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.feat-c{background:var(--surf);border:1px solid var(--bdr);border-radius:13px;padding:18px;transition:border-color .3s,transform .3s}
+.feat-c:hover{border-color:rgba(244,180,0,.22);transform:translateY(-3px)}
+.feat-ic{font-size:1.5rem;margin-bottom:8px}
+.feat-title{font-weight:700;font-size:.86rem;color:var(--txt);margin-bottom:4px}
+.feat-desc{font-size:.76rem;color:var(--muted);line-height:1.6}
 /* FOOTER */
-footer{background:var(--navy2);position:relative;overflow:hidden;padding:52px 0 0}
+footer{background:var(--navy2);padding:52px 0 0;position:relative;overflow:hidden}
 footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.ft-copy{font-size:.78rem;color:rgba(255,255,255,.25)}
-.ft-dev{font-size:.75rem;color:rgba(255,255,255,.22)}
-.ft-dev a{color:var(--gold);opacity:.65;font-weight:500}
-.ft-dev a:hover{opacity:1}
-.ft-links{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:28px}
-.ft-links a{font-size:.84rem;color:rgba(255,255,255,.45);transition:color .3s}
+.ft-links{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.ft-links a{font-size:.82rem;color:rgba(255,255,255,.42);transition:color .3s}
 .ft-links a:hover{color:var(--gold)}
-
-@media(max-width:1024px){.feat-grid{grid-template-columns:1fr 1fr}.page-map{grid-template-columns:1fr 1fr}.toc-links{grid-template-columns:1fr}}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:.76rem;color:rgba(255,255,255,.22)}
+.ft-dev{font-size:.73rem;color:rgba(255,255,255,.2)}
+.ft-dev a{color:var(--gold);opacity:.6;font-weight:500}
+.ft-dev a:hover{opacity:1}
+@media(max-width:1024px){.page-map{grid-template-columns:repeat(2,1fr)}.feat-grid{grid-template-columns:1fr 1fr}.toc-links{grid-template-columns:1fr}}
 @media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.feat-grid{grid-template-columns:1fr}.page-map{grid-template-columns:1fr 1fr}.ft-bot{flex-direction:column;text-align:center}}
 @media(max-width:480px){.page-map{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <nav id="nav">
   <div class="nav-i">
-    <a href="index.html" class="brand"><div class="brand-ico">ATU</div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li>
-    </ul>
+    <a href="index.html" class="brand"><div class="brand-logo-wrap"><img src="images/logo.jpg" alt="COMSA" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="brand-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></a>
+    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul>
     <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham"><span></span><span></span><span></span></button></div>
   </div>
 </nav>
 <div class="mob" id="mob">
   <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
-  <div class="mob-bot"><span class="mob-lbl">Toggle Theme</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+  <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
 </div>
 
 <!-- HERO -->
@@ -221,175 +200,146 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="setup-hero-mesh"></div>
   <div class="hero-inner">
     <div class="hero-badge">⚙️ Developer Setup Guide</div>
-    <h1 class="hero-h1">Everything You Need to<br/><em>Set Up Your Site</em></h1>
-    <p class="hero-desc">A complete visual guide explaining every customisable part of the COMSA website — popup, images, blog, gallery, executives, lecturers, and more.</p>
+    <h1 class="hero-h1">Everything You Need<br/>to <em>Set Up Your Site</em></h1>
+    <p class="hero-desc">A complete visual guide explaining every customisable part of the COMSA website — logo, images, popup, blog, gallery, lecturers, executives, and deployment.</p>
     <div class="hero-stats">
-      <div class="h-stat"><div class="h-stat-n">8</div><div class="h-stat-l">Pages</div></div>
-      <div class="h-stat"><div class="h-stat-n">30+</div><div class="h-stat-l">Image Slots</div></div>
-      <div class="h-stat"><div class="h-stat-n">5</div><div class="h-stat-l">Key Features</div></div>
-      <div class="h-stat"><div class="h-stat-n">0</div><div class="h-stat-l">Backend Needed</div></div>
+      <div class="hs"><div class="hs-n">8</div><div class="hs-l">Pages</div></div>
+      <div class="hs"><div class="hs-n">40+</div><div class="hs-l">Image Slots</div></div>
+      <div class="hs"><div class="hs-n">5</div><div class="hs-l">Key Features</div></div>
+      <div class="hs"><div class="hs-n">0</div><div class="hs-l">Backend Needed</div></div>
     </div>
-    <!-- TABLE OF CONTENTS -->
     <div class="toc">
       <div class="toc-title">📋 On This Page</div>
       <div class="toc-links">
         <a href="#folder" class="toc-link">Folder Structure</a>
-        <a href="#popup" class="toc-link">Popup / Flyer</a>
-        <a href="#hero" class="toc-link">Hero Slider</a>
+        <a href="#logo" class="toc-link">Logo Setup</a>
         <a href="#images" class="toc-link">All Image Slots</a>
-        <a href="#executives" class="toc-link">Executives</a>
-        <a href="#lecturers" class="toc-link">Lecturers</a>
+        <a href="#popup" class="toc-link">Popup / Flyer</a>
+        <a href="#executives" class="toc-link">Executive Photos</a>
+        <a href="#lecturers" class="toc-link">Lecturer Details</a>
         <a href="#blog" class="toc-link">Blog Posts</a>
         <a href="#gallery" class="toc-link">Gallery Upload</a>
-        <a href="#popup-config" class="toc-link">News Popup</a>
+        <a href="#deploy" class="toc-link">Deploy to Vercel</a>
         <a href="#checklist" class="toc-link">Final Checklist</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PAGES OVERVIEW -->
+<!-- FOLDER STRUCTURE -->
 <section class="sp" id="folder" style="background:var(--bg)">
   <div class="container">
     <div class="rv"><div class="lbl">Step 1</div><h2 class="h2">Folder Structure &amp; <em>Pages</em></h2></div>
-    <div class="alert alert-blue rv d1"><span class="alert-ic">📁</span><div>Place all your images inside the <strong>images/</strong> folder that sits alongside your HTML files. Never use spaces in filenames — use hyphens instead. Example: <strong>president-photo.jpg</strong> not <strong>president photo.jpg</strong></div></div>
-    <div class="code rv d2">comsa/<br/>
-├── <span class="highlight">index.html</span>          <span class="comment">← Home page</span><br/>
-├── <span class="highlight">about.html</span>          <span class="comment">← About COMSA</span><br/>
-├── <span class="highlight">executives.html</span>     <span class="comment">← Executives + Lecturers</span><br/>
-├── <span class="highlight">events.html</span>         <span class="comment">← Upcoming & Past Events</span><br/>
-├── <span class="highlight">blog.html</span>           <span class="comment">← Blog with flyer uploads</span><br/>
-├── <span class="highlight">gallery.html</span>        <span class="comment">← Photo gallery</span><br/>
-├── <span class="highlight">contact.html</span>        <span class="comment">← Contact form + executive lines</span><br/>
-├── <span class="highlight">setup.html</span>          <span class="comment">← This page (you can delete when done)</span><br/>
-└── <span class="highlight">images/</span>             <span class="comment">← Put ALL your photos here</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;├── hero-bg.jpg<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;├── president.jpg<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;├── vp.jpg<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;└── popup-flyer.jpg</div>
+    <div class="alert a-blue rv d1"><span class="alert-ic">📁</span><div>Place all your images inside the <strong>images/</strong> folder alongside your HTML files. Never use spaces in filenames — use hyphens. Example: <strong>president-photo.jpg</strong> not <strong>president photo.jpg</strong></div></div>
+    <div class="code rv d2"><button class="copy-btn" onclick="copyCode(this)">Copy</button>comsa/<span class="cm">
+├── index.html          ← Home page (with popup + loader)</span>
+├── about.html          <span class="cm">← About + all 5 department programmes</span>
+├── executives.html     <span class="cm">← Exec flip cards + lecturers section</span>
+├── events.html         <span class="cm">← Upcoming + past events with modals</span>
+├── blog.html           <span class="cm">← Blog posts + flyer upload + add post form</span>
+├── gallery.html        <span class="cm">← Masonry gallery + lightbox + bulk upload</span>
+├── contact.html        <span class="cm">← Contact form + all exec phone numbers</span>
+├── setup.html          <span class="cm">← This guide (delete when done)</span>
+└── images/             <span class="ch">← ALL your photos go here</span>
+    ├── logo.jpg        <span class="cm">← COMSA Logo (navbar, footer, chatbot)</span>
+    ├── comsa1.jpg      <span class="cm">← Hero slide 1</span>
+    ├── comsa5.jpg      <span class="cm">← President photo</span>
+    ├── Kwaning.jpg     <span class="cm">← HOD photo</span>
+    ├── Aboagye.jpg     <span class="cm">← Lecturer photo</span>
+    └── Baxey.jpg       <span class="cm">← Lecturer photo</span></div>
 
     <!-- PAGE MAP -->
     <div class="page-map rv d3">
-      <a href="index.html" class="pm-c"><div class="pm-ic">🏠</div><div class="pm-file">index.html</div><div class="pm-title">Home Page</div><div class="pm-desc">Hero slider, about preview, exec spotlight, announcements, stats, CTA</div><div class="pm-tags"><span class="pm-tag pm-tag-g">Hero Slider</span><span class="pm-tag pm-tag-y">Popup</span></div></a>
-      <a href="about.html" class="pm-c"><div class="pm-ic">📖</div><div class="pm-file">about.html</div><div class="pm-title">About</div><div class="pm-desc">Mission, vision, history timeline, core values, department overview</div><div class="pm-tags"><span class="pm-tag pm-tag-b">Slider</span></div></a>
-      <a href="executives.html" class="pm-c"><div class="pm-ic">👔</div><div class="pm-file">executives.html</div><div class="pm-title">Executives</div><div class="pm-desc">Flip cards for all 9 execs, lecturers section below</div><div class="pm-tags"><span class="pm-tag pm-tag-g">Flip Cards</span><span class="pm-tag pm-tag-y">Photos</span></div></a>
-      <a href="events.html" class="pm-c"><div class="pm-ic">📅</div><div class="pm-file">events.html</div><div class="pm-title">Events</div><div class="pm-desc">Upcoming & past events with popup modal on click</div><div class="pm-tags"><span class="pm-tag pm-tag-b">Modal</span><span class="pm-tag pm-tag-g">Tabs</span></div></a>
-      <a href="blog.html" class="pm-c"><div class="pm-ic">📝</div><div class="pm-file">blog.html</div><div class="pm-title">Blog</div><div class="pm-desc">Filterable posts, flyer uploads, add-post form, read-more modal</div><div class="pm-tags"><span class="pm-tag pm-tag-y">Upload</span><span class="pm-tag pm-tag-g">Add Post</span></div></a>
-      <a href="gallery.html" class="pm-c"><div class="pm-ic">🖼️</div><div class="pm-file">gallery.html</div><div class="pm-title">Gallery</div><div class="pm-desc">Masonry grid, lightbox, filter by category, bulk photo upload</div><div class="pm-tags"><span class="pm-tag pm-tag-y">Upload</span><span class="pm-tag pm-tag-b">Lightbox</span></div></a>
-      <a href="contact.html" class="pm-c"><div class="pm-ic">📞</div><div class="pm-file">contact.html</div><div class="pm-title">Contact</div><div class="pm-desc">Contact form, social links, all executive phone numbers & WhatsApp</div><div class="pm-tags"><span class="pm-tag pm-tag-g">Form</span><span class="pm-tag pm-tag-b">WhatsApp</span></div></a>
-      <a href="setup.html" class="pm-c"><div class="pm-ic">⚙️</div><div class="pm-file">setup.html</div><div class="pm-title">Setup Guide</div><div class="pm-desc">This page — explains everything. Delete when done setting up.</div><div class="pm-tags"><span class="pm-tag pm-tag-y">Guide</span></div></a>
+      <div class="pm-c" onclick="location.href='index.html'"><div class="pm-ic">🏠</div><div class="pm-file">index.html</div><div class="pm-title">Home</div><div class="pm-desc">Hero slider, popup, about preview, exec spotlight, stats, CTA</div><div class="pm-tags"><span class="pm-tag pt-g">Slider</span><span class="pm-tag pt-y">Popup</span></div></div>
+      <div class="pm-c" onclick="location.href='about.html'"><div class="pm-ic">📖</div><div class="pm-file">about.html</div><div class="pm-title">About</div><div class="pm-desc">Mission, vision, 5 department programmes with expand cards</div><div class="pm-tags"><span class="pm-tag pt-b">Programmes</span></div></div>
+      <div class="pm-c" onclick="location.href='executives.html'"><div class="pm-ic">👔</div><div class="pm-file">executives.html</div><div class="pm-title">Executives</div><div class="pm-desc">9 exec flip cards + lecturers: Kwaning, Aboagye, Baxey</div><div class="pm-tags"><span class="pm-tag pt-g">Flip Cards</span><span class="pm-tag pt-y">Photos</span></div></div>
+      <div class="pm-c" onclick="location.href='events.html'"><div class="pm-ic">📅</div><div class="pm-file">events.html</div><div class="pm-title">Events</div><div class="pm-desc">Upcoming + past event tabs, click-to-expand modal for each</div><div class="pm-tags"><span class="pm-tag pt-b">Modal</span><span class="pm-tag pt-g">Tabs</span></div></div>
+      <div class="pm-c" onclick="location.href='blog.html'"><div class="pm-ic">📝</div><div class="pm-file">blog.html</div><div class="pm-title">Blog</div><div class="pm-desc">Filterable posts, flyer upload, add-post form, read-more modal</div><div class="pm-tags"><span class="pm-tag pt-y">Upload</span><span class="pm-tag pt-g">Filter</span></div></div>
+      <div class="pm-c" onclick="location.href='gallery.html'"><div class="pm-ic">🖼️</div><div class="pm-file">gallery.html</div><div class="pm-title">Gallery</div><div class="pm-desc">Masonry grid, lightbox with keyboard + swipe, bulk upload</div><div class="pm-tags"><span class="pm-tag pt-y">Upload</span><span class="pm-tag pt-b">Lightbox</span></div></div>
+      <div class="pm-c" onclick="location.href='contact.html'"><div class="pm-ic">📞</div><div class="pm-file">contact.html</div><div class="pm-title">Contact</div><div class="pm-desc">Form, social links, all 9 exec phone + WhatsApp, map link</div><div class="pm-tags"><span class="pm-tag pt-g">Form</span><span class="pm-tag pt-b">WhatsApp</span></div></div>
+      <div class="pm-c"><div class="pm-ic">⚙️</div><div class="pm-file">setup.html</div><div class="pm-title">Setup Guide</div><div class="pm-desc">This page. Delete it after setting up your website.</div><div class="pm-tags"><span class="pm-tag pt-y">Guide</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- POPUP SETUP -->
-<section class="sp" id="popup" style="background:var(--surf)" >
+<!-- LOGO -->
+<section class="sp" id="logo" style="background:var(--surf)">
   <div class="container">
-    <div class="rv"><div class="lbl">Step 2</div><h2 class="h2">The Welcome <em>Popup</em></h2><p style="color:var(--muted);max-width:580px;font-size:.95rem">The popup appears automatically when a user visits the site for the first time. It shows your latest news or flyer. It will NOT appear again until they clear their browser session.</p></div>
-
-    <div class="s-card rv d1" id="popup-config">
-      <div class="s-card-head">
-        <div class="s-card-ic s-card-ic-gold">📢</div>
-        <div><div class="s-card-title">Editing the Popup</div><div class="s-card-sub">Open index.html and find the POPUP CONFIG section in the JavaScript</div></div>
-      </div>
-      <div class="s-card-body">
-        <div class="step-list">
-          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Open index.html in your code editor</div><div class="step-desc">Use VS Code, Notepad++, or any text editor. Press Ctrl+F and search for <strong>POPUP CONFIG</strong> — you'll find it immediately.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Edit the POPUP object</div><div class="step-desc">Change the values below to your own content:</div></div></div>
-        </div>
-        <div class="code">
-<span class="comment">/* ===== POPUP CONFIG — EDIT THESE ===== */</span><br/>
-const POPUP = {<br/>
-&nbsp;&nbsp;<span class="attr">active</span>: <span class="val">true</span>,                    <span class="comment">// false = disable popup</span><br/>
-&nbsp;&nbsp;<span class="attr">badge</span>: <span class="val">'📢 Latest News'</span>,        <span class="comment">// Small label at top</span><br/>
-&nbsp;&nbsp;<span class="attr">title</span>: <span class="val">'Your Popup Headline'</span>,   <span class="comment">// Main heading</span><br/>
-&nbsp;&nbsp;<span class="attr">message</span>: <span class="val">'Your popup message goes here...'</span>, <span class="comment">// Body text</span><br/>
-&nbsp;&nbsp;<span class="attr">image</span>: <span class="val">'images/popup-flyer.jpg'</span>, <span class="comment">// 📸 Your flyer image</span><br/>
-&nbsp;&nbsp;<span class="attr">btnText</span>: <span class="val">'Learn More →'</span>,       <span class="comment">// Button text</span><br/>
-&nbsp;&nbsp;<span class="attr">btnLink</span>: <span class="val">'events.html'</span>,         <span class="comment">// Button destination</span><br/>
-};
-        </div>
-        <div class="alert alert-yellow"><span class="alert-ic">💡</span><div>To upload a flyer to the popup, save your image inside the <strong>images/</strong> folder and set <strong>image: 'images/your-flyer.jpg'</strong>. The image will appear at the top of the popup. Leave it empty (<strong>image: ''</strong>) for text-only.</div></div>
-        <div class="alert alert-green"><span class="alert-ic">✅</span><div>To <strong>turn off</strong> the popup completely, set <strong>active: false</strong>. To <strong>reset</strong> it so it shows again (for testing), open your browser console and type: <strong>sessionStorage.removeItem('comsa-popup')</strong> then refresh.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HERO SLIDER -->
-<section class="sp" id="hero" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 3</div><h2 class="h2">Hero Slider <em>Backgrounds</em></h2><p style="color:var(--muted);max-width:560px;font-size:.95rem">Every page has a swipeable hero slider. By default they show coloured gradients. To add real photos, open the page and find the slide CSS classes.</p></div>
-
+    <div class="rv"><div class="lbl">Step 2</div><h2 class="h2">Logo <em>Setup</em></h2></div>
     <div class="s-card rv d1">
-      <div class="s-card-head">
-        <div class="s-card-ic s-card-ic-blue">🖼️</div>
-        <div><div class="s-card-title">Adding Background Photos to Slides</div><div class="s-card-sub">Do this for every page — index, about, executives, events, blog, gallery, contact</div></div>
-      </div>
+      <div class="s-card-head"><div class="s-card-ic ic-gold">🏛️</div><div><div class="s-card-title">logo.jpg — Used in 4 places on every page</div><div class="s-card-sub">Navbar · Footer · Chatbot header · Favicon (browser tab icon)</div></div></div>
       <div class="s-card-body">
-        <div class="step-list">
-          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Save your photos in the images/ folder</div><div class="step-desc">Use wide/landscape photos. Minimum size: <strong>1400×600px</strong>. Good sources: your events, campus photos, group shots.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Open any HTML file and find the slide CSS</div><div class="step-desc">In the &lt;style&gt; block near the top of the file, search for <strong>.ph-s1</strong> (for page heroes) or <strong>.slide-1</strong> (for the home hero).</div></div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Add your image to each slide class</div></div></div>
+        <div class="alert a-green"><span class="alert-ic">✅</span><div><strong>How it works:</strong> Simply name your logo file <strong>logo.jpg</strong> and place it in the <strong>images/</strong> folder. It automatically appears in the navbar, footer, chatbot header, and as the browser tab icon on every page. No code changes needed!</div></div>
+        <div class="step-list" style="margin-top:16px">
+          <div class="step"><div class="step-num">1</div><div><div class="step-title">Prepare your logo</div><div class="step-desc">Best size: <strong>200×200px</strong> or square (1:1 ratio). PNG with transparent background works — just save as JPG. Minimum 100×100px.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div><div class="step-title">Name it exactly: logo.jpg</div><div class="step-desc">The filename must be exactly <strong>logo.jpg</strong> (lowercase). Place it in your <strong>images/</strong> folder alongside the HTML files.</div></div></div>
+          <div class="step"><div class="step-num">3</div><div><div class="step-title">Done! It appears everywhere automatically</div><div class="step-desc">If the logo fails to load for any reason, the site gracefully shows "ATU" text as a fallback — so nothing breaks.</div></div></div>
         </div>
-        <div class="code">
-<span class="comment">/* Home page hero slides — in index.html */</span><br/>
-.<span class="tag">slide-1</span> {<br/>
-&nbsp;&nbsp;<span class="attr">background</span>: <span class="val">linear-gradient(...)</span>; <span class="comment">/* keep as fallback */</span><br/>
-&nbsp;&nbsp;<span class="highlight">background-image: url('images/hero-slide-1.jpg');</span><br/>
-&nbsp;&nbsp;<span class="highlight">background-size: cover;</span><br/>
-&nbsp;&nbsp;<span class="highlight">background-position: center;</span><br/>
-}<br/><br/>
-<span class="comment">/* Other page hero slides (about, events etc.) */</span><br/>
-.<span class="tag">ph-s1</span> {<br/>
-&nbsp;&nbsp;<span class="highlight">background-image: url('images/about-hero.jpg');</span><br/>
-&nbsp;&nbsp;<span class="highlight">background-size: cover;</span><br/>
-&nbsp;&nbsp;<span class="highlight">background-position: center;</span><br/>
-}
-        </div>
-        <div class="alert alert-blue"><span class="alert-ic">ℹ️</span><div>The dark overlay on top of the slides is automatic — so even bright photos will look good. If you want the photo brighter, find <strong>.ph-overlay</strong> or <strong>.slide-overlay</strong> in the CSS and reduce the opacity value.</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ALL IMAGE SLOTS -->
-<section class="sp" id="images" style="background:var(--surf)">
+<section class="sp" id="images" style="background:var(--bg)">
   <div class="container">
-    <div class="rv"><div class="lbl">Step 4</div><h2 class="h2">All <em>Image Slots</em></h2><p style="color:var(--muted);max-width:580px;font-size:.95rem">Every image slot in the website is marked with a 📸 comment. Here is the complete reference for every slot across all pages.</p></div>
-
-    <div class="alert alert-green rv d1"><span class="alert-ic">📸</span><div><strong>How to add any photo:</strong> Open the HTML file in your editor, search for <strong>📸</strong>, and replace the <strong>src=""</strong> with your image path. Example: <strong>src="images/president.jpg"</strong>. The initials/placeholder text hides automatically when you add a real photo.</div></div>
+    <div class="rv"><div class="lbl">Step 3</div><h2 class="h2">All Image <em>Slots</em></h2></div>
+    <div class="alert a-green rv d1"><span class="alert-ic">📸</span><div><strong>How to add any photo:</strong> Every image slot in the website already has an <code style="font-family:monospace;background:rgba(244,180,0,.1);padding:2px 6px;border-radius:4px;color:var(--gold)">&lt;img src="images/comsaN.jpg" alt="..."/&gt;</code> tag. Just drop your real photo into the <strong>images/</strong> folder with the correct filename and it appears automatically. No code editing needed for most images!</div></div>
 
     <div class="s-card rv d2">
-      <div class="s-card-head"><div class="s-card-ic s-card-ic-gold">🗺️</div><div><div class="s-card-title">Complete Image Slot Reference</div><div class="s-card-sub">30+ image slots across all 8 pages</div></div></div>
+      <div class="s-card-head"><div class="s-card-ic ic-gold">🗺️</div><div><div class="s-card-title">Complete Image Slot Reference</div><div class="s-card-sub">All image filenames used across the 8 pages</div></div></div>
       <div class="s-card-body" style="padding:0">
         <table class="slot-table">
-          <tr><th>#</th><th>Page</th><th>Location</th><th>Recommended Size</th></tr>
-          <tr><td><span class="slot-num">1</span></td><td><span class="slot-file">index.html</span></td><td><span class="slot-loc">Home hero background (all 3 slides)</span></td><td><span class="slot-size">1920×1080px</span></td></tr>
-          <tr><td><span class="slot-num">2</span></td><td><span class="slot-file">index.html</span></td><td><span class="slot-loc">About section photo (left side)</span></td><td><span class="slot-size">600×750px</span></td></tr>
-          <tr><td><span class="slot-num">3</span></td><td><span class="slot-file">index.html</span></td><td><span class="slot-loc">President photo in spotlight section</span></td><td><span class="slot-size">200×200px</span></td></tr>
-          <tr><td><span class="slot-num">4a–e</span></td><td><span class="slot-file">index.html</span></td><td><span class="slot-loc">Mini exec photos (VP, Secretary, Organizer, PRO, WOCOM)</span></td><td><span class="slot-size">100×100px</span></td></tr>
-          <tr><td><span class="slot-num">5</span></td><td><span class="slot-file">about.html</span></td><td><span class="slot-loc">About page hero background slides</span></td><td><span class="slot-size">1920×600px</span></td></tr>
-          <tr><td><span class="slot-num">6</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Executives page hero background slides</span></td><td><span class="slot-size">1920×600px</span></td></tr>
-          <tr><td><span class="slot-num">7</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">President flip card photo (Abdul Jalil Sani)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">8</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Vice President flip card (Kelvin Otiboateng)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">9</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Secretary (Jochebed Ofori)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">10</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Organizer (Martin Laryea Mensah)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">11</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Welfare Officer (Stephen Ato Mensah)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">12</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">P.R.O (Theophilus Mensah)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">13</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">WOCOM (Abigail Enu Ninson)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">14</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Finance Officer (Kennedy A. Holdbrook)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">15</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Part-Time Rep (Isaac N. Quansah)</span></td><td><span class="slot-size">300×300px</span></td></tr>
-          <tr><td><span class="slot-num">16–21</span></td><td><span class="slot-file">executives.html</span></td><td><span class="slot-loc">Lecturer 1–6 circular photos</span></td><td><span class="slot-size">200×200px</span></td></tr>
-          <tr><td><span class="slot-num">22</span></td><td><span class="slot-file">events.html</span></td><td><span class="slot-loc">Events page hero background slides</span></td><td><span class="slot-size">1920×600px</span></td></tr>
-          <tr><td><span class="slot-num">23–28</span></td><td><span class="slot-file">events.html</span></td><td><span class="slot-loc">Each event card image (upcoming + past)</span></td><td><span class="slot-size">600×300px</span></td></tr>
-          <tr><td><span class="slot-num">29</span></td><td><span class="slot-file">blog.html</span></td><td><span class="slot-loc">Blog hero background slides</span></td><td><span class="slot-size">1920×600px</span></td></tr>
-          <tr><td><span class="slot-num">30</span></td><td><span class="slot-file">blog.html</span></td><td><span class="slot-loc">Featured post flyer/image (add inside .post-img)</span></td><td><span class="slot-size">Any size</span></td></tr>
-          <tr><td><span class="slot-num">31</span></td><td><span class="slot-file">gallery.html</span></td><td><span class="slot-loc">Gallery hero background slides</span></td><td><span class="slot-size">1920×600px</span></td></tr>
-          <tr><td><span class="slot-num">32–37</span></td><td><span class="slot-file">gallery.html</span></td><td><span class="slot-loc">Default gallery items (6 placeholder photos)</span></td><td><span class="slot-size">Any size</span></td></tr>
-          <tr><td><span class="slot-num">38</span></td><td><span class="slot-file">contact.html</span></td><td><span class="slot-loc">Contact page hero background slides</span></td><td><span class="slot-size">1920×600px</span></td></tr>
-          <tr><td><span class="slot-num">39</span></td><td><span class="slot-file">index.html</span></td><td><span class="slot-loc">Popup flyer (set via POPUP CONFIG in JS)</span></td><td><span class="slot-size">Any — portrait works best</span></td></tr>
+          <tr><th>File</th><th>Page</th><th>Used For</th><th>Best Size</th></tr>
+          <tr><td><span class="sf">logo.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Logo in navbar, footer, chatbot, favicon</span></td><td><span class="sl">200×200px</span></td></tr>
+          <tr><td><span class="sf">comsa1.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Hero slide 1 background on every page</span></td><td><span class="sl">1920×1080px</span></td></tr>
+          <tr><td><span class="sf">comsa2.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Hero slide 2 background on every page</span></td><td><span class="sl">1920×1080px</span></td></tr>
+          <tr><td><span class="sf">comsa3.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Hero slide 3 background on every page</span></td><td><span class="sl">1920×1080px</span></td></tr>
+          <tr><td><span class="sf">comsa4.jpg</span></td><td><span class="sl">index.html</span></td><td><span class="sl">About section photo (left column)</span></td><td><span class="sl">600×750px</span></td></tr>
+          <tr><td><span class="sf">comsa5.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">President — Abdul Jalil Sani</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa6.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">Vice President — Kelvin Otiboateng</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa7.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">Secretary — Jochebed Ofori</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa8.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">Organizer — Martin Laryea Mensah</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa9.jpg</span></td><td><span class="sl">exec + contact</span></td><td><span class="sl">Welfare Officer — Stephen Ato Mensah</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa10.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">P.R.O — Theophilus Mensah</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa11.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">WOCOM — Abigail Enu Ninson</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa12.jpg</span></td><td><span class="sl">exec + contact</span></td><td><span class="sl">Finance Officer — Kennedy A. Holdbrook</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">comsa13.jpg</span></td><td><span class="sl">exec + contact</span></td><td><span class="sl">Part-Time Rep — Isaac N. Quansah</span></td><td><span class="sl">300×300px</span></td></tr>
+          <tr><td><span class="sf">Kwaning.jpg</span></td><td><span class="sl">executives.html</span></td><td><span class="sl">HOD — Dr. Collins Kwaning (exact filename)</span></td><td><span class="sl">200×200px</span></td></tr>
+          <tr><td><span class="sf">Aboagye.jpg</span></td><td><span class="sl">executives.html</span></td><td><span class="sl">Lecturer — Kwame Aboagye (exact filename)</span></td><td><span class="sl">200×200px</span></td></tr>
+          <tr><td><span class="sf">Baxey.jpg</span></td><td><span class="sl">executives.html</span></td><td><span class="sl">Lecturer — Raymond K. Baxey (exact filename)</span></td><td><span class="sl">200×200px</span></td></tr>
+          <tr><td><span class="sf">comsa20.jpg</span></td><td><span class="sl">about + exec</span></td><td><span class="sl">Department / campus photo</span></td><td><span class="sl">600×420px</span></td></tr>
+          <tr><td><span class="sf">comsa21–24.jpg</span></td><td><span class="sl">about.html</span></td><td><span class="sl">Timeline history photos (optional)</span></td><td><span class="sl">600×200px</span></td></tr>
+          <tr><td><span class="sf">comsa40–45.jpg</span></td><td><span class="sl">events.html</span></td><td><span class="sl">Upcoming event card photos (6 cards)</span></td><td><span class="sl">600×300px</span></td></tr>
+          <tr><td><span class="sf">comsa50–55.jpg</span></td><td><span class="sl">events.html</span></td><td><span class="sl">Past event card photos (6 cards)</span></td><td><span class="sl">600×300px</span></td></tr>
+          <tr><td><span class="sf">comsa60–64.jpg</span></td><td><span class="sl">blog.html</span></td><td><span class="sl">Blog post images (5 posts)</span></td><td><span class="sl">Any size</span></td></tr>
+          <tr><td><span class="sf">comsa70–75.jpg</span></td><td><span class="sl">gallery.html</span></td><td><span class="sl">Default gallery photos (6 items)</span></td><td><span class="sl">Any size</span></td></tr>
+          <tr><td><span class="sf">comsa41.jpg</span></td><td><span class="sl">index.html JS</span></td><td><span class="sl">Optional popup flyer (set in POPUP_CONFIG)</span></td><td><span class="sl">Any — portrait best</span></td></tr>
         </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POPUP SETUP -->
+<section class="sp" id="popup" style="background:var(--surf)">
+  <div class="container">
+    <div class="rv"><div class="lbl">Step 4</div><h2 class="h2">The Welcome <em>Popup</em></h2></div>
+    <div class="s-card rv d1">
+      <div class="s-card-head"><div class="s-card-ic ic-gold">📢</div><div><div class="s-card-title">Editing the Popup Announcement</div><div class="s-card-sub">Open index.html — search for POPUP_CONFIG in the JavaScript at the bottom</div></div></div>
+      <div class="s-card-body">
+        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button><span class="cm">/* ===== POPUP CONFIG — Edit these values ===== */</span>
+const POPUP_CONFIG = {
+  <span class="ca">active</span>:  <span class="ch">true</span>,              <span class="cm">// Set false to disable popup</span>
+  <span class="ca">badge</span>:   <span class="cv">'📢 Welcome to COMSA!'</span>,
+  <span class="ca">title</span>:   <span class="cv">'Your Popup Headline Here'</span>,
+  <span class="ca">message</span>: <span class="cv">'Your announcement text goes here...'</span>,
+  <span class="ca">image</span>:   <span class="cv">''</span>,  <span class="cm">// 📸 To show flyer: 'images/comsa41.jpg'</span>
+  <span class="ca">btnText</span>: <span class="cv">'Explore COMSA →'</span>,
+  <span class="ca">btnLink</span>: <span class="cv">'about.html'</span>,   <span class="cm">// Where the button goes</span>
+};</div>
+        <div class="alert a-gold"><span class="alert-ic">💡</span><div>To add a <strong>flyer image</strong> to the popup, put your flyer in the images/ folder and set: <strong>image: 'images/your-flyer.jpg'</strong>. Portrait orientation works best. Leave <strong>image: ''</strong> for text-only popup.</div></div>
+        <div class="alert a-green"><span class="alert-ic">✅</span><div>The popup shows once per browser session. To <strong>test it again</strong>, open browser console (F12) and type: <strong>sessionStorage.removeItem('comsa-popup')</strong> then refresh the page.</div></div>
       </div>
     </div>
   </div>
@@ -398,159 +348,165 @@ const POPUP = {<br/>
 <!-- EXECUTIVES & LECTURERS -->
 <section class="sp" id="executives" style="background:var(--bg)">
   <div class="container">
-    <div class="rv"><div class="lbl">Step 5</div><h2 class="h2">Executives &amp; <em>Lecturers</em></h2></div>
-    <div class="s-card rv d1" id="lecturers">
-      <div class="s-card-head"><div class="s-card-ic s-card-ic-purple">👔</div><div><div class="s-card-title">Adding Executive Photos</div><div class="s-card-sub">executives.html — each flip card has a 📸 comment showing exactly where to put the image</div></div></div>
+    <div class="rv"><div class="lbl">Step 5</div><h2 class="h2">Executive Photos &amp; <em>Lecturers</em></h2></div>
+
+    <div class="s-card rv d1">
+      <div class="s-card-head"><div class="s-card-ic ic-purple">👔</div><div><div class="s-card-title">Adding Executive Photos</div><div class="s-card-sub">executives.html — each card already has the img tag, just add the file</div></div></div>
       <div class="s-card-body">
-        <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px">Inside each exec flip card, find the commented image tag. Copy and paste the img tag shown in the comment and fill in your src:</p>
-        <div class="code">
-<span class="comment"><!-- 📸 PRESIDENT PHOTO: paste this line and set your src --></span><br/>
-&lt;<span class="tag">img</span> <span class="attr">src</span>=<span class="val">"images/president.jpg"</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attr">style</span>=<span class="val">"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;z-index:2"</span>&gt;
-        </div>
-        <div class="alert alert-yellow"><span class="alert-ic">💡</span><div>Use <strong>object-position: top</strong> so the face always shows even when the circle crops the photo. For best results crop photos to <strong>square (1:1 ratio)</strong> before uploading.</div></div>
+        <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px">Each executive flip card in executives.html already has an <code style="font-family:monospace;background:rgba(244,180,0,.1);padding:1px 5px;border-radius:4px;color:var(--gold)">&lt;img src="images/comsaN.jpg"/&gt;</code> tag. Just drop the matching photo into your images/ folder with the correct name:</p>
+        <div class="code">comsa5.jpg  → Abdul Jalil Sani   (President)
+comsa6.jpg  → Kelvin Otiboateng  (Vice President)
+comsa7.jpg  → Jochebed Ofori     (Secretary)
+comsa8.jpg  → Martin Laryea Mensah (Organizer)
+comsa9.jpg  → Stephen Ato Mensah  (Welfare)
+comsa10.jpg → Theophilus Mensah   (P.R.O)
+comsa11.jpg → Abigail Enu Ninson  (WOCOM)
+comsa12.jpg → Kennedy A. Holdbrook (Finance)
+comsa13.jpg → Isaac N. Quansah   (Part-Time Rep)</div>
+        <div class="alert a-gold"><span class="alert-ic">💡</span><div>Crop all executive photos to a <strong>square (1:1 ratio)</strong> before uploading. Use <strong>object-position: top</strong> (already set in the CSS) so faces always show correctly in the circular avatar even if the photo is tall.</div></div>
       </div>
     </div>
 
-    <div class="s-card rv d2">
-      <div class="s-card-head"><div class="s-card-ic s-card-ic-green">🎓</div><div><div class="s-card-title">Updating Lecturer Details</div><div class="s-card-sub">executives.html — scroll to the Lecturers section near the bottom</div></div></div>
+    <div class="s-card rv d2" id="lecturers">
+      <div class="s-card-head"><div class="s-card-ic ic-green">🎓</div><div><div class="s-card-title">Lecturer Photos — Real Names Already Set</div><div class="s-card-sub">executives.html — scroll to the Lecturers section</div></div></div>
       <div class="s-card-body">
-        <div class="step-list">
-          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Find the Lecturers section in executives.html</div><div class="step-desc">Search for <strong>id="lecturers"</strong> in executives.html. You'll see 6 lecturer cards ready to fill in.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Edit each lecturer card</div><div class="step-desc">Update the <strong>Name</strong>, <strong>Title</strong> (e.g. Senior Lecturer), <strong>Bio</strong> (short description), <strong>Specialisation tags</strong>, and <strong>Email</strong>.</div></div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Add more lecturers</div><div class="step-desc">To add a new lecturer, copy one entire <strong>.lec-c</strong> div block and paste it inside <strong>.lec-grid</strong>. Edit the details and add the photo.</div></div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Add lecturer photos</div><div class="step-desc">Inside each <strong>.lec-av</strong> div, add your img tag (same format as executives above) with <strong>src="images/lec1.jpg"</strong></div></div></div>
-        </div>
+        <div class="alert a-green"><span class="alert-ic">✅</span><div>The 3 lecturer cards are already set with their real names and specialisations. Just add the 3 photo files to your images/ folder:</div></div>
+        <div class="code">Kwaning.jpg  → Dr. Collins Kwaning  (Head of Department)
+Aboagye.jpg → Kwame Aboagye         (Lecturer)
+Baxey.jpg   → Raymond K. Baxey      (Lecturer)</div>
+        <div class="alert a-gold"><span class="alert-ic">⚠️</span><div>These filenames are <strong>case-sensitive</strong>: <strong>K</strong>waning.jpg, <strong>A</strong>boagye.jpg, <strong>B</strong>axey.jpg — start with capital letters exactly as shown. If the photo fails to load, the initials (CK, KA, RB) show as a fallback.</div></div>
+        <p style="font-size:.88rem;color:var(--muted);margin-top:16px">To <strong>update a lecturer's bio or specialisation tags</strong>, open executives.html and find the matching <strong>.lec-c</strong> div, then edit the <strong>.lec-bio</strong> paragraph and <strong>.spec-tag</strong> spans.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BLOG -->
+<!-- BLOG & GALLERY -->
 <section class="sp" id="blog" style="background:var(--surf)">
   <div class="container">
-    <div class="rv"><div class="lbl">Step 6</div><h2 class="h2">Using the <em>Blog</em></h2></div>
+    <div class="rv"><div class="lbl">Step 6</div><h2 class="h2">Blog &amp; <em>Gallery</em></h2></div>
     <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic s-card-ic-blue">📝</div><div><div class="s-card-title">Adding Blog Posts with Flyers</div><div class="s-card-sub">blog.html — use the Add Post form at the bottom of the page</div></div></div>
+      <div class="s-card-head"><div class="s-card-ic ic-blue">📝</div><div><div class="s-card-title">Adding Permanent Blog Posts with Flyers</div><div class="s-card-sub">blog.html — use the form at the bottom for quick posts, or edit HTML for permanent ones</div></div></div>
       <div class="s-card-body">
-        <div class="feat-grid" style="margin-top:0;margin-bottom:20px">
-          <div class="feat-c"><div class="feat-ic">📸</div><div class="feat-title">Upload Flyers</div><div class="feat-desc">The Add Post form has a drag-and-drop image upload. Your flyer appears at the top of the post card and in the read-more popup.</div></div>
-          <div class="feat-c"><div class="feat-ic">✍️</div><div class="feat-title">Write Content</div><div class="feat-desc">Write your full post text in the content area. Use line breaks to separate paragraphs — they format automatically.</div></div>
-          <div class="feat-c"><div class="feat-ic">🏷️</div><div class="feat-title">Categories</div><div class="feat-desc">Choose from: News, Flyer, Event, Academic, or Social. Posts can be filtered by category instantly.</div></div>
+        <div class="step-list">
+          <div class="step"><div class="step-num">1</div><div><div class="step-title">Quick Posts (Session Only)</div><div class="step-desc">Scroll to the <strong>Add New Post</strong> form at the bottom of blog.html. Fill in the title, category, description, upload a flyer, and click "Publish Post". The post appears instantly — but disappears on page refresh.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div><div class="step-title">Permanent Posts (Recommended)</div><div class="step-desc">To make a post permanent, open blog.html in your editor. Find the <strong>#posts-grid</strong> section. Copy an existing <strong>.post-c</strong> div, paste it, then edit: the image src, data-title, data-cat, data-author, data-date, data-full (full content), and the visible title/description text.</div></div></div>
         </div>
-        <div class="alert alert-yellow"><span class="alert-ic">⚠️</span><div><strong>Important:</strong> Posts added through the form are temporary — they disappear on page refresh. To make posts permanent, copy a <strong>.post-c</strong> block in blog.html and paste it inside <strong>#posts-grid</strong> with your content. See the existing post blocks as examples.</div></div>
-        <div class="alert alert-blue"><span class="alert-ic">ℹ️</span><div>To add a <strong>permanent flyer post</strong> with a real image: find the HTML post block, locate the <strong>.post-img</strong> div inside it, and add: <strong>&lt;img src="images/your-flyer.jpg" alt="Post Title" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"&gt;</strong></div></div>
+        <div class="alert a-gold"><span class="alert-ic">💡</span><div>For permanent posts, put your flyer image in images/ (e.g. <strong>comsa60.jpg</strong>) and set it as the <strong>img src</strong> inside the post's <strong>.post-img</strong> div. The image shows in both the card and the read-more popup.</div></div>
+      </div>
+    </div>
+
+    <div class="s-card rv d2" id="gallery">
+      <div class="s-card-head"><div class="s-card-ic ic-gold">🖼️</div><div><div class="s-card-title">Gallery Photos — Two Methods</div><div class="s-card-sub">gallery.html — upload form for quick adds, edit HTML for permanent photos</div></div></div>
+      <div class="s-card-body">
+        <div class="step-list">
+          <div class="step"><div class="step-num">A</div><div><div class="step-title">Permanent Photos — Edit the HTML</div><div class="step-desc">Open gallery.html. Find the <strong>#gal-grid</strong> section. Each <strong>.gal-item</strong> has an img tag — just replace the <strong>src</strong> with your comsa image filename (e.g. <strong>comsa70.jpg</strong>). Change <strong>data-cat</strong> (events/executives/campus/flyers/academic) and <strong>data-title</strong> for the caption.</div></div></div>
+          <div class="step"><div class="step-num">B</div><div><div class="step-title">Quick Upload — Use the Form</div><div class="step-desc">Scroll to <strong>Upload to Gallery</strong> at the bottom of gallery.html. Drag multiple photos, set a caption and category, click Upload. Photos appear instantly — but disappear on page refresh.</div></div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
-<section class="sp" id="gallery" style="background:var(--bg)">
+<!-- DEPLOY -->
+<section class="sp" id="deploy" style="background:var(--bg)">
   <div class="container">
-    <div class="rv"><div class="lbl">Step 7</div><h2 class="h2">Setting Up the <em>Gallery</em></h2></div>
+    <div class="rv"><div class="lbl">Step 7</div><h2 class="h2">Deploy to <em>Vercel</em></h2></div>
     <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic s-card-ic-gold">🖼️</div><div><div class="s-card-title">Two Ways to Add Gallery Photos</div><div class="s-card-sub">gallery.html — use the upload form OR edit the HTML directly</div></div></div>
+      <div class="s-card-head"><div class="s-card-ic ic-green">🚀</div><div><div class="s-card-title">Go Live for Free on Vercel</div><div class="s-card-sub">Pure HTML/CSS/JS — deploys in under 2 minutes, completely free</div></div></div>
       <div class="s-card-body">
-        <p style="font-size:.9rem;font-weight:700;color:var(--txt);margin-bottom:12px">Option A — Permanent Photos (Recommended):</p>
-        <div class="step-list" style="margin-bottom:22px">
-          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Find an existing .gal-item in gallery.html</div><div class="step-desc">Open gallery.html and look for the masonry grid section. Each <strong>.gal-item</strong> div is one photo.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Add your image to the .gal-real-img tag</div><div class="step-desc">Inside each item, find <strong class="slot-file">&lt;img ... class="gal-real-img"/&gt;</strong> and set the <strong>src</strong> to your image path.</div></div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Copy the block to add more photos</div><div class="step-desc">To add a new photo, copy a complete <strong>.gal-item</strong> div and paste it inside <strong>.gal-grid</strong>. Change the src, title, and data-cat.</div></div></div>
+        <div class="step-list">
+          <div class="step"><div class="step-num">1</div><div><div class="step-title">Create a free account at vercel.com</div><div class="step-desc">Go to <strong>vercel.com</strong> and sign up with GitHub or email. It's completely free for static HTML sites — no credit card needed.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div><div class="step-title">Click "Add New → Project" → "Upload Folder"</div><div class="step-desc">On your Vercel dashboard, click the New Project button, then choose "Upload" and drag your entire <strong>comsa/</strong> folder — all HTML files and the images/ folder together.</div></div></div>
+          <div class="step"><div class="step-num">3</div><div><div class="step-title">Make sure index.html is at the root</div><div class="step-desc">Vercel needs to see <strong>index.html</strong> directly — not inside a subfolder. If you zipped the folder, make sure the zip doesn't add an extra level.</div></div></div>
+          <div class="step"><div class="step-num">4</div><div><div class="step-title">Click Deploy — live in seconds!</div><div class="step-desc">Vercel gives you a free URL like <strong>comsa-atu.vercel.app</strong>. You can also connect a custom domain (e.g. comsa.atu.edu.gh) under Project Settings → Domains.</div></div></div>
+          <div class="step"><div class="step-num">5</div><div><div class="step-title">Update the OG tags with your live URL</div><div class="step-desc">After you get your live URL, open each HTML file and find <strong>og:url</strong> in the head — update it with your real URL. This helps when people share your site on WhatsApp and Facebook.</div></div></div>
         </div>
-        <div class="code">
-<span class="comment">&lt;!-- Add your photo like this --&gt;</span><br/>
-&lt;<span class="tag">div</span> <span class="attr">class</span>=<span class="val">"gal-item"</span> <span class="attr">data-cat</span>=<span class="val">"events"</span> <span class="attr">data-title</span>=<span class="val">"Your Caption"</span>&gt;<br/>
-&nbsp;&nbsp;&lt;<span class="tag">div</span> <span class="attr">class</span>=<span class="val">"gal-placeholder"</span> <span class="attr">style</span>=<span class="val">"height:260px"</span>&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">&lt;img src="images/your-photo.jpg" class="gal-real-img" alt="Caption"/&gt;</span><br/>
-&nbsp;&nbsp;&lt;/<span class="tag">div</span>&gt;<br/>
-&nbsp;&nbsp;&lt;<span class="tag">div</span> <span class="attr">class</span>=<span class="val">"gal-overlay"</span>&gt;...&lt;/<span class="tag">div</span>&gt;<br/>
-&lt;/<span class="tag">div</span>&gt;
-        </div>
-        <p style="font-size:.9rem;font-weight:700;color:var(--txt);margin:20px 0 12px">Option B — Use the Upload Form (Temporary):</p>
-        <p style="font-size:.86rem;color:var(--muted)">Scroll to the bottom of gallery.html and use the <strong>Upload to Gallery</strong> form. Drag multiple photos, add a caption and category, click upload. Photos appear instantly — but only for that browser session.</p>
+        <div class="alert a-green"><span class="alert-ic">🎉</span><div><strong>Alternatives:</strong> You can also host on <strong>Netlify</strong> (netlify.com) or <strong>GitHub Pages</strong> — same process, all free for static HTML sites.</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES RECAP -->
+<section class="sp" style="background:var(--surf)">
+  <div class="container">
+    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto 36px">
+      <div class="lbl" style="justify-content:center">What's Included</div>
+      <h2 class="h2" style="text-align:center">Website <em>Features</em></h2>
+    </div>
+    <div class="feat-grid rv d1">
+      <div class="feat-c"><div class="feat-ic">🌙</div><div class="feat-title">Dark / Light Mode</div><div class="feat-desc">Toggle in navbar and mobile menu. Preference saved across all pages using localStorage.</div></div>
+      <div class="feat-c"><div class="feat-ic">⏳</div><div class="feat-title">3-Second Loader</div><div class="feat-desc">Animated COMSA loading screen on first visit. Shows only once per session using sessionStorage.</div></div>
+      <div class="feat-c"><div class="feat-ic">📢</div><div class="feat-title">First-Visit Popup</div><div class="feat-desc">News/flyer popup shows once per session. Supports a flyer image, headline, message, and CTA button.</div></div>
+      <div class="feat-c"><div class="feat-ic">🖼️</div><div class="feat-title">Hero Sliders</div><div class="feat-desc">Auto-advancing, swipeable on mobile, dot navigation. All 8 pages have their own 3-slide hero.</div></div>
+      <div class="feat-c"><div class="feat-ic">🔄</div><div class="feat-title">Flip Cards</div><div class="feat-desc">Executive cards flip on hover (desktop) or tap (mobile) to show phone & WhatsApp links.</div></div>
+      <div class="feat-c"><div class="feat-ic">🔍</div><div class="feat-title">Lightbox Gallery</div><div class="feat-desc">Click any photo to open full-size with arrows, keyboard navigation, and mobile swipe support.</div></div>
+      <div class="feat-c"><div class="feat-ic">📝</div><div class="feat-title">Blog with Upload</div><div class="feat-desc">Add posts with flyer images, categories, and full content. Read-more popup on click.</div></div>
+      <div class="feat-c"><div class="feat-ic">📤</div><div class="feat-title">Gallery Upload</div><div class="feat-desc">Upload up to 10 photos at once with category tags. Appear in the masonry grid instantly.</div></div>
+      <div class="feat-c"><div class="feat-ic">💬</div><div class="feat-title">AI Chatbot</div><div class="feat-desc">Smart chatbot on every page with pre-asked questions, keyword matching, and fallback to president's contact.</div></div>
+      <div class="feat-c"><div class="feat-ic">📱</div><div class="feat-title">Fully Responsive</div><div class="feat-desc">Optimised for all screen sizes — phones, tablets, and desktops. Touch-friendly throughout.</div></div>
+      <div class="feat-c"><div class="feat-ic">✨</div><div class="feat-title">Scroll Animations</div><div class="feat-desc">Elements animate in as you scroll using IntersectionObserver — smooth, no janky JS scroll listeners.</div></div>
+      <div class="feat-c"><div class="feat-ic">🎓</div><div class="feat-title">Programmes Section</div><div class="feat-desc">All 5 department programmes with expandable detail cards showing objectives, careers, and assessment breakdown.</div></div>
     </div>
   </div>
 </section>
 
 <!-- FINAL CHECKLIST -->
-<section class="sp" id="checklist" style="background:var(--surf)">
+<section class="sp" id="checklist" style="background:var(--bg)">
   <div class="container">
-    <div class="rv"><div class="lbl">Step 8</div><h2 class="h2">Final Setup <em>Checklist</em></h2><p style="color:var(--muted);max-width:560px;font-size:.95rem">Tick off each item as you complete it. Click any checkbox to mark it done.</p></div>
+    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto 36px">
+      <div class="lbl" style="justify-content:center">Almost There!</div>
+      <h2 class="h2" style="text-align:center">Final Setup <em>Checklist</em></h2>
+      <p style="color:var(--muted);font-size:.9rem">Tick off each item as you complete it. Click any checkbox to mark it done.</p>
+    </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px">
-      <div class="tracker rv d1">
-        <div class="tracker-title">📸 Images & Photos</div>
-        <div class="tracker-items">
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Hero slide backgrounds added (all pages)</div><span class="tr-page">All pages</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">President photo added</div><span class="tr-page">index + executives</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">All 9 exec photos added to flip cards</div><span class="tr-page">executives.html</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Lecturer photos added</div><span class="tr-page">executives.html</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Gallery placeholder photos replaced</div><span class="tr-page">gallery.html</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Event card photos added</div><span class="tr-page">events.html</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:44px">
+      <div class="rv d1">
+        <div style="font-weight:700;color:var(--txt);margin-bottom:12px;font-size:.95rem">📸 Images &amp; Photos</div>
+        <div class="checklist">
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>logo.jpg</code> placed in images/ folder</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>comsa1.jpg</code>, <code>comsa2.jpg</code>, <code>comsa3.jpg</code> hero slides added</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">All 9 exec photos added (<code>comsa5.jpg</code> – <code>comsa13.jpg</code>)</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>Kwaning.jpg</code> added (HOD photo)</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>Aboagye.jpg</code> added (Lecturer photo)</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>Baxey.jpg</code> added (Lecturer photo)</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>comsa20.jpg</code> department/campus photo added</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Gallery placeholder photos (<code>comsa70–75.jpg</code>) replaced</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Event card photos (<code>comsa40–45.jpg</code>) added</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Blog post images (<code>comsa60–64.jpg</code>) added</div></div>
         </div>
       </div>
-
-      <div class="tracker rv d2">
-        <div class="tracker-title">📝 Content Updates</div>
-        <div class="tracker-items">
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Popup title, message & flyer set</div><span class="tr-page">index.html JS</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Lecturer names & bios updated</div><span class="tr-page">executives.html</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Blog posts added (permanent)</div><span class="tr-page">blog.html</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Social media links updated</div><span class="tr-page">All pages</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Department description updated</div><span class="tr-page">about.html</span></div>
-          <div class="tr-item"><div class="tr-check" onclick="toggleCheck(this)"></div><div class="tr-label">Tested on mobile device</div><span class="tr-page">All pages</span></div>
+      <div class="rv d2">
+        <div style="font-weight:700;color:var(--txt);margin-bottom:12px;font-size:.95rem">📝 Content &amp; Settings</div>
+        <div class="checklist">
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Popup title, message &amp; flyer configured in <code>POPUP_CONFIG</code></div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Social media links updated (@comsa-atu) on all pages</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Lecturer bios reviewed and accurate</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Blog posts added (permanent HTML posts)</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Events updated with correct dates and venues</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">OG image tags updated with real images</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Tested on mobile device (all pages)</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Tested dark mode and light mode toggle</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Website deployed to Vercel / Netlify</div></div>
+          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">OG url tags updated with live URL</div></div>
         </div>
       </div>
     </div>
 
-    <!-- FEATURES RECAP -->
-    <div style="margin-top:44px" class="rv d3">
-      <div class="lbl">Website Features</div>
-      <div class="feat-grid">
-        <div class="feat-c"><div class="feat-ic">🌙</div><div class="feat-title">Dark / Light Mode</div><div class="feat-desc">Toggle in navbar and mobile menu. Preference saved in localStorage across pages.</div></div>
-        <div class="feat-c"><div class="feat-ic">⏳</div><div class="feat-title">3-Second Loader</div><div class="feat-desc">Animated COMSA loading screen on first visit. Shows once per session using sessionStorage.</div></div>
-        <div class="feat-c"><div class="feat-ic">📢</div><div class="feat-title">First-Visit Popup</div><div class="feat-desc">News/flyer popup shows only on first visit. Supports image flyers and custom messages.</div></div>
-        <div class="feat-c"><div class="feat-ic">🖼️</div><div class="feat-title">Hero Slider</div><div class="feat-desc">Auto-advancing, swipeable on mobile, dot navigation. All pages have their own slider.</div></div>
-        <div class="feat-c"><div class="feat-ic">🔄</div><div class="feat-title">Flip Cards</div><div class="feat-desc">Executive cards flip on hover to show contact info — phone and WhatsApp links.</div></div>
-        <div class="feat-c"><div class="feat-ic">🔍</div><div class="feat-title">Lightbox Gallery</div><div class="feat-desc">Click any photo to open full-size with left/right arrows and keyboard support.</div></div>
-        <div class="feat-c"><div class="feat-ic">📂</div><div class="feat-title">Blog with Upload</div><div class="feat-desc">Add posts with flyer images, categories, and full content. Read-more popup on click.</div></div>
-        <div class="feat-c"><div class="feat-ic">📤</div><div class="feat-title">Gallery Upload</div><div class="feat-desc">Bulk upload up to 10 photos at once with category tags. Appear in masonry grid instantly.</div></div>
-        <div class="feat-c"><div class="feat-ic">✨</div><div class="feat-title">Scroll Animations</div><div class="feat-desc">Elements fade and slide in as you scroll using IntersectionObserver for smooth performance.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DEPLOYING -->
-<section class="sp" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 9 — Optional</div><h2 class="h2">Deploying to <em>Vercel</em></h2></div>
-    <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic s-card-ic-green">🚀</div><div><div class="s-card-title">Go Live for Free on Vercel</div><div class="s-card-sub">No backend, no server — pure HTML/CSS/JS deploys instantly</div></div></div>
-      <div class="s-card-body">
-        <div class="step-list">
-          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Create a free account at vercel.com</div><div class="step-desc">Sign up with GitHub or email at <strong>vercel.com</strong>. It's completely free for static sites.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Click "Add New → Project" and choose "Upload Folder"</div><div class="step-desc">Drag and drop your entire <strong>comsa/</strong> folder — all HTML files, the images/ folder, everything.</div></div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Set the Root Directory to your folder</div><div class="step-desc">Make sure <strong>index.html</strong> is at the root of what you upload — not inside a subfolder.</div></div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Click Deploy — your site is live!</div><div class="step-desc">Vercel gives you a free URL like <strong>comsa-atu.vercel.app</strong>. You can also connect a custom domain.</div></div></div>
-        </div>
-        <div class="alert alert-green"><span class="alert-ic">🎉</span><div><strong>Alternative:</strong> You can also host on <strong>Netlify</strong> (netlify.com) or <strong>GitHub Pages</strong> — same process. All three are free for static HTML sites.</div></div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:44px;padding:44px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px;position:relative;overflow:hidden" class="rv d2">
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50%,rgba(244,180,0,.05),transparent 60%);pointer-events:none"></div>
+    <!-- FINALE CARD -->
+    <div style="text-align:center;padding:52px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px;position:relative;overflow:hidden" class="rv d3">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50%,rgba(244,180,0,.06),transparent 60%);pointer-events:none"></div>
       <div style="position:relative;z-index:1">
         <div style="font-size:3rem;margin-bottom:14px">🎓</div>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--white);margin-bottom:10px">You're All Set!</h3>
-        <p style="color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 28px">COMSA's website is fully built and ready. Add your photos, update your content, and go live. The whole COMSA family will be proud.</p>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.7rem;color:#fff;margin-bottom:12px">You're All Set!</h3>
+        <p style="color:rgba(255,255,255,.48);max-width:480px;margin:0 auto 28px;font-size:.95rem">The COMSA website is fully built and ready. Add your photos, fill in your content, and launch it to the world. The entire COMSA family will be proud!</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
           <a href="index.html" class="btn btn-g">View the Website →</a>
-          <a href="https://wa.me/233544823484" target="_blank" class="btn btn-o">💬 Contact Developer</a>
+          <a href="executives.html#lecturers" class="btn btn-o">Check Lecturers</a>
+          <a href="about.html#programmes" class="btn" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)">View Programmes</a>
         </div>
-        <p style="margin-top:24px;font-size:.78rem;color:rgba(255,255,255,.25)">Built with ❤️ by Ibrahim Mohammed Lotsu · 0544823484</p>
+        <p style="margin-top:24px;font-size:.76rem;color:rgba(255,255,255,.22)">Built with ❤️ by Ibrahim Mohammed Lotsu (Ibratech) · WhatsApp: 0544823484</p>
       </div>
     </div>
   </div>
@@ -559,13 +515,7 @@ const POPUP = {<br/>
 <footer>
   <div class="container">
     <div class="ft-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="executives.html">Executives</a>
-      <a href="events.html">Events</a>
-      <a href="blog.html">Blog</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
     </div>
     <div class="ft-bot">
       <div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div>
@@ -575,33 +525,23 @@ const POPUP = {<br/>
 </footer>
 
 <script>
-(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=t==='light'});})();
-function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>{i.checked=l});}
+(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
+function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
 document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
 const ham=document.getElementById('ham'),mob=document.getElementById('mob');
 ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
 mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
 // Scroll reveal
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
-// Copy code button
-document.querySelectorAll('.code').forEach(block=>{
-  const btn=document.createElement('button');
-  btn.className='copy-btn';btn.textContent='Copy';
-  btn.onclick=()=>{navigator.clipboard.writeText(block.innerText.replace(/Copy$/,'')).then(()=>{btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='Copy',2000)})};
-  block.appendChild(btn);
-});
-// Checklist toggle
-function toggleCheck(el){
-  el.classList.toggle('done');
-  const label=el.nextElementSibling;
-  if(el.classList.contains('done')){el.textContent='✓';label.classList.add('done');}
-  else{el.textContent='';label.classList.remove('done');}
-}
+// Copy code
+function copyCode(btn){const block=btn.parentElement;const text=block.innerText.replace(/Copy$|Copied!$/,'').trim();navigator.clipboard.writeText(text).then(()=>{btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='Copy',2000)})}
+// Checklist
+function toggleCheck(el){el.classList.toggle('done');const lbl=el.nextElementSibling;if(el.classList.contains('done')){el.textContent='✓';lbl.classList.add('done');}else{el.textContent='';lbl.classList.remove('done');}}
 // Page fade
 document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
-document.querySelectorAll('a[href$=".html"]').forEach(a=>{a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)})});
+document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
 </script>
 </body>
 </html>
