@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Past Questions – COMSA | ATU</title>
+<meta name="description" content="Download past examination questions for Communications programmes at Accra Technical University. Integrated Marketing Communications, PR Theories, Corporate Communication and more."/>
+<meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech"/>
+<link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
+<link rel="apple-touch-icon" href="images/logo.jpg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://comsa-atu.vercel.app/past-questions.html"/>
+<meta property="og:title" content="Past Questions – COMSA ATU"/>
+<meta property="og:description" content="Download past exam questions for Communications Studies at ATU. Available for all programmes."/>
+<meta property="og:image" content="images/comsa1.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="images/comsa1.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)}
+[data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+#nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
+#nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
+[data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
+.nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.brand-logo-img{width:100%;height:100%;object-fit:cover}
+.brand-logo-fb{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);display:none}
+.brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
+.brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
+[data-theme=light] .brand-txt span{color:var(--muted)}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:7px 13px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
+[data-theme=light] .nav-links a{color:var(--muted)}
+.nav-links a::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 18px);height:2px;background:var(--gold);border-radius:2px;transition:transform .3s var(--spring)}
+.nav-links a:hover,.nav-links a.act{color:#fff;background:rgba(244,180,0,.08)}
+[data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
+.nav-links a:hover::after,.nav-links a.act::after{transform:translateX(-50%) scaleX(1)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.tog{position:relative;width:50px;height:26px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;transition:.3s}
+.tog-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:10px}
+.tog-thumb::before{content:'🌙'}
+.tog input:checked~.tog-thumb{transform:translateX(24px)}
+.tog input:checked~.tog-thumb::before{content:'☀️'}
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px;transition:background .3s}
+.ham:hover{background:rgba(244,180,0,.1)}
+.ham span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+[data-theme=light] .ham span{background:var(--navy)}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
+[data-theme=light] .mob{background:rgba(244,244,240,.97)}
+.mob.open{transform:translateY(0);opacity:1}
+.mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
+[data-theme=light] .mob a{color:var(--muted);border-bottom-color:rgba(0,0,0,.06)}
+.mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
+.mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+.mob-lbl{font-size:.72rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
+/* UTILS */
+.container{max-width:1300px;margin:0 auto;padding:0 28px}
+.sp{padding:96px 0}
+.sp-sm{padding:60px 0}
+.lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:700;line-height:1.15;margin-bottom:18px}
+.h2 em{color:var(--gold);font-style:italic}
+.divider{width:52px;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:4px;margin:18px 0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.13);opacity:0;transition:opacity .3s}
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-3px)}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
+.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+/* PAGE HERO */
+.page-hero{position:relative;min-height:360px;display:flex;align-items:center;padding-top:var(--nav);background:var(--navy2);overflow:hidden}
+.ph-bg{position:absolute;inset:0;z-index:0}
+.ph-bg img{width:100%;height:100%;object-fit:cover;opacity:.3}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,16,30,.7),rgba(7,16,30,.92));z-index:1}
+.ph-mesh{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.ph-content{position:relative;z-index:2;padding:72px 28px 60px;width:100%;max-width:1300px;margin:0 auto}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.78rem;color:rgba(255,255,255,.4);margin-bottom:20px}
+.breadcrumb a{color:rgba(255,255,255,.4);transition:color .3s}
+.breadcrumb a:hover{color:var(--gold)}
+.breadcrumb span{color:rgba(255,255,255,.25)}
+.ph-lbl{font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ph-lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:14px}
+.ph-h1 em{color:var(--gold);font-style:italic}
+.ph-p{font-size:.98rem;color:rgba(255,255,255,.55);max-width:560px;line-height:1.8}
+
+/* ALERT BANNER */
+.alert-banner{background:linear-gradient(135deg,rgba(244,180,0,.08),rgba(244,180,0,.04));border:1px solid rgba(244,180,0,.22);border-radius:var(--r);padding:20px 24px;display:flex;gap:16px;align-items:flex-start;margin-bottom:36px}
+.ab-ic{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.ab-title{font-weight:700;font-size:.92rem;color:var(--gold);margin-bottom:4px}
+.ab-desc{font-size:.85rem;color:var(--muted);line-height:1.7}
+
+/* SEARCH & FILTER */
+.pq-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:28px}
+.pq-search{position:relative;flex:1;min-width:200px}
+.pq-search input{width:100%;background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:11px 16px 11px 42px;color:var(--txt);font-size:.88rem;outline:none;transition:border-color .3s;font-family:'Outfit',sans-serif}
+.pq-search input:focus{border-color:var(--gold)}
+.pq-search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem;pointer-events:none}
+.pq-filter{display:flex;gap:8px;flex-wrap:wrap}
+.pq-filt{padding:9px 16px;border-radius:99px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid rgba(244,180,0,.2);color:rgba(255,255,255,.55);background:transparent;transition:all .25s;font-family:'Outfit',sans-serif}
+.pq-filt:hover,.pq-filt.act{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+[data-theme=light] .pq-filt{color:var(--muted)}
+
+/* PAST QUESTIONS GRID */
+.pq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.pq-card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;transition:transform .35s var(--spring),border-color .3s,box-shadow .3s}
+.pq-card:hover{transform:translateY(-6px);border-color:rgba(244,180,0,.3);box-shadow:0 16px 44px rgba(0,0,0,.28)}
+.pq-card-stripe{height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.pq-card-body{padding:22px 24px}
+.pq-icon{width:48px;height:48px;background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px}
+.pq-badge{display:inline-flex;align-items:center;padding:3px 10px;background:rgba(244,180,0,.1);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.66rem;font-weight:700;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.pq-title{font-weight:700;font-size:1rem;color:var(--txt);line-height:1.3;margin-bottom:6px}
+.pq-meta{display:flex;flex-direction:column;gap:4px;margin:10px 0 18px}
+.pq-meta-row{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--muted)}
+.pq-meta-ic{font-size:.9rem}
+.pq-actions{display:flex;gap:10px;flex-wrap:wrap}
+.pq-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:all .25s;font-family:'Outfit',sans-serif;text-decoration:none}
+.pq-btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy)}
+.pq-btn-g:hover{box-shadow:0 6px 20px rgba(244,180,0,.35);transform:translateY(-2px)}
+.pq-btn-o{background:transparent;border:1.5px solid rgba(244,180,0,.3);color:var(--muted)}
+.pq-btn-o:hover{border-color:var(--gold);color:var(--gold)}
+.pq-no-pdf{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:9px;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.1);color:rgba(255,255,255,.3);cursor:default}
+
+/* STATS ROW */
+.pq-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+.pq-stat{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:20px;text-align:center}
+.pq-stat-n{font-family:'Orbitron',monospace;font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.pq-stat-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+
+/* LOADING */
+.pq-loading{text-align:center;padding:60px 20px;color:var(--muted)}
+.pq-loading-ring{width:48px;height:48px;border-radius:50%;border:3px solid rgba(244,180,0,.15);border-top-color:var(--gold);animation:spin .9s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pq-empty{text-align:center;padding:60px 20px;color:var(--muted);display:none}
+.pq-empty-ic{font-size:3rem;margin-bottom:14px}
+
+/* CTA */
+.pq-cta{background:linear-gradient(135deg,var(--navy),var(--navy2));border:1px solid var(--bdr);border-radius:20px;padding:48px;text-align:center;margin-top:52px;position:relative;overflow:hidden}
+.pq-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50%,rgba(244,180,0,.05),transparent 60%);pointer-events:none}
+
+/* FOOTER */
+footer{background:var(--navy2);padding:52px 0 0;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ft-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:44px;margin-bottom:44px}
+.ft-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ft-logo-wrap{width:40px;height:40px;border-radius:9px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ft-logo-img{width:100%;height:100%;object-fit:cover}
+.ft-logo-fb{font-family:'Orbitron',monospace;font-size:.65rem;font-weight:700;color:var(--navy);display:none}
+.ft-p{font-size:.82rem;color:var(--muted);line-height:1.82;margin-bottom:18px}
+.ft-soc{display:flex;gap:10px}
+.ft-so{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:background .3s,border-color .3s,transform .3s}
+.ft-so:hover{background:rgba(244,180,0,.12);border-color:rgba(244,180,0,.25);transform:translateY(-3px)}
+.ft-col h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:16px}
+[data-theme=light] .ft-col h4{color:var(--muted)}
+.ft-col ul li{margin-bottom:10px}
+.ft-col ul li a{font-size:.84rem;color:rgba(255,255,255,.45);transition:color .3s,padding-left .3s;display:inline-block}
+[data-theme=light] .ft-col ul li a{color:var(--muted)}
+.ft-col ul li a:hover{color:var(--gold);padding-left:5px}
+.ft-ci{display:flex;gap:11px;margin-bottom:12px;align-items:flex-start}
+.ft-cion{font-size:.9rem;margin-top:2px;flex-shrink:0}
+.ft-ct{font-size:.82rem;line-height:1.55;color:rgba(255,255,255,.45)}
+[data-theme=light] .ft-ct{color:var(--muted)}
+.ft-ct strong{display:block;color:rgba(255,255,255,.7);font-size:.78rem;margin-bottom:1px}
+[data-theme=light] .ft-ct strong{color:var(--navy)}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:.76rem;color:rgba(255,255,255,.22)}
+.ft-dev{font-size:.73rem;color:rgba(255,255,255,.2)}
+.ft-dev a{color:var(--gold);opacity:.6;font-weight:500}
+.ft-dev a:hover{opacity:1}
+
+/* WA FLOAT */
+#wa-float{position:fixed;bottom:100px;right:28px;z-index:3000;display:flex;align-items:center;gap:10px}
+#wa-btn{width:52px;height:52px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s var(--spring),box-shadow .3s;font-size:1.4rem}
+#wa-btn:hover{transform:scale(1.12);box-shadow:0 10px 30px rgba(37,211,102,.55)}
+#wa-tip{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:8px 13px;font-size:.76rem;color:var(--txt);white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s}
+#wa-float:hover #wa-tip{opacity:1}
+
+/* CHATBOT */
+#cb-toggle{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;z-index:4000;box-shadow:0 8px 28px rgba(244,180,0,.45);transition:transform .3s var(--spring);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+#cb-toggle:hover{transform:scale(1.12)}
+#cb-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#EF4444;color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg,#07101E)}
+#chatbot{position:fixed;bottom:100px;right:28px;width:360px;max-width:calc(100vw - 40px);height:520px;max-height:calc(100vh - 130px);background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.18);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.5);z-index:3999;display:none;flex-direction:column;overflow:hidden}
+#chatbot.open{display:flex}
+#cb-head{padding:14px 16px;background:linear-gradient(135deg,#0B1F3B,#122847);display:flex;align-items:center;gap:11px;flex-shrink:0;border-bottom:1px solid rgba(244,180,0,.1)}
+#cb-head-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+#cb-logo{width:100%;height:100%;object-fit:cover;border-radius:50%}
+#cb-logo-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;color:#0B1F3B}
+#cb-head-name{font-weight:700;font-size:.9rem;color:#F0EFE9}
+#cb-head-status{font-size:.68rem;color:#10B981;margin-top:1px}
+#cb-close{margin-left:auto;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:background .3s}
+#cb-close:hover{background:rgba(239,68,68,.3);color:#fff}
+#cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+#cb-msgs::-webkit-scrollbar{width:4px}
+#cb-msgs::-webkit-scrollbar-thumb{background:rgba(244,180,0,.2);border-radius:2px}
+.cb-msg{max-width:84%;animation:cbPop .3s var(--spring)}
+@keyframes cbPop{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.cb-msg-bot{align-self:flex-start}.cb-msg-user{align-self:flex-end}
+.cb-bubble{padding:10px 13px;border-radius:16px;font-size:.84rem;line-height:1.65;word-break:break-word}
+.cb-bubble-bot{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.12);color:var(--txt,#F0EFE9);border-bottom-left-radius:4px}
+.cb-bubble-user{background:linear-gradient(135deg,#F4B400,#C99300);color:#0B1F3B;font-weight:500;border-bottom-right-radius:4px}
+.cb-time{font-size:.62rem;color:rgba(255,255,255,.28);margin-top:3px;padding:0 4px}
+.cb-msg-user .cb-time{text-align:right}
+.cb-typing{display:flex;align-items:center;gap:4px;padding:10px 13px;background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.1);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+.cb-dot{width:7px;height:7px;border-radius:50%;background:rgba(244,180,0,.6);animation:cbDot 1.2s ease-in-out infinite}
+.cb-dot:nth-child(2){animation-delay:.2s}.cb-dot:nth-child(3){animation-delay:.4s}
+@keyframes cbDot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+#cb-quick{padding:0 12px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.cb-qr{padding:6px 12px;background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.74rem;font-weight:600;color:#F4B400;cursor:pointer;transition:background .3s;white-space:nowrap;font-family:'Outfit',sans-serif}
+.cb-qr:hover{background:rgba(244,180,0,.22)}
+#cb-input-wrap{padding:10px 12px;border-top:1px solid rgba(244,180,0,.1);display:flex;gap:8px;align-items:center;flex-shrink:0}
+#cb-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:9px 13px;font-family:'Outfit',sans-serif;font-size:.84rem;color:var(--txt,#F0EFE9);outline:none;transition:border-color .3s}
+#cb-input:focus{border-color:#F4B400}
+#cb-input::placeholder{color:rgba(255,255,255,.3)}
+[data-theme=light] #cb-input{color:#0B1F3B;background:rgba(0,0,0,.05)}
+[data-theme=light] #cb-input::placeholder{color:rgba(0,0,0,.3)}
+#cb-send{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;color:#0B1F3B;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+#cb-send:hover{transform:scale(1.08)}
+
+@media(max-width:1024px){.ft-grid{grid-template-columns:1fr 1fr;gap:36px}.pq-stats{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.pq-grid{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}.pq-stats{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){#chatbot{right:12px;bottom:88px;width:calc(100vw - 24px)}#cb-toggle{bottom:20px;right:20px}#wa-float{bottom:96px;right:20px}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-i">
+    <a href="index.html" class="brand">
+      <div class="brand-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="brand-logo-fb">ATU</span></div>
+      <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="executives.html">Executives</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="past-questions.html" class="act">Past Questions</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-r">
+      <label class="tog" title="Toggle theme"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
+      <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="past-questions.html" class="act">Past Questions</a><a href="contact.html">Contact</a>
+  <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="ph-bg"><img src="images/comsa1.jpg" alt="COMSA"/></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-mesh"></div>
+  <div class="ph-content">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Past Questions</span></div>
+    <div class="ph-lbl">Study Resources</div>
+    <h1 class="ph-h1">Past <em>Questions</em></h1>
+    <p class="ph-p">Download past examination questions for your programme. Study smarter and know what to expect. New questions added regularly by COMSA.</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<section class="sp">
+  <div class="container">
+
+    <!-- ALERT -->
+    <div class="alert-banner rv">
+      <div class="ab-ic">📢</div>
+      <div>
+        <div class="ab-title">Past Questions Now Available!</div>
+        <div class="ab-desc">COMSA has compiled past examination questions across key courses. All PDFs are free to download. More questions will be added — check back regularly or follow <strong style="color:var(--gold)">@comsa-atu</strong> for updates. Have a past question to share? Send it to the PRO: <a href="https://wa.me/233544487799" target="_blank" style="color:var(--gold)">0544 487 799</a></div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="pq-stats rv d1">
+      <div class="pq-stat"><div class="pq-stat-n" id="total-count">—</div><div class="pq-stat-l">Available PDFs</div></div>
+      <div class="pq-stat"><div class="pq-stat-n">5</div><div class="pq-stat-l">Programmes</div></div>
+      <div class="pq-stat"><div class="pq-stat-n">Free</div><div class="pq-stat-l">Always Free</div></div>
+      <div class="pq-stat"><div class="pq-stat-n">📄</div><div class="pq-stat-l">PDF Format</div></div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="pq-controls rv d2">
+      <div class="pq-search">
+        <span class="pq-search-ic">🔍</span>
+        <input type="text" id="pq-search" placeholder="Search course name or code…" oninput="filterPQ()"/>
+      </div>
+      <div class="pq-filter">
+        <button class="pq-filt act" data-prog="all" onclick="setPQFilter(this)">All</button>
+        <button class="pq-filt" data-prog="Public Relations" onclick="setPQFilter(this)">PR</button>
+        <button class="pq-filt" data-prog="All Programmes" onclick="setPQFilter(this)">General</button>
+        <button class="pq-filt" data-prog="Journalism" onclick="setPQFilter(this)">Journalism</button>
+        <button class="pq-filt" data-prog="Marketing" onclick="setPQFilter(this)">Marketing</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="pq-loading" id="pq-loading">
+      <div class="pq-loading-ring"></div>
+      Loading past questions…
+    </div>
+
+    <!-- GRID -->
+    <div class="pq-grid" id="pq-grid"></div>
+
+    <!-- EMPTY -->
+    <div class="pq-empty" id="pq-empty">
+      <div class="pq-empty-ic">📭</div>
+      <p>No past questions found for that search.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="pq-cta rv" style="position:relative">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50%,rgba(244,180,0,.05),transparent 60%);pointer-events:none;border-radius:20px"></div>
+      <div style="position:relative;z-index:1">
+        <div style="font-size:2.5rem;margin-bottom:14px">📚</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--txt);margin-bottom:10px">Have a Past Question to Share?</h3>
+        <p style="color:var(--muted);max-width:480px;margin:0 auto 24px;font-size:.92rem;line-height:1.75">Help your fellow COMSA members prepare better. Send any past questions you have to the PRO and we'll upload it for everyone.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="https://wa.me/233544487799" target="_blank" class="btn btn-g">📲 Send to PRO on WhatsApp</a>
+          <a href="contact.html" class="btn btn-o">Contact COMSA</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-brand">
+          <div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div>
+          <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
+        </div>
+        <p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p>
+        <div class="ft-soc">
+          <a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a>
+          <a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a>
+          <a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a>
+          <a href="https://wa.me/233544487799" target="_blank" class="ft-so">💬</a>
+        </div>
+      </div>
+      <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="ft-col"><h4>Programmes</h4><ul><li><a href="about.html#programmes">Public Relations</a></li><li><a href="about.html#programmes">Journalism</a></li><li><a href="about.html#programmes">Marketing Comm.</a></li><li><a href="about.html#programmes">Dev. Comm.</a></li><li><a href="about.html#programmes">Graphic Comm.</a></li></ul></div>
+      <div class="ft-col"><h4>Contact</h4>
+        <div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div>
+        <div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>PRO</strong><a href="tel:+233544487799" style="color:var(--gold)">0544 487 799</a></div></div>
+        <div class="ft-ci"><div class="ft-cion">🌐</div><div class="ft-ct"><strong>Social</strong>@comsa-atu</div></div>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div>
+      <div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">Ibratech</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<div id="wa-float">
+  <div id="wa-tip">Chat with PRO · Theophilus Mensah</div>
+  <a href="https://wa.me/233544487799" target="_blank" id="wa-btn" title="WhatsApp COMSA PRO">💬</a>
+</div>
+
+<!-- CHATBOT -->
+<button id="cb-toggle"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
+<div id="chatbot">
+  <div id="cb-head">
+    <div id="cb-head-av"><img src="images/logo.jpg" id="cb-logo" onerror="this.style.display='none';document.getElementById('cb-logo-fb').style.display='flex'"/><div id="cb-logo-fb">C</div></div>
+    <div id="cb-head-info"><div id="cb-head-name">COMSA Assistant</div><div id="cb-head-status">● Online — Here to help</div></div>
+    <button id="cb-close">✕</button>
+  </div>
+  <div id="cb-msgs"></div>
+  <div id="cb-quick"></div>
+  <div id="cb-input-wrap"><input type="text" id="cb-input" placeholder="Type your question…" autocomplete="off" maxlength="200"/><button id="cb-send">➤</button></div>
+</div>
+
+<script>
+// =====================================================
+//   SUPABASE CONFIG — FILL THESE IN
+// =====================================================
+const SUPA_URL = 'YOUR_SUPABASE_URL';
+const SUPA_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+// Theme
+(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
+function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
+document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+
+// Scroll reveal
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+// Page fade
+document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
+document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
+
+// =====================================================
+//   PAST QUESTIONS
+// =====================================================
+let allPQ=[],activeProg='all';
+
+async function loadPQ(){
+  const r=await fetch(`${SUPA_URL}/rest/v1/past_questions?order=created_at.asc`,{
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+  });
+  const data=await r.json();
+  allPQ=Array.isArray(data)?data:[];
+  document.getElementById('pq-loading').style.display='none';
+  document.getElementById('total-count').textContent=allPQ.length;
+  renderPQ();
+}
+
+function renderPQ(){
+  const q=document.getElementById('pq-search').value.toLowerCase();
+  let filtered=allPQ.filter(p=>{
+    const matchProg=activeProg==='all'||p.programme===activeProg;
+    const matchQ=!q||p.course_title.toLowerCase().includes(q)||(p.course_code||'').toLowerCase().includes(q);
+    return matchProg&&matchQ;
+  });
+  const grid=document.getElementById('pq-grid');
+  const empty=document.getElementById('pq-empty');
+  if(!filtered.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  const progIcons={'Public Relations':'📣','Journalism':'📰','Marketing':'📊','Development Communication':'🌍','Graphic Communication':'🎨','All Programmes':'📚'};
+  grid.innerHTML=filtered.map(p=>`
+    <div class="pq-card rv">
+      <div class="pq-card-stripe"></div>
+      <div class="pq-card-body">
+        <div class="pq-icon">${progIcons[p.programme]||'📄'}</div>
+        <div class="pq-badge">${esc(p.programme||'General')}</div>
+        <div class="pq-title">${esc(p.course_title)}</div>
+        <div class="pq-meta">
+          ${p.course_code?`<div class="pq-meta-row"><span class="pq-meta-ic">📌</span><span>Code: <strong>${esc(p.course_code)}</strong></span></div>`:''}
+          ${p.year_sem?`<div class="pq-meta-row"><span class="pq-meta-ic">📅</span><span>${esc(p.year_sem)}</span></div>`:''}
+        </div>
+        <div class="pq-actions">
+          ${p.pdf_url
+            ?`<a href="${p.pdf_url}" target="_blank" class="pq-btn pq-btn-g">📥 Download PDF</a><a href="${p.pdf_url}" target="_blank" class="pq-btn pq-btn-o">👁️ View</a>`
+            :`<span class="pq-no-pdf">⏳ PDF coming soon</span>`
+          }
+        </div>
+      </div>
+    </div>`).join('');
+  // Re-observe new cards
+  grid.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+}
+
+function filterPQ(){renderPQ()}
+function setPQFilter(btn){
+  document.querySelectorAll('.pq-filt').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  activeProg=btn.dataset.prog;
+  filterPQ();
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// Load on page ready
+if(SUPA_URL!=='YOUR_SUPABASE_URL'){loadPQ();}
+else{
+  document.getElementById('pq-loading').innerHTML='<div style="color:var(--muted);font-size:.85rem">⚠️ Supabase not configured yet. Fill in SUPA_URL and SUPA_KEY in this file.</div>';
+}
+
+// =====================================================
+//   CHATBOT
+// =====================================================
+(function(){
+const toggle=document.getElementById('cb-toggle'),bot=document.getElementById('chatbot'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-msgs'),input=document.getElementById('cb-input'),send=document.getElementById('cb-send'),quickWrap=document.getElementById('cb-quick'),badge=document.getElementById('cb-badge');
+let open=false,badgeShown=false;
+const KB=[
+  {k:['hello','hi','hey'],r:'Hello! 👋 I\'m the COMSA Assistant. Ask me anything about COMSA!'},
+  {k:['past question','past questions','exam','download','pdf'],r:'📄 You\'re already on the Past Questions page! Scroll down to see all available PDFs and download them for free.<br/>More questions are added regularly — follow <strong style="color:#F4B400">@comsa-atu</strong> for updates.'},
+  {k:['president','jalil','abdul'],r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['vice president','kelvin','vp'],r:'<strong>Vice President: Kelvin Otiboateng</strong><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> · <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['pro','public relations officer','theophilus mensah'],r:'📣 <strong>P.R.O: Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a> · <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['member','join','how to join','registration'],r:'🎓 Every student admitted into the Department of Liberal Studies and Communication Technology at ATU is <strong>automatically a COMSA member</strong> from Level 100. No registration needed — you\'re already family! 🏆'},
+  {k:['programme','programs','course','study','btech'],r:'📚 COMSA covers 5 programmes:\n• BTech Public Relations with Digital Communication\n• BTech Journalism & Media Studies\n• BTech Marketing Communication\n• BTech Development Communication\n• BTech Graphic Communication\n<br/>See <a href="about.html#programmes" style="color:#F4B400">About → Programmes →</a>'},
+  {k:['event','departmental week','week'],r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/>Mon 29 Jun — Health Walk & Clean Up<br/>Tue 30 Jun — Inter Class Debate<br/>Wed 1 Jul — Professional Edge Conference<br/>Thu 2 Jul — Industrial Trip (Kasapreko Ltd)<br/>Fri 3 Jul — Rep Your Jersey Day<br/>Sat 4 Jul — Departmental Games<br/><a href="events.html" style="color:#F4B400">See all events →</a>'},
+  {k:['executive','executives','leader','leadership'],r:'👔 <strong>COMSA Executives 2025/26 — The All Inclusive Administration:</strong><br/>• President: Abdul Jalil Sani<br/>• VP: Kelvin Otiboateng<br/>• Secretary: Jochebed Ofori<br/>• Organizer: Martin Laryea Mensah<br/>• Welfare: Stephen Ato Mensah<br/>• P.R.O: Theophilus Mensah<br/>• WOCOM: Abigail Enu Ninson<br/>• Finance: Kennedy A. Holdbrook<br/>• Part-Time Rep: Isaac N. Quansah<br/><a href="executives.html" style="color:#F4B400">Full profiles →</a>'},
+  {k:['contact','reach','phone','whatsapp'],r:'📞 Reach COMSA:<br/>• PRO: <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>• President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>Or visit our <a href="contact.html" style="color:#F4B400">Contact page →</a>'},
+  {k:['blog','news','announcement'],r:'📰 Read the latest COMSA news and flyers on the <a href="blog.html" style="color:#F4B400">Blog page →</a>'},
+  {k:['gallery','photo'],r:'📸 View event photos on the <a href="gallery.html" style="color:#F4B400">Gallery page →</a>'},
+  {k:['student','students','how many','1708'],r:'👥 COMSA currently has <strong>1,708 students</strong> across all 5 programmes and all levels at ATU.'},
+  {k:['patron','theophilus ashong','ashong'],r:'🎓 <strong>Patron: Mr. Theophilus Ashong</strong><br/>Lecturer, Liberal Studies & Communication Technology<br/>MPhil (University of Ghana) · MEd (2026, UCC) · PhD Candidate (UG)<br/>Recipient of the 2020 Andrew W. Mellon PhD Fellowship.<br/>See his full profile on the <a href="executives.html#lecturers" style="color:#F4B400">Executives page →</a>'},
+  {k:['motto','slogan','communicate'],r:'✨ COMSA\'s motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/>2025/26 Theme: <strong>"The All Inclusive Administration"</strong>'},
+  {k:['founded','history','established','2004'],r:'📖 COMSA was founded in <strong>2004</strong>. Learn more on our <a href="about.html" style="color:#F4B400">About page →</a>'},
+  {k:['thank','thanks'],r:'You\'re welcome! 😊 All the best with your studies!'},
+  {k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
+];
+const FALLBACK=`I don't have a specific answer for that. Reach out to our PRO for help:<br/><br/><strong>Theophilus Mensah — P.R.O</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>💬 <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">WhatsApp</a>`;
+const QUICK_Qs=[
+  {label:'📄 Past Questions',q:'What past questions are available?'},
+  {label:'📅 Departmental Week',q:'Tell me about departmental week'},
+  {label:'👔 Executives',q:'Who are the executives?'},
+  {label:'🎓 Membership',q:'How do I join COMSA?'},
+  {label:'📞 Contact',q:'How do I contact COMSA?'},
+];
+function getReply(text){const t=text.toLowerCase().trim();for(const e of KB)if(e.k.some(k=>t.includes(k)))return e.r;return FALLBACK;}
+function now(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
+function addMsg(html,role){const w=document.createElement('div');w.className='cb-msg cb-msg-'+role;const b=document.createElement('div');b.className='cb-bubble cb-bubble-'+role;b.innerHTML=html;const t=document.createElement('div');t.className='cb-time';t.textContent=now();w.appendChild(b);w.appendChild(t);msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;}
+function showTyping(){const el=document.createElement('div');el.id='cb-typ';el.className='cb-msg cb-msg-bot';el.innerHTML='<div class="cb-typing"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>';msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;}
+function removeTyping(){const el=document.getElementById('cb-typ');if(el)el.remove();}
+function botReply(html){send.disabled=true;input.disabled=true;showTyping();setTimeout(()=>{removeTyping();addMsg(html,'bot');send.disabled=false;input.disabled=false;input.focus();},900+Math.random()*500);}
+function buildQR(){quickWrap.innerHTML='';QUICK_Qs.forEach(q=>{const btn=document.createElement('button');btn.className='cb-qr';btn.textContent=q.label;btn.onclick=()=>handleSend(q.q);quickWrap.appendChild(btn)});}
+function handleSend(text){const t=(text||input.value).trim();if(!t)return;addMsg(t,'user');input.value='';quickWrap.innerHTML='';botReply(getReply(t));}
+function greet(){if(!msgs.children.length){addMsg('👋 Hi! I\'m the <strong>COMSA Assistant</strong>.<br/>I can help with executives, events, past questions, and more!','bot');buildQR();}}
+toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'💬';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
+closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='💬';});
+send.addEventListener('click',()=>handleSend());
+input.addEventListener('keydown',e=>{if(e.key==='Enter')handleSend()});
+setTimeout(()=>{if(!badgeShown&&!open){badge.style.display='flex';}},5000);
+})();
+</script>
+</body>
+</html>

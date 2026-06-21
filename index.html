@@ -400,6 +400,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <li><a href="events.html">Events</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="past-questions.html">Past Questions</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-r">
@@ -419,6 +420,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <a href="events.html">Events</a>
   <a href="blog.html">Blog</a>
   <a href="gallery.html">Gallery</a>
+  <a href="past-questions.html">Past Questions</a>
   <a href="contact.html">Contact</a>
   <div class="mob-bot">
     <span class="mob-lbl">Dark / Light Mode</span>
@@ -451,7 +453,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
             <a href="executives.html" class="btn btn-o">Meet the Executives</a>
           </div>
           <div class="s-stats">
-            <div><div class="stat-n" data-t="500" data-s="+">0+</div><div class="stat-l">Students</div></div>
+            <div><div class="stat-n" data-t="1708" data-s="">0</div><div class="stat-l">Students</div></div>
             <div><div class="stat-n" data-t="9" data-s="">0</div><div class="stat-l">Executives</div></div>
             <div><div class="stat-n" data-t="20" data-s="+">0+</div><div class="stat-l">Years of Excellence</div></div>
           </div>
@@ -656,7 +658,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <section class="stats-s sp-sm">
   <div class="container">
     <div class="stats-grid">
-      <div class="stt rv d1"><div class="stt-n" data-t="500" data-s="+">0+</div><div class="stt-l">Registered Members</div></div>
+      <div class="stt rv d1"><div class="stt-n" data-t="1708" data-s="">0</div><div class="stt-l">Total Students</div></div>
       <div class="stt rv d2"><div class="stt-n" data-t="9" data-s="">0</div><div class="stt-l">Executive Officers</div></div>
       <div class="stt rv d3"><div class="stt-n" data-t="15" data-s="+">0+</div><div class="stt-l">Events This Year</div></div>
       <div class="stt rv d4"><div class="stt-n" data-t="20" data-s="+">0+</div><div class="stt-l">Years of Excellence</div></div>
@@ -875,44 +877,39 @@ document.addEventListener('DOMContentLoaded',()=>{initSlider();initPopup();});
   const toggle=document.getElementById('cb-toggle'),bot=document.getElementById('chatbot'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-msgs'),input=document.getElementById('cb-input'),send=document.getElementById('cb-send'),quickWrap=document.getElementById('cb-quick'),badge=document.getElementById('cb-badge');
   let open=false,badgeShown=false;
   const KB=[
-    {k:['hello','hi','hey','good morning','good afternoon','good evening'],r:'Hello! 👋 Welcome to COMSA! I\'m your COMSA Assistant. How can I help you today?'},
-    {k:['what is comsa','about comsa','who are you','what comsa'],r:'COMSA stands for the <strong>Communications Students\' Association</strong> of Accra Technical University 🎓. We are the official student association for the Department of Communication Studies at ATU.'},
-    {k:['president','jalil','abdul'],r:'The COMSA President is <strong>Abdul Jalil Sani</strong> 👑<br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>💬 <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['vice president','kelvin','vp'],r:'Vice President: <strong>Kelvin Otiboateng</strong><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> · <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['secretary','jochebed'],r:'Secretary: <strong>Jochebed Ofori</strong><br/>📞 <a href="tel:+233537868041" style="color:#F4B400">0537 868 041</a> · <a href="https://wa.me/233537868041" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['pro','public relations','theophilus'],r:'P.R.O: <strong>Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a> · <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['welfare','stephen'],r:'Welfare Officer: <strong>Stephen Ato Mensah</strong><br/>📞 <a href="tel:+233205915904" style="color:#F4B400">0205 915 904</a> · <a href="https://wa.me/233205915904" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['finance','kennedy'],r:'Finance Officer: <strong>Kennedy A. Holdbrook</strong><br/>📞 <a href="tel:+233200632333" style="color:#F4B400">0200 632 333</a> · <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['wocom','women','abigail'],r:'WOCOM: <strong>Abigail Enu Ninson</strong><br/>📞 <a href="tel:+233537646489" style="color:#F4B400">0537 646 489</a> · <a href="https://wa.me/233537646489" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['organizer','martin'],r:'Organizer: <strong>Martin Laryea Mensah</strong><br/>📞 <a href="tel:+233533241149" style="color:#F4B400">0533 241 149</a> · <a href="https://wa.me/233533241149" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['part time','isaac'],r:'Part-Time Rep: <strong>Isaac N. Quansah</strong><br/>📞 <a href="tel:+233556720552" style="color:#F4B400">0556 720 552</a> · <a href="https://wa.me/233556720552" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['executive','executives','officers','leadership'],r:'COMSA has 9 dedicated executives! 👔 Visit the <a href="executives.html" style="color:#F4B400">Executives page</a> to meet all of them and get their contacts. Hover any card to flip it and see their phone numbers!'},
-    {k:['event','events','upcoming','calendar','activities'],r:'🗓️ Upcoming events:<br/><strong>• COMSA Week 2026</strong> — Mar 20–27<br/><strong>• Career Fair</strong> — Apr 5<br/><strong>• Speaking Masterclass</strong> — Apr 12<br/><strong>• Debate Championship</strong> — May 17<br/>See <a href="events.html" style="color:#F4B400">Events page →</a>'},
-    {k:['comsa week','week'],r:'🎉 <strong>COMSA Week 2026</strong> — March 20–27, 2026! Expect panels, talent show, debates, cultural night, games, and the Grand Gala Dinner. Mark your calendar!'},
-    {k:['career','job','internship','networking'],r:'💼 <strong>Career Fair & Networking Night</strong> — April 5, 2026 at ATU Main Hall, 10AM–6PM. Free for all COMSA members! Great for finding internships and jobs in media & communications.'},
-    {k:['join','membership','become','register'],r:'🎓 To join COMSA, contact the President:<br/>💬 <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp: 0530 099 371</a><br/>Membership is open to all Communication Studies students at ATU!'},
-    {k:['location','where','address','campus'],r:'📍 Accra Technical University<br/>Barnes Road, Accra, Ghana<br/><a href="https://maps.google.com/?q=Accra+Technical+University" target="_blank" style="color:#F4B400">Open in Google Maps →</a>'},
-    {k:['social','instagram','facebook','tiktok','follow'],r:'📲 Follow COMSA @comsa-atu:<br/>📘 <a href="https://facebook.com/comsa-atu" target="_blank" style="color:#F4B400">Facebook</a> · 📸 <a href="https://instagram.com/comsa-atu" target="_blank" style="color:#F4B400">Instagram</a> · 🎵 <a href="https://tiktok.com/@comsa-atu" target="_blank" style="color:#F4B400">TikTok</a>'},
-    {k:['whatsapp','contact','reach','talk'],r:'Reach COMSA via WhatsApp:<br/>💬 President: <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">0530 099 371</a><br/>Or use our <a href="contact.html" style="color:#F4B400">Contact Form →</a>'},
-    {k:['blog','news','announcement','post'],r:'📝 Read the latest news and flyers on our <a href="blog.html" style="color:#F4B400">Blog page →</a>'},
-    {k:['gallery','photo','picture'],r:'📸 View and upload event photos on the <a href="gallery.html" style="color:#F4B400">Gallery page →</a>'},
-    {k:['thank','thanks'],r:'You\'re welcome! 😊 Anything else I can help with?'},
-    {k:['bye','goodbye','later'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
-    {k:['motto','slogan'],r:'✨ COMSA\'s motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/>Our 2025/26 theme: <strong>"The All Inclusive Administration"</strong>'},
-    {k:['mission','vision'],r:'🎯 <strong>Mission:</strong> Foster academic excellence and personal growth for all Comm Studies students at ATU.<br/>🌟 <strong>Vision:</strong> Be the most vibrant student association in Ghana.'},
-    {k:['history','established','founded','when'],r:'📖 COMSA was founded in <strong>2004</strong> by pioneering Communications students at ATU. Learn more on our <a href="about.html" style="color:#F4B400">About page →</a>'},
-    {k:['developer','built','website','ibrahim'],r:'🛠️ Built by <strong>Ibrahim Mohammed Lotsu</strong> (Ibratech Web Solutions)<br/>💬 <a href="https://wa.me/233544823484" target="_blank" style="color:#F4B400">0544823484</a>'},
-    {k:['lecturer','faculty','teacher','professor'],r:'Meet our lecturers on the <a href="executives.html#lecturers" style="color:#F4B400">Executives page</a> (scroll down to the Lecturers section).'},
-  ];
-  const FALLBACK=`I don't have a specific answer for that, but our President can help! 😊<br/><br/><strong>Abdul Jalil Sani — President</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>💬 <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp: 0530 099 371</a>`;
+  {k:['hello','hi','hey'],r:'Hello! 👋 I'm the COMSA Assistant. Ask me about executives, events, past questions, membership and more!'},
+  {k:['president','jalil','abdul'],r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['vice president','kelvin','vp'],r:'<strong>Vice President: Kelvin Otiboateng</strong><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> · <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['secretary','jochebed'],r:'<strong>Secretary: Jochebed Ofori</strong><br/>📞 <a href="tel:+233537868041" style="color:#F4B400">0537 868 041</a> · <a href="https://wa.me/233537868041" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['organizer','martin','laryea'],r:'<strong>Organizer: Martin Laryea Mensah</strong><br/>📞 <a href="tel:+233533241149" style="color:#F4B400">0533 241 149</a> · <a href="https://wa.me/233533241149" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['welfare','stephen','ato'],r:'<strong>Welfare Officer: Stephen Ato Mensah</strong><br/>📞 <a href="tel:+233205915904" style="color:#F4B400">0205 915 904</a> · <a href="https://wa.me/233205915904" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['pro','public relations','theophilus mensah'],r:'📣 <strong>P.R.O: Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a> · <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['wocom','women','abigail','ninson'],r:'<strong>WOCOM: Abigail Enu Ninson</strong><br/>📞 <a href="tel:+233537646489" style="color:#F4B400">0537 646 489</a> · <a href="https://wa.me/233537646489" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['finance','kennedy','holdbrook'],r:'<strong>Finance Officer: Kennedy A. Holdbrook</strong><br/>📞 <a href="tel:+233200632333" style="color:#F4B400">0200 632 333</a> · <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['part time','isaac','quansah'],r:'<strong>Part-Time Rep: Isaac N. Quansah</strong><br/>📞 <a href="tel:+233556720552" style="color:#F4B400">0556 720 552</a> · <a href="https://wa.me/233556720552" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['patron','ashong','theophilus ashong'],r:'🎓 <strong>Patron: Mr. Theophilus Ashong</strong><br/>Lecturer, Liberal Studies & Communication Technology<br/>MPhil (UG) · MEd (UCC 2026) · PhD Candidate<br/>2020 Andrew W. Mellon PhD Fellowship recipient.<br/><a href="executives.html#lecturers" style="color:#F4B400">See full profile →</a>'},
+  {k:['executive','executives','all exec','who is'],r:'👔 <strong>COMSA Executives 2025/26 — The All Inclusive Administration:</strong><br/>• President: Abdul Jalil Sani (0530 099 371)<br/>• VP: Kelvin Otiboateng (0550 081 165)<br/>• Secretary: Jochebed Ofori (0537 868 041)<br/>• Organizer: Martin Laryea Mensah (0533 241 149)<br/>• Welfare: Stephen Ato Mensah (0205 915 904)<br/>• P.R.O: Theophilus Mensah (0544 487 799)<br/>• WOCOM: Abigail Enu Ninson (0537 646 489)<br/>• Finance: Kennedy A. Holdbrook (0200 632 333)<br/>• Part-Time Rep: Isaac N. Quansah (0556 720 552)<br/><a href="executives.html" style="color:#F4B400">Full profiles →</a>'},
+  {k:['event','departmental week','dept week','upcoming'],r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/>Mon 29 Jun — 🏃 Health Walk & Clean Up<br/>Tue 30 Jun — 🎙️ Inter-Class Debate<br/>Wed 1 Jul — 💼 Professional Edge Conference<br/>Thu 2 Jul — 🏭 Industrial Trip (Kasapreko Ltd)<br/>Fri 3 Jul — 👕 Rep Your Jersey Day<br/>Sat 4 Jul — 🏆 Departmental Games<br/><a href="events.html" style="color:#F4B400">See all events →</a>'},
+  {k:['past question','past questions','exam','pdf','download','study'],r:'📄 Past exam questions are available for free! Visit the <a href="past-questions.html" style="color:#F4B400">Past Questions page →</a> to download PDFs for: Integrated Marketing Communications, PR Theories, Industrial & Org. Psychology, Technical Report Writing, Corporate Communication.'},
+  {k:['member','join','membership','how to join','registration'],r:'🎓 Every student admitted into the Department of Liberal Studies and Communication Technology at ATU is <strong>automatically a COMSA member</strong> from Level 100. No registration needed — you are already part of the family! 🏆'},
+  {k:['student','how many','1708','total'],r:'👥 COMSA currently has <strong>1,708 students</strong> across all 5 programmes and all levels at ATU.'},
+  {k:['programme','programs','course','btech','study'],r:'📚 COMSA covers 5 programmes:<br/>• BTech Public Relations with Digital Communication<br/>• BTech Journalism & Media Studies<br/>• BTech Marketing Communication<br/>• BTech Development Communication<br/>• BTech Graphic Communication<br/><a href="about.html#programmes" style="color:#F4B400">Learn more →</a>'},
+  {k:['blog','news','announcement','flyer'],r:'📰 Read COMSA news, flyers, and announcements on the <a href="blog.html" style="color:#F4B400">Blog page →</a>'},
+  {k:['gallery','photo','picture'],r:'📸 View event photos on the <a href="gallery.html" style="color:#F4B400">Gallery page →</a>'},
+  {k:['contact','reach','phone','whatsapp'],r:'📞 Contact COMSA:<br/>• PRO: <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>• President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/><a href="contact.html" style="color:#F4B400">Contact page →</a>'},
+  {k:['motto','slogan','communicate','persuade'],r:'✨ COMSA Motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/>2025/26 Theme: <strong>The All Inclusive Administration</strong>'},
+  {k:['about','history','founded','comsa'],r:'📖 COMSA is the official students' association of the Department of Communication Studies at Accra Technical University. Learn more on the <a href="about.html" style="color:#F4B400">About page →</a>'},
+  {k:['thank','thanks'],r:'You're welcome! 😊 All the best!'},
+  {k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
+];
+const FALLBACK=`I don't have a specific answer for that, but our President can help! 😊<br/><br/><strong>Abdul Jalil Sani — President</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>💬 <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp: 0530 099 371</a>`;
   const QUICK_Qs=[
-    {label:'📅 Upcoming Events',q:'What are the upcoming events?'},
-    {label:'👔 Executives',q:'Who are the executives?'},
-    {label:'🎓 How to Join',q:'How do I join COMSA?'},
-    {label:'📍 Location',q:'Where is COMSA located?'},
-    {label:'📞 Contact Us',q:'How do I contact COMSA?'},
-    {label:'ℹ️ About COMSA',q:'What is COMSA?'},
-  ];
+  {label:'📅 Departmental Week',q:'Tell me about departmental week 2026'},
+  {label:'👔 All Executives',q:'Who are all the executives?'},
+  {label:'🎓 Membership',q:'How do I join COMSA?'},
+  {label:'📄 Past Questions',q:'Where can I download past questions?'},
+  {label:'📞 Contact PRO',q:'How do I contact the PRO?'},
+];
   function getReply(text){const t=text.toLowerCase().trim();for(const e of KB)if(e.k.some(k=>t.includes(k)))return e.r;return FALLBACK;}
   function now(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
   function addMsg(html,role){

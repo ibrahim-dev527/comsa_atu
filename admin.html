@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>COMSA Admin Dashboard</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3B;--navy2:#071528;--navy3:#122847;
+  --gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;
+  --bg:#07101E;--card:#0F1E33;--surf:#152540;
+  --txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12);
+  --green:#10B981;--red:#EF4444;--blue:#3B82F6;
+  --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);
+  --r:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;min-height:100vh}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;border:none;font-family:inherit}
+input,textarea,select{font-family:inherit}
+
+/* ===== LOGIN SCREEN ===== */
+#login-screen{position:fixed;inset:0;background:var(--navy2);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+#login-screen.hidden{display:none}
+.login-box{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:44px 40px;width:100%;max-width:420px;text-align:center}
+.login-logo{font-family:'Orbitron',monospace;font-size:1.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:6px}
+.login-sub{font-size:.78rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px}
+.login-label{display:block;text-align:left;font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.login-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:12px 16px;color:var(--txt);font-size:.92rem;outline:none;transition:border-color .3s;margin-bottom:16px}
+.login-input:focus{border-color:var(--gold)}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);font-weight:700;font-size:.95rem;border-radius:10px;transition:opacity .3s;cursor:pointer;border:none;margin-top:8px}
+.login-btn:hover{opacity:.9}
+.login-err{color:var(--red);font-size:.82rem;margin-top:10px;display:none}
+
+/* ===== DASHBOARD LAYOUT ===== */
+#dashboard{display:none}
+#dashboard.visible{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--navy2);border-right:1px solid var(--bdr);padding:24px 0;display:flex;flex-direction:column;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sb-logo{padding:0 22px 28px;border-bottom:1px solid var(--bdr);margin-bottom:16px}
+.sb-logo-top{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.08em}
+.sb-logo-sub{font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.sb-section{padding:0 14px;margin-bottom:8px}
+.sb-section-lbl{font-size:.63rem;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.22);text-transform:uppercase;padding:0 8px;margin-bottom:6px}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.55);transition:all .25s;cursor:pointer;border:none;background:none;width:100%;text-align:left}
+.sb-link:hover{color:#fff;background:rgba(244,180,0,.08)}
+.sb-link.act{color:var(--gold);background:rgba(244,180,0,.1);font-weight:600}
+.sb-link-ic{width:20px;text-align:center;font-size:.95rem}
+.sb-bot{margin-top:auto;padding:16px 14px 0;border-top:1px solid var(--bdr)}
+
+/* MAIN */
+.main{flex:1;min-width:0;padding:32px 36px;overflow-y:auto}
+.main-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:14px}
+.page-title{font-family:'Orbitron',monospace;font-size:1.1rem;color:var(--gold);letter-spacing:.06em}
+.page-desc{font-size:.82rem;color:var(--muted);margin-top:3px}
+
+/* PANEL */
+.panel{display:none}
+.panel.act{display:block}
+
+/* STAT CARDS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-c{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;transition:border-color .3s}
+.stat-c:hover{border-color:rgba(244,180,0,.25)}
+.stat-n{font-family:'Orbitron',monospace;font-size:1.7rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.stat-l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.stat-ic{font-size:1.4rem;margin-bottom:10px}
+
+/* TABLE */
+.tbl-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-top:20px}
+.tbl-head{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr);flex-wrap:wrap;gap:10px}
+.tbl-title{font-weight:700;font-size:.92rem;color:var(--txt)}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-size:.7rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding:12px 20px;border-bottom:1px solid var(--bdr);background:rgba(0,0,0,.15)}
+tbody td{padding:13px 20px;border-bottom:1px solid rgba(244,180,0,.04);font-size:.85rem;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(244,180,0,.03)}
+.tbl-empty{text-align:center;padding:44px 20px;color:var(--muted);font-size:.88rem}
+.tbl-loading{text-align:center;padding:44px 20px;color:var(--muted);font-size:.88rem}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.06em}
+.badge-green{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.2)}
+.badge-gold{background:rgba(244,180,0,.12);color:var(--gold);border:1px solid rgba(244,180,0,.2)}
+.badge-blue{background:rgba(59,130,246,.12);color:#3B82F6;border:1px solid rgba(59,130,246,.2)}
+.badge-red{background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.2)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:9px;font-size:.83rem;font-weight:600;cursor:pointer;border:none;transition:all .25s;font-family:'Outfit',sans-serif}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy)}
+.btn-g:hover{opacity:.9}
+.btn-o{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+.btn-o:hover{background:rgba(244,180,0,.1)}
+.btn-r{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2);color:#EF4444}
+.btn-r:hover{background:rgba(239,68,68,.2)}
+.btn-sm{padding:6px 12px;font-size:.76rem}
+
+/* FORM MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(7,16,30,.88);backdrop-filter:blur(8px);z-index:8000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.modal-bg.open{opacity:1;visibility:visible}
+.modal-box{background:var(--card);border:1px solid var(--bdr);border-radius:18px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:transform .35s var(--spring)}
+.modal-bg.open .modal-box{transform:translateY(0) scale(1)}
+.modal-head{padding:22px 26px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-weight:700;font-size:1rem;color:var(--txt)}
+.modal-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.modal-close:hover{background:rgba(239,68,68,.2);color:#fff}
+.modal-body{padding:26px}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.form-input,.form-select,.form-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(244,180,0,.15);border-radius:9px;padding:11px 14px;color:var(--txt);font-size:.88rem;outline:none;transition:border-color .3s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.6}
+.form-select{appearance:none;cursor:pointer}
+option{background:var(--navy2);color:var(--txt)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-foot{padding:16px 26px;border-top:1px solid var(--bdr);display:flex;justify-content:flex-end;gap:10px}
+.form-hint{font-size:.75rem;color:var(--muted);margin-top:5px}
+.form-msg{padding:10px 14px;border-radius:9px;font-size:.83rem;margin-top:14px;display:none}
+.msg-ok{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:#10B981}
+.msg-err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#EF4444}
+
+/* ALERT BOX */
+.alert{border-radius:11px;padding:14px 18px;font-size:.84rem;line-height:1.65;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px}
+.a-gold{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2)}
+.a-blue{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2)}
+.a-red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)}
+.a-green{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2)}
+.code{background:var(--navy2);border:1px solid rgba(244,180,0,.1);border-radius:9px;padding:14px 16px;font-family:'Courier New',monospace;font-size:.78rem;color:#a8d8a8;line-height:1.75;margin:10px 0;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.cm{color:#6a8f6a}.ck{color:#7ecfff}.ca{color:#f7c98b}.cv{color:#f48b7c}
+
+/* FILE INPUT */
+.file-drop{border:2px dashed rgba(244,180,0,.25);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:border-color .3s;position:relative}
+.file-drop:hover,.file-drop.drag{border-color:var(--gold);background:rgba(244,180,0,.04)}
+.file-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.file-drop-ic{font-size:1.8rem;margin-bottom:8px}
+.file-drop-txt{font-size:.85rem;color:var(--muted)}
+.file-drop-hint{font-size:.74rem;color:rgba(255,255,255,.25);margin-top:4px}
+.file-preview{display:none;margin-top:12px;padding:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:8px;font-size:.82rem;color:#10B981}
+
+/* TOAST */
+#toast{position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast-item{padding:12px 18px;background:var(--card);border:1px solid var(--bdr);border-radius:11px;font-size:.84rem;color:var(--txt);box-shadow:0 8px 28px rgba(0,0,0,.35);animation:toastIn .3s var(--spring) both;display:flex;align-items:center;gap:10px;min-width:240px}
+.toast-item.ok{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08)}
+.toast-item.err{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08)}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+/* IMAGE COL */
+.img-col img{width:44px;height:44px;object-fit:cover;border-radius:8px;background:var(--surf)}
+.img-col .img-fb{width:44px;height:44px;border-radius:8px;background:var(--surf);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+
+/* SEARCH */
+.search-wrap{position:relative}
+.search-wrap input{padding-left:36px}
+.search-ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem;pointer-events:none}
+
+/* RESPONSIVE */
+@media(max-width:900px){.sidebar{width:200px}.main{padding:24px 20px}.stat-row{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.sidebar{display:none}.form-row{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">COMSA</div>
+    <div class="login-sub">Admin Dashboard · Sani-Oti Led Administration</div>
+    <label class="login-label" for="lp">Admin Password</label>
+    <input class="login-input" type="password" id="lp" placeholder="Enter password…" autocomplete="current-password"/>
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-err" id="login-err">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-top">COMSA</div>
+      <div class="sb-logo-sub">Admin Panel</div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-section-lbl">Overview</div>
+      <button class="sb-link act" onclick="showPanel('overview',this)"><span class="sb-link-ic">🏠</span>Dashboard</button>
+    </div>
+    <div class="sb-section">
+      <div class="sb-section-lbl">Content</div>
+      <button class="sb-link" onclick="showPanel('events',this)"><span class="sb-link-ic">📅</span>Events</button>
+      <button class="sb-link" onclick="showPanel('blog',this)"><span class="sb-link-ic">📝</span>Blog Posts</button>
+      <button class="sb-link" onclick="showPanel('pastq',this)"><span class="sb-link-ic">📄</span>Past Questions</button>
+      <button class="sb-link" onclick="showPanel('gallery',this)"><span class="sb-link-ic">📸</span>Gallery</button>
+    </div>
+    <div class="sb-section">
+      <div class="sb-section-lbl">System</div>
+      <button class="sb-link" onclick="showPanel('setup',this)"><span class="sb-link-ic">⚙️</span>Supabase Setup</button>
+    </div>
+    <div class="sb-bot">
+      <button class="sb-link" onclick="logout()"><span class="sb-link-ic">🚪</span>Logout</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- ===== OVERVIEW ===== -->
+    <div class="panel act" id="panel-overview">
+      <div class="main-top">
+        <div><div class="page-title">Dashboard</div><div class="page-desc">Welcome back — Sani-Oti Led Administration 2025/26</div></div>
+        <a href="index.html" class="btn btn-o" style="font-size:.8rem">← Back to Website</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat-c"><div class="stat-ic">📅</div><div class="stat-n" id="ov-events">—</div><div class="stat-l">Total Events</div></div>
+        <div class="stat-c"><div class="stat-ic">📝</div><div class="stat-n" id="ov-posts">—</div><div class="stat-l">Blog Posts</div></div>
+        <div class="stat-c"><div class="stat-ic">📄</div><div class="stat-n" id="ov-pq">—</div><div class="stat-l">Past Questions</div></div>
+        <div class="stat-c"><div class="stat-ic">👥</div><div class="stat-n">1,708</div><div class="stat-l">Total Students</div></div>
+      </div>
+      <div class="alert a-gold"><span>⚡</span><div>Make sure your Supabase keys are set in the <strong>CONFIG</strong> section at the top of this file before using the dashboard. See the <strong>Supabase Setup</strong> tab for full instructions.</div></div>
+      <div class="alert a-blue"><span>ℹ️</span><div>This admin page is <strong>not linked</strong> from the main website. Bookmark it and keep the password private. Access it via: <code style="color:var(--gold);font-family:monospace">comsa-atu.vercel.app/admin.html</code></div></div>
+    </div>
+
+    <!-- ===== EVENTS ===== -->
+    <div class="panel" id="panel-events">
+      <div class="main-top">
+        <div><div class="page-title">Events</div><div class="page-desc">Add, edit, or remove COMSA events</div></div>
+        <button class="btn btn-g" onclick="openModal('event-modal')">+ Add Event</button>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-head">
+          <div class="tbl-title">All Events</div>
+          <div class="search-wrap"><span class="search-ic">🔍</span><input class="form-input" style="padding:8px 12px 8px 34px;width:220px" placeholder="Search events…" oninput="searchTable(this,'ev-tbody')"/></div>
+        </div>
+        <div class="tbl-loading" id="ev-loading">Loading events…</div>
+        <table id="ev-table" style="display:none">
+          <thead><tr><th>Title</th><th>Date</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="ev-tbody"></tbody>
+        </table>
+        <div class="tbl-empty" id="ev-empty" style="display:none">No events yet. Click <strong>+ Add Event</strong> to create one.</div>
+      </div>
+    </div>
+
+    <!-- ===== BLOG ===== -->
+    <div class="panel" id="panel-blog">
+      <div class="main-top">
+        <div><div class="page-title">Blog Posts</div><div class="page-desc">Manage news, flyers, quotes and announcements</div></div>
+        <button class="btn btn-g" onclick="openModal('blog-modal')">+ New Post</button>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-head">
+          <div class="tbl-title">All Posts</div>
+          <div class="search-wrap"><span class="search-ic">🔍</span><input class="form-input" style="padding:8px 12px 8px 34px;width:220px" placeholder="Search posts…" oninput="searchTable(this,'blog-tbody')"/></div>
+        </div>
+        <div class="tbl-loading" id="blog-loading">Loading posts…</div>
+        <table id="blog-table" style="display:none">
+          <thead><tr><th>Title / Preview</th><th>Category</th><th>Author</th><th>Date</th><th>Featured</th><th>Actions</th></tr></thead>
+          <tbody id="blog-tbody"></tbody>
+        </table>
+        <div class="tbl-empty" id="blog-empty" style="display:none">No posts yet. Click <strong>+ New Post</strong> to publish something.</div>
+      </div>
+    </div>
+
+    <!-- ===== PAST QUESTIONS ===== -->
+    <div class="panel" id="panel-pastq">
+      <div class="main-top">
+        <div><div class="page-title">Past Questions</div><div class="page-desc">Upload and manage past exam question PDFs</div></div>
+        <button class="btn btn-g" onclick="openModal('pq-modal')">+ Upload Past Question</button>
+      </div>
+      <div class="alert a-gold"><span>📌</span><div>PDFs are stored in Supabase Storage under the <code style="font-family:monospace">past-questions</code> bucket. Make sure the bucket exists and is set to <strong>public</strong>.</div></div>
+      <div class="tbl-wrap">
+        <div class="tbl-head"><div class="tbl-title">All Past Questions</div></div>
+        <div class="tbl-loading" id="pq-loading">Loading…</div>
+        <table id="pq-table" style="display:none">
+          <thead><tr><th>Course Title</th><th>Course Code</th><th>Year / Semester</th><th>Programme</th><th>PDF</th><th>Actions</th></tr></thead>
+          <tbody id="pq-tbody"></tbody>
+        </table>
+        <div class="tbl-empty" id="pq-empty" style="display:none">No past questions uploaded yet.</div>
+      </div>
+    </div>
+
+    <!-- ===== GALLERY ===== -->
+    <div class="panel" id="panel-gallery">
+      <div class="main-top">
+        <div><div class="page-title">Gallery</div><div class="page-desc">Manage gallery albums and photos</div></div>
+      </div>
+      <div class="alert a-blue"><span>ℹ️</span><div>Gallery management is handled directly on the <strong>gallery.html</strong> page for now. Students upload photos there and they are stored in Supabase Storage. Future versions of this dashboard will include gallery moderation here.</div></div>
+      <a href="gallery.html" class="btn btn-o" target="_blank">Open Gallery Page ↗</a>
+    </div>
+
+    <!-- ===== SUPABASE SETUP ===== -->
+    <div class="panel" id="panel-setup">
+      <div class="main-top">
+        <div><div class="page-title">Supabase Setup Guide</div><div class="page-desc">Full SQL schema + configuration instructions</div></div>
+      </div>
+
+      <div class="alert a-gold"><span>⚠️</span><div>Complete these steps <strong>once</strong> before using the admin dashboard. After setup, all website content will be controlled from this panel.</div></div>
+
+      <div style="display:flex;flex-direction:column;gap:24px">
+
+        <!-- STEP 1 -->
+        <div class="tbl-wrap">
+          <div class="tbl-head"><div class="tbl-title">Step 1 — Create Supabase Project</div></div>
+          <div style="padding:22px 24px;display:flex;flex-direction:column;gap:12px;font-size:.88rem;color:var(--muted);line-height:1.75">
+            <div>1. Go to <strong style="color:var(--gold)">supabase.com</strong> → Create a new project named <strong>comsa-atu</strong></div>
+            <div>2. Pick a strong database password and save it somewhere safe</div>
+            <div>3. Go to <strong>Project Settings → API</strong> and copy your <strong>Project URL</strong> and <strong>anon/public key</strong></div>
+            <div>4. Open this file (<code style="font-family:monospace;color:var(--gold)">admin.html</code>) in a code editor and find the CONFIG section at the top of the &lt;script&gt; and fill in those two values</div>
+            <div>5. Do the same for <strong>events.html</strong>, <strong>blog.html</strong>, and <strong>past-questions.html</strong> — each one has a CONFIG section at the top of its script</div>
+          </div>
+        </div>
+
+        <!-- STEP 2: SQL -->
+        <div class="tbl-wrap">
+          <div class="tbl-head"><div class="tbl-title">Step 2 — Run SQL in Supabase SQL Editor</div></div>
+          <div style="padding:22px 24px">
+            <div style="font-size:.84rem;color:var(--muted);margin-bottom:14px">Go to your Supabase project → <strong>SQL Editor</strong> → paste and run the following:</div>
+            <div class="code"><span class="cm">-- EVENTS TABLE</span>
+<span class="ck">CREATE TABLE</span> events (
+  id          <span class="ca">uuid</span> <span class="ck">DEFAULT</span> gen_random_uuid() <span class="ck">PRIMARY KEY</span>,
+  title       <span class="ca">text</span> <span class="ck">NOT NULL</span>,
+  description <span class="ca">text</span>,
+  category    <span class="ca">text</span>,
+  event_date  <span class="ca">date</span> <span class="ck">NOT NULL</span>,
+  event_time  <span class="ca">text</span>,
+  venue       <span class="ca">text</span>,
+  audience    <span class="ca">text</span>,
+  status      <span class="ca">text</span> <span class="ck">DEFAULT</span> <span class="cv">'upcoming'</span>,
+  icon        <span class="ca">text</span> <span class="ck">DEFAULT</span> <span class="cv">'🎉'</span>,
+  image_url   <span class="ca">text</span>,
+  week_group  <span class="ca">text</span>,
+  created_at  <span class="ca">timestamptz</span> <span class="ck">DEFAULT</span> now()
+);
+
+<span class="cm">-- BLOG POSTS TABLE</span>
+<span class="ck">CREATE TABLE</span> posts (
+  id          <span class="ca">uuid</span> <span class="ck">DEFAULT</span> gen_random_uuid() <span class="ck">PRIMARY KEY</span>,
+  title       <span class="ca">text</span> <span class="ck">NOT NULL</span>,
+  excerpt     <span class="ca">text</span>,
+  content     <span class="ca">text</span>,
+  category    <span class="ca">text</span> <span class="ck">DEFAULT</span> <span class="cv">'news'</span>,
+  author      <span class="ca">text</span> <span class="ck">DEFAULT</span> <span class="cv">'COMSA Secretariat'</span>,
+  image_url   <span class="ca">text</span>,
+  is_featured <span class="ca">boolean</span> <span class="ck">DEFAULT</span> false,
+  tags        <span class="ca">text[]</span>,
+  created_at  <span class="ca">timestamptz</span> <span class="ck">DEFAULT</span> now()
+);
+
+<span class="cm">-- PAST QUESTIONS TABLE</span>
+<span class="ck">CREATE TABLE</span> past_questions (
+  id          <span class="ca">uuid</span> <span class="ck">DEFAULT</span> gen_random_uuid() <span class="ck">PRIMARY KEY</span>,
+  course_title <span class="ca">text</span> <span class="ck">NOT NULL</span>,
+  course_code  <span class="ca">text</span>,
+  year_sem     <span class="ca">text</span>,
+  programme    <span class="ca">text</span>,
+  pdf_url      <span class="ca">text</span>,
+  storage_path <span class="ca">text</span>,
+  created_at   <span class="ca">timestamptz</span> <span class="ck">DEFAULT</span> now()
+);
+
+<span class="cm">-- ENABLE ROW LEVEL SECURITY</span>
+<span class="ck">ALTER TABLE</span> events <span class="ck">ENABLE ROW LEVEL SECURITY</span>;
+<span class="ck">ALTER TABLE</span> posts <span class="ck">ENABLE ROW LEVEL SECURITY</span>;
+<span class="ck">ALTER TABLE</span> past_questions <span class="ck">ENABLE ROW LEVEL SECURITY</span>;
+
+<span class="cm">-- PUBLIC READ POLICIES (anyone can read)</span>
+<span class="ck">CREATE POLICY</span> <span class="cv">"Public read events"</span> <span class="ck">ON</span> events <span class="ck">FOR SELECT USING</span> (true);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Public read posts"</span> <span class="ck">ON</span> posts <span class="ck">FOR SELECT USING</span> (true);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Public read past_questions"</span> <span class="ck">ON</span> past_questions <span class="ck">FOR SELECT USING</span> (true);
+
+<span class="cm">-- ADMIN WRITE POLICIES (service_role key only — used server-side)</span>
+<span class="cm">-- These allow the admin dashboard to insert/update/delete using the anon key</span>
+<span class="cm">-- Only expose admin.html to trusted people — it is the security layer</span>
+<span class="ck">CREATE POLICY</span> <span class="cv">"Admin write events"</span> <span class="ck">ON</span> events <span class="ck">FOR ALL USING</span> (true);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Admin write posts"</span> <span class="ck">ON</span> posts <span class="ck">FOR ALL USING</span> (true);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Admin write past_questions"</span> <span class="ck">ON</span> past_questions <span class="ck">FOR ALL USING</span> (true);</div>
+          </div>
+        </div>
+
+        <!-- STEP 3: STORAGE -->
+        <div class="tbl-wrap">
+          <div class="tbl-head"><div class="tbl-title">Step 3 — Create Storage Buckets</div></div>
+          <div style="padding:22px 24px;font-size:.88rem;color:var(--muted);line-height:1.8;display:flex;flex-direction:column;gap:8px">
+            <div>In Supabase → <strong>Storage</strong> → <strong>New Bucket</strong>:</div>
+            <div>• Bucket name: <code style="font-family:monospace;color:var(--gold)">past-questions</code> → set to <strong>Public</strong></div>
+            <div>• Bucket name: <code style="font-family:monospace;color:var(--gold)">blog-images</code> → set to <strong>Public</strong></div>
+            <div>• Bucket name: <code style="font-family:monospace;color:var(--gold)">gallery</code> → set to <strong>Public</strong></div>
+            <div style="margin-top:6px">Then run this SQL to allow uploads:</div>
+            <div class="code"><span class="ck">INSERT INTO</span> storage.buckets (id, name, public) <span class="ck">VALUES</span>
+  (<span class="cv">'past-questions'</span>, <span class="cv">'past-questions'</span>, true),
+  (<span class="cv">'blog-images'</span>, <span class="cv">'blog-images'</span>, true),
+  (<span class="cv">'gallery'</span>, <span class="cv">'gallery'</span>, true)
+<span class="ck">ON CONFLICT DO NOTHING</span>;
+
+<span class="ck">CREATE POLICY</span> <span class="cv">"Public read storage"</span> <span class="ck">ON</span> storage.objects
+  <span class="ck">FOR SELECT USING</span> (bucket_id <span class="ck">IN</span> (<span class="cv">'past-questions'</span>,<span class="cv">'blog-images'</span>,<span class="cv">'gallery'</span>));
+
+<span class="ck">CREATE POLICY</span> <span class="cv">"Admin upload storage"</span> <span class="ck">ON</span> storage.objects
+  <span class="ck">FOR INSERT WITH CHECK</span> (true);
+
+<span class="ck">CREATE POLICY</span> <span class="cv">"Admin delete storage"</span> <span class="ck">ON</span> storage.objects
+  <span class="ck">FOR DELETE USING</span> (true);</div>
+          </div>
+        </div>
+
+        <!-- STEP 4: SEED DATA -->
+        <div class="tbl-wrap">
+          <div class="tbl-head"><div class="tbl-title">Step 4 — Seed Departmental Week Events</div></div>
+          <div style="padding:22px 24px;font-size:.84rem;color:var(--muted);line-height:1.75">
+            <div style="margin-bottom:12px">Run this to add the Departmental Week 2026 events to the database:</div>
+            <div class="code"><span class="ck">INSERT INTO</span> events (title, description, category, event_date, event_time, venue, audience, status, icon, week_group) <span class="ck">VALUES</span>
+(<span class="cv">'Health Walk & Clean-Up Exercise'</span>, <span class="cv">'Kick off Departmental Week with a community health walk and campus clean-up exercise. Come in comfortable wear and be part of this wellness and environmental initiative.'</span>, <span class="cv">'Health & Wellness'</span>, <span class="cv">'2026-06-29'</span>, <span class="cv">'Morning'</span>, <span class="cv">'ATU Campus, Accra'</span>, <span class="cv">'All COMSA Members'</span>, <span class="cv">'upcoming'</span>, <span class="cv">'🏃'</span>, <span class="cv">'Departmental Week 2026'</span>),
+(<span class="cv">'Inter-Class Debate'</span>, <span class="cv">'Classes go head-to-head in an exciting debate competition. Show your rhetorical skills and represent your class with pride!'</span>, <span class="cv">'Academic'</span>, <span class="cv">'2026-06-30'</span>, <span class="cv">'TBA'</span>, <span class="cv">'Departmental Hall, ATU'</span>, <span class="cv">'All COMSA Members'</span>, <span class="cv">'upcoming'</span>, <span class="cv">'🎙️'</span>, <span class="cv">'Departmental Week 2026'</span>),
+(<span class="cv">'Professional Edge Conference & Part-Time Summit'</span>, <span class="cv">'A professional development conference featuring industry speakers, career panels, and a dedicated summit for part-time students. Network with professionals and gain insights into the communications industry.'</span>, <span class="cv">'Conference'</span>, <span class="cv">'2026-07-01'</span>, <span class="cv">'TBA'</span>, <span class="cv">'ATU Auditorium'</span>, <span class="cv">'All Students & Part-Time Members'</span>, <span class="cv">'upcoming'</span>, <span class="cv">'💼'</span>, <span class="cv">'Departmental Week 2026'</span>),
+(<span class="cv">'Industrial Trip — Kasapreko Ltd'</span>, <span class="cv">'An exciting industrial visit to Kasapreko Company Limited, one of Ghana's leading beverage manufacturers. Students will get a behind-the-scenes look at corporate communications and brand management in action.'</span>, <span class="cv">'Industrial Trip'</span>, <span class="cv">'2026-07-02'</span>, <span class="cv">'All Day'</span>, <span class="cv">'Kasapreko Ltd, Accra'</span>, <span class="cv">'All COMSA Members'</span>, <span class="cv">'upcoming'</span>, <span class="cv">'🏭'</span>, <span class="cv">'Departmental Week 2026'</span>),
+(<span class="cv">'Rep Your Jersey Day'</span>, <span class="cv">'Wear your favourite football jersey and show your team spirit! A fun, casual day to wind down before the big games tomorrow.'</span>, <span class="cv">'Social'</span>, <span class="cv">'2026-07-03'</span>, <span class="cv">'All Day'</span>, <span class="cv">'ATU Campus'</span>, <span class="cv">'All COMSA Members'</span>, <span class="cv">'upcoming'</span>, <span class="cv">'👕'</span>, <span class="cv">'Departmental Week 2026'</span>),
+(<span class="cv">'Departmental Games'</span>, <span class="cv">'The grand finale of Departmental Week! A full day of sports and games competitions — football, athletics, indoor games and more. Come out and cheer for your class!'</span>, <span class="cv">'Sports'</span>, <span class="cv">'2026-07-04'</span>, <span class="cv">'All Day'</span>, <span class="cv">'ATU Sports Grounds'</span>, <span class="cv">'All COMSA Members'</span>, <span class="cv">'upcoming'</span>, <span class="cv">'🏆'</span>, <span class="cv">'Departmental Week 2026'</span>);</div>
+          </div>
+        </div>
+
+        <!-- STEP 5: SEED PAST QUESTIONS -->
+        <div class="tbl-wrap">
+          <div class="tbl-head"><div class="tbl-title">Step 5 — Seed Past Questions (Placeholder Records)</div></div>
+          <div style="padding:22px 24px;font-size:.84rem;color:var(--muted);line-height:1.75">
+            <div style="margin-bottom:12px">This inserts the 5 course records. You'll upload the actual PDFs through the admin dashboard and then update the <code style="font-family:monospace;color:var(--gold)">pdf_url</code> column from the table (or just use the admin upload form which auto-fills it).</div>
+            <div class="code"><span class="ck">INSERT INTO</span> past_questions (course_title, course_code, programme, year_sem) <span class="ck">VALUES</span>
+(<span class="cv">'Integrated Marketing Communications'</span>, <span class="cv">'BMC 301'</span>, <span class="cv">'All Programmes'</span>, <span class="cv">'2024/25'</span>),
+(<span class="cv">'PR Theories and Practice'</span>, <span class="cv">'PRD 201'</span>, <span class="cv">'Public Relations'</span>, <span class="cv">'2024/25'</span>),
+(<span class="cv">'Industrial and Organizational Psychology'</span>, <span class="cv">'PSY 301'</span>, <span class="cv">'All Programmes'</span>, <span class="cv">'2024/25'</span>),
+(<span class="cv">'Technical Report Writing'</span>, <span class="cv">'ENG 201'</span>, <span class="cv">'All Programmes'</span>, <span class="cv">'2024/25'</span>),
+(<span class="cv">'Corporate Communication'</span>, <span class="cv">'PRD 401'</span>, <span class="cv">'Public Relations'</span>, <span class="cv">'2024/25'</span>);</div>
+          </div>
+        </div>
+
+        <!-- STEP 6: KEYS -->
+        <div class="tbl-wrap">
+          <div class="tbl-head"><div class="tbl-title">Step 6 — Add Your Keys to All Pages</div></div>
+          <div style="padding:22px 24px;font-size:.84rem;color:var(--muted);line-height:1.8">
+            <div style="margin-bottom:10px">In each of these files, find the <code style="font-family:monospace;color:var(--gold)">// ===== SUPABASE CONFIG =====</code> comment and fill in your URL and key:</div>
+            <div>• <code style="font-family:monospace">admin.html</code> — this file (controls everything)</div>
+            <div>• <code style="font-family:monospace">events.html</code> — reads events table</div>
+            <div>• <code style="font-family:monospace">blog.html</code> — reads posts table</div>
+            <div>• <code style="font-family:monospace">past-questions.html</code> — reads past_questions table</div>
+            <div style="margin-top:12px">Example:</div>
+            <div class="code"><span class="ck">const</span> SUPA_URL = <span class="cv">'https://xxxxxxxxxxx.supabase.co'</span>;
+<span class="ck">const</span> SUPA_KEY = <span class="cv">'eyJhbGci...(your anon key)...'</span>;</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /dashboard -->
+
+<!-- ===== MODALS ===== -->
+
+<!-- EVENT MODAL -->
+<div class="modal-bg" id="event-modal">
+  <div class="modal-box">
+    <div class="modal-head"><div class="modal-title" id="ev-modal-title">Add New Event</div><button class="modal-close" onclick="closeModal('event-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="ev-id"/>
+      <div class="form-group"><label class="form-label">Event Title *</label><input class="form-input" id="ev-title" placeholder="e.g. Inter-Class Debate"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Date *</label><input class="form-input" id="ev-date" type="date"/></div>
+        <div class="form-group"><label class="form-label">Time</label><input class="form-input" id="ev-time" placeholder="e.g. 9:00 AM – 3:00 PM"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Category</label>
+          <select class="form-select" id="ev-cat">
+            <option value="Academic">Academic</option><option value="Social">Social</option><option value="Conference">Conference</option><option value="Sports">Sports</option><option value="Industrial Trip">Industrial Trip</option><option value="Health & Wellness">Health &amp; Wellness</option><option value="Workshop">Workshop</option><option value="Gala Night">Gala Night</option><option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Status</label>
+          <select class="form-select" id="ev-status">
+            <option value="upcoming">Upcoming</option><option value="past">Past</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Venue</label><input class="form-input" id="ev-venue" placeholder="e.g. ATU Auditorium"/></div>
+      <div class="form-group"><label class="form-label">Audience</label><input class="form-input" id="ev-audience" placeholder="e.g. All COMSA Members"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Icon (emoji)</label><input class="form-input" id="ev-icon" placeholder="🎉" maxlength="4"/></div>
+        <div class="form-group"><label class="form-label">Week Group (optional)</label><input class="form-input" id="ev-week" placeholder="e.g. Departmental Week 2026"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="ev-desc" placeholder="Full event description…"></textarea></div>
+      <div class="form-msg" id="ev-msg"></div>
+    </div>
+    <div class="form-foot">
+      <button class="btn btn-o" onclick="closeModal('event-modal')">Cancel</button>
+      <button class="btn btn-g" onclick="saveEvent()">Save Event</button>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG MODAL -->
+<div class="modal-bg" id="blog-modal">
+  <div class="modal-box">
+    <div class="modal-head"><div class="modal-title" id="blog-modal-title">New Blog Post</div><button class="modal-close" onclick="closeModal('blog-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="blog-id"/>
+      <div class="form-group"><label class="form-label">Title *</label><input class="form-input" id="blog-title" placeholder="Post title…"/></div>
+      <div class="form-group"><label class="form-label">Excerpt (short summary)</label><input class="form-input" id="blog-excerpt" placeholder="One-line summary shown on cards…"/></div>
+      <div class="form-group"><label class="form-label">Full Content</label><textarea class="form-textarea" style="min-height:140px" id="blog-content" placeholder="Full post content, announcement, or quote…"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Category</label>
+          <select class="form-select" id="blog-cat">
+            <option value="news">📰 News</option><option value="flyer">📢 Flyer</option><option value="event">📅 Event</option><option value="academic">📚 Academic</option><option value="social">🎊 Social</option><option value="quote">💬 Quote</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Author</label><input class="form-input" id="blog-author" placeholder="COMSA PRO" value="COMSA Secretariat"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Image URL (optional)</label><input class="form-input" id="blog-img" placeholder="https://… or leave blank"/><div class="form-hint">You can link a Supabase Storage image URL here. Upload to the blog-images bucket first.</div></div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" id="blog-featured" style="width:18px;height:18px;accent-color:var(--gold)"/>
+        <label for="blog-featured" style="font-size:.88rem;cursor:pointer">Mark as Featured Post</label>
+      </div>
+      <div class="form-group"><label class="form-label">Tags (comma separated)</label><input class="form-input" id="blog-tags" placeholder="COMSA Week, Events, 2026"/></div>
+      <div class="form-msg" id="blog-msg"></div>
+    </div>
+    <div class="form-foot">
+      <button class="btn btn-o" onclick="closeModal('blog-modal')">Cancel</button>
+      <button class="btn btn-g" onclick="savePost()">Publish Post</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAST QUESTION MODAL -->
+<div class="modal-bg" id="pq-modal">
+  <div class="modal-box">
+    <div class="modal-head"><div class="modal-title">Upload Past Question</div><button class="modal-close" onclick="closeModal('pq-modal')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="pq-id"/>
+      <div class="form-group"><label class="form-label">Course Title *</label><input class="form-input" id="pq-title" placeholder="e.g. Integrated Marketing Communications"/></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Course Code</label><input class="form-input" id="pq-code" placeholder="e.g. BMC 301"/></div>
+        <div class="form-group"><label class="form-label">Year / Semester</label><input class="form-input" id="pq-year" placeholder="e.g. 2024/25 Sem 2"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Programme</label>
+        <select class="form-select" id="pq-prog">
+          <option value="All Programmes">All Programmes</option>
+          <option value="Public Relations">Public Relations with Digital Communication</option>
+          <option value="Journalism">Journalism & Media Studies</option>
+          <option value="Marketing">Marketing Communication</option>
+          <option value="Development Communication">Development Communication</option>
+          <option value="Graphic Communication">Graphic Communication</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">PDF File</label>
+        <div class="file-drop" id="pq-drop">
+          <input type="file" id="pq-file" accept=".pdf" onchange="previewFile(this,'pq-preview','pq-drop-txt')"/>
+          <div class="file-drop-ic">📄</div>
+          <div class="file-drop-txt" id="pq-drop-txt">Click or drag to upload PDF</div>
+          <div class="file-drop-hint">PDF files only. Max 10MB.</div>
+        </div>
+        <div class="file-preview" id="pq-preview"></div>
+      </div>
+      <div class="form-msg" id="pq-msg"></div>
+    </div>
+    <div class="form-foot">
+      <button class="btn btn-o" onclick="closeModal('pq-modal')">Cancel</button>
+      <button class="btn btn-g" onclick="savePQ()">Upload &amp; Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast"></div>
+
+<script>
+// =====================================================
+//   SUPABASE CONFIG — FILL THESE IN
+// =====================================================
+const SUPA_URL = 'YOUR_SUPABASE_URL';   // e.g. https://xxxxx.supabase.co
+const SUPA_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+// =====================================================
+//   ADMIN PASSWORD — change this to something strong
+// =====================================================
+const ADMIN_PASSWORD = 'comsa@admin2026';
+
+// =====================================================
+//   SUPABASE FETCH HELPER
+// =====================================================
+async function supa(path,method='GET',body=null){
+  const opts={method,headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=representation'}};
+  if(body)opts.body=JSON.stringify(body);
+  const res=await fetch(SUPA_URL+'/rest/v1/'+path,opts);
+  const text=await res.text();
+  try{return{ok:res.ok,data:JSON.parse(text),status:res.status}}catch{return{ok:res.ok,data:text,status:res.status}}
+}
+
+async function supaUpload(bucket,filePath,file){
+  const res=await fetch(`${SUPA_URL}/storage/v1/object/${bucket}/${filePath}`,{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':file.type,'x-upsert':'true'},
+    body:file
+  });
+  return res.ok?`${SUPA_URL}/storage/v1/object/public/${bucket}/${filePath}`:null;
+}
+
+// =====================================================
+//   LOGIN
+// =====================================================
+function doLogin(){
+  const pw=document.getElementById('lp').value;
+  if(pw===ADMIN_PASSWORD){
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('dashboard').classList.add('visible');
+    loadOverview();loadEvents();loadPosts();loadPQ();
+  }else{
+    document.getElementById('login-err').style.display='block';
+    document.getElementById('lp').value='';
+    setTimeout(()=>document.getElementById('login-err').style.display='none',3000);
+  }
+}
+document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+function logout(){document.getElementById('dashboard').classList.remove('visible');document.getElementById('login-screen').classList.remove('hidden');document.getElementById('lp').value='';}
+
+// =====================================================
+//   PANEL NAVIGATION
+// =====================================================
+function showPanel(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.sb-link').forEach(b=>b.classList.remove('act'));
+  document.getElementById('panel-'+id).classList.add('act');
+  btn.classList.add('act');
+}
+
+// =====================================================
+//   TOAST
+// =====================================================
+function toast(msg,type='ok'){
+  const el=document.createElement('div');
+  el.className='toast-item '+type;
+  el.innerHTML=(type==='ok'?'✅ ':'❌ ')+msg;
+  document.getElementById('toast').appendChild(el);
+  setTimeout(()=>el.remove(),4000);
+}
+
+// =====================================================
+//   MODAL
+// =====================================================
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')}));
+
+// =====================================================
+//   SEARCH
+// =====================================================
+function searchTable(inp,tbodyId){
+  const q=inp.value.toLowerCase();
+  document.querySelectorAll('#'+tbodyId+' tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'});
+}
+
+// =====================================================
+//   FILE PREVIEW
+// =====================================================
+function previewFile(inp,previewId,txtId){
+  const f=inp.files[0];
+  if(!f)return;
+  document.getElementById(txtId).textContent=f.name;
+  document.getElementById(previewId).style.display='block';
+  document.getElementById(previewId).textContent='✓ '+f.name+' ('+Math.round(f.size/1024)+' KB)';
+}
+
+// =====================================================
+//   OVERVIEW
+// =====================================================
+async function loadOverview(){
+  const [ev,po,pq]=await Promise.all([
+    supa('events?select=id'),supa('posts?select=id'),supa('past_questions?select=id')
+  ]);
+  document.getElementById('ov-events').textContent=ev.ok?ev.data.length:'—';
+  document.getElementById('ov-posts').textContent=po.ok?po.data.length:'—';
+  document.getElementById('ov-pq').textContent=pq.ok?pq.data.length:'—';
+}
+
+// =====================================================
+//   EVENTS
+// =====================================================
+async function loadEvents(){
+  const r=await supa('events?order=event_date.asc');
+  document.getElementById('ev-loading').style.display='none';
+  if(!r.ok||!r.data.length){document.getElementById('ev-empty').style.display='block';return;}
+  document.getElementById('ev-table').style.display='table';
+  const tbody=document.getElementById('ev-tbody');
+  tbody.innerHTML='';
+  r.data.forEach(ev=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><strong style="font-size:.87rem">${esc(ev.title)}</strong>${ev.week_group?`<div style="font-size:.72rem;color:var(--muted);margin-top:2px">${esc(ev.week_group)}</div>`:''}</td>
+      <td style="font-size:.83rem">${ev.event_date||'—'}<br/><span style="color:var(--muted);font-size:.75rem">${ev.event_time||''}</span></td>
+      <td><span class="badge badge-blue">${esc(ev.category||'')}</span></td>
+      <td><span class="badge ${ev.status==='upcoming'?'badge-green':'badge-gold'}">${ev.status||''}</span></td>
+      <td style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-o btn-sm" onclick='editEvent(${JSON.stringify(ev)})'>✏️ Edit</button>
+        <button class="btn btn-r btn-sm" onclick="deleteEvent('${ev.id}')">🗑️ Delete</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function saveEvent(){
+  const id=document.getElementById('ev-id').value;
+  const body={
+    title:document.getElementById('ev-title').value.trim(),
+    event_date:document.getElementById('ev-date').value,
+    event_time:document.getElementById('ev-time').value.trim(),
+    category:document.getElementById('ev-cat').value,
+    status:document.getElementById('ev-status').value,
+    venue:document.getElementById('ev-venue').value.trim(),
+    audience:document.getElementById('ev-audience').value.trim(),
+    icon:document.getElementById('ev-icon').value||'🎉',
+    week_group:document.getElementById('ev-week').value.trim(),
+    description:document.getElementById('ev-desc').value.trim()
+  };
+  if(!body.title||!body.event_date){showMsg('ev-msg','Title and date are required.','err');return;}
+  let r;
+  if(id){r=await supa(`events?id=eq.${id}`,'PATCH',body);}
+  else{r=await supa('events','POST',body);}
+  if(r.ok){toast(id?'Event updated!':'Event added!');closeModal('event-modal');resetEvForm();loadEvents();loadOverview();}
+  else{showMsg('ev-msg','Error saving. Check Supabase config.','err');}
+}
+
+function editEvent(ev){
+  document.getElementById('ev-modal-title').textContent='Edit Event';
+  document.getElementById('ev-id').value=ev.id;
+  document.getElementById('ev-title').value=ev.title||'';
+  document.getElementById('ev-date').value=ev.event_date||'';
+  document.getElementById('ev-time').value=ev.event_time||'';
+  document.getElementById('ev-cat').value=ev.category||'Academic';
+  document.getElementById('ev-status').value=ev.status||'upcoming';
+  document.getElementById('ev-venue').value=ev.venue||'';
+  document.getElementById('ev-audience').value=ev.audience||'';
+  document.getElementById('ev-icon').value=ev.icon||'🎉';
+  document.getElementById('ev-week').value=ev.week_group||'';
+  document.getElementById('ev-desc').value=ev.description||'';
+  openModal('event-modal');
+}
+
+function resetEvForm(){
+  ['ev-id','ev-title','ev-date','ev-time','ev-venue','ev-audience','ev-icon','ev-week','ev-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ev-cat').value='Academic';
+  document.getElementById('ev-status').value='upcoming';
+  document.getElementById('ev-modal-title').textContent='Add New Event';
+}
+
+async function deleteEvent(id){
+  if(!confirm('Delete this event? This cannot be undone.'))return;
+  const r=await supa(`events?id=eq.${id}`,'DELETE');
+  if(r.ok){toast('Event deleted.');loadEvents();loadOverview();}
+  else toast('Error deleting.','err');
+}
+
+// =====================================================
+//   POSTS
+// =====================================================
+async function loadPosts(){
+  const r=await supa('posts?order=created_at.desc');
+  document.getElementById('blog-loading').style.display='none';
+  if(!r.ok||!r.data.length){document.getElementById('blog-empty').style.display='block';return;}
+  document.getElementById('blog-table').style.display='table';
+  const tbody=document.getElementById('blog-tbody');
+  tbody.innerHTML='';
+  const cats={news:'badge-blue',flyer:'badge-gold',event:'badge-green',academic:'badge-blue',social:'badge-gold',quote:'badge-green'};
+  r.data.forEach(p=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><strong style="font-size:.87rem">${esc(p.title)}</strong><div style="font-size:.74rem;color:var(--muted);margin-top:2px">${esc((p.excerpt||'').substring(0,60))}…</div></td>
+      <td><span class="badge ${cats[p.category]||'badge-gold'}">${p.category||''}</span></td>
+      <td style="font-size:.83rem">${esc(p.author||'')}</td>
+      <td style="font-size:.8rem;color:var(--muted)">${p.created_at?p.created_at.split('T')[0]:'—'}</td>
+      <td>${p.is_featured?'<span class="badge badge-gold">⭐ Yes</span>':'—'}</td>
+      <td style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn btn-o btn-sm" onclick='editPost(${JSON.stringify(p)})'>✏️ Edit</button>
+        <button class="btn btn-r btn-sm" onclick="deletePost('${p.id}')">🗑️</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function savePost(){
+  const id=document.getElementById('blog-id').value;
+  const tags=document.getElementById('blog-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const body={
+    title:document.getElementById('blog-title').value.trim(),
+    excerpt:document.getElementById('blog-excerpt').value.trim(),
+    content:document.getElementById('blog-content').value.trim(),
+    category:document.getElementById('blog-cat').value,
+    author:document.getElementById('blog-author').value.trim()||'COMSA Secretariat',
+    image_url:document.getElementById('blog-img').value.trim()||null,
+    is_featured:document.getElementById('blog-featured').checked,
+    tags:tags.length?tags:null
+  };
+  if(!body.title){showMsg('blog-msg','Title is required.','err');return;}
+  let r;
+  if(id){r=await supa(`posts?id=eq.${id}`,'PATCH',body);}
+  else{r=await supa('posts','POST',body);}
+  if(r.ok){toast(id?'Post updated!':'Post published!');closeModal('blog-modal');resetPostForm();loadPosts();loadOverview();}
+  else{showMsg('blog-msg','Error saving. Check Supabase config.','err');}
+}
+
+function editPost(p){
+  document.getElementById('blog-modal-title').textContent='Edit Post';
+  document.getElementById('blog-id').value=p.id;
+  document.getElementById('blog-title').value=p.title||'';
+  document.getElementById('blog-excerpt').value=p.excerpt||'';
+  document.getElementById('blog-content').value=p.content||'';
+  document.getElementById('blog-cat').value=p.category||'news';
+  document.getElementById('blog-author').value=p.author||'COMSA Secretariat';
+  document.getElementById('blog-img').value=p.image_url||'';
+  document.getElementById('blog-featured').checked=!!p.is_featured;
+  document.getElementById('blog-tags').value=(p.tags||[]).join(', ');
+  openModal('blog-modal');
+}
+
+function resetPostForm(){
+  ['blog-id','blog-title','blog-excerpt','blog-content','blog-img','blog-tags'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('blog-cat').value='news';
+  document.getElementById('blog-author').value='COMSA Secretariat';
+  document.getElementById('blog-featured').checked=false;
+  document.getElementById('blog-modal-title').textContent='New Blog Post';
+}
+
+async function deletePost(id){
+  if(!confirm('Delete this post permanently?'))return;
+  const r=await supa(`posts?id=eq.${id}`,'DELETE');
+  if(r.ok){toast('Post deleted.');loadPosts();loadOverview();}
+  else toast('Error deleting.','err');
+}
+
+// =====================================================
+//   PAST QUESTIONS
+// =====================================================
+async function loadPQ(){
+  const r=await supa('past_questions?order=created_at.asc');
+  document.getElementById('pq-loading').style.display='none';
+  if(!r.ok||!r.data.length){document.getElementById('pq-empty').style.display='block';return;}
+  document.getElementById('pq-table').style.display='table';
+  const tbody=document.getElementById('pq-tbody');
+  tbody.innerHTML='';
+  r.data.forEach(q=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><strong style="font-size:.87rem">${esc(q.course_title)}</strong></td>
+      <td style="font-size:.82rem;color:var(--muted)">${esc(q.course_code||'—')}</td>
+      <td style="font-size:.82rem">${esc(q.year_sem||'—')}</td>
+      <td><span class="badge badge-blue" style="font-size:.65rem">${esc(q.programme||'All')}</span></td>
+      <td>${q.pdf_url?`<a href="${q.pdf_url}" target="_blank" class="btn btn-o btn-sm">📄 View PDF</a>`:'<span style="color:var(--muted);font-size:.78rem">No PDF yet</span>'}</td>
+      <td style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn btn-o btn-sm" onclick='editPQ(${JSON.stringify(q)})'>✏️ Edit</button>
+        <button class="btn btn-r btn-sm" onclick="deletePQ('${q.id}')">🗑️</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function savePQ(){
+  const id=document.getElementById('pq-id').value;
+  const file=document.getElementById('pq-file').files[0];
+  const title=document.getElementById('pq-title').value.trim();
+  if(!title){showMsg('pq-msg','Course title is required.','err');return;}
+  let pdf_url=null,storage_path=null;
+  if(file){
+    showMsg('pq-msg','Uploading PDF…','ok');
+    const fname=title.replace(/\s+/g,'_').toLowerCase()+'_'+Date.now()+'.pdf';
+    pdf_url=await supaUpload('past-questions',fname,file);
+    storage_path=fname;
+    if(!pdf_url){showMsg('pq-msg','PDF upload failed. Check storage bucket config.','err');return;}
+  }
+  const body={course_title:title,course_code:document.getElementById('pq-code').value.trim(),year_sem:document.getElementById('pq-year').value.trim(),programme:document.getElementById('pq-prog').value};
+  if(pdf_url)body.pdf_url=pdf_url;
+  if(storage_path)body.storage_path=storage_path;
+  let r;
+  if(id){r=await supa(`past_questions?id=eq.${id}`,'PATCH',body);}
+  else{r=await supa('past_questions','POST',body);}
+  if(r.ok){toast(id?'Updated!':'Past question saved!');closeModal('pq-modal');resetPQForm();loadPQ();loadOverview();}
+  else{showMsg('pq-msg','Error saving.','err');}
+}
+
+function editPQ(q){
+  document.getElementById('pq-id').value=q.id;
+  document.getElementById('pq-title').value=q.course_title||'';
+  document.getElementById('pq-code').value=q.course_code||'';
+  document.getElementById('pq-year').value=q.year_sem||'';
+  document.getElementById('pq-prog').value=q.programme||'All Programmes';
+  openModal('pq-modal');
+}
+
+function resetPQForm(){
+  ['pq-id','pq-title','pq-code','pq-year'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pq-prog').value='All Programmes';
+  document.getElementById('pq-file').value='';
+  document.getElementById('pq-preview').style.display='none';
+  document.getElementById('pq-drop-txt').textContent='Click or drag to upload PDF';
+}
+
+async function deletePQ(id){
+  if(!confirm('Delete this past question record?'))return;
+  const r=await supa(`past_questions?id=eq.${id}`,'DELETE');
+  if(r.ok){toast('Deleted.');loadPQ();loadOverview();}
+  else toast('Error.','err');
+}
+
+// =====================================================
+//   HELPERS
+// =====================================================
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function showMsg(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className='form-msg '+(type==='ok'?'msg-ok':'msg-err');el.style.display='block';setTimeout(()=>el.style.display='none',5000)}
+</script>
+</body>
+</html>

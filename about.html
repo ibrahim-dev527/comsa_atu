@@ -358,6 +358,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <li><a href="events.html">Events</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="past-questions.html">Past Questions</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-r">
@@ -373,6 +374,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <a href="events.html">Events</a>
   <a href="blog.html">Blog</a>
   <a href="gallery.html">Gallery</a>
+  <a href="past-questions.html">Past Questions</a>
   <a href="contact.html">Contact</a>
   <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
 </div>
@@ -794,7 +796,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
           <a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a>
           <a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a>
           <a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a>
-          <a href="https://wa.me/233530099371" target="_blank" class="ft-so">💬</a>
+          <a href="https://wa.me/233544487799" target="_blank" class="ft-so">💬</a>
         </div>
       </div>
       <div class="ft-col">
@@ -832,6 +834,12 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
   </div>
 </footer>
+
+<!-- WA FLOAT -->
+<div id="wa-float" style="position:fixed;bottom:100px;right:28px;z-index:3000;display:flex;align-items:center;gap:10px">
+  <div id="wa-tip" style="background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.12);border-radius:10px;padding:8px 13px;font-size:.76rem;color:var(--txt,#F0EFE9);white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s">Chat with PRO · Theophilus Mensah</div>
+  <a href="https://wa.me/233544487799" target="_blank" style="width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s;font-size:1.4rem;text-decoration:none" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO">💬</a>
+</div>
 
 <!-- CHATBOT -->
 <button id="cb-toggle"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
@@ -922,38 +930,36 @@ document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('cli
   let open=false,badgeShown=false;
 
   const KB=[
-    {k:['hello','hi','hey'],r:'Hello! 👋 Welcome to the COMSA About page! Ask me about our department, programmes, or the association!'},
-    {k:['programme','programs','courses','study','what can i study','offer'],r:'The Department offers <strong>5 programmes</strong>:<br/>1. 🏛️ <strong>MTech</strong> – Communication &amp; Brands Management (2yr)<br/>2. 🎬 <strong>BTech</strong> – Multimedia Communication (4yr)<br/>3. 📢 <strong>BTech</strong> – Public Relations with Digital Communication (4yr)<br/>4. 🎨 <strong>BTech</strong> – Graphic Communication (4yr)<br/>5. 📋 <strong>Diploma</strong> – Public Relations (2yr)<br/><br/>Click any programme card on this page for full details!'},
-    {k:['mtech','masters','postgraduate','brands management'],r:'The <strong>MTech in Communication &amp; Brands Management</strong> is a 2-year postgraduate programme covering strategic communication, branding, digital analytics, and multimedia. Assessment: 20% Term Papers + 20% Fieldwork + 60% Exam. Careers: Brand Manager, Marketing Professional, Media Personnel, Advertising Executive.'},
-    {k:['multimedia','btech multimedia'],r:'The <strong>BTech in Multimedia Communication</strong> (4 years) covers video production, radio broadcasting, digital content, and multimedia platforms. Careers: Multimedia Producer, Broadcast Journalist, Content Creator, Video Editor.'},
-    {k:['public relations','pr','btech pr'],r:'The <strong>BTech in PR with Digital Communication</strong> (4 years) equips students for professional PR careers and entrepreneurship. Assessment: 10% Tests + 10% Assignments + 20% Mid-Semester + 60% Final Exam. Careers: PR Officer, Corporate Comms, Social Media Manager, NGO Communications.'},
-    {k:['graphic','design','graphic communication'],r:'The <strong>BTech in Graphic Communication</strong> (4 years) covers design, typography, branding, packaging, web design, and UI/UX. Careers: Graphic Designer, Brand Identity Designer, Creative Director, UI/UX Designer.'},
-    {k:['diploma','2 year','two year'],r:'The <strong>Diploma in Public Relations</strong> (2 years) provides theory, research, and PR practice — a fast pathway into the communications industry. Careers: Corporate relations, marketing communications, events planning, nonprofit PR, political campaigning.'},
-    {k:['assessment','exam','grading','marks'],r:'Assessment by programme:<br/>• <strong>MTech:</strong> 20% Term Papers + 20% Fieldwork + 60% Exam<br/>• <strong>BTech programmes:</strong> 10% Tests + 10% Assignments + 20% Mid-Semester + 60% Final<br/><br/>Click any programme card to see the visual assessment breakdown!'},
-    {k:['career','job','prospect','work'],r:'Careers depend on your programme. Generally graduates work in: Media &amp; Broadcasting, Marketing, PR, Brand Management, Graphic Design, Corporate Comms, Digital Media, NGOs, and Academia. Click any card for specific careers!'},
-    {k:['department','liberal studies'],r:'The <strong>Department of Liberal Studies &amp; Communication Technology</strong> at ATU has a media lab, multimedia studio, and 5 programmes. It integrates emerging tech like drone communication and digital analytics.'},
-    {k:['mission'],r:'🎯 <strong>Mission:</strong> Foster academic excellence, professional development, and personal growth among all Communication Studies students at ATU.'},
-    {k:['vision'],r:'🌟 <strong>Vision:</strong> Be the most vibrant, impactful student association in Ghana — synonymous with excellence, integrity, and innovation.'},
-    {k:['values','core values'],r:'COMSA\'s Core Values: 🤝 Inclusivity · 🏆 Excellence · 💎 Integrity · 💡 Innovation · 🌱 Growth · 🔗 Unity. Scroll to the Core Values section!'},
-    {k:['history','founded','established'],r:'COMSA was founded in <strong>2004</strong>. Key milestones: First Association Week (2008), Expanded Leadership (2013), Community Outreach (2019), "The All Inclusive Administration" (2025).'},
-    {k:['lecturer','hod','kwaning','aboagye','baxey','faculty'],r:'Our faculty:<br/>👨‍🏫 <strong>Dr. Collins Kwaning</strong> — Head of Department<br/>👨‍🏫 <strong>Kwame Aboagye</strong> — Lecturer<br/>👨‍🏫 <strong>Raymond K. Baxey</strong> — Lecturer<br/><br/>See their profiles on the <a href="executives.html#lecturers" style="color:#F4B400">Executives page →</a>'},
-    {k:['president','jalil'],r:'President: <strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-    {k:['join','membership'],r:'To join COMSA: <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp President: 0530 099 371</a>. Open to all Communication students at ATU!'},
-    {k:['motto','slogan'],r:'✨ <em style="color:#F4B400">"Communicate, Persuade, Transform"</em> — COMSA\'s motto. Our 2025/26 theme: <strong>"The All Inclusive Administration"</strong>.'},
-    {k:['event','events'],r:'Check our <a href="events.html" style="color:#F4B400">Events page →</a> for all upcoming COMSA events!'},
-    {k:['thank','thanks'],r:'You\'re welcome! 😊 Anything else?'},
-    {k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
-  ];
-
-  const FALLBACK=`I don't have a specific answer for that. Please contact our President:<br/><strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>`;
+  {k:['hello','hi','hey'],r:'Hello! 👋 I'm the COMSA Assistant. Ask me about executives, events, past questions, membership and more!'},
+  {k:['president','jalil','abdul'],r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['vice president','kelvin','vp'],r:'<strong>Vice President: Kelvin Otiboateng</strong><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> · <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['secretary','jochebed'],r:'<strong>Secretary: Jochebed Ofori</strong><br/>📞 <a href="tel:+233537868041" style="color:#F4B400">0537 868 041</a> · <a href="https://wa.me/233537868041" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['organizer','martin','laryea'],r:'<strong>Organizer: Martin Laryea Mensah</strong><br/>📞 <a href="tel:+233533241149" style="color:#F4B400">0533 241 149</a> · <a href="https://wa.me/233533241149" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['welfare','stephen','ato'],r:'<strong>Welfare Officer: Stephen Ato Mensah</strong><br/>📞 <a href="tel:+233205915904" style="color:#F4B400">0205 915 904</a> · <a href="https://wa.me/233205915904" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['pro','public relations','theophilus mensah'],r:'📣 <strong>P.R.O: Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a> · <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['wocom','abigail','ninson'],r:'<strong>WOCOM: Abigail Enu Ninson</strong><br/>📞 <a href="tel:+233537646489" style="color:#F4B400">0537 646 489</a> · <a href="https://wa.me/233537646489" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['finance','kennedy','holdbrook'],r:'<strong>Finance Officer: Kennedy A. Holdbrook</strong><br/>📞 <a href="tel:+233200632333" style="color:#F4B400">0200 632 333</a> · <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['part time','isaac','quansah'],r:'<strong>Part-Time Rep: Isaac N. Quansah</strong><br/>📞 <a href="tel:+233556720552" style="color:#F4B400">0556 720 552</a> · <a href="https://wa.me/233556720552" target="_blank" style="color:#F4B400">WhatsApp</a>'},
+  {k:['patron','ashong'],r:'🎓 <strong>Patron: Mr. Theophilus Ashong</strong><br/>Lecturer, Liberal Studies & Communication Technology<br/>MPhil African History (UG) · PhD Candidate<br/>2020 Andrew W. Mellon Fellowship recipient.<br/><a href="executives.html" style="color:#F4B400">See full profile →</a>'},
+  {k:['executive','executives','all exec','leadership'],r:'👔 <strong>COMSA Executives 2025/26 — The All Inclusive Administration:</strong><br/>• President: Abdul Jalil Sani (0530 099 371)<br/>• VP: Kelvin Otiboateng (0550 081 165)<br/>• Secretary: Jochebed Ofori (0537 868 041)<br/>• Organizer: Martin Laryea Mensah (0533 241 149)<br/>• Welfare: Stephen Ato Mensah (0205 915 904)<br/>• P.R.O: Theophilus Mensah (0544 487 799)<br/>• WOCOM: Abigail Enu Ninson (0537 646 489)<br/>• Finance: Kennedy A. Holdbrook (0200 632 333)<br/>• Part-Time Rep: Isaac N. Quansah (0556 720 552)<br/><a href="executives.html" style="color:#F4B400">Full profiles →</a>'},
+  {k:['event','departmental week','dept week','upcoming'],r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/>Mon 29 Jun — Health Walk<br/>Tue 30 Jun — Inter-Class Debate<br/>Wed 1 Jul — Professional Conference<br/>Thu 2 Jul — Industrial Trip (Kasapreko)<br/>Fri 3 Jul — Jersey Day<br/>Sat 4 Jul — Departmental Games<br/><a href="events.html" style="color:#F4B400">See all events →</a>'},
+  {k:['past question','past questions','exam','pdf','download'],r:'📄 Download past exam questions free on the <a href="past-questions.html" style="color:#F4B400">Past Questions page →</a> — IMC, PR Theories, Corporate Communication and more!'},
+  {k:['member','join','membership'],r:'🎓 Every student admitted into the Department of Communication Studies at ATU is <strong>automatically a COMSA member</strong> from Level 100. No registration needed!'},
+  {k:['student','how many','1708'],r:'👥 COMSA has <strong>1,708 students</strong> across all 5 programmes at ATU.'},
+  {k:['programme','programs','course'],r:'📚 5 Programmes: PR with Digital Communication, Journalism & Media, Marketing Communication, Development Communication, Graphic Communication.<br/><a href="about.html#programmes" style="color:#F4B400">Learn more →</a>'},
+  {k:['contact','reach','phone','whatsapp'],r:'📞 Contact COMSA:<br/>• PRO: <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>• President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/><a href="contact.html" style="color:#F4B400">Contact page →</a>'},
+  {k:['motto','communicate'],r:'✨ COMSA Motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em>'},
+  {k:['thank','thanks'],r:'You're welcome! 😊'},
+  {k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
+];
+const FALLBACK=`I don't have a specific answer for that. Please contact our President:<br/><strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>`;
   const QUICK_Qs=[
-    {label:'📚 All Programmes',q:'What programmes does the department offer?'},
-    {label:'🏛️ MTech',q:'Tell me about the MTech programme'},
-    {label:'📢 BTech PR',q:'Tell me about BTech Public Relations'},
-    {label:'💼 Career Prospects',q:'What are the career prospects?'},
-    {label:'📊 Assessment',q:'How is assessment done?'},
-    {label:'👨‍🏫 Lecturers',q:'Who are the lecturers?'},
-  ];
+  {label:'📅 Departmental Week',q:'Tell me about departmental week'},
+  {label:'👔 All Executives',q:'Who are all the executives?'},
+  {label:'🎓 Membership',q:'How do I join COMSA?'},
+  {label:'📄 Past Questions',q:'Where can I download past questions?'},
+  {label:'📞 Contact PRO',q:'How do I contact the PRO?'},
+];
 
   function getReply(t){const l=t.toLowerCase().trim();for(const e of KB)if(e.k.some(k=>l.includes(k)))return e.r;return FALLBACK;}
   function now(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}

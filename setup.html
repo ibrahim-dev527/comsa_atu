@@ -543,5 +543,81 @@ function toggleCheck(el){el.classList.toggle('done');const lbl=el.nextElementSib
 document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
 document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
 </script>
+
+<!-- ADMIN DASHBOARD GUIDE SECTION -->
+<section style="padding:60px 0;background:var(--bg)">
+  <div style="max-width:900px;margin:0 auto;padding:0 28px">
+
+    <div style="background:linear-gradient(135deg,rgba(244,180,0,.1),rgba(244,180,0,.04));border:1px solid rgba(244,180,0,.25);border-radius:16px;padding:24px 28px;margin-bottom:36px;display:flex;gap:14px">
+      <div style="font-size:1.8rem">🚀</div>
+      <div>
+        <div style="font-weight:700;color:var(--gold);margin-bottom:4px">New: Full Admin Dashboard</div>
+        <div style="font-size:.88rem;color:var(--muted);line-height:1.7">The website now uses Supabase for events, blog posts, and past questions. The hidden admin dashboard (<code style="font-family:monospace;color:var(--gold)">admin.html</code>) controls everything. Follow the steps in the Supabase Setup tab of the admin panel to get everything working.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:20px">
+
+      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">📁 New Files in This Update</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:.86rem;color:var(--muted);line-height:1.7">
+          <div>• <code style="font-family:monospace;color:var(--gold)">admin.html</code> — Hidden admin dashboard. Controls events, blog, past questions. Password protected. Do NOT link this from nav.</div>
+          <div>• <code style="font-family:monospace;color:var(--gold)">past-questions.html</code> — Public past questions download page. Reads from Supabase. Add to nav on all pages.</div>
+          <div>• <code style="font-family:monospace;color:var(--gold)">404.html</code> — Custom branded error page for Vercel.</div>
+          <div>• <code style="font-family:monospace;color:var(--gold)">images/patron.jpg</code> — Add this image to your images folder (the patron photo you received).</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">⚙️ Supabase Config — Required on ALL pages</div>
+        <div style="font-size:.86rem;color:var(--muted);line-height:1.7;margin-bottom:12px">Every dynamic page has a CONFIG section at the top of its &lt;script&gt; block. Open each file in VS Code, find the comment <code style="font-family:monospace;color:var(--gold)">// ===== SUPABASE CONFIG =====</code> and fill in your keys:</div>
+        <div style="background:var(--navy2);border:1px solid rgba(244,180,0,.1);border-radius:9px;padding:14px;font-family:monospace;font-size:.8rem;color:#a8d8a8;line-height:1.8">
+          const SUPA_URL = 'https://YOUR_PROJECT.supabase.co';<br/>
+          const SUPA_KEY = 'eyJhbGci...(your anon key)...';<br/>
+          <span style="color:#6a8f6a">// Find these in Supabase → Project Settings → API</span>
+        </div>
+        <div style="font-size:.82rem;color:var(--muted);margin-top:10px">Files that need this: <code style="font-family:monospace">admin.html</code>, <code style="font-family:monospace">events.html</code>, <code style="font-family:monospace">blog.html</code>, <code style="font-family:monospace">past-questions.html</code></div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">🔑 Admin Dashboard Access</div>
+        <div style="font-size:.86rem;color:var(--muted);line-height:1.7">
+          <div>• URL: <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code></div>
+          <div>• Default password: <code style="font-family:monospace;color:var(--gold)">comsa@admin2026</code> (change this in the ADMIN_PASSWORD line inside admin.html)</div>
+          <div>• Keep this URL and password <strong style="color:var(--txt)">private</strong>. Only share with authorized executives.</div>
+          <div style="margin-top:8px">• From the admin dashboard you can: Add/edit/delete Events, Blog Posts, and Past Questions. The Setup tab inside admin.html has the full SQL to run in Supabase.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">🖼️ Adding the Patron Photo</div>
+        <div style="font-size:.86rem;color:var(--muted);line-height:1.7">
+          <div>1. Rename the patron's photo to <code style="font-family:monospace;color:var(--gold)">patron.jpg</code></div>
+          <div>2. Place it in your <code style="font-family:monospace">images/</code> folder alongside all other COMSA photos</div>
+          <div>3. Deploy to Vercel — the card on the Executives page will automatically display it</div>
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
+        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">📋 Deployment Checklist</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:.86rem;color:var(--muted)">
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Fill in SUPA_URL and SUPA_KEY in admin.html, events.html, blog.html, past-questions.html</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Run the SQL schema in Supabase SQL Editor (from admin.html → Supabase Setup tab)</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Create storage buckets: past-questions, blog-images, gallery (set all to Public)</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Seed Departmental Week 2026 events SQL (Step 4 in admin → Supabase Setup)</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Seed past questions placeholder records (Step 5 in admin → Supabase Setup)</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Add patron.jpg to images folder</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Upload past question PDFs via admin.html → Past Questions → Upload</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Change admin password in admin.html (ADMIN_PASSWORD constant)</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Deploy all updated files to Vercel</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Test admin.html → login → add a test event → confirm it shows on events.html</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Bookmark admin.html URL and share password only with authorized execs</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 </body>
 </html>
