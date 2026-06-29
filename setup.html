@@ -619,5 +619,326 @@ document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('cli
   </div>
 </section>
 
+
+<!-- ═══════════════════════════════════════════════════════════
+     UPDATED SETUP GUIDE — Reflects all current changes
+═══════════════════════════════════════════════════════════ -->
+<section style="padding:60px 0 0;background:var(--bg)">
+<div style="max-width:900px;margin:0 auto;padding:0 28px">
+
+<div style="background:linear-gradient(135deg,rgba(244,180,0,.1),rgba(244,180,0,.04));border:1px solid rgba(244,180,0,.3);border-radius:16px;padding:24px 28px;margin-bottom:32px;display:flex;gap:14px;align-items:flex-start">
+  <div style="font-size:1.8rem">📋</div>
+  <div>
+    <div style="font-weight:700;color:var(--gold);margin-bottom:4px">Updated Setup Guide — Current Version</div>
+    <div style="font-size:.86rem;color:var(--muted);line-height:1.7">This reflects all changes made to the COMSA website as of the latest build. Follow every step in order before going live.</div>
+  </div>
+</div>
+
+<!-- ─── SECTION: WHAT'S NEW ─── -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🆕 What's New in This Build</div>
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;color:var(--muted);line-height:1.7">
+    <div>✅ <strong style="color:var(--txt)">Admin Dashboard</strong> (<code style="font-family:monospace;color:var(--gold)">admin.html</code>) — hidden page to manage all content</div>
+    <div>✅ <strong style="color:var(--txt)">Events</strong> — fully Supabase-powered. Add, edit, delete from Admin Panel</div>
+    <div>✅ <strong style="color:var(--txt)">Blog Posts</strong> — Supabase-powered. Posts stay until YOU delete them</div>
+    <div>✅ <strong style="color:var(--txt)">Past Questions</strong> — upload PDFs from Admin Panel, auto-listed on <code style="font-family:monospace">past-questions.html</code></div>
+    <div>✅ <strong style="color:var(--txt)">Patron Card</strong> added to executives page (add <code style="font-family:monospace">patron.jpg</code> to images/)</div>
+    <div>✅ <strong style="color:var(--txt)">WhatsApp Float Button</strong> on every page (PRO: 0544 487 799)</div>
+    <div>✅ <strong style="color:var(--txt)">Hamburger menu</strong> now slides in from left on all pages</div>
+    <div>✅ <strong style="color:var(--txt)">Popup / Flyer</strong> — manageable from Admin Panel, fires 6 seconds after load</div>
+    <div>✅ <strong style="color:var(--txt)">404 page</strong> added for Vercel</div>
+    <div>✅ <strong style="color:var(--txt)">Student count</strong> updated to 1,708</div>
+    <div>✅ <strong style="color:var(--txt)">Chatbot KB</strong> — all 9 executives, patron, events, past questions, membership</div>
+  </div>
+</div>
+
+<!-- ─── SECTION: POPUP / FLYER MANAGEMENT ─── -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🎉 Managing the Homepage Popup / Flyer</div>
+  <div style="font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:14px">The popup appears <strong style="color:var(--txt)">6 seconds after the homepage loads</strong>, once per browser session. You control it two ways:</div>
+  
+  <div style="background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:16px;margin-bottom:14px">
+    <div style="font-weight:700;font-size:.88rem;color:var(--gold);margin-bottom:10px">Method 1 — Edit directly in index.html (for text changes)</div>
+    <div style="font-family:monospace;font-size:.78rem;color:#a8d8a8;background:var(--navy2);border-radius:8px;padding:14px;line-height:1.8">
+      const POPUP_CONFIG = {<br/>
+      &nbsp;&nbsp;active: true,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a8f6a">// false = disable popup</span><br/>
+      &nbsp;&nbsp;badge: '🎉 Your badge text',<br/>
+      &nbsp;&nbsp;title: 'Your headline here',<br/>
+      &nbsp;&nbsp;message: 'Your message to students...',<br/>
+      &nbsp;&nbsp;image: 'images/your-flyer.jpg',&nbsp;&nbsp;<span style="color:#6a8f6a">// leave '' for no image</span><br/>
+      &nbsp;&nbsp;btnText: 'Learn More →',<br/>
+      &nbsp;&nbsp;btnLink: 'events.html',<br/>
+      };
+    </div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:10px">After editing, save and re-deploy to Vercel. The popup resets every browser session.</div>
+  </div>
+
+  <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:16px">
+    <div style="font-weight:700;font-size:.88rem;color:#3B82F6;margin-bottom:8px">Method 2 — Admin Panel (coming next: Supabase-controlled popup)</div>
+    <div style="font-size:.83rem;color:var(--muted);line-height:1.7">To control the popup fully from the Admin Panel without touching code:<br/>
+    1. Create a table called <code style="font-family:monospace;color:var(--gold)">announcements</code> in Supabase<br/>
+    2. The homepage will fetch the latest active announcement and use it as the popup<br/>
+    3. You can then update, enable, or disable announcements from <code style="font-family:monospace">admin.html</code> without redeploying<br/>
+    <em style="color:rgba(255,255,255,.3)">(Request this feature when you're ready to implement it)</em></div>
+  </div>
+</div>
+
+<!-- ─── SECTION: ADDING A FLYER IMAGE ─── -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🖼️ Displaying a Flyer in the Popup</div>
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;color:var(--muted);line-height:1.7">
+    <div>1. Save your flyer image as a <strong style="color:var(--txt)">JPG or PNG</strong> (recommended: 800×600px or 4:3 ratio)</div>
+    <div>2. Add it to your <code style="font-family:monospace;color:var(--gold)">images/</code> folder in the project</div>
+    <div>3. In <code style="font-family:monospace">index.html</code>, find <code style="font-family:monospace;color:var(--gold)">POPUP_CONFIG</code> and set: <code style="font-family:monospace;color:#a8d8a8">image: 'images/your-flyer.jpg'</code></div>
+    <div>4. Deploy to Vercel — the flyer will show inside the popup</div>
+    <div>5. To <strong style="color:var(--txt)">remove the flyer</strong>, set <code style="font-family:monospace;color:#a8d8a8">image: ''</code> and redeploy</div>
+  </div>
+</div>
+
+<!-- ─── SECTION: ADMIN PANEL GUIDE ─── -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🛡️ Admin Panel — Full Guide</div>
+  <div style="display:flex;flex-direction:column;gap:12px;font-size:.85rem;color:var(--muted);line-height:1.75">
+    <div><strong style="color:var(--txt)">Access:</strong> <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code> — not linked from any page</div>
+    <div><strong style="color:var(--txt)">Default password:</strong> <code style="font-family:monospace;color:var(--gold)">comsa@admin2026</code> — change it inside admin.html at the <code style="font-family:monospace">ADMIN_PASSWORD</code> line</div>
+    <div><strong style="color:var(--txt)">Events tab:</strong> Add, edit, delete any event. Events appear live on events.html immediately</div>
+    <div><strong style="color:var(--txt)">Blog tab:</strong> Create posts with text, flyer image URL, category (News/Flyer/Quote etc). Posts stay visible until you delete them — Supabase stores them permanently</div>
+    <div><strong style="color:var(--txt)">Past Questions tab:</strong> Upload PDFs (stored in Supabase Storage). Students can download from past-questions.html</div>
+    <div><strong style="color:var(--txt)">Supabase Setup tab:</strong> Contains all SQL to run — do this once before going live</div>
+  </div>
+</div>
+
+<!-- ─── SECTION: BLOG POSTS — HOW IT WORKS ─── -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">📝 Blog Posts — How They Stay Permanently</div>
+  <div style="font-size:.85rem;color:var(--muted);line-height:1.75">
+    <div style="margin-bottom:10px">Blog posts are stored in the <code style="font-family:monospace;color:var(--gold)">posts</code> table in Supabase. When you publish a post from the Admin Panel:</div>
+    <div style="margin-bottom:6px">• It is saved to the database and <strong style="color:var(--txt)">immediately visible</strong> on blog.html</div>
+    <div style="margin-bottom:6px">• It stays there <strong style="color:var(--txt)">permanently</strong> until you delete it from the Admin Panel</div>
+    <div style="margin-bottom:6px">• No code changes or redeployment needed — just post and it's live</div>
+    <div style="margin-bottom:6px">• You can post: text articles, flyer image links, quotes, announcements</div>
+    <div style="margin-bottom:6px">• To add a flyer image to a post: upload the image to Supabase Storage (blog-images bucket), copy the public URL, paste it in the Image URL field in Admin → Blog</div>
+    <div style="margin-top:14px;padding:12px;background:rgba(244,180,0,.06);border-radius:8px;border:1px solid rgba(244,180,0,.15)">
+      ⚠️ <strong style="color:var(--gold)">Important:</strong> Make sure Supabase is configured (SUPA_URL + SUPA_KEY filled in blog.html and admin.html) before posts will appear.
+    </div>
+  </div>
+</div>
+
+<!-- ─── SECTION: DEPLOYMENT CHECKLIST ─── -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">✅ Deployment Checklist — Do This In Order</div>
+  <div style="display:flex;flex-direction:column;gap:9px;font-size:.84rem;color:var(--muted)">
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Fill in <code style="font-family:monospace;color:var(--gold)">SUPA_URL</code> and <code style="font-family:monospace;color:var(--gold)">SUPA_KEY</code> in: admin.html, events.html, blog.html, past-questions.html</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Open admin.html → Supabase Setup tab → run SQL Steps 2 through 5 in order</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Create 3 storage buckets in Supabase: <code style="font-family:monospace">past-questions</code>, <code style="font-family:monospace">blog-images</code>, <code style="font-family:monospace">gallery</code> — all set to Public</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Add <code style="font-family:monospace">patron.jpg</code> to your <code style="font-family:monospace">images/</code> folder</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Deploy all files to Vercel</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Go to admin.html → login → run Seed Events (Step 4) — Departmental Week 2026 events appear</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Go to admin.html → Past Questions → upload the 5 PDFs one by one</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Change admin password in admin.html — find <code style="font-family:monospace;color:var(--gold)">ADMIN_PASSWORD</code> constant</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Update POPUP_CONFIG in index.html with your launch message and optional flyer</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test: visit homepage → 4s loader → content appears → 6s later popup appears</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test mobile: hamburger opens from left, all links work, chatbot responds correctly</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Bookmark admin.html — keep URL and password private, only share with authorized execs</label>
+  </div>
+</div>
+
+</div>
+</section>
+
+
+<!-- COMPLETE SQL SECTION -->
+<section style="padding:60px 0;background:var(--bg)">
+<div style="max-width:960px;margin:0 auto;padding:0 28px">
+
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;margin-bottom:28px">
+  <div style="padding:20px 24px;border-bottom:1px solid var(--bdr);background:rgba(0,0,0,.15)">
+    <div style="font-weight:700;font-size:1rem;color:var(--txt)">📋 Complete Supabase SQL — Copy &amp; Paste Everything Below</div>
+    <div style="font-size:.82rem;color:var(--muted);margin-top:4px">Supabase → SQL Editor → New Query → Paste → Run All</div>
+  </div>
+  <div style="padding:24px">
+    <pre style="background:var(--navy2);border:1px solid rgba(244,180,0,.1);border-radius:12px;padding:20px;font-family:'Courier New',monospace;font-size:.78rem;color:#a8d8a8;line-height:1.9;overflow-x:auto;white-space:pre">-- ═══════════════════════════════════════════════════════
+-- COMSA ATU — COMPLETE SUPABASE SQL
+-- Run this entire block in Supabase SQL Editor
+-- ═══════════════════════════════════════════════════════
+
+-- 1. EVENTS TABLE
+CREATE TABLE IF NOT EXISTS events (
+  id           uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
+  title        text        NOT NULL,
+  description  text,
+  category     text,
+  event_date   date        NOT NULL,
+  event_time   text,
+  venue        text,
+  audience     text,
+  status       text        DEFAULT 'upcoming',
+  icon         text        DEFAULT '🎉',
+  image_url    text,
+  week_group   text,
+  created_at   timestamptz DEFAULT now()
+);
+
+-- 2. BLOG POSTS TABLE
+CREATE TABLE IF NOT EXISTS posts (
+  id           uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
+  title        text        NOT NULL,
+  excerpt      text,
+  content      text,
+  category     text        DEFAULT 'news',
+  author       text        DEFAULT 'COMSA Secretariat',
+  image_url    text,
+  is_featured  boolean     DEFAULT false,
+  tags         text[],
+  created_at   timestamptz DEFAULT now()
+);
+
+-- 3. PAST QUESTIONS TABLE
+CREATE TABLE IF NOT EXISTS past_questions (
+  id            uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
+  course_title  text        NOT NULL,
+  course_code   text,
+  year_sem      text,
+  programme     text,
+  pdf_url       text,
+  storage_path  text,
+  created_at    timestamptz DEFAULT now()
+);
+
+-- 4. GALLERY PHOTOS TABLE
+CREATE TABLE IF NOT EXISTS gallery_photos (
+  id            uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
+  caption       text,
+  image_url     text        NOT NULL,
+  storage_path  text,
+  created_at    timestamptz DEFAULT now()
+);
+
+-- ═══════════════════════════════════════════════════════
+-- ROW LEVEL SECURITY
+-- ═══════════════════════════════════════════════════════
+ALTER TABLE events         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE posts          ENABLE ROW LEVEL SECURITY;
+ALTER TABLE past_questions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE gallery_photos ENABLE ROW LEVEL SECURITY;
+
+-- PUBLIC READ (anyone can view)
+CREATE POLICY "Public read events"         ON events         FOR SELECT USING (true);
+CREATE POLICY "Public read posts"          ON posts          FOR SELECT USING (true);
+CREATE POLICY "Public read past_questions" ON past_questions FOR SELECT USING (true);
+CREATE POLICY "Public read gallery_photos" ON gallery_photos FOR SELECT USING (true);
+
+-- ADMIN WRITE (admin.html is the security layer — keep admin URL private)
+CREATE POLICY "Admin write events"         ON events         FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Admin write posts"          ON posts          FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Admin write past_questions" ON past_questions FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Admin write gallery_photos" ON gallery_photos FOR ALL USING (true) WITH CHECK (true);
+
+-- ═══════════════════════════════════════════════════════
+-- STORAGE BUCKETS
+-- ═══════════════════════════════════════════════════════
+INSERT INTO storage.buckets (id, name, public) VALUES
+  ('past-questions', 'past-questions', true),
+  ('blog-images',    'blog-images',    true),
+  ('gallery',        'gallery',        true)
+ON CONFLICT DO NOTHING;
+
+-- Public read all 3 buckets
+CREATE POLICY "Public read storage"
+  ON storage.objects FOR SELECT
+  USING (bucket_id IN ('past-questions', 'blog-images', 'gallery'));
+
+-- Admin upload
+CREATE POLICY "Admin upload storage"
+  ON storage.objects FOR INSERT WITH CHECK (true);
+
+-- Admin delete
+CREATE POLICY "Admin delete storage"
+  ON storage.objects FOR DELETE USING (true);
+
+-- ═══════════════════════════════════════════════════════
+-- SEED DATA — DEPARTMENTAL WEEK 2026
+-- ═══════════════════════════════════════════════════════
+INSERT INTO events (title, description, category, event_date, event_time, venue, audience, status, icon, week_group) VALUES
+('Health Walk &amp; Clean-Up Exercise',
+ 'Kick off Departmental Week with a community health walk and campus clean-up. Come in comfortable wear.',
+ 'Health &amp; Wellness', '2026-06-29', 'Morning', 'ATU Campus, Accra',
+ 'All COMSA Members', 'upcoming', '🏃', 'Departmental Week 2026'),
+('Inter-Class Debate',
+ 'Classes compete head-to-head in a debate competition. Represent your class with pride!',
+ 'Academic', '2026-06-30', 'TBA', 'Departmental Hall, ATU',
+ 'All COMSA Members', 'upcoming', '🎙️', 'Departmental Week 2026'),
+('Professional Edge Conference &amp; Part-Time Summit',
+ 'Professional development conference with industry speakers and a part-time student summit.',
+ 'Conference', '2026-07-01', 'TBA', 'ATU Auditorium',
+ 'All Students &amp; Part-Time Members', 'upcoming', '💼', 'Departmental Week 2026'),
+('Industrial Trip — Kasapreko Ltd',
+ 'Industrial visit to Kasapreko Company Limited. See corporate communications in action.',
+ 'Industrial Trip', '2026-07-02', 'All Day', 'Kasapreko Ltd, Accra',
+ 'All COMSA Members', 'upcoming', '🏭', 'Departmental Week 2026'),
+('Rep Your Jersey Day',
+ 'Wear your favourite football jersey! Fun casual day before the big Departmental Games.',
+ 'Social', '2026-07-03', 'All Day', 'ATU Campus',
+ 'All COMSA Members', 'upcoming', '👕', 'Departmental Week 2026'),
+('Departmental Games',
+ 'Grand finale of Departmental Week! Football, athletics, indoor games. Cheer for your class!',
+ 'Sports', '2026-07-04', 'All Day', 'ATU Sports Grounds',
+ 'All COMSA Members', 'upcoming', '🏆', 'Departmental Week 2026'),
+('Media Tour',
+ 'COMSA members visited leading media houses in Accra for practical exposure to newsroom operations.',
+ 'Industrial Trip', '2026-05-15', 'All Day', 'Various Media Houses, Accra',
+ 'All COMSA Members', 'past', '📺', ''),
+('Departmental Orientation',
+ 'Welcome orientation for new and continuing students of Liberal Studies and Communication Technology.',
+ 'Academic', '2026-02-10', 'Morning', 'ATU Main Hall',
+ 'All Students', 'past', '🎓', '');
+
+-- ═══════════════════════════════════════════════════════
+-- SEED DATA — PAST QUESTIONS (upload PDFs via Admin Panel)
+-- ═══════════════════════════════════════════════════════
+INSERT INTO past_questions (course_title, course_code, programme, year_sem) VALUES
+('Integrated Marketing Communications', 'BMC 301', 'All Programmes',    '2024/25'),
+('PR Theories and Practice',           'PRD 201', 'Public Relations',   '2024/25'),
+('Industrial and Organizational Psychology', 'PSY 301', 'All Programmes', '2024/25'),
+('Technical Report Writing',           'ENG 201', 'All Programmes',    '2024/25'),
+('Corporate Communication',            'PRD 401', 'Public Relations',   '2024/25');</pre>
+  </div>
+</div>
+
+<!-- HOW TO USE ADMIN PANEL -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:16px">🛡️ Admin Panel — How to Control the Website</div>
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;color:var(--muted);line-height:1.75">
+    <div><strong style="color:var(--txt)">Access URL:</strong> <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code> — not linked anywhere public</div>
+    <div><strong style="color:var(--txt)">Default Password:</strong> <code style="font-family:monospace;color:var(--gold)">comsa@admin2026</code> — change in admin.html at the ADMIN_PASSWORD constant</div>
+    <div><strong style="color:var(--txt)">Events tab:</strong> Add, edit, delete events. They appear live on events.html immediately.</div>
+    <div><strong style="color:var(--txt)">Blog tab:</strong> Create posts with text, image URL, category. Posts stay permanently until you delete them.</div>
+    <div><strong style="color:var(--txt)">Past Questions tab:</strong> Upload PDFs → auto-stored in Supabase Storage → listed on past-questions.html.</div>
+    <div><strong style="color:var(--txt)">Gallery tab:</strong> Upload photos → stored in Supabase Storage → visible on gallery.html. Delete from here too.</div>
+    <div><strong style="color:var(--txt)">Contact forms:</strong> When students fill the contact form, it opens WhatsApp with the message pre-filled to the PRO (0544 487 799). No extra setup needed.</div>
+  </div>
+</div>
+
+<!-- DEPLOYMENT CHECKLIST -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:26px;margin-bottom:20px">
+  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:16px">✅ Deployment Checklist</div>
+  <div style="display:flex;flex-direction:column;gap:9px;font-size:.84rem;color:var(--muted)">
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Create Supabase project at supabase.com. Copy Project URL + anon key from Settings → API.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> In each file — admin.html, events.html, blog.html, past-questions.html, gallery.html — find <code style="font-family:monospace;color:var(--gold)">SUPA_URL</code> and <code style="font-family:monospace;color:var(--gold)">SUPA_KEY</code> and fill in your values.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Run the complete SQL above in Supabase SQL Editor.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Add <code style="font-family:monospace">patron.jpg</code> to your <code style="font-family:monospace">images/</code> folder.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Deploy all files to Vercel.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Visit admin.html → login → confirm all tabs load data from Supabase.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Upload the 5 past question PDFs via Admin → Past Questions.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Change admin password in admin.html (ADMIN_PASSWORD constant).</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test contact form — fill it in → WhatsApp should open with the message pre-filled.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test on mobile — hamburger, gallery, events all working.</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Bookmark admin.html — share password only with authorized executives.</label>
+  </div>
+</div>
+
+</div>
+</section>
+
 </body>
 </html>

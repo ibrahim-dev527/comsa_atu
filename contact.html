@@ -58,9 +58,9 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
-[data-theme=light] .mob{background:rgba(244,244,240,.97)}
-.mob.open{transform:translateY(0);opacity:1}
+.mob{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;background:rgba(7,16,30,.99);backdrop-filter:blur(24px);padding:80px 28px 36px;transform:translateX(-100%);opacity:1;transition:transform .38s cubic-bezier(.22,1,.36,1);z-index:1100;border-right:1px solid rgba(244,180,0,.15);overflow-y:auto}
+[data-theme=light] .mob{background:rgba(244,244,240,.99)}
+.mob.open{transform:translateX(0)}
 .mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
 [data-theme=light] .mob a{color:var(--muted)}
 .mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
@@ -100,12 +100,15 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
 .btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
 .btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.3)}
-.rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
 .rv.in{opacity:1;transform:translateY(0)}
-.rv-l{opacity:0;transform:translateX(-36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-l{opacity:0;transform:translateX(-20px);transition:opacity .5s ease,transform .5s ease}
 .rv-l.in{opacity:1;transform:translateX(0)}
-.rv-r{opacity:0;transform:translateX(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-r{opacity:0;transform:translateX(20px);transition:opacity .5s ease,transform .5s ease}
 .rv-r.in{opacity:1;transform:translateX(0)}
+/* SAFETY: if JS fails, content still shows after 1s */
+@keyframes forceShow{to{opacity:1;transform:none}}
+.rv,.rv-l,.rv-r{animation:forceShow 0s 1s forwards}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 /* MAIN CONTACT LAYOUT */
 .ct-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:52px;margin-top:52px}
@@ -240,17 +243,64 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 @media(max-width:1024px){.ct-grid{grid-template-columns:1fr}.exec-ct-grid{grid-template-columns:1fr 1fr}.ft-grid{grid-template-columns:1fr 1fr;gap:36px}}
 @media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.exec-ct-grid{grid-template-columns:1fr}.soc-grid{grid-template-columns:repeat(3,1fr)}.form-row{grid-template-columns:1fr}.form-card{padding:28px}.strip-btns{flex-direction:column;align-items:center}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}}
 @media(max-width:480px){#chatbot{right:12px;bottom:88px;width:calc(100vw - 24px)}#cb-toggle{bottom:20px;right:20px}}
+
+/* Immediately reveal hero content — never block above-fold */
+.ph-content .rv,.ph-content .rv-l,.ph-content .rv-r,
+.hero-content .rv,.hero-body .rv,
+section:first-of-type .rv{
+  opacity:1!important;transform:none!important;
+}
+
+/* Mobile menu overlay */
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1099;opacity:0;visibility:hidden;transition:opacity .38s,visibility .38s}
+.mob-overlay.open{opacity:1;visibility:visible}
+/* Mobile menu close button */
+.mob-close{position:absolute;top:20px;right:20px;width:36px;height:36px;background:rgba(255,255,255,.08);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+
+/* Above-fold content always visible */
+.ph-content *,.hero-content *{animation:none!important}
+
+body{opacity:1!important} /* guarantee visibility */
 </style>
 </head>
 <body>
+<script>
+/* NAV — runs immediately, no DOMContentLoaded needed */
+window.__menuOpen = false;
+window.openMobMenu = function(){
+  var ham=document.getElementById('ham');
+  var mob=document.getElementById('mob');
+  var ov=document.getElementById('mob-overlay');
+  if(ham) ham.classList.add('open');
+  if(mob) mob.classList.add('open');
+  if(ov) ov.classList.add('open');
+  document.body.style.overflow='hidden';
+  window.__menuOpen=true;
+};
+window.closeMobMenu = function(){
+  var ham=document.getElementById('ham');
+  var mob=document.getElementById('mob');
+  var ov=document.getElementById('mob-overlay');
+  if(ham) ham.classList.remove('open');
+  if(mob) mob.classList.remove('open');
+  if(ov) ov.classList.remove('open');
+  document.body.style.overflow='';
+  window.__menuOpen=false;
+};
+window.toggleMobMenu = function(){
+  window.__menuOpen ? window.closeMobMenu() : window.openMobMenu();
+};
+</script>
 <nav id="nav">
   <div class="nav-i">
     <a href="index.html" class="brand"><div class="brand-logo-wrap"><img src="images/logo.jpg" alt="COMSA" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="brand-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></a>
     <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html" class="act">Contact</a></li></ul>
-    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham"><span></span><span></span><span></span></button></div>
+    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham" onclick="toggleMobMenu()"><span></span><span></span><span></span></button></div>
   </div>
 </nav>
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobMenu()"></div>
 <div class="mob" id="mob">
+  <button class="mob-close" onclick="closeMobMenu()">✕</button>
   <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="past-questions.html">Past Questions</a><a href="contact.html" class="act">Contact</a>
   <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
 </div>
@@ -277,7 +327,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="container">
     <div class="rv" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px">
       <div><div class="lbl">Send a Message</div><h2 class="h2">Let's <em>Connect</em></h2></div>
-      <a href="https://wa.me/233530099371" target="_blank" class="btn btn-wa">💬 WhatsApp Us</a>
+      <a href="https://wa.me/233530099371" target="_blank" class="btn btn-wa"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp Us</a>
     </div>
     <div class="ct-grid">
 
@@ -322,18 +372,18 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
           <div class="info-card-title">📍 Contact Information</div>
           <div class="ci"><div class="ci-ic">📍</div><div><div class="ci-lbl">Location</div><div class="ci-val">Accra Technical University<br/>Barnes Road, Accra, Ghana</div></div></div>
           <div class="ci"><div class="ci-ic">📞</div><div><div class="ci-lbl">President's Line</div><div class="ci-val"><a href="tel:+233530099371">0530 099 371</a></div></div></div>
-          <div class="ci"><div class="ci-ic">💬</div><div><div class="ci-lbl">WhatsApp</div><div class="ci-val"><a href="https://wa.me/233530099371" target="_blank">Chat with President →</a></div></div></div>
+          <div class="ci"><div class="ci-ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></div><div><div class="ci-lbl">WhatsApp</div><div class="ci-val"><a href="https://wa.me/233530099371" target="_blank">Chat with President →</a></div></div></div>
           <div class="ci"><div class="ci-ic">📢</div><div><div class="ci-lbl">P.R.O Direct Line</div><div class="ci-val"><a href="tel:+233544487799">0544 487 799</a></div></div></div>
           <div class="ci"><div class="ci-ic">🌐</div><div><div class="ci-lbl">Social Media</div><div class="ci-val">@comsa-atu</div></div></div>
-          <a href="https://wa.me/233530099371" target="_blank" class="btn btn-wa" style="width:100%;justify-content:center;margin-top:16px;font-size:.84rem;padding:11px">💬 Open WhatsApp</a>
+          <a href="https://wa.me/233530099371" target="_blank" class="btn btn-wa" style="width:100%;justify-content:center;margin-top:16px;font-size:.84rem;padding:11px"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Open WhatsApp</a>
         </div>
         <div class="info-card">
           <div class="info-card-title">📲 Follow COMSA</div>
           <div class="soc-grid">
-            <a href="https://facebook.com/comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic">📘</span><span class="soc-lbl">Facebook</span></a>
-            <a href="https://instagram.com/comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic">📸</span><span class="soc-lbl">Instagram</span></a>
-            <a href="https://tiktok.com/@comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic">🎵</span><span class="soc-lbl">TikTok</span></a>
-            <a href="https://wa.me/233530099371" target="_blank" class="soc-btn"><span class="soc-ic">💬</span><span class="soc-lbl">WhatsApp</span></a>
+            <a href="https://facebook.com/comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span><span class="soc-lbl">Facebook</span></a>
+            <a href="https://instagram.com/comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span><span class="soc-lbl">Instagram</span></a>
+            <a href="https://tiktok.com/@comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></span><span class="soc-lbl">TikTok</span></a>
+            <a href="https://wa.me/233530099371" target="_blank" class="soc-btn"><span class="soc-ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></span><span class="soc-lbl">WhatsApp</span></a>
             <a href="https://twitter.com/comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic">🐦</span><span class="soc-lbl">Twitter/X</span></a>
             <a href="https://youtube.com/@comsa-atu" target="_blank" class="soc-btn"><span class="soc-ic">▶️</span><span class="soc-lbl">YouTube</span></a>
           </div>
@@ -358,15 +408,15 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
     <div class="exec-ct-grid">
       <!-- Each exec card with photo, name, role, call + WhatsApp links -->
-      <div class="exc-c rv d1"><div class="exc-av"><img src="images/Jalil.jpg" alt="Abdul Jalil Sani"/><span class="exc-av-fb">AJ</span></div><div><div class="exc-name">Abdul Jalil Sani</div><div class="exc-role">President</div><div class="exc-links"><a href="tel:+233530099371" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233530099371" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d2"><div class="exc-av"><img src="images/Kelvin.jpg" alt="Kelvin Otiboateng"/><span class="exc-av-fb">KO</span></div><div><div class="exc-name">Kelvin Otiboateng</div><div class="exc-role">Vice President</div><div class="exc-links"><a href="tel:+233550081165" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233550081165" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d3"><div class="exc-av"><img src="images/jochebed.jpg" alt="Jochebed Ofori"/><span class="exc-av-fb">JO</span></div><div><div class="exc-name">Jochebed Ofori</div><div class="exc-role">Secretary</div><div class="exc-links"><a href="tel:+233537868041" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233537868041" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d1"><div class="exc-av"><img src="images/martin.jpg" alt="Martin Laryea Mensah"/><span class="exc-av-fb">ML</span></div><div><div class="exc-name">Martin Laryea Mensah</div><div class="exc-role">Organizer</div><div class="exc-links"><a href="tel:+233533241149" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233533241149" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d2"><div class="exc-av"><img src="images/stephen.jpg" alt="Stephen Ato Mensah"/><span class="exc-av-fb">SA</span></div><div><div class="exc-name">Stephen Ato Mensah</div><div class="exc-role">Welfare Officer</div><div class="exc-links"><a href="tel:+233205915904" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233205915904" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d3"><div class="exc-av"><img src="images/theophilus.jpg" alt="Theophilus Mensah"/><span class="exc-av-fb">TM</span></div><div><div class="exc-name">Theophilus Mensah</div><div class="exc-role">P.R.O</div><div class="exc-links"><a href="tel:+233544487799" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233544487799" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d1"><div class="exc-av"><img src="images/Abigail.jpg" alt="Abigail Enu Ninson"/><span class="exc-av-fb">AN</span></div><div><div class="exc-name">Abigail Enu Ninson</div><div class="exc-role">WOCOM</div><div class="exc-links"><a href="tel:+233537646489" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233537646489" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d2"><div class="exc-av"><img src="images/kennedy.jpg" alt="Kennedy A. Holdbrook"/><span class="exc-av-fb">KH</span></div><div><div class="exc-name">Kennedy A. Holdbrook</div><div class="exc-role">Finance Officer</div><div class="exc-links"><a href="tel:+233200632333" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233200632333" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
-      <div class="exc-c rv d3"><div class="exc-av"><img src="images/Isaac.jpg" alt="Isaac N. Quansah"/><span class="exc-av-fb">IQ</span></div><div><div class="exc-name">Isaac N. Quansah</div><div class="exc-role">Part-Time Rep</div><div class="exc-links"><a href="tel:+233556720552" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233556720552" target="_blank" class="exc-link el-w">💬 WhatsApp</a></div></div></div>
+      <div class="exc-c rv d1"><div class="exc-av"><img src="images/Jalil.jpg" alt="Abdul Jalil Sani"/><span class="exc-av-fb">AJ</span></div><div><div class="exc-name">Abdul Jalil Sani</div><div class="exc-role">President</div><div class="exc-links"><a href="tel:+233530099371" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233530099371" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d2"><div class="exc-av"><img src="images/Kelvin.jpg" alt="Kelvin Otiboateng"/><span class="exc-av-fb">KO</span></div><div><div class="exc-name">Kelvin Otiboateng</div><div class="exc-role">Vice President</div><div class="exc-links"><a href="tel:+233550081165" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233550081165" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d3"><div class="exc-av"><img src="images/jochebed.jpg" alt="Jochebed Ofori"/><span class="exc-av-fb">JO</span></div><div><div class="exc-name">Jochebed Ofori</div><div class="exc-role">Secretary</div><div class="exc-links"><a href="tel:+233537868041" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233537868041" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d1"><div class="exc-av"><img src="images/martin.jpg" alt="Martin Laryea Mensah"/><span class="exc-av-fb">ML</span></div><div><div class="exc-name">Martin Laryea Mensah</div><div class="exc-role">Organizer</div><div class="exc-links"><a href="tel:+233533241149" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233533241149" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d2"><div class="exc-av"><img src="images/stephen.jpg" alt="Stephen Ato Mensah"/><span class="exc-av-fb">SA</span></div><div><div class="exc-name">Stephen Ato Mensah</div><div class="exc-role">Welfare Officer</div><div class="exc-links"><a href="tel:+233205915904" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233205915904" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d3"><div class="exc-av"><img src="images/theophilus.jpg" alt="Theophilus Mensah"/><span class="exc-av-fb">TM</span></div><div><div class="exc-name">Theophilus Mensah</div><div class="exc-role">P.R.O</div><div class="exc-links"><a href="tel:+233544487799" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233544487799" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d1"><div class="exc-av"><img src="images/Abigail.jpg" alt="Abigail Enu Ninson"/><span class="exc-av-fb">AN</span></div><div><div class="exc-name">Abigail Enu Ninson</div><div class="exc-role">WOCOM</div><div class="exc-links"><a href="tel:+233537646489" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233537646489" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d2"><div class="exc-av"><img src="images/kennedy.jpg" alt="Kennedy A. Holdbrook"/><span class="exc-av-fb">KH</span></div><div><div class="exc-name">Kennedy A. Holdbrook</div><div class="exc-role">Finance Officer</div><div class="exc-links"><a href="tel:+233200632333" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233200632333" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
+      <div class="exc-c rv d3"><div class="exc-av"><img src="images/Isaac.jpg" alt="Isaac N. Quansah"/><span class="exc-av-fb">IQ</span></div><div><div class="exc-name">Isaac N. Quansah</div><div class="exc-role">Part-Time Rep</div><div class="exc-links"><a href="tel:+233556720552" class="exc-link el-p">📞 Call</a><a href="https://wa.me/233556720552" target="_blank" class="exc-link el-w"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> WhatsApp</a></div></div></div>
     </div>
   </div>
 </section>
@@ -380,7 +430,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="strip-btns">
         <a href="executives.html" class="btn btn-g">Meet the Executives</a>
         <a href="about.html#programmes" class="btn btn-o">Explore Programmes</a>
-        <a href="https://wa.me/233530099371" target="_blank" class="btn btn-wa">💬 Join via WhatsApp</a>
+        <a href="https://wa.me/233530099371" target="_blank" class="btn btn-wa"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Join via WhatsApp</a>
       </div>
     </div>
   </div>
@@ -389,7 +439,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <footer>
   <div class="container">
     <div class="ft-grid">
-      <div><div class="ft-brand"><div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate with confidence, persuade with purpose, and transform their world.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a><a href="https://wa.me/233544487799" target="_blank" class="ft-so">💬</a></div></div>
+      <div><div class="ft-brand"><div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate with confidence, persuade with purpose, and transform their world.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a><a href="https://wa.me/233544487799" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a></div></div>
       <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
       <div class="ft-col"><h4>Association</h4><ul><li><a href="about.html#mission">Mission &amp; Vision</a></li><li><a href="about.html#history">Our History</a></li><li><a href="about.html#values">Core Values</a></li><li><a href="about.html#programmes">Programmes</a></li><li><a href="executives.html#lecturers">Lecturers</a></li></ul></div>
       <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div><div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>President</strong><a href="tel:+233530099371" style="color:var(--gold)">0530 099 371</a></div></div><div class="ft-ci"><div class="ft-cion">🌐</div><div class="ft-ct"><strong>Social</strong>@comsa-atu</div></div></div>
@@ -401,11 +451,11 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <!-- WA FLOAT -->
 <div id="wa-float" style="position:fixed;bottom:100px;right:28px;z-index:3000;display:flex;align-items:center;gap:10px">
   <div id="wa-tip" style="background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.12);border-radius:10px;padding:8px 13px;font-size:.76rem;color:var(--txt,#F0EFE9);white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s">Chat with PRO · Theophilus Mensah</div>
-  <a href="https://wa.me/233544487799" target="_blank" style="width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s;font-size:1.4rem;text-decoration:none" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO">💬</a>
+  <a href="https://wa.me/233544487799" target="_blank" style="width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s;font-size:1.4rem;text-decoration:none" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
 </div>
 
 <!-- CHATBOT -->
-<button id="cb-toggle"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
+<button id="cb-toggle"><span id="cb-ico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></span><span id="cb-badge" style="display:none">1</span></button>
 <div id="chatbot">
   <div id="cb-head"><div id="cb-head-av"><img src="images/logo.jpg" id="cb-logo" onerror="this.style.display='none';document.getElementById('cb-logo-fb').style.display='flex'"/><div id="cb-logo-fb">C</div></div><div id="cb-head-info"><div id="cb-head-name">COMSA Assistant</div><div id="cb-head-status">● Online — Here to help</div></div><button id="cb-close">✕</button></div>
   <div id="cb-msgs"></div><div id="cb-quick"></div>
@@ -414,26 +464,111 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 
 <script>
 (function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
+
+/* ===== NAV ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  var nav    = document.getElementById('nav');
+  var ham    = document.getElementById('ham');
+  var mob    = document.getElementById('mob');
+  var mobOv  = document.getElementById('mob-overlay');
+
+  /* Scroll effect */
+  window.addEventListener('scroll', function() {
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, {passive: true});
+
+  /* Open / close helpers */
+  function openMenu() {
+    if (!ham || !mob) return;
+    ham.classList.add('open');
+    mob.classList.add('open');
+    if (mobOv) mobOv.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    if (!ham || !mob) return;
+    ham.classList.remove('open');
+    mob.classList.remove('open');
+    if (mobOv) mobOv.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* Ham button click */
+  if (ham) {
+    ham.addEventListener('click', function() {
+      mob && mob.classList.contains('open') ? closeMenu() : openMenu();
+    });
+  }
+
+  /* Overlay click closes menu */
+  if (mobOv) mobOv.addEventListener('click', closeMenu);
+
+  /* Links inside menu close it */
+  if (mob) {
+    mob.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', closeMenu);
+    });
+  }
+
+  /* mob-close button (inline onclick fallback) */
+  window.closeMobMenu = closeMenu;
+  window.openMobMenu  = openMenu;
+});
+
 function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
 document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
-const ham=document.getElementById('ham'),mob=document.getElementById('mob');
-ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
-mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+/* nav handled by DOMContentLoaded block below */
 // Hero slider
 let phCur=0;const phSlides=Array.from(document.querySelectorAll('.ph-slide'));const phDots=document.getElementById('ph-dots');
 phSlides.forEach((_,i)=>{const d=document.createElement('button');d.className='ph-dot'+(i===0?' act':'');d.onclick=()=>phGo(i);phDots.appendChild(d)});
 function phGo(n){phSlides[phCur].classList.remove('act');document.querySelectorAll('.ph-dot')[phCur].classList.remove('act');phCur=(n+phSlides.length)%phSlides.length;phSlides[phCur].classList.add('act');document.querySelectorAll('.ph-dot')[phCur].classList.add('act')}
 setInterval(()=>phGo(phCur+1),5000);
 // Scroll reveal
-const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
+},{threshold:0,rootMargin:'0px 0px 40px 0px'});
 document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>ro.observe(el));
+// Immediately reveal elements in viewport
+function revealVisible(){
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight+80){el.classList.add('in');try{ro.unobserve(el);}catch(e){}}
+  });
+}
+revealVisible();
+window.addEventListener('load',revealVisible);
+setTimeout(revealVisible,200);
+setTimeout(revealVisible,600);
 // Form submit
-function submitForm(e){e.preventDefault();const btn=document.getElementById('f-btn');btn.textContent='Sending…';btn.disabled=true;setTimeout(()=>{document.getElementById('ct-form').style.display='none';document.getElementById('form-success').classList.add('show');},1400);}
+function submitForm(e){
+  e.preventDefault();
+  var fn  = document.getElementById('f-fn').value.trim();
+  var ln  = document.getElementById('f-ln').value.trim();
+  var em  = document.getElementById('f-em').value.trim();
+  var ph  = document.getElementById('f-ph').value.trim();
+  var sub = document.getElementById('f-sub').value;
+  var msg = document.getElementById('f-msg').value.trim();
+  if(!fn||!ln||!em||!sub||!msg){
+    alert('Please fill in all required fields.');
+    return;
+  }
+  var text = '👋 *New COMSA Contact Form Message*%0A%0A'
+    + '*Name:* ' + encodeURIComponent(fn + ' ' + ln) + '%0A'
+    + '*Email:* ' + encodeURIComponent(em) + '%0A'
+    + (ph ? '*Phone:* ' + encodeURIComponent(ph) + '%0A' : '')
+    + '*Subject:* ' + encodeURIComponent(sub) + '%0A%0A'
+    + '*Message:*%0A' + encodeURIComponent(msg);
+  /* Open WhatsApp with the message pre-filled to PRO */
+  window.open('https://wa.me/233544487799?text=' + text, '_blank');
+  /* Show success state */
+  document.getElementById('ct-form').style.display='none';
+  document.getElementById('form-success').classList.add('show');
+}
 function resetForm(){document.getElementById('ct-form').reset();document.getElementById('ct-form').style.display='block';document.getElementById('form-success').classList.remove('show');const btn=document.getElementById('f-btn');btn.textContent='Send Message →';btn.disabled=false;}
 // Page fade
-document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
-document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
+/* page loads fully visible — transitions handled by CSS */
+document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;}));
 // CHATBOT
 (function(){
 const toggle=document.getElementById('cb-toggle'),bot=document.getElementById('chatbot'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-msgs'),input=document.getElementById('cb-input'),send=document.getElementById('cb-send'),quickWrap=document.getElementById('cb-quick'),badge=document.getElementById('cb-badge');
@@ -454,14 +589,14 @@ const KB=[
   {k:['event','departmental week','dept week','upcoming'],r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/>Mon 29 Jun — Health Walk<br/>Tue 30 Jun — Inter-Class Debate<br/>Wed 1 Jul — Professional Conference<br/>Thu 2 Jul — Industrial Trip (Kasapreko)<br/>Fri 3 Jul — Jersey Day<br/>Sat 4 Jul — Departmental Games<br/><a href="events.html" style="color:#F4B400">See all events →</a>'},
   {k:['past question','past questions','exam','pdf','download'],r:'📄 Download past exam questions free on the <a href="past-questions.html" style="color:#F4B400">Past Questions page →</a> — IMC, PR Theories, Corporate Communication and more!'},
   {k:['member','join','membership'],r:'🎓 Every student admitted into the Department of Communication Studies at ATU is <strong>automatically a COMSA member</strong> from Level 100. No registration needed!'},
-  {k:['student','how many','1708'],r:'👥 COMSA has <strong>1,708 students</strong> across all 5 programmes at ATU.'},
+  {k:['student','how many','1708'],r:'👥 COMSA has <strong style="color:#F4B400">1,708 students</strong> across all 5 programmes at ATU.'},
   {k:['programme','programs','course'],r:'📚 5 Programmes: PR with Digital Communication, Journalism & Media, Marketing Communication, Development Communication, Graphic Communication.<br/><a href="about.html#programmes" style="color:#F4B400">Learn more →</a>'},
   {k:['contact','reach','phone','whatsapp'],r:'📞 Contact COMSA:<br/>• PRO: <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>• President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/><a href="contact.html" style="color:#F4B400">Contact page →</a>'},
   {k:['motto','communicate'],r:'✨ COMSA Motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em>'},
   {k:['thank','thanks'],r:'You're welcome! 😊'},
   {k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
 ];
-const FALLBACK=`I don't have that specific answer. Please contact our President directly:<br/><strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>💬 <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>`;
+const FALLBACK=`I don't have that specific answer. Please contact our President directly:<br/><strong>Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>`;
 const QUICK_Qs=[
   {label:'📅 Departmental Week',q:'Tell me about departmental week'},
   {label:'👔 All Executives',q:'Who are all the executives?'},
@@ -478,8 +613,8 @@ function botReply(html){send.disabled=true;input.disabled=true;showTyping();setT
 function buildQR(){quickWrap.innerHTML='';QUICK_Qs.forEach(q=>{const btn=document.createElement('button');btn.className='cb-qr';btn.textContent=q.label;btn.onclick=()=>handleSend(q.q);quickWrap.appendChild(btn)});}
 function handleSend(text){const t=(text||input.value).trim();if(!t)return;addMsg(t,'user');input.value='';quickWrap.innerHTML='';botReply(getReply(t));}
 function greet(){if(!msgs.children.length){addMsg('👋 Hi! I\'m the <strong>COMSA Assistant</strong>.<br/>I can help you reach any executive, find our location, or answer any COMSA questions!','bot');buildQR();}}
-toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'💬';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
-closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='💬';});
+toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
+closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>';});
 send.addEventListener('click',()=>handleSend());
 input.addEventListener('keydown',e=>{if(e.key==='Enter')handleSend()});
 setTimeout(()=>{if(!badgeShown&&!open)badge.style.display='flex';},5000);

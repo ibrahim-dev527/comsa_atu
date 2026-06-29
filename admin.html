@@ -221,6 +221,7 @@ option{background:var(--navy2);color:var(--txt)}
         <div class="stat-c"><div class="stat-ic">📅</div><div class="stat-n" id="ov-events">—</div><div class="stat-l">Total Events</div></div>
         <div class="stat-c"><div class="stat-ic">📝</div><div class="stat-n" id="ov-posts">—</div><div class="stat-l">Blog Posts</div></div>
         <div class="stat-c"><div class="stat-ic">📄</div><div class="stat-n" id="ov-pq">—</div><div class="stat-l">Past Questions</div></div>
+        <div class="stat-c"><div class="stat-ic">📸</div><div class="stat-n" id="ov-gal">—</div><div class="stat-l">Gallery Photos</div></div>
         <div class="stat-c"><div class="stat-ic">👥</div><div class="stat-n">1,708</div><div class="stat-l">Total Students</div></div>
       </div>
       <div class="alert a-gold"><span>⚡</span><div>Make sure your Supabase keys are set in the <strong>CONFIG</strong> section at the top of this file before using the dashboard. See the <strong>Supabase Setup</strong> tab for full instructions.</div></div>
@@ -290,8 +291,41 @@ option{background:var(--navy2);color:var(--txt)}
       <div class="main-top">
         <div><div class="page-title">Gallery</div><div class="page-desc">Manage gallery albums and photos</div></div>
       </div>
-      <div class="alert a-blue"><span>ℹ️</span><div>Gallery management is handled directly on the <strong>gallery.html</strong> page for now. Students upload photos there and they are stored in Supabase Storage. Future versions of this dashboard will include gallery moderation here.</div></div>
-      <a href="gallery.html" class="btn btn-o" target="_blank">Open Gallery Page ↗</a>
+      <div class="alert a-gold"><span>📌</span><div>Photos uploaded here are stored in Supabase Storage under the <code style="font-family:monospace">gallery</code> bucket (public). The public gallery page shows all approved photos. You can delete photos from here.</div></div>
+
+      <!-- UPLOAD FORM -->
+      <div class="tbl-wrap" style="margin-bottom:24px">
+        <div class="tbl-head"><div class="tbl-title">Upload New Photos</div></div>
+        <div style="padding:22px 24px">
+          <div class="form-group"><label class="form-label">Caption / Album Name *</label><input class="form-input" id="gal-caption" placeholder="e.g. Departmental Week 2026 — Health Walk"/></div>
+          <div class="form-group">
+            <label class="form-label">Photos (select multiple)</label>
+            <div class="file-drop" id="gal-drop">
+              <input type="file" id="gal-files" accept="image/*" multiple onchange="previewGalFiles(this)"/>
+              <div class="file-drop-ic">📸</div>
+              <div class="file-drop-txt" id="gal-drop-txt">Click or drag to select photos</div>
+              <div class="file-drop-hint">JPG, PNG, WEBP. Multiple files allowed.</div>
+            </div>
+            <div id="gal-preview" style="display:none;margin-top:12px;display:flex;flex-wrap:wrap;gap:8px"></div>
+          </div>
+          <div class="form-msg" id="gal-msg"></div>
+          <button class="btn btn-g" onclick="uploadGalleryPhotos()" style="margin-top:8px">📤 Upload Photos</button>
+        </div>
+      </div>
+
+      <!-- GALLERY TABLE -->
+      <div class="tbl-wrap">
+        <div class="tbl-head">
+          <div class="tbl-title">All Gallery Photos</div>
+          <button class="btn btn-o btn-sm" onclick="loadGallery()">↻ Refresh</button>
+        </div>
+        <div class="tbl-loading" id="gal-loading">Loading gallery…</div>
+        <table id="gal-table" style="display:none">
+          <thead><tr><th>Preview</th><th>Caption</th><th>Uploaded</th><th>Actions</th></tr></thead>
+          <tbody id="gal-tbody"></tbody>
+        </table>
+        <div class="tbl-empty" id="gal-empty" style="display:none">No photos uploaded yet.</div>
+      </div>
     </div>
 
     <!-- ===== SUPABASE SETUP ===== -->
@@ -615,7 +649,7 @@ function doLogin(){
   if(pw===ADMIN_PASSWORD){
     document.getElementById('login-screen').classList.add('hidden');
     document.getElementById('dashboard').classList.add('visible');
-    loadOverview();loadEvents();loadPosts();loadPQ();
+    loadOverview();loadEvents();loadPosts();loadPQ();loadGallery();
   }else{
     document.getElementById('login-err').style.display='block';
     document.getElementById('lp').value='';
@@ -682,6 +716,7 @@ async function loadOverview(){
   document.getElementById('ov-events').textContent=ev.ok?ev.data.length:'—';
   document.getElementById('ov-posts').textContent=po.ok?po.data.length:'—';
   document.getElementById('ov-pq').textContent=pq.ok?pq.data.length:'—';
+  const g=results[3];document.getElementById('ov-gal').textContent=g&&g.ok?g.data.length:'—';
 }
 
 // =====================================================
@@ -909,6 +944,85 @@ async function deletePQ(id){
   const r=await supa(`past_questions?id=eq.${id}`,'DELETE');
   if(r.ok){toast('Deleted.');loadPQ();loadOverview();}
   else toast('Error.','err');
+}
+
+
+// =====================================================
+//   GALLERY
+// =====================================================
+async function loadGallery(){
+  document.getElementById('gal-loading').style.display='block';
+  document.getElementById('gal-table').style.display='none';
+  document.getElementById('gal-empty').style.display='none';
+  const r=await supa('gallery_photos?order=created_at.desc');
+  document.getElementById('gal-loading').style.display='none';
+  if(!r.ok||!r.data.length){document.getElementById('gal-empty').style.display='block';return;}
+  document.getElementById('gal-table').style.display='table';
+  const tbody=document.getElementById('gal-tbody');
+  tbody.innerHTML='';
+  r.data.forEach(p=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><div class="img-col"><img src="${esc(p.image_url||'')}" style="width:60px;height:60px;object-fit:cover;border-radius:8px" onerror="this.style.display='none'"/></div></td>
+      <td style="font-size:.85rem">${esc(p.caption||'—')}</td>
+      <td style="font-size:.78rem;color:var(--muted)">${p.created_at?p.created_at.split('T')[0]:'—'}</td>
+      <td><button class="btn btn-r btn-sm" onclick="deleteGalleryPhoto('${p.id}','${esc(p.storage_path||'')}')">🗑️ Delete</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function previewGalFiles(input){
+  const prev=document.getElementById('gal-preview');
+  prev.style.display='flex';
+  prev.innerHTML='';
+  Array.from(input.files).forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=document.createElement('img');
+      img.src=e.target.result;
+      img.style.cssText='width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid var(--bdr)';
+      prev.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+  document.getElementById('gal-drop-txt').textContent=input.files.length+' file(s) selected';
+}
+
+async function uploadGalleryPhotos(){
+  const caption=document.getElementById('gal-caption').value.trim();
+  const files=document.getElementById('gal-files').files;
+  if(!caption){showMsg('gal-msg','Caption is required.','err');return;}
+  if(!files.length){showMsg('gal-msg','Please select at least one photo.','err');return;}
+  showMsg('gal-msg','Uploading '+files.length+' photo(s)…','ok');
+  let uploaded=0;
+  for(const file of files){
+    const fname=Date.now()+'_'+file.name.replace(/\s+/g,'_');
+    const url=await supaUpload('gallery',fname,file);
+    if(url){
+      await supa('gallery_photos','POST',{caption,image_url:url,storage_path:fname});
+      uploaded++;
+    }
+  }
+  showMsg('gal-msg',uploaded+' photo(s) uploaded!','ok');
+  document.getElementById('gal-caption').value='';
+  document.getElementById('gal-files').value='';
+  document.getElementById('gal-preview').innerHTML='';
+  document.getElementById('gal-drop-txt').textContent='Click or drag to select photos';
+  loadGallery();
+  loadOverview();
+}
+
+async function deleteGalleryPhoto(id,storagePath){
+  if(!confirm('Delete this photo? Cannot be undone.'))return;
+  if(storagePath){
+    await fetch(`${SUPA_URL}/storage/v1/object/gallery/${storagePath}`,{
+      method:'DELETE',
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+  }
+  const r=await supa(`gallery_photos?id=eq.${id}`,'DELETE');
+  if(r.ok){toast('Photo deleted.');loadGallery();}
+  else toast('Error deleting.','err');
 }
 
 // =====================================================

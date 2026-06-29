@@ -58,9 +58,9 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
-[data-theme=light] .mob{background:rgba(244,244,240,.97)}
-.mob.open{transform:translateY(0);opacity:1}
+.mob{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;background:rgba(7,16,30,.99);backdrop-filter:blur(24px);padding:80px 28px 36px;transform:translateX(-100%);opacity:1;transition:transform .38s cubic-bezier(.22,1,.36,1);z-index:1100;border-right:1px solid rgba(244,180,0,.15);overflow-y:auto}
+[data-theme=light] .mob{background:rgba(244,244,240,.99)}
+.mob.open{transform:translateX(0)}
 .mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
 [data-theme=light] .mob a{color:var(--muted)}
 .mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
@@ -100,7 +100,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .btn:hover{transform:translateY(-3px)}
 .btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
 .btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
-.rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .rv.in{opacity:1;transform:translateY(0)}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 /* GALLERY FILTERS */
@@ -163,21 +163,21 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .lb-next{right:14px}
 .lb-counter{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);font-size:.78rem;color:rgba(255,255,255,.4);letter-spacing:.12em}
 /* UPLOAD */
-.upload-s{background:var(--surf)}
-.upload-form-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:44px;max-width:720px;margin:0 auto}
+
+
 .fg{margin-bottom:20px}
 .fg label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
 .fg input,.fg select{width:100%;padding:13px 16px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);font-family:'Outfit',sans-serif;font-size:.92rem;color:var(--txt);outline:none;transition:border-color .3s}
 .fg input:focus,.fg select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,180,0,.1)}
 .fg select option{background:var(--navy2)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.upload-zone{border:2px dashed rgba(244,180,0,.3);border-radius:var(--r);padding:40px 24px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(244,180,0,.02);position:relative}
-.upload-zone:hover{border-color:var(--gold);background:rgba(244,180,0,.06)}
+
+
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
-.upload-ic{font-size:2.6rem;margin-bottom:10px}
-.upload-t{font-size:.95rem;font-weight:600;color:var(--txt);margin-bottom:5px}
-.upload-sub{font-size:.78rem;color:var(--muted)}
-.prev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:18px}
+
+
+
+
 .prev-th{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:var(--surf)}
 .prev-th img{width:100%;height:100%;object-fit:cover}
 .prev-rm{position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(239,68,68,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff;cursor:pointer;z-index:1;border:none}
@@ -259,9 +259,60 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 #cb-send:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.gal-grid{columns:2 150px}.form-row{grid-template-columns:1fr}.upload-form-wrap{padding:24px}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}}
 @media(max-width:480px){.gal-grid{columns:1}#chatbot{right:12px;bottom:88px;width:calc(100vw - 24px)}#cb-toggle{bottom:20px;right:20px}}
+
+/* Immediately reveal hero content — never block above-fold */
+.ph-content .rv,.ph-content .rv-l,.ph-content .rv-r,
+.hero-content .rv,.hero-body .rv,
+section:first-of-type .rv{
+  opacity:1!important;transform:none!important;
+}
+
+/* Mobile menu overlay */
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1099;opacity:0;visibility:hidden;transition:opacity .38s,visibility .38s}
+.mob-overlay.open{opacity:1;visibility:visible}
+/* Mobile menu close button */
+.mob-close{position:absolute;top:20px;right:20px;width:36px;height:36px;background:rgba(255,255,255,.08);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+
+/* Above-fold content always visible */
+.ph-content *,.hero-content *{animation:none!important}
+
+/* SAFETY: if JS fails or is slow, content still shows */
+@keyframes forceShow{to{opacity:1;transform:none}}
+.rv,.rv-l,.rv-r{animation:forceShow 0s 1s forwards}
+/* Above-fold content always visible */
+.ph-content *,.hero-content *{animation:none!important}
+
+body{opacity:1!important} /* guarantee visibility */
 </style>
 </head>
 <body>
+<script>
+/* NAV — runs immediately, no DOMContentLoaded needed */
+window.__menuOpen = false;
+window.openMobMenu = function(){
+  var ham=document.getElementById('ham');
+  var mob=document.getElementById('mob');
+  var ov=document.getElementById('mob-overlay');
+  if(ham) ham.classList.add('open');
+  if(mob) mob.classList.add('open');
+  if(ov) ov.classList.add('open');
+  document.body.style.overflow='hidden';
+  window.__menuOpen=true;
+};
+window.closeMobMenu = function(){
+  var ham=document.getElementById('ham');
+  var mob=document.getElementById('mob');
+  var ov=document.getElementById('mob-overlay');
+  if(ham) ham.classList.remove('open');
+  if(mob) mob.classList.remove('open');
+  if(ov) ov.classList.remove('open');
+  document.body.style.overflow='';
+  window.__menuOpen=false;
+};
+window.toggleMobMenu = function(){
+  window.__menuOpen ? window.closeMobMenu() : window.openMobMenu();
+};
+</script>
 <nav id="nav">
   <div class="nav-i">
     <a href="index.html" class="brand">
@@ -271,10 +322,12 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html" class="act">Gallery</a></li><li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham"><span></span><span></span><span></span></button></div>
+    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham" onclick="toggleMobMenu()"><span></span><span></span><span></span></button></div>
   </div>
 </nav>
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobMenu()"></div>
 <div class="mob" id="mob">
+  <button class="mob-close" onclick="closeMobMenu()">✕</button>
   <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html" class="act">Gallery</a><a href="past-questions.html">Past Questions</a><a href="contact.html">Contact</a>
   <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
 </div>
@@ -301,7 +354,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="container">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px" class="rv">
       <div><div class="lbl">Our Photos</div><h2 class="h2">Moments &amp; <em>Memories</em></h2></div>
-      <a href="#upload" class="btn btn-g">+ Upload Photos</a>
+      
     </div>
 
     <!-- STATS BAR -->
@@ -427,52 +480,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </section>
 
 <!-- UPLOAD SECTION 
-<section class="upload-s sp" id="upload">
-  <div class="container">
-    <div style="text-align:center;max-width:600px;margin:0 auto 44px" class="rv">
-      <div class="lbl" style="justify-content:center">Add Photos</div>
-      <h2 class="h2" style="text-align:center">Upload to <em>Gallery</em></h2>
-      <p class="desc" style="text-align:center;margin:0 auto">Upload photos, flyers, or any COMSA images. They appear in the gallery instantly.</p>
-    </div>
-    <div class="upload-form-wrap rv d1">
-      <form id="upload-form" onsubmit="uploadPhotos(event)" novalidate>
-        <div class="form-row" style="margin-bottom:20px">
-          <div class="fg"><label>Caption / Title *</label><input type="text" id="uf-cap" placeholder="e.g. COMSA Week Opening Ceremony" required/></div>
-          <div class="fg"><label>Category *</label>
-            <select id="uf-cat" required>
-              <option value="">Select category…</option>
-              <option value="events">📅 Events</option>
-              <option value="executives">👔 Executives</option>
-              <option value="campus">🏛️ Campus Life</option>
-              <option value="flyers">📢 Flyers</option>
-              <option value="academic">📚 Academic</option>
-            </select>
-          </div>
-        </div>
-        <div class="fg">
-          <label>Select Photos (up to 10 at once)</label>
-          <div class="upload-zone">
-            <input type="file" id="uf-files" accept="image/*" multiple onchange="previewFiles(this)"/>
-            <div class="upload-ic">📸</div>
-            <div class="upload-t">Click or drag photos here</div>
-            <div class="upload-sub">JPG, PNG, WEBP — any size · Multiple files supported</div>
-          </div>
-          <div class="prev-grid" id="prev-grid"></div>
-        </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button type="submit" class="btn btn-g">Add to Gallery →</button>
-          <button type="button" class="btn btn-o" onclick="clearUpload()">Clear</button>
-        </div>
-      </form>
-      <div class="up-success" id="up-success">
-        <div class="us-ic">🖼️</div>
-        <h3 class="us-h">Photos Added!</h3>
-        <p class="us-p">Your photos are now visible in the gallery above.</p>
-        <button class="btn btn-g" onclick="resetUpload()">Upload More</button>
-      </div>
-    </div>
-  </div>
-</section>  -->
+  -->
 
 <!-- LIGHTBOX -->
 <div class="lb" id="lb">
@@ -493,9 +501,9 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <footer>
   <div class="container">
     <div class="ft-grid">
-      <div><div class="ft-brand"><div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so">📘</a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so">📸</a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so">🎵</a><a href="https://wa.me/233544487799" target="_blank" class="ft-so">💬</a></div></div>
+      <div><div class="ft-brand"><div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a><a href="https://wa.me/233544487799" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a></div></div>
       <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div class="ft-col"><h4>Gallery</h4><ul><li><a href="#" onclick="filterGal('events')">📅 Events</a></li><li><a href="#" onclick="filterGal('executives')">👔 Executives</a></li><li><a href="#" onclick="filterGal('campus')">🏛️ Campus Life</a></li><li><a href="#" onclick="filterGal('flyers')">📢 Flyers</a></li><li><a href="#upload">Upload Photos</a></li></ul></div>
+      <div class="ft-col"><h4>Gallery</h4><ul><li><a href="#" onclick="filterGal('events')">📅 Events</a></li><li><a href="#" onclick="filterGal('executives')">👔 Executives</a></li><li><a href="#" onclick="filterGal('campus')">🏛️ Campus Life</a></li><li><a href="#" onclick="filterGal('flyers')">📢 Flyers</a></li><li></li></ul></div>
       <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div><div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>President</strong><a href="tel:+233530099371" style="color:var(--gold)">0530 099 371</a></div></div></div>
     </div>
     <div class="ft-bot"><div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div><div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">0544823484</a></div></div>
@@ -505,11 +513,11 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <!-- WA FLOAT -->
 <div id="wa-float" style="position:fixed;bottom:100px;right:28px;z-index:3000;display:flex;align-items:center;gap:10px">
   <div id="wa-tip" style="background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.12);border-radius:10px;padding:8px 13px;font-size:.76rem;color:var(--txt,#F0EFE9);white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s">Chat with PRO · Theophilus Mensah</div>
-  <a href="https://wa.me/233544487799" target="_blank" style="width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s;font-size:1.4rem;text-decoration:none" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO">💬</a>
+  <a href="https://wa.me/233544487799" target="_blank" style="width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s;font-size:1.4rem;text-decoration:none" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
 </div>
 
 <!-- CHATBOT -->
-<button id="cb-toggle"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
+<button id="cb-toggle"><span id="cb-ico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></span><span id="cb-badge" style="display:none">1</span></button>
 <div id="chatbot">
   <div id="cb-head"><div id="cb-head-av"><img src="images/logo.jpg" id="cb-logo" onerror="this.style.display='none';document.getElementById('cb-logo-fb').style.display='flex'"/><div id="cb-logo-fb">C</div></div><div id="cb-head-info"><div id="cb-head-name">COMSA Assistant</div><div id="cb-head-status">● Online — Here to help</div></div><button id="cb-close">✕</button></div>
   <div id="cb-msgs"></div><div id="cb-quick"></div>
@@ -518,20 +526,119 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 
 <script>
 (function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
+
+/* ===== NAV ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  var nav    = document.getElementById('nav');
+  var ham    = document.getElementById('ham');
+  var mob    = document.getElementById('mob');
+  var mobOv  = document.getElementById('mob-overlay');
+
+  /* Scroll effect */
+  window.addEventListener('scroll', function() {
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, {passive: true});
+
+  /* Open / close helpers */
+  function openMenu() {
+    if (!ham || !mob) return;
+    ham.classList.add('open');
+    mob.classList.add('open');
+    if (mobOv) mobOv.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    if (!ham || !mob) return;
+    ham.classList.remove('open');
+    mob.classList.remove('open');
+    if (mobOv) mobOv.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* Ham button click */
+  if (ham) {
+    ham.addEventListener('click', function() {
+      mob && mob.classList.contains('open') ? closeMenu() : openMenu();
+    });
+  }
+
+  /* Overlay click closes menu */
+  if (mobOv) mobOv.addEventListener('click', closeMenu);
+
+  /* Links inside menu close it */
+  if (mob) {
+    mob.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', closeMenu);
+    });
+  }
+
+  /* mob-close button (inline onclick fallback) */
+  window.closeMobMenu = closeMenu;
+  window.openMobMenu  = openMenu;
+});
+
 function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
 document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
+
+/* ===== SUPABASE CONFIG ===== */
+const SUPA_URL = 'YOUR_SUPABASE_URL';
+const SUPA_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+/* ===== LOAD PHOTOS FROM SUPABASE (appends to static grid) ===== */
+async function loadDBPhotos(){
+  if(SUPA_URL === 'YOUR_SUPABASE_URL') return; /* not configured yet */
+  try {
+    const r = await fetch(SUPA_URL + '/rest/v1/gallery_photos?order=created_at.desc', {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+    });
+    const data = await r.json();
+    if(!Array.isArray(data) || !data.length) return;
+    const grid = document.getElementById('gal-grid');
+    if(!grid) return;
+    data.forEach(function(photo){
+      const div = document.createElement('div');
+      div.className = 'gal-item';
+      div.setAttribute('data-cat','events');
+      div.setAttribute('data-title', photo.caption || 'COMSA Photo');
+      div.innerHTML =
+        '<img src="' + (photo.image_url||'') + '" alt="' + (photo.caption||'COMSA') + '" loading="lazy"/>'
+        + '<div class="gal-overlay"><div class="gal-ov-title">' + (photo.caption||'') + '</div>'
+        + '<div class="gal-ov-cat">Gallery</div></div>';
+      div.addEventListener('click', function(){
+        openLightbox(photo.image_url||'', photo.caption||'COMSA Photo', 'Gallery');
+      });
+      grid.appendChild(div);
+    });
+    /* Update photo count */
+    const stNum = document.getElementById('st-num');
+    if(stNum){
+      const current = parseInt(stNum.textContent)||0;
+      stNum.textContent = current + data.length;
+    }
+  } catch(err){ /* Supabase unavailable, static photos still show */ }
+}
+document.addEventListener('DOMContentLoaded', function(){ loadDBPhotos(); });
+
+
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
-const ham=document.getElementById('ham'),mob=document.getElementById('mob');
-ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
-mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+/* nav handled by DOMContentLoaded block below */
 // Hero slider
 let phCur=0;const phSlides=Array.from(document.querySelectorAll('.ph-slide'));const phDots=document.getElementById('ph-dots');
 phSlides.forEach((_,i)=>{const d=document.createElement('button');d.className='ph-dot'+(i===0?' act':'');d.onclick=()=>phGo(i);phDots.appendChild(d)});
 function phGo(n){phSlides[phCur].classList.remove('act');document.querySelectorAll('.ph-dot')[phCur].classList.remove('act');phCur=(n+phSlides.length)%phSlides.length;phSlides[phCur].classList.add('act');document.querySelectorAll('.ph-dot')[phCur].classList.add('act')}
 setInterval(()=>phGo(phCur+1),5000);
 // Scroll reveal
-const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
+},{threshold:0,rootMargin:'0px 0px 40px 0px'});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+function revealVisible(){
+  document.querySelectorAll('.rv').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top < window.innerHeight + 60){el.classList.add('in');ro.unobserve(el);}
+  });
+}
+revealVisible();setTimeout(revealVisible,100);setTimeout(revealVisible,300);
 
 // GALLERY FILTER
 let galItems=[];
@@ -643,8 +750,8 @@ function resetUpload(){document.getElementById('upload-form').reset();document.g
 function clearUpload(){document.getElementById('prev-grid').innerHTML='';uploadedFiles=[];document.getElementById('uf-files').value='';}
 
 // Page fade
-document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
-document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
+/* page loads fully visible — transitions handled by CSS */
+document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;}));
 
 // CHATBOT
 (function(){
@@ -666,7 +773,7 @@ const KB=[
   {k:['event','departmental week','dept week','upcoming'],r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/>Mon 29 Jun — Health Walk<br/>Tue 30 Jun — Inter-Class Debate<br/>Wed 1 Jul — Professional Conference<br/>Thu 2 Jul — Industrial Trip (Kasapreko)<br/>Fri 3 Jul — Jersey Day<br/>Sat 4 Jul — Departmental Games<br/><a href="events.html" style="color:#F4B400">See all events →</a>'},
   {k:['past question','past questions','exam','pdf','download'],r:'📄 Download past exam questions free on the <a href="past-questions.html" style="color:#F4B400">Past Questions page →</a> — IMC, PR Theories, Corporate Communication and more!'},
   {k:['member','join','membership'],r:'🎓 Every student admitted into the Department of Communication Studies at ATU is <strong>automatically a COMSA member</strong> from Level 100. No registration needed!'},
-  {k:['student','how many','1708'],r:'👥 COMSA has <strong>1,708 students</strong> across all 5 programmes at ATU.'},
+  {k:['student','how many','1708'],r:'👥 COMSA has <strong style="color:#F4B400">1,708 students</strong> across all 5 programmes at ATU.'},
   {k:['programme','programs','course'],r:'📚 5 Programmes: PR with Digital Communication, Journalism & Media, Marketing Communication, Development Communication, Graphic Communication.<br/><a href="about.html#programmes" style="color:#F4B400">Learn more →</a>'},
   {k:['contact','reach','phone','whatsapp'],r:'📞 Contact COMSA:<br/>• PRO: <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>• President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/><a href="contact.html" style="color:#F4B400">Contact page →</a>'},
   {k:['motto','communicate'],r:'✨ COMSA Motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em>'},
@@ -690,8 +797,8 @@ function botReply(html){send.disabled=true;input.disabled=true;showTyping();setT
 function buildQR(){quickWrap.innerHTML='';QUICK_Qs.forEach(q=>{const btn=document.createElement('button');btn.className='cb-qr';btn.textContent=q.label;btn.onclick=()=>handleSend(q.q);quickWrap.appendChild(btn)});}
 function handleSend(text){const t=(text||input.value).trim();if(!t)return;addMsg(t,'user');input.value='';quickWrap.innerHTML='';botReply(getReply(t));}
 function greet(){if(!msgs.children.length){addMsg('👋 Hi! I\'m the <strong>COMSA Gallery Assistant</strong>.<br/>I can help you upload photos, navigate the gallery, or answer questions about COMSA!','bot');buildQR();}}
-toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'💬';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
-closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='💬';});
+toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
+closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>';});
 send.addEventListener('click',()=>handleSend());
 input.addEventListener('keydown',e=>{if(e.key==='Enter')handleSend()});
 setTimeout(()=>{if(!badgeShown&&!open)badge.style.display='flex';},5000);

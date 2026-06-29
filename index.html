@@ -8,17 +8,9 @@
 <meta name="keywords" content="COMSA, Communications Students Association, Accra Technical University, ATU, Ghana"/>
 <meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech"/>
 
-<!-- =====================================================
-  FAVICON — logo.jpg is used as the site icon
-===================================================== -->
 <link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
 <link rel="apple-touch-icon" href="images/logo.jpg"/>
 
-<!-- =====================================================
-  OPEN GRAPH — controls how the site looks when shared on
-  WhatsApp, Facebook, Twitter, etc.
-  Change og:url to your live site URL after deploying.
-===================================================== -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://comsa-atu.vercel.app/"/>
 <meta property="og:title" content="COMSA – Accra Technical University"/>
@@ -50,13 +42,13 @@ ul{list-style:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 /* ===== LOADER ===== */
-#loader{position:fixed;inset:0;background:var(--navy2);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .8s var(--ease),visibility .8s}
-#loader.out{opacity:0;visibility:hidden;pointer-events:none}
+#loader{position:fixed;inset:0;background:var(--navy2);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .3s var(--ease),visibility .3s}
+#loader.out{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease;}
 .ld-logo{font-family:'Orbitron',monospace;font-size:clamp(2rem,6vw,3.5rem);color:var(--gold);letter-spacing:.15em;animation:glow 1.6s ease-in-out infinite}
 .ld-ring{width:72px;height:72px;border-radius:50%;border:3px solid rgba(244,180,0,.15);border-top-color:var(--gold);animation:spin 1s linear infinite}
 .ld-sub{font-size:.72rem;letter-spacing:.3em;color:rgba(255,255,255,.3);text-transform:uppercase}
 .ld-bar{width:180px;height:3px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
-.ld-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));animation:fill 2.8s var(--ease) forwards}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));animation:fill 3.8s ease-out forwards}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes glow{0%,100%{text-shadow:0 0 20px rgba(244,180,0,.4)}50%{text-shadow:0 0 50px rgba(244,180,0,.9),0 0 80px rgba(244,180,0,.3)}}
 @keyframes fill{to{width:100%}}
@@ -66,11 +58,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 #nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
 [data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
 .nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
-
-/* =====================================================
-  LOGO IN NAVBAR — uses logo.jpg
-  If logo.jpg is missing, falls back to text "ATU"
-===================================================== */
 .brand{display:flex;align-items:center;gap:12px}
 .brand-logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .brand-logo-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
@@ -78,7 +65,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
 .brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
 [data-theme=light] .brand-txt span{color:var(--muted)}
-
 .nav-links{display:flex;align-items:center;gap:2px}
 .nav-links a{padding:7px 13px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
 [data-theme=light] .nav-links a{color:var(--muted)}
@@ -101,9 +87,9 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
-[data-theme=light] .mob{background:rgba(244,244,240,.97)}
-.mob.open{transform:translateY(0);opacity:1}
+.mob{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;background:rgba(7,16,30,.99);backdrop-filter:blur(24px);padding:80px 28px 36px;transform:translateX(-100%);opacity:1;transition:transform .38s cubic-bezier(.22,1,.36,1);z-index:1100;border-right:1px solid rgba(244,180,0,.15);overflow-y:auto}
+[data-theme=light] .mob{background:rgba(244,244,240,.99)}
+.mob.open{transform:translateX(0)}
 .mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
 [data-theme=light] .mob a{color:var(--muted);border-bottom-color:rgba(0,0,0,.06)}
 .mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
@@ -118,14 +104,13 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 #popup.show .pop-box{transform:translateY(0) scale(1)}
 .pop-stripe{height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
 .pop-img-area{position:relative;background:var(--navy);overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:60px}
-/* =====================================================
-  POPUP FLYER IMAGE — comsa41.jpg or set via JS POPUP CONFIG
-  Replace src with your flyer image.
-===================================================== */
 #popup-flyer{width:100%;max-height:320px;object-fit:contain;display:none}
 #popup-flyer[src]:not([src=""]){display:block}
 .pop-body{padding:26px 30px 30px}
 .pop-badge{display:inline-block;padding:4px 12px;background:rgba(244,180,0,.1);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+/* ===== PARTY POPPER BADGE ANIMATION ===== */
+#popup.show .pop-badge{animation:partyPop .8s var(--spring) .2s both}
+@keyframes partyPop{0%{transform:scale(0) rotate(-15deg);opacity:0}60%{transform:scale(1.15) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(0deg);opacity:1}}
 .pop-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--txt);margin-bottom:10px;line-height:1.25}
 .pop-msg{font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:20px}
 .pop-actions{display:flex;gap:10px;flex-wrap:wrap}
@@ -152,12 +137,14 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
 .btn-o:hover{background:rgba(244,180,0,.08)}
 .btn-n{background:var(--navy);color:#fff;box-shadow:0 6px 22px rgba(0,0,0,.3)}
-.rv{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
 .rv.in{opacity:1;transform:translateY(0)}
-.rv-l{opacity:0;transform:translateX(-36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-l{opacity:0;transform:translateX(-20px);transition:opacity .5s ease,transform .5s ease}
 .rv-l.in{opacity:1;transform:translateX(0)}
-.rv-r{opacity:0;transform:translateX(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-r{opacity:0;transform:translateX(20px);transition:opacity .5s ease,transform .5s ease}
 .rv-r.in{opacity:1;transform:translateX(0)}
+@keyframes forceShow{to{opacity:1;transform:none}}
+.rv,.rv-l,.rv-r{animation:forceShow 0s 1s forwards}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
 
 /* ===== HERO SLIDER ===== */
@@ -165,21 +152,12 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .slider{position:absolute;inset:0}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity .85s var(--ease)}
 .slide.act{opacity:1;z-index:2}
-/* =====================================================
-  HERO SLIDE IMAGES
-  Slide 1 → comsa1.jpg
-  Slide 2 → comsa2.jpg
-  Slide 3 → comsa3.jpg
-  Each .slide-img fills the full slide background.
-===================================================== */
 .slide-bg{position:absolute;inset:0;z-index:0}
 .slide-bg img{width:100%;height:100%;object-fit:cover;object-position:center}
-/* Gradient overlays on top of the images */
 .slide-ov{position:absolute;inset:0;z-index:1;pointer-events:none}
 .slide-1 .slide-ov{background:linear-gradient(to right,rgba(7,16,30,.88) 45%,rgba(7,16,30,.35))}
 .slide-2 .slide-ov{background:linear-gradient(to right,rgba(7,16,30,.85) 45%,rgba(7,16,30,.3))}
 .slide-3 .slide-ov{background:linear-gradient(to right,rgba(7,16,30,.88) 45%,rgba(7,16,30,.35))}
-/* Fallback gradient when no image is set */
 .slide-1 .slide-bg{background:linear-gradient(135deg,#071528,#0B1F3B)}
 .slide-2 .slide-bg{background:linear-gradient(135deg,#0d1a10,#1a3220)}
 .slide-3 .slide-bg{background:linear-gradient(135deg,#1a0820,#2d1040)}
@@ -211,9 +189,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ===== ABOUT PREVIEW ===== */
 .about-s{background:var(--bg)}
 .ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-/* =====================================================
-  ABOUT SECTION PHOTO — comsa4.jpg
-===================================================== */
 .ab-img-wrap{aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,var(--navy),var(--navy3));position:relative}
 .ab-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top}
 .ab-img-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:rgba(255,255,255,.2);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
@@ -232,9 +207,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .spot-s::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(244,180,0,.07),transparent 60%)}
 .spot-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:center;position:relative;z-index:1}
 .spot-pres{display:flex;align-items:center;gap:22px;padding:28px;background:rgba(255,255,255,.04);border:1px solid rgba(244,180,0,.18);border-radius:18px;margin-top:28px}
-/* =====================================================
-  PRESIDENT PHOTO — comsa5.jpg
-===================================================== */
 .pres-av{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold3));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--navy);flex-shrink:0;border:3px solid rgba(244,180,0,.4);box-shadow:0 0 28px rgba(244,180,0,.22);overflow:hidden;position:relative}
 .pres-av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
 .pres-av-fb{position:relative;z-index:1}
@@ -245,29 +217,29 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .mini-c{display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:12px;transition:background .3s,border-color .3s,transform .3s}
 .mini-c:hover{background:rgba(244,180,0,.05);border-color:rgba(244,180,0,.18);transform:translateX(5px)}
 .mini-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--navy3),#1a3a66);border:2px solid rgba(244,180,0,.22);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;color:var(--gold);flex-shrink:0;overflow:hidden;position:relative}
-/* =====================================================
-  MINI EXEC PHOTOS in spotlight sidebar
-  VP → comsa6.jpg  |  Secretary → comsa7.jpg
-  Organizer → comsa8.jpg  |  PRO → comsa10.jpg
-  WOCOM → comsa11.jpg
-===================================================== */
 .mini-av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
 .mini-av-fb{position:relative;z-index:1}
 .mini-n{font-weight:600;font-size:.88rem;color:#fff}
 .mini-r{font-size:.7rem;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:.08em}
 
-/* ===== ANNOUNCEMENTS ===== */
+/* ===== DEPARTMENTAL WEEK CARDS ===== */
 .ann-s{background:var(--bg)}
 .ann-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
-.ann-c{background:var(--card);border:1px solid var(--bdr);border-radius:18px;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s;cursor:pointer}
+.ann-c{background:var(--card);border:1px solid var(--bdr);border-radius:18px;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s;cursor:pointer;position:relative}
 .ann-c:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.3);border-color:rgba(244,180,0,.28)}
 .ann-top{height:5px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.ann-body{padding:26px}
+.ann-body{padding:26px;position:relative;z-index:1}
+/* Big faded day number watermark behind each card */
+.ann-c::after{content:attr(data-daynum);position:absolute;bottom:-10px;right:8px;font-family:'Orbitron',monospace;font-size:5.5rem;font-weight:900;color:rgba(244,180,0,.05);line-height:1;pointer-events:none;z-index:0}
 .ann-badge{display:inline-block;padding:3px 10px;background:rgba(244,180,0,.1);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
-.ann-tt{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--txt);line-height:1.35;margin-bottom:9px}
-.ann-dd{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:18px}
-.ann-date{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.ann-day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ann-emoji{font-size:2rem;line-height:1;flex-shrink:0}
+.ann-dayname{font-size:.7rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.ann-tt{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--txt);line-height:1.35;margin-bottom:9px}
+.ann-dd{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.ann-date{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:6px;font-weight:500}
 .ann-date::before{content:'📅';font-size:.85em}
+.dep-week-intro{font-size:.92rem;color:var(--muted);margin-top:6px;line-height:1.6}
 
 /* ===== STATS ===== */
 .stats-s{background:linear-gradient(135deg,var(--navy),var(--navy2));position:relative;overflow:hidden}
@@ -289,16 +261,15 @@ footer{background:var(--navy2);padding:72px 0 0;position:relative;overflow:hidde
 footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:52px;padding-bottom:52px}
 .ft-brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-/* =====================================================
-  LOGO IN FOOTER — logo.jpg
-===================================================== */
 .ft-logo-wrap{width:48px;height:48px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .ft-logo-img{width:100%;height:100%;object-fit:cover}
 .ft-logo-fb{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;color:var(--navy);display:none}
 .ft-p{font-size:.86rem;color:rgba(255,255,255,.4);line-height:1.8;max-width:290px;margin-bottom:20px}
 .ft-soc{display:flex;gap:10px}
-.ft-so{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .3s}
-.ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px)}
+/* ===== SOCIAL MEDIA ICON BUTTONS — SVG real logos ===== */
+.ft-so{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;transition:all .3s;color:rgba(255,255,255,.65)}
+.ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px);color:var(--gold)}
+.ft-so svg{width:18px;height:18px;fill:currentColor;flex-shrink:0}
 .ft-col h4{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;margin-bottom:18px;padding-bottom:10px;position:relative}
 .ft-col h4::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--gold);border-radius:2px}
 .ft-col li{margin-bottom:9px}
@@ -340,9 +311,44 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .ab-vals{grid-template-columns:1fr}
   .s-stats{gap:22px}
 }
+
+.ph-content .rv,.ph-content .rv-l,.ph-content .rv-r,
+.hero-content .rv,.hero-body .rv,
+section:first-of-type .rv{opacity:1!important;transform:none!important;}
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1099;opacity:0;visibility:hidden;transition:opacity .38s,visibility .38s}
+.mob-overlay.open{opacity:1;visibility:visible}
+.mob-close{position:absolute;top:20px;right:20px;width:36px;height:36px;background:rgba(255,255,255,.08);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.ph-content *,.hero-content *{animation:none!important}
+body{opacity:1!important}
 </style>
 </head>
 <body>
+<script>
+window.__menuOpen = false;
+window.openMobMenu = function(){
+  var ham=document.getElementById('ham');
+  var mob=document.getElementById('mob');
+  var ov=document.getElementById('mob-overlay');
+  if(ham) ham.classList.add('open');
+  if(mob) mob.classList.add('open');
+  if(ov) ov.classList.add('open');
+  document.body.style.overflow='hidden';
+  window.__menuOpen=true;
+};
+window.closeMobMenu = function(){
+  var ham=document.getElementById('ham');
+  var mob=document.getElementById('mob');
+  var ov=document.getElementById('mob-overlay');
+  if(ham) ham.classList.remove('open');
+  if(mob) mob.classList.remove('open');
+  if(ov) ov.classList.remove('open');
+  document.body.style.overflow='';
+  window.__menuOpen=false;
+};
+window.toggleMobMenu = function(){
+  window.__menuOpen ? window.closeMobMenu() : window.openMobMenu();
+};
+</script>
 
 <!-- LOADER -->
 <div id="loader">
@@ -352,10 +358,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="ld-bar"><div class="ld-fill"></div></div>
 </div>
 
-<!-- =====================================================
-  POPUP — Edit POPUP_CONFIG in the <script> at the bottom.
-  To add a flyer image: set image: 'images/comsa41.jpg'
-===================================================== -->
+<!-- POPUP -->
 <div id="popup" role="dialog" aria-modal="true" aria-label="COMSA Announcement">
   <div class="pop-bg" onclick="closePopup()"></div>
   <div class="pop-box">
@@ -380,9 +383,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <nav id="nav">
   <div class="nav-i">
     <a href="index.html" class="brand">
-      <!-- =====================================================
-        LOGO: logo.jpg — if file missing, shows "ATU" text
-      ===================================================== -->
       <div class="brand-logo-wrap">
         <img src="images/logo.jpg" alt="COMSA Logo" class="brand-logo-img"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -409,11 +409,13 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <span class="tog-track"></span>
         <span class="tog-thumb"></span>
       </label>
-      <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="ham" id="ham" onclick="toggleMobMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
+<div class="mob-overlay" id="mob-overlay" onclick="closeMobMenu()"></div>
 <div class="mob" id="mob">
+  <button class="mob-close" onclick="closeMobMenu()">✕</button>
   <a href="index.html" class="act">Home</a>
   <a href="about.html">About</a>
   <a href="executives.html">Executives</a>
@@ -435,9 +437,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <!-- SLIDE 1 -->
     <div class="slide slide-1 act">
       <div class="slide-bg">
-        <!-- =====================================================
-          HERO SLIDE 1 IMAGE — Replace with: comsa1.jpg
-        ===================================================== -->
         <img src="images/comsa17.jpg" alt="COMSA Students"/>
       </div>
       <div class="slide-mesh"></div>
@@ -455,7 +454,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
           <div class="s-stats">
             <div><div class="stat-n" data-t="1708" data-s="">0</div><div class="stat-l">Students</div></div>
             <div><div class="stat-n" data-t="9" data-s="">0</div><div class="stat-l">Executives</div></div>
-            <div><div class="stat-n" data-t="20" data-s="+">0+</div><div class="stat-l">Years of Excellence</div></div>
+            <div><div class="stat-n" data-t="4" data-s="+">0+</div><div class="stat-l">Years of Excellence</div></div>
           </div>
         </div>
       </div>
@@ -464,9 +463,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <!-- SLIDE 2 -->
     <div class="slide slide-2">
       <div class="slide-bg">
-        <!-- =====================================================
-          HERO SLIDE 2 IMAGE — Replace with: comsa2.jpg
-        ===================================================== -->
         <img src="images/comsa18.jpg" alt="COMSA Events"/>
       </div>
       <div class="slide-mesh"></div>
@@ -487,9 +483,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <!-- SLIDE 3 -->
     <div class="slide slide-3">
       <div class="slide-bg">
-        <!-- =====================================================
-          HERO SLIDE 3 IMAGE — Replace with: comsa3.jpg
-        ===================================================== -->
         <img src="images/comsa3.jpg" alt="COMSA Campus"/>
       </div>
       <div class="slide-mesh"></div>
@@ -518,9 +511,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="container">
     <div class="ab-grid">
       <div class="ab-img-wrap rv-l">
-        <!-- =====================================================
-          ABOUT SECTION PHOTO — comsa4.jpg
-        ===================================================== -->
         <img src="images/comsa4.jpg" alt="COMSA Members"/>
         <div class="ab-img-placeholder">🏛️<span>COMSA · ATU</span></div>
         <div class="ab-float"><div class="ab-float-i">COMSA<br/>ATU<br/>★★★</div></div>
@@ -553,9 +543,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <p class="desc rv d1" style="color:rgba(255,255,255,.5)">Our 2025/26 executive body is committed to excellence, service, and representation for every COMSA member at Accra Technical University.</p>
         <div class="spot-pres rv d2">
           <div class="pres-av">
-            <!-- =====================================================
-              PRESIDENT PHOTO — comsa5.jpg
-            ===================================================== -->
             <img src="images/Jalil.jpg" alt="Abdul Jalil Sani"/>
             <span class="pres-av-fb"></span>
           </div>
@@ -570,9 +557,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="mini-list rv-r">
         <div class="mini-c">
           <div class="mini-av">
-            <!-- =====================================================
-              VP PHOTO — comsa6.jpg
-            ===================================================== -->
             <img src="images/Kelvin.jpg" alt="Kelvin Otiboateng"/>
             <span class="mini-av-fb"></span>
           </div>
@@ -580,7 +564,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         </div>
         <div class="mini-c">
           <div class="mini-av">
-            <!-- comsa7.jpg — Secretary -->
             <img src="images/jochebed.jpg" alt="Jochebed Ofori"/>
             <span class="mini-av-fb"></span>
           </div>
@@ -588,7 +571,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         </div>
         <div class="mini-c">
           <div class="mini-av">
-            <!-- comsa8.jpg — Organizer -->
             <img src="images/martin.jpg" alt="Martin Laryea Mensah"/>
             <span class="mini-av-fb"></span>
           </div>
@@ -596,7 +578,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         </div>
         <div class="mini-c">
           <div class="mini-av">
-            <!-- comsa10.jpg — PRO -->
             <img src="images/theophilus.jpg" alt="Theophilus Mensah"/>
             <span class="mini-av-fb"></span>
           </div>
@@ -604,7 +585,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         </div>
         <div class="mini-c">
           <div class="mini-av">
-            <!-- comsa11.jpg — WOCOM -->
             <img src="images/Abigail.jpg" alt="Abigail Enu Ninson"/>
             <span class="mini-av-fb"></span>
           </div>
@@ -615,41 +595,109 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </section>
 
-<!-- ===== ANNOUNCEMENTS ===== -->
+<!-- ===== DEPARTMENTAL WEEK 2026 ===== -->
 <section class="ann-s sp">
   <div class="container">
-    <div class="rv" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px">
-      <div><div class="lbl">Latest Updates</div><h2 class="h2">Announcements &amp; <em>News</em></h2></div>
+    <div class="rv" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:8px">
+      <div>
+        <div class="lbl">Departmental Week Celebrations 2026</div>
+        <h2 class="h2">Week <em>Schedule</em></h2>
+        <p class="dep-week-intro">Sani-Oti Led Administration · 29th June – 4th July 2026</p>
+      </div>
       <a href="events.html" class="btn btn-o">View All Events →</a>
     </div>
     <div class="ann-grid">
-      <div class="ann-c rv d1">
+
+      <!-- DAY 1 -->
+      <div class="ann-c rv d1" data-daynum="01">
         <div class="ann-top"></div>
         <div class="ann-body">
-          <span class="ann-badge">Upcoming</span>
-          <h3 class="ann-tt">Annual COMSA Week 2026</h3>
-          <p class="ann-dd">A full week of academic panels, talent shows, debates, outdoor games, cultural displays, and a grand gala dinner celebrating our association.</p>
-          <div class="ann-date">March 20–27, 2026</div>
+          <div class="ann-day-header">
+            <span class="ann-badge">Day 1</span>
+            <span class="ann-emoji">🏃</span>
+          </div>
+          <div class="ann-dayname">Monday</div>
+          <h3 class="ann-tt">Health Walk &amp; Clean Up Exercise</h3>
+          <p class="ann-dd">Kick off the week strong with a morning health walk and a campus clean-up drive. A healthy community is a thriving community!</p>
+          <div class="ann-date">29th June 2026</div>
         </div>
       </div>
-      <div class="ann-c rv d2">
+
+      <!-- DAY 2 -->
+      <div class="ann-c rv d2" data-daynum="02">
         <div class="ann-top"></div>
         <div class="ann-body">
-          <span class="ann-badge">Academic</span>
-          <h3 class="ann-tt">Communications Career Fair &amp; Networking Night</h3>
-          <p class="ann-dd">Connect with industry professionals and explore internship opportunities in media and communications at ATU Main Hall.</p>
-          <div class="ann-date">April 5, 2026</div>
+          <div class="ann-day-header">
+            <span class="ann-badge">Day 2</span>
+            <span class="ann-emoji">🎙️</span>
+          </div>
+          <div class="ann-dayname">Tuesday</div>
+          <h3 class="ann-tt">Inter Class Debate</h3>
+          <p class="ann-dd">Level vs level — battle of communication skills, critical thinking, and persuasion. Who will take the crown?</p>
+          <div class="ann-date">30th June 2026</div>
         </div>
       </div>
-      <div class="ann-c rv d3">
+
+      <!-- DAY 3 -->
+      <div class="ann-c rv d3" data-daynum="03">
         <div class="ann-top"></div>
         <div class="ann-body">
-          <span class="ann-badge">Workshop</span>
-          <h3 class="ann-tt">Public Speaking Masterclass Series</h3>
-          <p class="ann-dd">Intensive sessions to sharpen your presentation, debate, and public speaking skills with industry coaches and professionals.</p>
-          <div class="ann-date">April 12, 2026</div>
+          <div class="ann-day-header">
+            <span class="ann-badge">Day 3</span>
+            <span class="ann-emoji">💼</span>
+          </div>
+          <div class="ann-dayname">Wednesday</div>
+          <h3 class="ann-tt">Professional Edge Conference &amp; Part Time Submit</h3>
+          <p class="ann-dd">Industry professionals share career insights and real-world experience. Part-time students: assignment submission day.</p>
+          <div class="ann-date">1st July 2026</div>
         </div>
       </div>
+
+      <!-- DAY 4 -->
+      <div class="ann-c rv d4" data-daynum="04">
+        <div class="ann-top"></div>
+        <div class="ann-body">
+          <div class="ann-day-header">
+            <span class="ann-badge">Day 4</span>
+            <span class="ann-emoji">🏭</span>
+          </div>
+          <div class="ann-dayname">Thursday</div>
+          <h3 class="ann-tt">Industrial Trip — Kasapreko LTD</h3>
+          <p class="ann-dd">Behind-the-scenes at one of Ghana's top beverage companies. See communications and marketing in real corporate action.</p>
+          <div class="ann-date">2nd July 2026</div>
+        </div>
+      </div>
+
+      <!-- DAY 5 -->
+      <div class="ann-c rv d5" data-daynum="05">
+        <div class="ann-top"></div>
+        <div class="ann-body">
+          <div class="ann-day-header">
+            <span class="ann-badge">Day 5</span>
+            <span class="ann-emoji">👕</span>
+          </div>
+          <div class="ann-dayname">Friday</div>
+          <h3 class="ann-tt">Rep Your Jersey Day</h3>
+          <p class="ann-dd">Rock your favourite club, national, or custom jersey! Show off your colours and vibe with your coursemates in style.</p>
+          <div class="ann-date">3rd July 2026</div>
+        </div>
+      </div>
+
+      <!-- DAY 6 -->
+      <div class="ann-c rv d6" data-daynum="06">
+        <div class="ann-top"></div>
+        <div class="ann-body">
+          <div class="ann-day-header">
+            <span class="ann-badge">Day 6</span>
+            <span class="ann-emoji">🏆</span>
+          </div>
+          <div class="ann-dayname">Saturday</div>
+          <h3 class="ann-tt">Departmental Games</h3>
+          <p class="ann-dd">The grand sporting finale! Compete for glory across multiple disciplines. Cheer your level on and celebrate COMSA family.</p>
+          <div class="ann-date">4th July 2026</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -660,8 +708,8 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <div class="stats-grid">
       <div class="stt rv d1"><div class="stt-n" data-t="1708" data-s="">0</div><div class="stt-l">Total Students</div></div>
       <div class="stt rv d2"><div class="stt-n" data-t="9" data-s="">0</div><div class="stt-l">Executive Officers</div></div>
-      <div class="stt rv d3"><div class="stt-n" data-t="15" data-s="+">0+</div><div class="stt-l">Events This Year</div></div>
-      <div class="stt rv d4"><div class="stt-n" data-t="20" data-s="+">0+</div><div class="stt-l">Years of Excellence</div></div>
+      <div class="stt rv d3"><div class="stt-n" data-t="7" data-s="+">0+</div><div class="stt-l">Events This Year</div></div>
+      <div class="stt rv d4"><div class="stt-n" data-t="4" data-s="+">0+</div><div class="stt-l">Years of Excellence</div></div>
     </div>
   </div>
 </section>
@@ -688,9 +736,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <div class="ft-grid">
       <div>
         <div class="ft-brand">
-          <!-- =====================================================
-            LOGO IN FOOTER — logo.jpg
-          ===================================================== -->
           <div class="ft-logo-wrap">
             <img src="images/logo.jpg" alt="COMSA Logo" class="ft-logo-img"
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -699,11 +744,24 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
           <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
         </div>
         <p class="ft-p">Communications Students' Association — empowering students to communicate with confidence, persuade with purpose, and transform their world.</p>
+        <!-- ===== REAL SVG SOCIAL MEDIA ICONS ===== -->
         <div class="ft-soc">
-          <a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so" aria-label="Facebook">📘</a>
-          <a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so" aria-label="Instagram">📸</a>
-          <a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so" aria-label="TikTok">🎵</a>
-          <a href="https://wa.me/233530099371" target="_blank" class="ft-so" aria-label="WhatsApp">💬</a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- TikTok -->
+          <a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.05a8.19 8.19 0 004.78 1.52V7.12a4.85 4.85 0 01-1.01-.43z"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/233530099371" target="_blank" class="ft-so" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
         </div>
       </div>
       <div class="ft-col">
@@ -742,6 +800,14 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </footer>
 
+<!-- WA FLOAT — WhatsApp SVG icon -->
+<div id="wa-float" style="position:fixed;bottom:100px;right:28px;z-index:3000;display:flex;align-items:center;gap:10px">
+  <div id="wa-tip" style="background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.12);border-radius:10px;padding:8px 13px;font-size:.76rem;color:var(--txt,#F0EFE9);white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s">Chat with PRO · Theophilus Mensah</div>
+  <a href="https://wa.me/233544487799" target="_blank" style="width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s;text-decoration:none" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO">
+    <svg viewBox="0 0 24 24" fill="white" width="26" height="26" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
 <!-- ===== CHATBOT ===== -->
 <button id="cb-toggle" aria-label="Open chat" title="Chat with COMSA assistant"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
 <div id="chatbot" role="dialog" aria-label="COMSA Chatbot">
@@ -757,64 +823,185 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 
 <script>
 /* ============================================================
-  COMSA — Home Page JavaScript
-  ============================================================ */
+   COMSA — index.html
+============================================================ */
 
-/* ===== POPUP CONFIG =======================================
-  Edit these values to change what the popup shows.
-  Set active: false to disable the popup entirely.
-  For a flyer: set image: 'images/comsa41.jpg'
-  or any image file in your images/ folder.
-=========================================================== */
 const POPUP_CONFIG = {
   active:  true,
-  badge:   '📢 Welcome to COMSA 2025/26!',
-  title:   'The All Inclusive Administration',
-  message: 'We are excited to welcome you to COMSA\'s official website! Stay updated with the latest events, news, and announcements from the Communications Students\' Association at Accra Technical University.',
-  image:   '',             /* 📸 Set flyer: e.g. 'images/comsa41.jpg' */
+  badge:   '🎉 Official Launch — COMSA 2025/26',
+  title:   'Welcome to the COMSA Official Website!',
+  message: 'The All Inclusive Administration — led by Sani-Oti — proudly launches the official COMSA website. Browse events, past questions, news, and connect with your executives. We are here for every student in the department.',
+  image:   '',
   btnText: 'Explore COMSA →',
   btnLink: 'about.html',
 };
 
 /* ===== THEME ===== */
 (function(){
-  const t=localStorage.getItem('comsa-theme')||'dark';
-  document.documentElement.setAttribute('data-theme',t);
-  document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light');
+  var t = localStorage.getItem('comsa-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.querySelectorAll('.tog-in').forEach(function(i){ i.checked = t === 'light'; });
 })();
-function setTheme(l){
-  const t=l?'light':'dark';
-  document.documentElement.setAttribute('data-theme',t);
-  localStorage.setItem('comsa-theme',t);
-  document.querySelectorAll('.tog-in').forEach(i=>i.checked=l);
-}
-document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
 
-/* ===== LOADER ===== */
-window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('out'),3000));
+function setTheme(l){
+  var t = l ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('comsa-theme', t);
+  document.querySelectorAll('.tog-in').forEach(function(i){ i.checked = l; });
+}
+document.querySelectorAll('.tog-in').forEach(function(i){
+  i.addEventListener('change', function(){ setTheme(this.checked); });
+});
+
+/* ===== LOADER — hides after exactly 4 seconds ===== */
+(function () {
+    const loader = document.getElementById("loader");
+    if (!loader) return;
+    function hideLoader() {
+        loader.classList.add("out");
+        setTimeout(() => { loader.style.display = "none"; }, 300);
+    }
+    setTimeout(hideLoader, 4000);
+})();
+
+/* ===== PARTY POPPER CONFETTI ===== */
+function launchConfetti() {
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:8500;pointer-events:none';
+  document.body.appendChild(canvas);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+  const colors = ['#F4B400','#FFD04D','#ff6b6b','#4ecdc4','#45b7d1','#a29bfe','#fd79a8','#00b894','#e17055','#74b9ff'];
+  const cx = canvas.width / 2, cy = canvas.height / 2;
+  const particles = Array.from({length: 140}, function() {
+    return {
+      x: cx + (Math.random() - 0.5) * 160,
+      y: cy + (Math.random() - 0.5) * 80,
+      vx: (Math.random() - 0.5) * 16,
+      vy: Math.random() * -14 - 2,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      w: Math.random() * 11 + 5,
+      h: Math.random() * 6 + 3,
+      rot: Math.random() * 360,
+      rSpeed: (Math.random() - 0.5) * 14,
+      alpha: 1,
+      shape: Math.random() > 0.65 ? 'circle' : 'rect'
+    };
+  });
+  let frame = 0;
+  (function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(function(p) {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.42;
+      p.vx *= 0.992; p.rot += p.rSpeed;
+      if (frame > 55) p.alpha -= 0.013;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      if (p.shape === 'circle') {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      }
+      ctx.restore();
+    });
+    frame++;
+    if (frame < 190) requestAnimationFrame(tick);
+    else canvas.remove();
+  })();
+}
 
 /* ===== POPUP ===== */
-function closePopup(){document.getElementById('popup').classList.remove('show');document.body.style.overflow='';}
+function closePopup(){
+  var p = document.getElementById('popup');
+  if(p) p.classList.remove('show');
+  document.body.style.overflow = '';
+}
 function initPopup(){
-  if(!POPUP_CONFIG.active)return;
-  if(sessionStorage.getItem('comsa-popup'))return;
-  sessionStorage.setItem('comsa-popup','1');
-  document.getElementById('pop-badge').textContent=POPUP_CONFIG.badge;
-  document.getElementById('pop-title').textContent=POPUP_CONFIG.title;
-  document.getElementById('pop-msg').textContent=POPUP_CONFIG.message;
-  const btn=document.getElementById('pop-btn');
-  btn.textContent=POPUP_CONFIG.btnText;btn.href=POPUP_CONFIG.btnLink;
-  if(POPUP_CONFIG.image)document.getElementById('popup-flyer').src=POPUP_CONFIG.image;
-  setTimeout(()=>{document.getElementById('popup').classList.add('show');document.body.style.overflow='hidden';},3400);
+  if(!POPUP_CONFIG.active) return;
+  if(sessionStorage.getItem('comsa-popup-shown')) return;
+  sessionStorage.setItem('comsa-popup-shown','1');
+  var badge = document.getElementById('pop-badge');
+  var title = document.getElementById('pop-title');
+  var msg   = document.getElementById('pop-msg');
+  var btn   = document.getElementById('pop-btn');
+  var flyer = document.getElementById('popup-flyer');
+  if(badge) badge.textContent = POPUP_CONFIG.badge;
+  if(title) title.textContent = POPUP_CONFIG.title;
+  if(msg)   msg.textContent   = POPUP_CONFIG.message;
+  if(btn){  btn.textContent   = POPUP_CONFIG.btnText; btn.href = POPUP_CONFIG.btnLink; }
+  if(flyer && POPUP_CONFIG.image) flyer.src = POPUP_CONFIG.image;
+  setTimeout(function(){
+    var p = document.getElementById('popup');
+    if(p){
+      p.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      launchConfetti();
+    }
+  }, 6000);
 }
 
-/* ===== NAV ===== */
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
-const ham=document.getElementById('ham'),mob=document.getElementById('mob');
-ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
-mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
+/* ===== NAV / HAMBURGER ===== */
+function initNav(){
+  var nav   = document.getElementById('nav');
+  var ham   = document.getElementById('ham');
+  var mob   = document.getElementById('mob');
+  var mobOv = document.getElementById('mob-overlay');
+  window.addEventListener('scroll', function(){
+    if(nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, {passive:true});
+  function openMenu(){
+    if(ham) ham.classList.add('open');
+    if(mob) mob.classList.add('open');
+    if(mobOv) mobOv.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    if(ham) ham.classList.remove('open');
+    if(mob) mob.classList.remove('open');
+    if(mobOv) mobOv.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  if(ham){
+    ham.addEventListener('click', function(){
+      if(mob && mob.classList.contains('open')){ closeMenu(); } else { openMenu(); }
+    });
+  }
+  if(mobOv) mobOv.addEventListener('click', closeMenu);
+  if(mob){
+    mob.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMenu);
+    });
+  }
+  window.closeMobMenu = closeMenu;
+  window.openMobMenu  = openMenu;
+}
 
-/* ===== HERO SLIDER ===== */
+/* ===== SCROLL REVEAL ===== */
+function initReveal(){
+  var ro = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); }
+    });
+  }, {threshold: 0, rootMargin: '0px 0px 60px 0px'});
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){ ro.observe(el); });
+  function revealNow(){
+    document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight + 80){ el.classList.add('in'); }
+    });
+  }
+  revealNow();
+  setTimeout(revealNow, 200);
+  setTimeout(revealNow, 600);
+  window.addEventListener('load', revealNow);
+}
+
 let cur=0,slides=[],dotsEl,timer;
 function initSlider(){
   slides=Array.from(document.querySelectorAll('.slide'));
@@ -846,11 +1033,21 @@ function animCount(el){
   requestAnimationFrame(step);
 }
 
-/* ===== SCROLL REVEAL ===== */
+/* ===== SCROLL REVEAL (global) ===== */
 const ro=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+},{threshold:0,rootMargin:'0px 0px 40px 0px'});
 document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>ro.observe(el));
+function revealVisible(){
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight+80){el.classList.add('in');try{ro.unobserve(el);}catch(e){}}
+  });
+}
+revealVisible();
+window.addEventListener('load',revealVisible);
+setTimeout(revealVisible,200);
+setTimeout(revealVisible,600);
 const co=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)animCount(e.target)});},{threshold:.5});
 document.querySelectorAll('[data-t]').forEach(el=>co.observe(el));
 
@@ -861,23 +1058,22 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 /* ===== PAGE FADE ===== */
-document.body.style.opacity='0';
-requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
-document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){
-  const h=this.getAttribute('href');
-  if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;
-  e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380);
-}));
+document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;}));
 
 /* ===== INIT ===== */
-document.addEventListener('DOMContentLoaded',()=>{initSlider();initPopup();});
+document.addEventListener('DOMContentLoaded', function(){
+  initNav();
+  initSlider();
+  initPopup();
+  initReveal();
+});
 
 /* ===== CHATBOT ===== */
 (function(){
   const toggle=document.getElementById('cb-toggle'),bot=document.getElementById('chatbot'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-msgs'),input=document.getElementById('cb-input'),send=document.getElementById('cb-send'),quickWrap=document.getElementById('cb-quick'),badge=document.getElementById('cb-badge');
   let open=false,badgeShown=false;
   const KB=[
-  {k:['hello','hi','hey'],r:'Hello! 👋 I'm the COMSA Assistant. Ask me about executives, events, past questions, membership and more!'},
+  {k:['hello','hi','hey'],r:'Hello! 👋 I\'m the COMSA Assistant. Ask me about executives, events, past questions, membership and more!'},
   {k:['president','jalil','abdul'],r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},
   {k:['vice president','kelvin','vp'],r:'<strong>Vice President: Kelvin Otiboateng</strong><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> · <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">WhatsApp</a>'},
   {k:['secretary','jochebed'],r:'<strong>Secretary: Jochebed Ofori</strong><br/>📞 <a href="tel:+233537868041" style="color:#F4B400">0537 868 041</a> · <a href="https://wa.me/233537868041" target="_blank" style="color:#F4B400">WhatsApp</a>'},
@@ -892,14 +1088,14 @@ document.addEventListener('DOMContentLoaded',()=>{initSlider();initPopup();});
   {k:['event','departmental week','dept week','upcoming'],r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/>Mon 29 Jun — 🏃 Health Walk & Clean Up<br/>Tue 30 Jun — 🎙️ Inter-Class Debate<br/>Wed 1 Jul — 💼 Professional Edge Conference<br/>Thu 2 Jul — 🏭 Industrial Trip (Kasapreko Ltd)<br/>Fri 3 Jul — 👕 Rep Your Jersey Day<br/>Sat 4 Jul — 🏆 Departmental Games<br/><a href="events.html" style="color:#F4B400">See all events →</a>'},
   {k:['past question','past questions','exam','pdf','download','study'],r:'📄 Past exam questions are available for free! Visit the <a href="past-questions.html" style="color:#F4B400">Past Questions page →</a> to download PDFs for: Integrated Marketing Communications, PR Theories, Industrial & Org. Psychology, Technical Report Writing, Corporate Communication.'},
   {k:['member','join','membership','how to join','registration'],r:'🎓 Every student admitted into the Department of Liberal Studies and Communication Technology at ATU is <strong>automatically a COMSA member</strong> from Level 100. No registration needed — you are already part of the family! 🏆'},
-  {k:['student','how many','1708','total'],r:'👥 COMSA currently has <strong>1,708 students</strong> across all 5 programmes and all levels at ATU.'},
+  {k:['student','how many','1708','total'],r:'👥 COMSA has <strong style="color:#F4B400">1,708 students</strong> across all 5 programmes and all levels at ATU.'},
   {k:['programme','programs','course','btech','study'],r:'📚 COMSA covers 5 programmes:<br/>• BTech Public Relations with Digital Communication<br/>• BTech Journalism & Media Studies<br/>• BTech Marketing Communication<br/>• BTech Development Communication<br/>• BTech Graphic Communication<br/><a href="about.html#programmes" style="color:#F4B400">Learn more →</a>'},
   {k:['blog','news','announcement','flyer'],r:'📰 Read COMSA news, flyers, and announcements on the <a href="blog.html" style="color:#F4B400">Blog page →</a>'},
   {k:['gallery','photo','picture'],r:'📸 View event photos on the <a href="gallery.html" style="color:#F4B400">Gallery page →</a>'},
   {k:['contact','reach','phone','whatsapp'],r:'📞 Contact COMSA:<br/>• PRO: <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>• President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/><a href="contact.html" style="color:#F4B400">Contact page →</a>'},
   {k:['motto','slogan','communicate','persuade'],r:'✨ COMSA Motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/>2025/26 Theme: <strong>The All Inclusive Administration</strong>'},
-  {k:['about','history','founded','comsa'],r:'📖 COMSA is the official students' association of the Department of Communication Studies at Accra Technical University. Learn more on the <a href="about.html" style="color:#F4B400">About page →</a>'},
-  {k:['thank','thanks'],r:'You're welcome! 😊 All the best!'},
+  {k:['about','history','founded','comsa'],r:'📖 COMSA is the official students\' association of the Department of Communication Studies at Accra Technical University. Learn more on the <a href="about.html" style="color:#F4B400">About page →</a>'},
+  {k:['thank','thanks'],r:'You\'re welcome! 😊 All the best!'},
   {k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
 ];
 const FALLBACK=`I don't have a specific answer for that, but our President can help! 😊<br/><br/><strong>Abdul Jalil Sani — President</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>💬 <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp: 0530 099 371</a>`;
