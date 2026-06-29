@@ -406,8 +406,8 @@ window.toggleMobMenu = function(){
 // =====================================================
 //   SUPABASE CONFIG — FILL THESE IN
 // =====================================================
-const SUPA_URL = 'YOUR_SUPABASE_URL';
-const SUPA_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPA_URL = 'https://jnggqrtmvuseqfivkbof.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpuZ2dxcnRtdnVzZXFmaXZrYm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NTk0NjgsImV4cCI6MjA5ODQzNTQ2OH0.U7ZvFVQMgGp27UqT2EAD7enH-PiSO_D3D4WZ-hk22N4';
 
 (function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
 
@@ -588,7 +588,7 @@ async function loadEvents(){
   /* Always show static data immediately so the page is never blank */
   showStaticEvents();
   /* If Supabase is configured, fetch live data and replace static */
-  if(SUPA_URL==='YOUR_SUPABASE_URL') return;
+  if(SUPA_URL==='https://jnggqrtmvuseqfivkbof.supabase.co') return;
   try{
     const r=await fetch(`${SUPA_URL}/rest/v1/events?order=event_date.asc`,{
       headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}

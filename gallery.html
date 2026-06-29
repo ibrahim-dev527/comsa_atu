@@ -581,12 +581,12 @@ function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttrib
 document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
 
 /* ===== SUPABASE CONFIG ===== */
-const SUPA_URL = 'YOUR_SUPABASE_URL';
-const SUPA_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPA_URL = 'https://jnggqrtmvuseqfivkbof.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpuZ2dxcnRtdnVzZXFmaXZrYm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NTk0NjgsImV4cCI6MjA5ODQzNTQ2OH0.U7ZvFVQMgGp27UqT2EAD7enH-PiSO_D3D4WZ-hk22N4';
 
 /* ===== LOAD PHOTOS FROM SUPABASE (appends to static grid) ===== */
 async function loadDBPhotos(){
-  if(SUPA_URL === 'YOUR_SUPABASE_URL') return; /* not configured yet */
+  if(SUPA_URL === 'https://jnggqrtmvuseqfivkbof.supabase.co') return; /* not configured yet */
   try {
     const r = await fetch(SUPA_URL + '/rest/v1/gallery_photos?order=created_at.desc', {
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
