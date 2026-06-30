@@ -173,10 +173,12 @@ option{background:var(--navy2);color:var(--txt)}
   <div class="login-box">
     <div class="login-logo">COMSA</div>
     <div class="login-sub">Admin Dashboard · Sani-Oti Led Administration</div>
-    <label class="login-label" for="lp">Admin Password</label>
+    <label class="login-label" for="le">Admin Email</label>
+    <input class="login-input" type="email" id="le" placeholder="e.g. admin@comsa-atu.gh" autocomplete="email"/>
+    <label class="login-label" for="lp" style="margin-top:12px">Password</label>
     <input class="login-input" type="password" id="lp" placeholder="Enter password…" autocomplete="current-password"/>
     <button class="login-btn" onclick="doLogin()">Sign In →</button>
-    <div class="login-err" id="login-err">Incorrect password. Try again.</div>
+    <div class="login-err" id="login-err" style="display:none">Incorrect email or password.</div>
   </div>
 </div>
 
@@ -338,6 +340,17 @@ option{background:var(--navy2);color:var(--txt)}
 
       <div style="display:flex;flex-direction:column;gap:24px">
 
+
+        <!-- CONNECTION TESTER -->
+        <div class="tbl-wrap" style="margin-top:0">
+          <div class="tbl-head"><div class="tbl-title">🔧 Connection &amp; Auth Tester</div></div>
+          <div style="padding:20px 24px;display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:.84rem;color:var(--muted)">Click the button below to test your Supabase connection and verify your login token is active. Results appear below.</div>
+            <button class="btn btn-o" style="width:fit-content" onclick="runConnTest()">Run Connection Test</button>
+            <pre id="conn-result" style="background:rgba(0,0,0,.3);border:1px solid var(--bdr);border-radius:8px;padding:14px;font-size:.78rem;color:#a3e635;white-space:pre-wrap;display:none;max-height:260px;overflow-y:auto"></pre>
+          </div>
+        </div>
+
         <!-- STEP 1 -->
         <div class="tbl-wrap">
           <div class="tbl-head"><div class="tbl-title">Step 1 — Create Supabase Project</div></div>
@@ -398,10 +411,20 @@ option{background:var(--navy2);color:var(--txt)}
   created_at   <span class="ca">timestamptz</span> <span class="ck">DEFAULT</span> now()
 );
 
+<span class="cm">-- GALLERY PHOTOS TABLE</span>
+<span class="ck">CREATE TABLE IF NOT EXISTS</span> gallery_photos (
+  id           <span class="ca">uuid</span> <span class="ck">DEFAULT</span> gen_random_uuid() <span class="ck">PRIMARY KEY</span>,
+  caption      <span class="ca">text</span>,
+  image_url    <span class="ca">text</span>,
+  storage_path <span class="ca">text</span>,
+  created_at   <span class="ca">timestamptz</span> <span class="ck">DEFAULT</span> now()
+);
+
 <span class="cm">-- ENABLE ROW LEVEL SECURITY</span>
 <span class="ck">ALTER TABLE</span> events <span class="ck">ENABLE ROW LEVEL SECURITY</span>;
 <span class="ck">ALTER TABLE</span> posts <span class="ck">ENABLE ROW LEVEL SECURITY</span>;
 <span class="ck">ALTER TABLE</span> past_questions <span class="ck">ENABLE ROW LEVEL SECURITY</span>;
+<span class="ck">ALTER TABLE</span> gallery_photos <span class="ck">ENABLE ROW LEVEL SECURITY</span>;
 
 <span class="cm">-- PUBLIC READ POLICIES (anyone can read)</span>
 <span class="ck">CREATE POLICY</span> <span class="cv">"Public read events"</span> <span class="ck">ON</span> events <span class="ck">FOR SELECT USING</span> (true);
@@ -410,10 +433,21 @@ option{background:var(--navy2);color:var(--txt)}
 
 <span class="cm">-- ADMIN WRITE POLICIES (service_role key only — used server-side)</span>
 <span class="cm">-- These allow the admin dashboard to insert/update/delete using the anon key</span>
-<span class="cm">-- Only expose admin.html to trusted people — it is the security layer</span>
-<span class="ck">CREATE POLICY</span> <span class="cv">"Admin write events"</span> <span class="ck">ON</span> events <span class="ck">FOR ALL USING</span> (true);
-<span class="ck">CREATE POLICY</span> <span class="cv">"Admin write posts"</span> <span class="ck">ON</span> posts <span class="ck">FOR ALL USING</span> (true);
-<span class="ck">CREATE POLICY</span> <span class="cv">"Admin write past_questions"</span> <span class="ck">ON</span> past_questions <span class="ck">FOR ALL USING</span> (true);</div>
+<span class="cm">-- Write access requires a valid Supabase Auth JWT (only your logged-in admin account)</span>
+<span class="cm">-- ADMIN WRITE: only authenticated Supabase users (your admin account)</span>
+<span class="ck">CREATE POLICY</span> <span class="cv">"Auth write events"</span> <span class="ck">ON</span> events
+  <span class="ck">FOR ALL USING</span> (auth.role() = <span class="cv">'authenticated'</span>)
+  <span class="ck">WITH CHECK</span> (auth.role() = <span class="cv">'authenticated'</span>);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Auth write posts"</span> <span class="ck">ON</span> posts
+  <span class="ck">FOR ALL USING</span> (auth.role() = <span class="cv">'authenticated'</span>)
+  <span class="ck">WITH CHECK</span> (auth.role() = <span class="cv">'authenticated'</span>);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Auth write past_questions"</span> <span class="ck">ON</span> past_questions
+  <span class="ck">FOR ALL USING</span> (auth.role() = <span class="cv">'authenticated'</span>)
+  <span class="ck">WITH CHECK</span> (auth.role() = <span class="cv">'authenticated'</span>);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Public read gallery"</span> <span class="ck">ON</span> gallery_photos <span class="ck">FOR SELECT USING</span> (true);
+<span class="ck">CREATE POLICY</span> <span class="cv">"Auth write gallery"</span> <span class="ck">ON</span> gallery_photos
+  <span class="ck">FOR ALL USING</span> (auth.role() = <span class="cv">'authenticated'</span>)
+  <span class="ck">WITH CHECK</span> (auth.role() = <span class="cv">'authenticated'</span>);</div>
           </div>
         </div>
 
@@ -484,6 +518,35 @@ option{background:var(--navy2);color:var(--txt)}
             <div style="margin-top:12px">Example:</div>
             <div class="code"><span class="ck">const</span> SUPA_URL = <span class="cv">'https://xxxxxxxxxxx.supabase.co'</span>;
 <span class="ck">const</span> SUPA_KEY = <span class="cv">'eyJhbGci...(your anon key)...'</span>;</div>
+          </div>
+        </div>
+
+
+        <!-- STEP 7: SUPABASE AUTH — CREATE ADMIN USER -->
+        <div class="tbl-wrap">
+          <div class="tbl-head"><div class="tbl-title">Step 7 — Create Your Admin Account in Supabase Authentication</div></div>
+          <div style="padding:22px 24px;display:flex;flex-direction:column;gap:16px;font-size:.88rem;color:var(--muted);line-height:1.8">
+            <div class="alert a-green" style="margin-bottom:0"><span>🔒</span><div>This admin panel now uses <strong>Supabase Authentication</strong>. Your email and password are managed entirely by Supabase — nothing is stored in any code file. Only verified users can write to the database.</div></div>
+
+            <div><strong style="color:var(--txt)">Step 7a — Go to your Supabase project</strong><br/>
+            Open <a href="https://supabase.com" target="_blank" style="color:var(--gold)">supabase.com</a> → sign in → open your <strong>comsa-atu</strong> project.</div>
+
+            <div><strong style="color:var(--txt)">Step 7b — Open Authentication → Users</strong><br/>
+            In the left sidebar click <strong>Authentication</strong>, then click <strong>Users</strong> in the sub-menu.</div>
+
+            <div><strong style="color:var(--txt)">Step 7c — Add a new user</strong><br/>
+            Click the <strong>Invite user</strong> or <strong>Add user</strong> button (top right of the Users list).<br/>
+            Enter your admin email and a strong password. Example:<br/>
+            Email: <span class="cv" style="font-family:monospace">admin@comsa-atu.gh</span><br/>
+            Password: something only you know — minimum 8 characters<br/>
+            Click <strong>Create User</strong>.</div>
+
+            <div class="alert a-gold" style="margin-bottom:0"><span>💡</span><div>Use the same email and password when you log in to this admin panel. If you forget your password, go back to Supabase → Authentication → Users → click your user → Reset Password. You never need to touch the code.</div></div>
+
+            <div><strong style="color:var(--txt)">Step 7d — Confirm Email is not required (optional but recommended)</strong><br/>
+            Go to <strong>Authentication → Settings → Email</strong>. Turn off <strong>"Enable email confirmations"</strong> so you can log in immediately without needing to check your inbox.</div>
+
+            <div class="alert a-green" style="margin-bottom:0"><span>✅</span><div>Once the user is created in Supabase, come back to this page, enter your email + password, and click Sign In. The RLS policies (Step 2) ensure only your authenticated account can add, edit, or delete content.</div></div>
           </div>
         </div>
 
@@ -617,47 +680,162 @@ const SUPA_URL = 'https://jnggqrtmvuseqfivkbof.supabase.co';   // e.g. https://x
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpuZ2dxcnRtdnVzZXFmaXZrYm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NTk0NjgsImV4cCI6MjA5ODQzNTQ2OH0.U7ZvFVQMgGp27UqT2EAD7enH-PiSO_D3D4WZ-hk22N4';
 
 // =====================================================
-//   ADMIN PASSWORD — change this to something strong
-// =====================================================
-const ADMIN_PASSWORD = 'comsa@admin2026';
-
-// =====================================================
 //   SUPABASE FETCH HELPER
 // =====================================================
+// Returns the JWT access token if logged in, otherwise falls back to anon key
+function getToken(){return sessionStorage.getItem('comsa_admin_token')||SUPA_KEY;}
+
 async function supa(path,method='GET',body=null){
-  const opts={method,headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=representation'}};
+  const opts={method,headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+getToken(),'Prefer':'return=representation'}};
   if(body)opts.body=JSON.stringify(body);
   const res=await fetch(SUPA_URL+'/rest/v1/'+path,opts);
   const text=await res.text();
-  try{return{ok:res.ok,data:JSON.parse(text),status:res.status}}catch{return{ok:res.ok,data:text,status:res.status}}
+  let parsed;
+  try{parsed=JSON.parse(text);}catch{parsed=text;}
+  if(!res.ok){
+    console.error('[COMSA Admin] Supabase error',res.status,'on',method,path,'→',parsed);
+  }
+  return{ok:res.ok,data:parsed,status:res.status,errMsg:(!res.ok&&parsed&&parsed.message)?parsed.message:(!res.ok&&parsed&&parsed.error_description)?parsed.error_description:(!res.ok?'HTTP '+res.status:null)};
 }
 
 async function supaUpload(bucket,filePath,file){
   const res=await fetch(`${SUPA_URL}/storage/v1/object/${bucket}/${filePath}`,{
     method:'POST',
-    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':file.type,'x-upsert':'true'},
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+getToken(),'Content-Type':file.type,'x-upsert':'true'},
     body:file
   });
   return res.ok?`${SUPA_URL}/storage/v1/object/public/${bucket}/${filePath}`:null;
 }
 
 // =====================================================
-//   LOGIN
+//   SUPABASE AUTH — email + password login
+//   No passwords in code. User is created in
+//   Supabase Dashboard → Authentication → Users.
+//   See Setup panel Step 7 for full instructions.
 // =====================================================
-function doLogin(){
+
+function showDashboard(){
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('dashboard').classList.add('visible');
+  loadOverview();loadEvents();loadPosts();loadPQ();loadGallery();
+}
+
+// On page load: restore existing session if token still valid
+(async function restoreSession(){
+  const token=sessionStorage.getItem('comsa_admin_token');
+  if(!token)return;
+  // Verify the token is still valid by calling Supabase Auth /user
+  try{
+    const r=await fetch(SUPA_URL+'/auth/v1/user',{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+token}
+    });
+    if(r.ok){showDashboard();}
+    else{sessionStorage.removeItem('comsa_admin_token');}
+  }catch(e){sessionStorage.removeItem('comsa_admin_token');}
+})();
+
+async function doLogin(){
+  const btn=document.querySelector('.login-btn');
+  const email=document.getElementById('le').value.trim();
   const pw=document.getElementById('lp').value;
-  if(pw===ADMIN_PASSWORD){
-    document.getElementById('login-screen').classList.add('hidden');
-    document.getElementById('dashboard').classList.add('visible');
-    loadOverview();loadEvents();loadPosts();loadPQ();loadGallery();
-  }else{
-    document.getElementById('login-err').style.display='block';
-    document.getElementById('lp').value='';
-    setTimeout(()=>document.getElementById('login-err').style.display='none',3000);
+  const errEl=document.getElementById('login-err');
+  errEl.style.display='none';
+  if(!email||!pw){errEl.textContent='Please enter your email and password.';errEl.style.display='block';return;}
+  btn.textContent='Signing in…';btn.disabled=true;
+  try{
+    const res=await fetch(SUPA_URL+'/auth/v1/token?grant_type=password',{
+      method:'POST',
+      headers:{'apikey':SUPA_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({email,password:pw})
+    });
+    const data=await res.json();
+    if(res.ok&&data.access_token){
+      sessionStorage.setItem('comsa_admin_token',data.access_token);
+      showDashboard();
+    }else{
+      errEl.textContent=data.error_description||data.msg||'Incorrect email or password.';
+      errEl.style.display='block';
+      document.getElementById('lp').value='';
+    }
+  }catch(e){
+    errEl.textContent='Connection error. Check your internet and Supabase config.';
+    errEl.style.display='block';
   }
+  btn.textContent='Sign In →';btn.disabled=false;
 }
 document.getElementById('lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-function logout(){document.getElementById('dashboard').classList.remove('visible');document.getElementById('login-screen').classList.remove('hidden');document.getElementById('lp').value='';}
+document.getElementById('le').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('lp').focus()});
+
+async function logout(){
+  const token=sessionStorage.getItem('comsa_admin_token');
+  if(token){
+    // Sign out from Supabase so the token is invalidated server-side
+    await fetch(SUPA_URL+'/auth/v1/logout',{
+      method:'POST',
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+token}
+    }).catch(()=>{});
+  }
+  sessionStorage.removeItem('comsa_admin_token');
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('lp').value='';
+  document.getElementById('le').value='';
+}
+
+
+// =====================================================
+//   CONNECTION & AUTH TESTER (Setup panel)
+// =====================================================
+async function runConnTest(){
+  const out=document.getElementById('conn-result');
+  out.style.display='block';
+  out.textContent='Running tests…\n';
+  const log=s=>{out.textContent+=s+'\n';};
+
+  // Token check
+  const tok=sessionStorage.getItem('comsa_admin_token');
+  log('--- TOKEN ---');
+  log(tok?'✅ JWT found in sessionStorage ('+tok.length+' chars)':'❌ No JWT in sessionStorage — using anon key only (writes will be blocked by RLS)');
+
+  // Auth /user check
+  log('\n--- SUPABASE AUTH ---');
+  try{
+    const ar=await fetch(SUPA_URL+'/auth/v1/user',{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+(tok||SUPA_KEY)}
+    });
+    const ad=await ar.json();
+    if(ar.ok&&ad.email){
+      log('✅ Auth valid — logged in as: '+ad.email);
+      log('   role: '+ad.role+' | confirmed: '+ad.email_confirmed_at);
+    }else{
+      log('❌ Auth check failed ('+ar.status+')');
+      log('   '+JSON.stringify(ad));
+    }
+  }catch(e){log('❌ Auth check error: '+e.message);}
+
+  // Table read check
+  log('\n--- TABLE READ (events) ---');
+  const er=await supa('events?select=id&limit=1');
+  er.ok?log('✅ Can read events table'):log('❌ Cannot read events: '+JSON.stringify(er.data));
+
+  // Table write check (insert then immediately delete a test row)
+  log('\n--- TABLE WRITE (events) ---');
+  const wr=await supa('events','POST',{title:'__test__',event_date:'2099-01-01',status:'upcoming'});
+  if(wr.ok){
+    log('✅ Write succeeded — RLS is working correctly');
+    // Clean up test row
+    const testId=Array.isArray(wr.data)&&wr.data[0]?wr.data[0].id:null;
+    if(testId){await supa('events?id=eq.'+testId,'DELETE');}
+  }else{
+    log('❌ Write failed ('+wr.status+')');
+    log('   Message: '+(wr.errMsg||JSON.stringify(wr.data)));
+    if(wr.status===401||wr.status===403){
+      log('   ↳ CAUSE: Not authenticated. Make sure you are fully logged in.');
+      log('     If your token looks valid above but writes fail, run the SQL fix below.');
+    }
+  }
+  log('\n--- DONE ---');
+}
 
 // =====================================================
 //   PANEL NAVIGATION
@@ -710,13 +888,16 @@ function previewFile(inp,previewId,txtId){
 //   OVERVIEW
 // =====================================================
 async function loadOverview(){
-  const [ev,po,pq]=await Promise.all([
-    supa('events?select=id'),supa('posts?select=id'),supa('past_questions?select=id')
+  const [ev,po,pq,gal]=await Promise.all([
+    supa('events?select=id'),
+    supa('posts?select=id'),
+    supa('past_questions?select=id'),
+    supa('gallery_photos?select=id')
   ]);
   document.getElementById('ov-events').textContent=ev.ok?ev.data.length:'—';
   document.getElementById('ov-posts').textContent=po.ok?po.data.length:'—';
   document.getElementById('ov-pq').textContent=pq.ok?pq.data.length:'—';
-  const g=results[3];document.getElementById('ov-gal').textContent=g&&g.ok?g.data.length:'—';
+  document.getElementById('ov-gal').textContent=gal.ok?gal.data.length:'—';
 }
 
 // =====================================================
@@ -763,7 +944,7 @@ async function saveEvent(){
   if(id){r=await supa(`events?id=eq.${id}`,'PATCH',body);}
   else{r=await supa('events','POST',body);}
   if(r.ok){toast(id?'Event updated!':'Event added!');closeModal('event-modal');resetEvForm();loadEvents();loadOverview();}
-  else{showMsg('ev-msg','Error saving. Check Supabase config.','err');}
+  else{console.error('[Save Event]',r.data);showMsg('ev-msg','Error: '+(r.errMsg||JSON.stringify(r.data)),'err');}
 }
 
 function editEvent(ev){
@@ -841,7 +1022,7 @@ async function savePost(){
   if(id){r=await supa(`posts?id=eq.${id}`,'PATCH',body);}
   else{r=await supa('posts','POST',body);}
   if(r.ok){toast(id?'Post updated!':'Post published!');closeModal('blog-modal');resetPostForm();loadPosts();loadOverview();}
-  else{showMsg('blog-msg','Error saving. Check Supabase config.','err');}
+  else{console.error('[Save Post]',r.data);showMsg('blog-msg','Error: '+(r.errMsg||JSON.stringify(r.data)),'err');}
 }
 
 function editPost(p){
@@ -919,7 +1100,7 @@ async function savePQ(){
   if(id){r=await supa(`past_questions?id=eq.${id}`,'PATCH',body);}
   else{r=await supa('past_questions','POST',body);}
   if(r.ok){toast(id?'Updated!':'Past question saved!');closeModal('pq-modal');resetPQForm();loadPQ();loadOverview();}
-  else{showMsg('pq-msg','Error saving.','err');}
+  else{console.error('[Save PQ]',r.data);showMsg('pq-msg','Error: '+(r.errMsg||JSON.stringify(r.data)),'err');}
 }
 
 function editPQ(q){

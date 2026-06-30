@@ -665,10 +665,6 @@ function renderRecent(){
 }
 
 async function loadPosts(){
-  if(SUPA_URL==='https://jnggqrtmvuseqfivkbof.supabase.co'){
-    document.getElementById('blog-loading').innerHTML='<div style="color:var(--muted);font-size:.85rem;padding:40px">⚠️ Supabase not configured yet. Fill in SUPA_URL and SUPA_KEY to load live blog posts.</div>';
-    return;
-  }
   try{
     const r=await fetch(`${SUPA_URL}/rest/v1/posts?order=created_at.desc`,{
       headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}

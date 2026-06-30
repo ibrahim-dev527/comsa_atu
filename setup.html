@@ -408,10 +408,53 @@ Baxey.jpg   → Raymond K. Baxey      (Lecturer)</div>
   </div>
 </section>
 
+
+<!-- STEP 7: ADMIN PASSWORD IN SUPABASE -->
+<section class="sp" id="adminpw" style="background:var(--bg)">
+  <div class="container">
+    <div class="rv"><div class="lbl">Step 7</div><h2 class="h2">Admin Password — <em>In Supabase</em></h2></div>
+    <div class="alert a-green rv d1"><span class="alert-ic">🔒</span><div>The admin password is <strong>never stored in any HTML file</strong>. It lives in Supabase as a SHA-256 hash. Even if someone sees your source code, they cannot find the password.</div></div>
+
+    <div class="s-card rv d2">
+      <div class="s-card-head"><div class="s-card-ic ic-gold">🗄️</div><div><div class="s-card-title">7a — Create the admin_config table</div><div class="s-card-sub">Run this once in Supabase → SQL Editor</div></div></div>
+      <div class="s-card-body">
+        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button>CREATE TABLE IF NOT EXISTS admin_config (
+  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  password_hash text NOT NULL
+);
+ALTER TABLE admin_config ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow read admin_config"
+  ON admin_config FOR SELECT USING (true);</div>
+      </div>
+    </div>
+
+    <div class="s-card rv d3">
+      <div class="s-card-head"><div class="s-card-ic ic-blue">🖥️</div><div><div class="s-card-title">7b — Generate your SHA-256 hash</div><div class="s-card-sub">Open any browser tab → press F12 → Console tab → paste this</div></div></div>
+      <div class="s-card-body">
+        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button>// Replace 'yourPasswordHere' with your real chosen password
+const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourPasswordHere'));
+const hash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+console.log(hash); // Copy the long string that appears below</div>
+        <div class="alert a-gold" style="margin-top:12px"><span class="alert-ic">📋</span><div>Copy the 64-character hash string that appears in the console. You will paste it in Step 7c. Keep your actual password somewhere safe — you will need it to log in.</div></div>
+      </div>
+    </div>
+
+    <div class="s-card rv d4">
+      <div class="s-card-head"><div class="s-card-ic ic-green">💾</div><div><div class="s-card-title">7c — Insert the hash into Supabase</div><div class="s-card-sub">Supabase → SQL Editor → paste your hash below</div></div></div>
+      <div class="s-card-body">
+        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button>-- Replace with YOUR hash from Step 7b
+INSERT INTO admin_config (password_hash) VALUES
+('paste_your_64_character_hash_here');</div>
+        <div class="alert a-green" style="margin-top:12px"><span class="alert-ic">✅</span><div>Only one row should exist. To <strong>change your password</strong> later: run <code style="font-family:monospace">DELETE FROM admin_config;</code> then insert the new hash. Done!</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- DEPLOY -->
 <section class="sp" id="deploy" style="background:var(--bg)">
   <div class="container">
-    <div class="rv"><div class="lbl">Step 7</div><h2 class="h2">Deploy to <em>Vercel</em></h2></div>
+    <div class="rv"><div class="lbl">Step 8</div><h2 class="h2">Deploy to <em>Vercel</em></h2></div>
     <div class="s-card rv d1">
       <div class="s-card-head"><div class="s-card-ic ic-green">🚀</div><div><div class="s-card-title">Go Live for Free on Vercel</div><div class="s-card-sub">Pure HTML/CSS/JS — deploys in under 2 minutes, completely free</div></div></div>
       <div class="s-card-body">
@@ -583,7 +626,7 @@ document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('cli
         <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">🔑 Admin Dashboard Access</div>
         <div style="font-size:.86rem;color:var(--muted);line-height:1.7">
           <div>• URL: <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code></div>
-          <div>• Default password: <code style="font-family:monospace;color:var(--gold)">comsa@admin2026</code> (change this in the ADMIN_PASSWORD line inside admin.html)</div>
+          <div>• Password: stored <strong style="color:var(--txt)">in Supabase</strong> as a SHA-256 hash — NOT in any code file. See Step 7 below to set it up.</div>
           <div>• Keep this URL and password <strong style="color:var(--txt)">private</strong>. Only share with authorized executives.</div>
           <div style="margin-top:8px">• From the admin dashboard you can: Add/edit/delete Events, Blog Posts, and Past Questions. The Setup tab inside admin.html has the full SQL to run in Supabase.</div>
         </div>
@@ -608,7 +651,7 @@ document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('cli
           <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Seed past questions placeholder records (Step 5 in admin → Supabase Setup)</label>
           <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Add patron.jpg to images folder</label>
           <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Upload past question PDFs via admin.html → Past Questions → Upload</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Change admin password in admin.html (ADMIN_PASSWORD constant)</label>
+          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Set admin password in Supabase — create <code style="font-family:monospace">admin_config</code> table + insert your SHA-256 hash (see Step 7 in Admin → Setup)</label>
           <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Deploy all updated files to Vercel</label>
           <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Test admin.html → login → add a test event → confirm it shows on events.html</label>
           <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Bookmark admin.html URL and share password only with authorized execs</label>
@@ -700,7 +743,7 @@ document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('cli
   <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🛡️ Admin Panel — Full Guide</div>
   <div style="display:flex;flex-direction:column;gap:12px;font-size:.85rem;color:var(--muted);line-height:1.75">
     <div><strong style="color:var(--txt)">Access:</strong> <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code> — not linked from any page</div>
-    <div><strong style="color:var(--txt)">Default password:</strong> <code style="font-family:monospace;color:var(--gold)">comsa@admin2026</code> — change it inside admin.html at the <code style="font-family:monospace">ADMIN_PASSWORD</code> line</div>
+    <div><strong style="color:var(--txt)">Password:</strong> Stored in Supabase as a SHA-256 hash — no password lives in any code file. Follow <strong>Step 7</strong> in the Admin Panel → Supabase Setup tab to create the <code style="font-family:monospace;color:var(--gold)">admin_config</code> table and set your password.</div>
     <div><strong style="color:var(--txt)">Events tab:</strong> Add, edit, delete any event. Events appear live on events.html immediately</div>
     <div><strong style="color:var(--txt)">Blog tab:</strong> Create posts with text, flyer image URL, category (News/Flyer/Quote etc). Posts stay visible until you delete them — Supabase stores them permanently</div>
     <div><strong style="color:var(--txt)">Past Questions tab:</strong> Upload PDFs (stored in Supabase Storage). Students can download from past-questions.html</div>
@@ -735,7 +778,7 @@ document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('cli
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Deploy all files to Vercel</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Go to admin.html → login → run Seed Events (Step 4) — Departmental Week 2026 events appear</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Go to admin.html → Past Questions → upload the 5 PDFs one by one</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Change admin password in admin.html — find <code style="font-family:monospace;color:var(--gold)">ADMIN_PASSWORD</code> constant</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Set admin password in Supabase: run the <code style="font-family:monospace">admin_config</code> SQL from Admin Panel → Setup → Step 7, generate your SHA-256 hash in the browser console, then insert it.</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Update POPUP_CONFIG in index.html with your launch message and optional flyer</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test: visit homepage → 4s loader → content appears → 6s later popup appears</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test mobile: hamburger opens from left, all links work, chatbot responds correctly</label>
@@ -856,6 +899,24 @@ CREATE POLICY "Admin upload storage"
 CREATE POLICY "Admin delete storage"
   ON storage.objects FOR DELETE USING (true);
 
+
+-- ═══════════════════════════════════════════════════════
+-- ADMIN PASSWORD CONFIG (password stored as SHA-256 hash)
+-- ═══════════════════════════════════════════════════════
+CREATE TABLE IF NOT EXISTS admin_config (
+  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  password_hash text NOT NULL
+);
+ALTER TABLE admin_config ENABLE ROW LEVEL SECURITY;
+-- Allow the admin login page (anon key) to read the hash
+CREATE POLICY "Allow read admin_config"
+  ON admin_config FOR SELECT USING (true);
+
+-- HOW TO SET YOUR PASSWORD (run in browser console, then paste hash below):
+-- const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourPassword'));
+-- console.log(Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join(''));
+-- Then run: INSERT INTO admin_config (password_hash) VALUES ('paste_hash_here');
+
 -- ═══════════════════════════════════════════════════════
 -- SEED DATA — DEPARTMENTAL WEEK 2026
 -- ═══════════════════════════════════════════════════════
@@ -910,7 +971,7 @@ INSERT INTO past_questions (course_title, course_code, programme, year_sem) VALU
   <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:16px">🛡️ Admin Panel — How to Control the Website</div>
   <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;color:var(--muted);line-height:1.75">
     <div><strong style="color:var(--txt)">Access URL:</strong> <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code> — not linked anywhere public</div>
-    <div><strong style="color:var(--txt)">Default Password:</strong> <code style="font-family:monospace;color:var(--gold)">comsa@admin2026</code> — change in admin.html at the ADMIN_PASSWORD constant</div>
+    <div><strong style="color:var(--txt)">Password:</strong> Stored in Supabase as a SHA-256 hash — never in any code file. See Admin Panel → Setup → Step 7 to set it up. Generate a hash in the browser console and insert it into the <code style="font-family:monospace;color:var(--gold)">admin_config</code> table.</div>
     <div><strong style="color:var(--txt)">Events tab:</strong> Add, edit, delete events. They appear live on events.html immediately.</div>
     <div><strong style="color:var(--txt)">Blog tab:</strong> Create posts with text, image URL, category. Posts stay permanently until you delete them.</div>
     <div><strong style="color:var(--txt)">Past Questions tab:</strong> Upload PDFs → auto-stored in Supabase Storage → listed on past-questions.html.</div>
@@ -930,7 +991,7 @@ INSERT INTO past_questions (course_title, course_code, programme, year_sem) VALU
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Deploy all files to Vercel.</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Visit admin.html → login → confirm all tabs load data from Supabase.</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Upload the 5 past question PDFs via Admin → Past Questions.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Change admin password in admin.html (ADMIN_PASSWORD constant).</label>
+    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Set admin password in Supabase: create <code style="font-family:monospace">admin_config</code> table, generate SHA-256 hash in browser console, insert it (Step 7 in Admin → Setup).</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test contact form — fill it in → WhatsApp should open with the message pre-filled.</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test on mobile — hamburger, gallery, events all working.</label>
     <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Bookmark admin.html — share password only with authorized executives.</label>

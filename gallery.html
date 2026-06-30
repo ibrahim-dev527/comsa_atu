@@ -586,7 +586,7 @@ const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 
 /* ===== LOAD PHOTOS FROM SUPABASE (appends to static grid) ===== */
 async function loadDBPhotos(){
-  if(SUPA_URL === 'https://jnggqrtmvuseqfivkbof.supabase.co') return; /* not configured yet */
+  /* Fetch live gallery photos from Supabase */
   try {
     const r = await fetch(SUPA_URL + '/rest/v1/gallery_photos?order=created_at.desc', {
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }

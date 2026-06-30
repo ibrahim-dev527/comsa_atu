@@ -587,8 +587,7 @@ function showStaticEvents(){
 async function loadEvents(){
   /* Always show static data immediately so the page is never blank */
   showStaticEvents();
-  /* If Supabase is configured, fetch live data and replace static */
-  if(SUPA_URL==='https://jnggqrtmvuseqfivkbof.supabase.co') return;
+  /* Fetch live data from Supabase and replace static */
   try{
     const r=await fetch(`${SUPA_URL}/rest/v1/events?order=event_date.asc`,{
       headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
