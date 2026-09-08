@@ -1,1005 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Setup Guide – COMSA Website</title>
-<meta name="description" content="Complete setup guide for the COMSA website. Image slots, popup config, blog, gallery, lecturers, and deployment."/>
-<meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Setup Guide | COMSA – ATU</title>
+<meta name="description" content="Complete setup guide for the COMSA website — Supabase, deployment, and admin configuration."/>
 <link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
-<link rel="apple-touch-icon" href="images/logo.jpg"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12);--green:#10B981;--blue:#3B82F6;--purple:#8B5CF6}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12);--green:#10B981;--red:#EF4444;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1)}
 [data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
-html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
-img{max-width:100%;display:block}
-a{text-decoration:none;color:inherit}
-ul{list-style:none}
-button{cursor:pointer;border:none;background:none;font-family:inherit}
-/* NAV */
-#nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
-#nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
-[data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
-.nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:12px}
-.brand-logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.brand-logo-img{width:100%;height:100%;object-fit:cover}
-.brand-logo-fb{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);display:none}
-.brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
-.brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
-[data-theme=light] .brand-txt span{color:var(--muted)}
-.nav-links{display:flex;align-items:center;gap:2px}
-.nav-links a{padding:7px 13px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s}
-[data-theme=light] .nav-links a{color:var(--muted)}
-.nav-links a:hover,.nav-links a.act{color:#fff;background:rgba(244,180,0,.08)}
-[data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
-.nav-r{display:flex;align-items:center;gap:10px}
-.tog{position:relative;width:50px;height:26px;cursor:pointer;flex-shrink:0}
+html{scroll-behavior:smooth}body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:rgba(244,180,0,.25);border-radius:3px}
+.container{max-width:900px;margin:0 auto;padding:0 28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:12px;font-size:.86rem;font-weight:600;cursor:pointer;border:none;font-family:'Outfit',sans-serif;transition:all .2s}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy)}.btn-g:hover{box-shadow:0 6px 22px rgba(244,180,0,.35)}
+.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}.btn-o:hover{background:rgba(244,180,0,.08)}
+/* HEADER */
+.setup-header{background:linear-gradient(135deg,var(--navy2),var(--navy));padding:80px 0 52px;text-align:center;border-bottom:1px solid var(--bdr)}
+.setup-logo{font-family:'Orbitron',monospace;font-size:2rem;font-weight:700;color:var(--gold);letter-spacing:.15em;margin-bottom:8px}
+.setup-title{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:#fff;margin-bottom:12px}
+.setup-title em{color:var(--gold);font-style:italic}
+.setup-sub{font-size:.96rem;color:var(--muted);max-width:560px;margin:0 auto 28px;line-height:1.75}
+/* PROGRESS NAV */
+.step-nav{display:flex;gap:0;background:var(--card);border-bottom:1px solid var(--bdr);overflow-x:auto;position:sticky;top:0;z-index:100}
+.step-nav-btn{padding:14px 20px;font-size:.78rem;font-weight:600;color:var(--muted);white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;cursor:pointer;font-family:'Outfit',sans-serif}
+.step-nav-btn:hover{color:var(--txt)}.step-nav-btn.act{color:var(--gold);border-bottom-color:var(--gold)}
+/* MAIN BODY */
+.setup-body{padding:52px 0 80px}
+.step-section{margin-bottom:52px;scroll-margin-top:60px}
+.step-number{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;margin-bottom:14px;flex-shrink:0}
+.step-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--txt);margin-bottom:6px}
+.step-desc{font-size:.9rem;color:var(--muted);margin-bottom:22px;line-height:1.75}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+/* CODE BLOCKS */
+.code-block{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;font-family:monospace;font-size:.82rem;color:#93c5fd;white-space:pre;overflow-x:auto;line-height:1.8;position:relative;margin:14px 0}
+[data-theme=light] .code-block{background:rgba(0,0,0,.05);color:#1e40af;border-color:rgba(0,0,0,.1)}
+.copy-btn{position:absolute;top:10px;right:10px;padding:4px 11px;border-radius:7px;font-size:.7rem;font-weight:700;background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.28);color:var(--gold);cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s}
+.copy-btn:hover{background:rgba(244,180,0,.28)}
+/* ALERT BOXES */
+.alert{padding:14px 18px;border-radius:12px;font-size:.87rem;display:flex;gap:12px;line-height:1.7;margin:14px 0}
+.alert-ic{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.a-gold{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2);color:rgba(255,255,255,.82)}
+[data-theme=light] .a-gold{color:var(--navy)}
+.a-green{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:rgba(255,255,255,.82)}
+[data-theme=light] .a-green{color:var(--navy)}
+.a-red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:rgba(255,255,255,.82)}
+/* STEPS LIST */
+.steps-list{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+.step-li{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;background:var(--card);border:1px solid var(--bdr);border-radius:12px;font-size:.88rem;line-height:1.65}
+.step-li-n{width:26px;height:26px;border-radius:50%;background:rgba(244,180,0,.12);border:1px solid rgba(244,180,0,.25);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--gold);flex-shrink:0}
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+.checklist label{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--card);border:1px solid var(--bdr);border-radius:10px;font-size:.87rem;cursor:pointer;transition:border-color .2s}
+.checklist label:hover{border-color:rgba(244,180,0,.25)}
+.checklist input[type=checkbox]{width:17px;height:17px;accent-color:var(--gold);flex-shrink:0;margin-top:2px}
+/* INLINE CODE */
+code{font-family:monospace;font-size:.85em;background:rgba(244,180,0,.1);color:var(--gold);padding:2px 6px;border-radius:4px}
+/* THEME TOGGLE */
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:var(--navy2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:200}
+.tog{position:relative;width:48px;height:25px;cursor:pointer}
 .tog input{opacity:0;width:0;height:0;position:absolute}
 .tog-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;transition:.3s}
-.tog-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:10px}
-.tog-thumb::before{content:'🌙'}
-.tog input:checked~.tog-thumb{transform:translateX(24px)}
-.tog input:checked~.tog-thumb::before{content:'☀️'}
-.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px}
-.ham span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
-[data-theme=light] .ham span{background:var(--navy)}
-.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mob{position:fixed;top:var(--nav);left:0;right:0;background:rgba(7,16,30,.97);backdrop-filter:blur(24px);padding:20px 28px 28px;transform:translateY(-110%);opacity:0;transition:transform .45s var(--ease),opacity .45s;z-index:999;border-bottom:1px solid rgba(244,180,0,.12)}
-[data-theme=light] .mob{background:rgba(244,244,240,.97)}
-.mob.open{transform:translateY(0);opacity:1}
-.mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
-[data-theme=light] .mob a{color:var(--muted)}
-.mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
-.mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
-.mob-lbl{font-size:.72rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
-/* HERO */
-.setup-hero{padding:calc(var(--nav) + 56px) 0 60px;background:linear-gradient(135deg,var(--navy2) 0%,var(--navy) 60%,#1a3060 100%);position:relative;overflow:hidden}
-.setup-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(244,180,0,.07),transparent 60%)}
-.setup-hero-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none}
-.hero-inner{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 28px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(244,180,0,.1);border:1px solid rgba(244,180,0,.25);border-radius:99px;font-size:.75rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:20px}
-.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:18px}
-.hero-h1 em{color:var(--gold);font-style:italic}
-.hero-desc{font-size:1rem;color:rgba(255,255,255,.52);max-width:560px;line-height:1.82;margin-bottom:32px}
-.hero-stats{display:flex;flex-wrap:wrap;gap:32px;margin-bottom:40px}
-.hs{text-align:left}
-.hs-n{font-family:'Orbitron',monospace;font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
-.hs-l{font-size:.7rem;color:rgba(255,255,255,.36);text-transform:uppercase;letter-spacing:.12em}
-/* TABLE OF CONTENTS */
-.toc{background:rgba(255,255,255,.04);border:1px solid rgba(244,180,0,.15);border-radius:16px;padding:24px 28px;max-width:560px}
-.toc-title{font-size:.73rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.toc-links{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
-.toc-link{font-size:.82rem;color:rgba(255,255,255,.55);transition:color .3s,padding-left .3s;display:flex;align-items:center;gap:6px;padding:3px 0}
-.toc-link:hover{color:var(--gold)}
-.toc-link::before{content:'→';color:var(--gold);flex-shrink:0;font-size:.72rem}
-/* UTILS */
-.container{max-width:1300px;margin:0 auto;padding:0 28px}
-.sp{padding:80px 0}
-.sp-sm{padding:52px 0}
-.lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
-.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
-.h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;line-height:1.15;margin-bottom:14px}
-.h2 em{color:var(--gold);font-style:italic}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-size:.86rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
-.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.13);opacity:0;transition:opacity .3s}
-.btn:hover::after{opacity:1}
-.btn:hover{transform:translateY(-2px)}
-.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 6px 22px rgba(244,180,0,.28)}
-.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
-.rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rv.in{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
-/* SECTION CARD */
-.s-card{background:var(--card);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;margin-bottom:22px}
-.s-card-head{padding:20px 26px;background:linear-gradient(135deg,var(--navy),var(--navy3));display:flex;align-items:center;gap:14px}
-.s-card-ic{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.ic-gold{background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.25)}
-.ic-green{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25)}
-.ic-blue{background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.25)}
-.ic-purple{background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25)}
-.s-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff}
-.s-card-sub{font-size:.78rem;color:rgba(255,255,255,.38);margin-top:2px}
-.s-card-body{padding:26px}
-/* STEPS */
-.step-list{display:flex;flex-direction:column;gap:16px}
-.step{display:flex;gap:14px;align-items:flex-start}
-.step-num{width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.step-title{font-weight:700;color:var(--txt);margin-bottom:4px;font-size:.92rem}
-.step-desc{font-size:.84rem;color:var(--muted);line-height:1.7}
-/* CODE BLOCK */
-.code{background:var(--navy2);border:1px solid rgba(244,180,0,.1);border-radius:10px;padding:16px 18px;font-family:'Courier New',monospace;font-size:.8rem;color:#a8d8a8;line-height:1.75;margin:12px 0;position:relative;overflow-x:auto;white-space:pre}
-.cm{color:#6a8f6a}
-.ck{color:#7ecfff}
-.ca{color:#f7c98b}
-.cv{color:#f48b7c}
-.ch{color:var(--gold);font-weight:700}
-.copy-btn{position:absolute;top:10px;right:10px;padding:4px 10px;background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.25);border-radius:6px;font-size:.68rem;color:var(--gold);cursor:pointer;transition:background .3s;font-family:'Outfit',sans-serif;white-space:nowrap}
-.copy-btn:hover{background:rgba(244,180,0,.3)}
-/* ALERT */
-.alert{border-radius:11px;padding:14px 16px;margin:12px 0;display:flex;gap:11px;align-items:flex-start;font-size:.86rem;line-height:1.65}
-.alert-ic{font-size:1.05rem;flex-shrink:0;margin-top:1px}
-.a-green{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2)}
-.a-gold{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2)}
-.a-blue{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2)}
-.a-red{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)}
-/* IMAGE SLOT TABLE */
-.slot-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.83rem}
-.slot-table th{text-align:left;font-size:.7rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--bdr)}
-.slot-table td{padding:9px 12px;border-bottom:1px solid rgba(244,180,0,.05);vertical-align:top}
-.slot-table tr:last-child td{border-bottom:none}
-.slot-table tr:hover td{background:rgba(244,180,0,.03)}
-.sn{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--gold);background:rgba(244,180,0,.1);padding:2px 7px;border-radius:4px;white-space:nowrap}
-.sf{font-family:'Courier New',monospace;font-size:.78rem;color:#7ecfff}
-.sl{font-size:.78rem;color:var(--muted)}
-/* PAGE MAP */
-.page-map{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
-.pm-c{background:var(--surf);border:1px solid var(--bdr);border-radius:13px;padding:16px;transition:border-color .3s,transform .3s;cursor:pointer}
-.pm-c:hover{border-color:rgba(244,180,0,.28);transform:translateY(-3px)}
-.pm-ic{font-size:1.7rem;margin-bottom:8px}
-.pm-file{font-family:'Courier New',monospace;font-size:.72rem;color:var(--gold);margin-bottom:3px}
-.pm-title{font-weight:700;font-size:.88rem;color:var(--txt);margin-bottom:3px}
-.pm-desc{font-size:.74rem;color:var(--muted);line-height:1.55}
-.pm-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
-.pm-tag{font-size:.62rem;padding:2px 6px;border-radius:4px;font-weight:600}
-.pt-g{background:rgba(16,185,129,.12);color:#10B981}
-.pt-b{background:rgba(59,130,246,.12);color:#3B82F6}
-.pt-y{background:rgba(244,180,0,.12);color:var(--gold)}
-/* CHECKLIST */
-.checklist{display:flex;flex-direction:column;gap:9px;margin-top:12px}
-.cl-item{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;background:var(--surf);border-radius:10px;transition:background .3s}
-.cl-item:hover{background:rgba(244,180,0,.05)}
-.cl-chk{width:20px;height:20px;border-radius:50%;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.28);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .2s}
-.cl-chk.done{background:var(--green);border-color:var(--green);color:#fff}
-.cl-text{font-size:.84rem;color:var(--txt);line-height:1.6}
-.cl-text.done{text-decoration:line-through;color:var(--muted)}
-.cl-text code{font-family:'Courier New',monospace;font-size:.78rem;background:rgba(244,180,0,.1);padding:1px 5px;border-radius:4px;color:var(--gold)}
-/* FEATURES */
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-.feat-c{background:var(--surf);border:1px solid var(--bdr);border-radius:13px;padding:18px;transition:border-color .3s,transform .3s}
-.feat-c:hover{border-color:rgba(244,180,0,.22);transform:translateY(-3px)}
-.feat-ic{font-size:1.5rem;margin-bottom:8px}
-.feat-title{font-weight:700;font-size:.86rem;color:var(--txt);margin-bottom:4px}
-.feat-desc{font-size:.76rem;color:var(--muted);line-height:1.6}
-/* FOOTER */
-footer{background:var(--navy2);padding:52px 0 0;position:relative;overflow:hidden}
-footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.ft-links{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px}
-.ft-links a{font-size:.82rem;color:rgba(255,255,255,.42);transition:color .3s}
-.ft-links a:hover{color:var(--gold)}
-.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.ft-copy{font-size:.76rem;color:rgba(255,255,255,.22)}
-.ft-dev{font-size:.73rem;color:rgba(255,255,255,.2)}
-.ft-dev a{color:var(--gold);opacity:.6;font-weight:500}
-.ft-dev a:hover{opacity:1}
-@media(max-width:1024px){.page-map{grid-template-columns:repeat(2,1fr)}.feat-grid{grid-template-columns:1fr 1fr}.toc-links{grid-template-columns:1fr}}
-@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.feat-grid{grid-template-columns:1fr}.page-map{grid-template-columns:1fr 1fr}.ft-bot{flex-direction:column;text-align:center}}
-@media(max-width:480px){.page-map{grid-template-columns:1fr}}
+.tog-thumb{position:absolute;top:3px;left:3px;width:17px;height:17px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:9px}
+.tog-thumb::before{content:'🌙'}.tog input:checked~.tog-thumb{transform:translateX(23px)}.tog input:checked~.tog-thumb::before{content:'☀️'}
+@media(max-width:768px){.container{padding:0 18px}.setup-title{font-size:1.8rem}}
 </style>
+<meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+<meta http-equiv="X-Frame-Options" content="DENY"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
 </head>
 <body>
-<nav id="nav">
-  <div class="nav-i">
-    <a href="index.html" class="brand"><div class="brand-logo-wrap"><img src="images/logo.jpg" alt="COMSA" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="brand-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></a>
-    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul>
-    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham"><span></span><span></span><span></span></button></div>
+
+<div class="top-bar">
+  <div style="font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;color:var(--gold);letter-spacing:.1em">COMSA SETUP</div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <a href="index.html" style="font-size:.82rem;color:var(--muted)">← Back to Site</a>
+    <label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
   </div>
+</div>
+
+<div class="setup-header">
+  <div class="container">
+    <div class="setup-logo">COMSA</div>
+    <h1 class="setup-title">Complete <em>Setup Guide</em></h1>
+    <p class="setup-sub">Follow these steps in order to go from a fresh Supabase project to a fully working COMSA website in under 15 minutes.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="admin.html" class="btn btn-g">Go to Admin Panel</a>
+      <a href="readme.html" class="btn btn-o">View README</a>
+    </div>
+  </div>
+</div>
+
+<nav class="step-nav">
+  <button class="step-nav-btn act" onclick="scrollTo('s1')">1. Keys</button>
+  <button class="step-nav-btn" onclick="scrollTo('s2')">2. SQL</button>
+  <button class="step-nav-btn" onclick="scrollTo('s3')">3. Auth</button>
+  <button class="step-nav-btn" onclick="scrollTo('s4')">4. Storage</button>
+  <button class="step-nav-btn" onclick="scrollTo('s5')">5. Deploy</button>
+  <button class="step-nav-btn" onclick="scrollTo('s6')">6. Checklist</button>
+  <button class="step-nav-btn" onclick="scrollTo('s7')">7. FAQ</button>
 </nav>
-<div class="mob" id="mob">
-  <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
-  <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+
+<div class="setup-body">
+<div class="container">
+
+<!-- STEP 1 -->
+<div class="step-section" id="s1">
+  <div class="step-head"><div class="step-number">1</div><h2 class="step-title">Get Your Supabase Keys</h2></div>
+  <p class="step-desc">Every HTML file needs your Supabase Project URL and Anon Key. These connect the website to your database.</p>
+  <div class="steps-list">
+    <div class="step-li"><div class="step-li-n">1</div><div>Go to <strong style="color:var(--gold)">supabase.com</strong> and sign in to your account.</div></div>
+    <div class="step-li"><div class="step-li-n">2</div><div>Click your <strong>comsa-atu</strong> project to open it.</div></div>
+    <div class="step-li"><div class="step-li-n">3</div><div>In the left sidebar click <strong>Project Settings</strong> (gear icon at the bottom).</div></div>
+    <div class="step-li"><div class="step-li-n">4</div><div>Click <strong>API</strong>. Copy two values: <code>Project URL</code> and <code>anon / public</code> key.</div></div>
+    <div class="step-li"><div class="step-li-n">5</div><div>Open each HTML file below and find these two lines near the top of the <code>&lt;script&gt;</code> tag. Replace the placeholders with your real values.</div></div>
+  </div>
+  <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>const SUPA_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+const SUPA_KEY = 'your-anon-public-key-here';</div>
+  <div class="alert a-gold"><span class="alert-ic">📄</span><div>Update this in ALL of these files: <code>index.html</code>, <code>about.html</code>, <code>executives.html</code>, <code>events.html</code>, <code>blog.html</code>, <code>gallery.html</code>, <code>past-questions.html</code>, <code>contact.html</code>, <code>admin.html</code></div></div>
 </div>
 
-<!-- HERO -->
-<div class="setup-hero">
-  <div class="setup-hero-mesh"></div>
-  <div class="hero-inner">
-    <div class="hero-badge">⚙️ Developer Setup Guide</div>
-    <h1 class="hero-h1">Everything You Need<br/>to <em>Set Up Your Site</em></h1>
-    <p class="hero-desc">A complete visual guide explaining every customisable part of the COMSA website — logo, images, popup, blog, gallery, lecturers, executives, and deployment.</p>
-    <div class="hero-stats">
-      <div class="hs"><div class="hs-n">8</div><div class="hs-l">Pages</div></div>
-      <div class="hs"><div class="hs-n">40+</div><div class="hs-l">Image Slots</div></div>
-      <div class="hs"><div class="hs-n">5</div><div class="hs-l">Key Features</div></div>
-      <div class="hs"><div class="hs-n">0</div><div class="hs-l">Backend Needed</div></div>
-    </div>
-    <div class="toc">
-      <div class="toc-title">📋 On This Page</div>
-      <div class="toc-links">
-        <a href="#folder" class="toc-link">Folder Structure</a>
-        <a href="#logo" class="toc-link">Logo Setup</a>
-        <a href="#images" class="toc-link">All Image Slots</a>
-        <a href="#popup" class="toc-link">Popup / Flyer</a>
-        <a href="#executives" class="toc-link">Executive Photos</a>
-        <a href="#lecturers" class="toc-link">Lecturer Details</a>
-        <a href="#blog" class="toc-link">Blog Posts</a>
-        <a href="#gallery" class="toc-link">Gallery Upload</a>
-        <a href="#deploy" class="toc-link">Deploy to Vercel</a>
-        <a href="#checklist" class="toc-link">Final Checklist</a>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- STEP 2 -->
+<div class="step-section" id="s2">
+  <div class="step-head"><div class="step-number">2</div><h2 class="step-title">Run the Complete SQL</h2></div>
+  <p class="step-desc">This single SQL script creates all tables, enables row-level security, sets read/write policies, and creates the storage buckets. Run it once on a fresh project.</p>
+  <div class="alert a-red"><span class="alert-ic">⚠️</span><div>If you already have old tables from a previous attempt, run <code>DROP TABLE IF EXISTS events, posts, past_questions, gallery_photos CASCADE;</code> first to start clean.</div></div>
+  <div class="code-block" style="max-height:520px;overflow-y:auto"><button class="copy-btn" onclick="copyCode(this)">Copy All</button>-- ═══════════════════════════════════════
+-- COMSA WEBSITE — COMPLETE DATABASE SETUP
+-- Run in Supabase → SQL Editor → New Query
+-- ═══════════════════════════════════════
 
-<!-- FOLDER STRUCTURE -->
-<section class="sp" id="folder" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 1</div><h2 class="h2">Folder Structure &amp; <em>Pages</em></h2></div>
-    <div class="alert a-blue rv d1"><span class="alert-ic">📁</span><div>Place all your images inside the <strong>images/</strong> folder alongside your HTML files. Never use spaces in filenames — use hyphens. Example: <strong>president-photo.jpg</strong> not <strong>president photo.jpg</strong></div></div>
-    <div class="code rv d2"><button class="copy-btn" onclick="copyCode(this)">Copy</button>comsa/<span class="cm">
-├── index.html          ← Home page (with popup + loader)</span>
-├── about.html          <span class="cm">← About + all 5 department programmes</span>
-├── executives.html     <span class="cm">← Exec flip cards + lecturers section</span>
-├── events.html         <span class="cm">← Upcoming + past events with modals</span>
-├── blog.html           <span class="cm">← Blog posts + flyer upload + add post form</span>
-├── gallery.html        <span class="cm">← Masonry gallery + lightbox + bulk upload</span>
-├── contact.html        <span class="cm">← Contact form + all exec phone numbers</span>
-├── setup.html          <span class="cm">← This guide (delete when done)</span>
-└── images/             <span class="ch">← ALL your photos go here</span>
-    ├── logo.jpg        <span class="cm">← COMSA Logo (navbar, footer, chatbot)</span>
-    ├── comsa1.jpg      <span class="cm">← Hero slide 1</span>
-    ├── comsa5.jpg      <span class="cm">← President photo</span>
-    ├── Kwaning.jpg     <span class="cm">← HOD photo</span>
-    ├── Aboagye.jpg     <span class="cm">← Lecturer photo</span>
-    └── Baxey.jpg       <span class="cm">← Lecturer photo</span></div>
+-- 1. DROP OLD TABLES (clean slate)
+DROP TABLE IF EXISTS gallery_photos   CASCADE;
+DROP TABLE IF EXISTS past_questions   CASCADE;
+DROP TABLE IF EXISTS posts            CASCADE;
+DROP TABLE IF EXISTS events           CASCADE;
 
-    <!-- PAGE MAP -->
-    <div class="page-map rv d3">
-      <div class="pm-c" onclick="location.href='index.html'"><div class="pm-ic">🏠</div><div class="pm-file">index.html</div><div class="pm-title">Home</div><div class="pm-desc">Hero slider, popup, about preview, exec spotlight, stats, CTA</div><div class="pm-tags"><span class="pm-tag pt-g">Slider</span><span class="pm-tag pt-y">Popup</span></div></div>
-      <div class="pm-c" onclick="location.href='about.html'"><div class="pm-ic">📖</div><div class="pm-file">about.html</div><div class="pm-title">About</div><div class="pm-desc">Mission, vision, 5 department programmes with expand cards</div><div class="pm-tags"><span class="pm-tag pt-b">Programmes</span></div></div>
-      <div class="pm-c" onclick="location.href='executives.html'"><div class="pm-ic">👔</div><div class="pm-file">executives.html</div><div class="pm-title">Executives</div><div class="pm-desc">9 exec flip cards + lecturers: Kwaning, Aboagye, Baxey</div><div class="pm-tags"><span class="pm-tag pt-g">Flip Cards</span><span class="pm-tag pt-y">Photos</span></div></div>
-      <div class="pm-c" onclick="location.href='events.html'"><div class="pm-ic">📅</div><div class="pm-file">events.html</div><div class="pm-title">Events</div><div class="pm-desc">Upcoming + past event tabs, click-to-expand modal for each</div><div class="pm-tags"><span class="pm-tag pt-b">Modal</span><span class="pm-tag pt-g">Tabs</span></div></div>
-      <div class="pm-c" onclick="location.href='blog.html'"><div class="pm-ic">📝</div><div class="pm-file">blog.html</div><div class="pm-title">Blog</div><div class="pm-desc">Filterable posts, flyer upload, add-post form, read-more modal</div><div class="pm-tags"><span class="pm-tag pt-y">Upload</span><span class="pm-tag pt-g">Filter</span></div></div>
-      <div class="pm-c" onclick="location.href='gallery.html'"><div class="pm-ic">🖼️</div><div class="pm-file">gallery.html</div><div class="pm-title">Gallery</div><div class="pm-desc">Masonry grid, lightbox with keyboard + swipe, bulk upload</div><div class="pm-tags"><span class="pm-tag pt-y">Upload</span><span class="pm-tag pt-b">Lightbox</span></div></div>
-      <div class="pm-c" onclick="location.href='contact.html'"><div class="pm-ic">📞</div><div class="pm-file">contact.html</div><div class="pm-title">Contact</div><div class="pm-desc">Form, social links, all 9 exec phone + WhatsApp, map link</div><div class="pm-tags"><span class="pm-tag pt-g">Form</span><span class="pm-tag pt-b">WhatsApp</span></div></div>
-      <div class="pm-c"><div class="pm-ic">⚙️</div><div class="pm-file">setup.html</div><div class="pm-title">Setup Guide</div><div class="pm-desc">This page. Delete it after setting up your website.</div><div class="pm-tags"><span class="pm-tag pt-y">Guide</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- LOGO -->
-<section class="sp" id="logo" style="background:var(--surf)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 2</div><h2 class="h2">Logo <em>Setup</em></h2></div>
-    <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic ic-gold">🏛️</div><div><div class="s-card-title">logo.jpg — Used in 4 places on every page</div><div class="s-card-sub">Navbar · Footer · Chatbot header · Favicon (browser tab icon)</div></div></div>
-      <div class="s-card-body">
-        <div class="alert a-green"><span class="alert-ic">✅</span><div><strong>How it works:</strong> Simply name your logo file <strong>logo.jpg</strong> and place it in the <strong>images/</strong> folder. It automatically appears in the navbar, footer, chatbot header, and as the browser tab icon on every page. No code changes needed!</div></div>
-        <div class="step-list" style="margin-top:16px">
-          <div class="step"><div class="step-num">1</div><div><div class="step-title">Prepare your logo</div><div class="step-desc">Best size: <strong>200×200px</strong> or square (1:1 ratio). PNG with transparent background works — just save as JPG. Minimum 100×100px.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div><div class="step-title">Name it exactly: logo.jpg</div><div class="step-desc">The filename must be exactly <strong>logo.jpg</strong> (lowercase). Place it in your <strong>images/</strong> folder alongside the HTML files.</div></div></div>
-          <div class="step"><div class="step-num">3</div><div><div class="step-title">Done! It appears everywhere automatically</div><div class="step-desc">If the logo fails to load for any reason, the site gracefully shows "ATU" text as a fallback — so nothing breaks.</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ALL IMAGE SLOTS -->
-<section class="sp" id="images" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 3</div><h2 class="h2">All Image <em>Slots</em></h2></div>
-    <div class="alert a-green rv d1"><span class="alert-ic">📸</span><div><strong>How to add any photo:</strong> Every image slot in the website already has an <code style="font-family:monospace;background:rgba(244,180,0,.1);padding:2px 6px;border-radius:4px;color:var(--gold)">&lt;img src="images/comsaN.jpg" alt="..."/&gt;</code> tag. Just drop your real photo into the <strong>images/</strong> folder with the correct filename and it appears automatically. No code editing needed for most images!</div></div>
-
-    <div class="s-card rv d2">
-      <div class="s-card-head"><div class="s-card-ic ic-gold">🗺️</div><div><div class="s-card-title">Complete Image Slot Reference</div><div class="s-card-sub">All image filenames used across the 8 pages</div></div></div>
-      <div class="s-card-body" style="padding:0">
-        <table class="slot-table">
-          <tr><th>File</th><th>Page</th><th>Used For</th><th>Best Size</th></tr>
-          <tr><td><span class="sf">logo.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Logo in navbar, footer, chatbot, favicon</span></td><td><span class="sl">200×200px</span></td></tr>
-          <tr><td><span class="sf">comsa1.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Hero slide 1 background on every page</span></td><td><span class="sl">1920×1080px</span></td></tr>
-          <tr><td><span class="sf">comsa2.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Hero slide 2 background on every page</span></td><td><span class="sl">1920×1080px</span></td></tr>
-          <tr><td><span class="sf">comsa3.jpg</span></td><td><span class="sl">All pages</span></td><td><span class="sl">Hero slide 3 background on every page</span></td><td><span class="sl">1920×1080px</span></td></tr>
-          <tr><td><span class="sf">comsa4.jpg</span></td><td><span class="sl">index.html</span></td><td><span class="sl">About section photo (left column)</span></td><td><span class="sl">600×750px</span></td></tr>
-          <tr><td><span class="sf">comsa5.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">President — Abdul Jalil Sani</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa6.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">Vice President — Kelvin Otiboateng</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa7.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">Secretary — Jochebed Ofori</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa8.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">Organizer — Martin Laryea Mensah</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa9.jpg</span></td><td><span class="sl">exec + contact</span></td><td><span class="sl">Welfare Officer — Stephen Ato Mensah</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa10.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">P.R.O — Theophilus Mensah</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa11.jpg</span></td><td><span class="sl">index + exec</span></td><td><span class="sl">WOCOM — Abigail Enu Ninson</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa12.jpg</span></td><td><span class="sl">exec + contact</span></td><td><span class="sl">Finance Officer — Kennedy A. Holdbrook</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">comsa13.jpg</span></td><td><span class="sl">exec + contact</span></td><td><span class="sl">Part-Time Rep — Isaac N. Quansah</span></td><td><span class="sl">300×300px</span></td></tr>
-          <tr><td><span class="sf">Kwaning.jpg</span></td><td><span class="sl">executives.html</span></td><td><span class="sl">HOD — Dr. Collins Kwaning (exact filename)</span></td><td><span class="sl">200×200px</span></td></tr>
-          <tr><td><span class="sf">Aboagye.jpg</span></td><td><span class="sl">executives.html</span></td><td><span class="sl">Lecturer — Kwame Aboagye (exact filename)</span></td><td><span class="sl">200×200px</span></td></tr>
-          <tr><td><span class="sf">Baxey.jpg</span></td><td><span class="sl">executives.html</span></td><td><span class="sl">Lecturer — Raymond K. Baxey (exact filename)</span></td><td><span class="sl">200×200px</span></td></tr>
-          <tr><td><span class="sf">comsa20.jpg</span></td><td><span class="sl">about + exec</span></td><td><span class="sl">Department / campus photo</span></td><td><span class="sl">600×420px</span></td></tr>
-          <tr><td><span class="sf">comsa21–24.jpg</span></td><td><span class="sl">about.html</span></td><td><span class="sl">Timeline history photos (optional)</span></td><td><span class="sl">600×200px</span></td></tr>
-          <tr><td><span class="sf">comsa40–45.jpg</span></td><td><span class="sl">events.html</span></td><td><span class="sl">Upcoming event card photos (6 cards)</span></td><td><span class="sl">600×300px</span></td></tr>
-          <tr><td><span class="sf">comsa50–55.jpg</span></td><td><span class="sl">events.html</span></td><td><span class="sl">Past event card photos (6 cards)</span></td><td><span class="sl">600×300px</span></td></tr>
-          <tr><td><span class="sf">comsa60–64.jpg</span></td><td><span class="sl">blog.html</span></td><td><span class="sl">Blog post images (5 posts)</span></td><td><span class="sl">Any size</span></td></tr>
-          <tr><td><span class="sf">comsa70–75.jpg</span></td><td><span class="sl">gallery.html</span></td><td><span class="sl">Default gallery photos (6 items)</span></td><td><span class="sl">Any size</span></td></tr>
-          <tr><td><span class="sf">comsa41.jpg</span></td><td><span class="sl">index.html JS</span></td><td><span class="sl">Optional popup flyer (set in POPUP_CONFIG)</span></td><td><span class="sl">Any — portrait best</span></td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- POPUP SETUP -->
-<section class="sp" id="popup" style="background:var(--surf)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 4</div><h2 class="h2">The Welcome <em>Popup</em></h2></div>
-    <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic ic-gold">📢</div><div><div class="s-card-title">Editing the Popup Announcement</div><div class="s-card-sub">Open index.html — search for POPUP_CONFIG in the JavaScript at the bottom</div></div></div>
-      <div class="s-card-body">
-        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button><span class="cm">/* ===== POPUP CONFIG — Edit these values ===== */</span>
-const POPUP_CONFIG = {
-  <span class="ca">active</span>:  <span class="ch">true</span>,              <span class="cm">// Set false to disable popup</span>
-  <span class="ca">badge</span>:   <span class="cv">'📢 Welcome to COMSA!'</span>,
-  <span class="ca">title</span>:   <span class="cv">'Your Popup Headline Here'</span>,
-  <span class="ca">message</span>: <span class="cv">'Your announcement text goes here...'</span>,
-  <span class="ca">image</span>:   <span class="cv">''</span>,  <span class="cm">// 📸 To show flyer: 'images/comsa41.jpg'</span>
-  <span class="ca">btnText</span>: <span class="cv">'Explore COMSA →'</span>,
-  <span class="ca">btnLink</span>: <span class="cv">'about.html'</span>,   <span class="cm">// Where the button goes</span>
-};</div>
-        <div class="alert a-gold"><span class="alert-ic">💡</span><div>To add a <strong>flyer image</strong> to the popup, put your flyer in the images/ folder and set: <strong>image: 'images/your-flyer.jpg'</strong>. Portrait orientation works best. Leave <strong>image: ''</strong> for text-only popup.</div></div>
-        <div class="alert a-green"><span class="alert-ic">✅</span><div>The popup shows once per browser session. To <strong>test it again</strong>, open browser console (F12) and type: <strong>sessionStorage.removeItem('comsa-popup')</strong> then refresh the page.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXECUTIVES & LECTURERS -->
-<section class="sp" id="executives" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 5</div><h2 class="h2">Executive Photos &amp; <em>Lecturers</em></h2></div>
-
-    <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic ic-purple">👔</div><div><div class="s-card-title">Adding Executive Photos</div><div class="s-card-sub">executives.html — each card already has the img tag, just add the file</div></div></div>
-      <div class="s-card-body">
-        <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px">Each executive flip card in executives.html already has an <code style="font-family:monospace;background:rgba(244,180,0,.1);padding:1px 5px;border-radius:4px;color:var(--gold)">&lt;img src="images/comsaN.jpg"/&gt;</code> tag. Just drop the matching photo into your images/ folder with the correct name:</p>
-        <div class="code">comsa5.jpg  → Abdul Jalil Sani   (President)
-comsa6.jpg  → Kelvin Otiboateng  (Vice President)
-comsa7.jpg  → Jochebed Ofori     (Secretary)
-comsa8.jpg  → Martin Laryea Mensah (Organizer)
-comsa9.jpg  → Stephen Ato Mensah  (Welfare)
-comsa10.jpg → Theophilus Mensah   (P.R.O)
-comsa11.jpg → Abigail Enu Ninson  (WOCOM)
-comsa12.jpg → Kennedy A. Holdbrook (Finance)
-comsa13.jpg → Isaac N. Quansah   (Part-Time Rep)</div>
-        <div class="alert a-gold"><span class="alert-ic">💡</span><div>Crop all executive photos to a <strong>square (1:1 ratio)</strong> before uploading. Use <strong>object-position: top</strong> (already set in the CSS) so faces always show correctly in the circular avatar even if the photo is tall.</div></div>
-      </div>
-    </div>
-
-    <div class="s-card rv d2" id="lecturers">
-      <div class="s-card-head"><div class="s-card-ic ic-green">🎓</div><div><div class="s-card-title">Lecturer Photos — Real Names Already Set</div><div class="s-card-sub">executives.html — scroll to the Lecturers section</div></div></div>
-      <div class="s-card-body">
-        <div class="alert a-green"><span class="alert-ic">✅</span><div>The 3 lecturer cards are already set with their real names and specialisations. Just add the 3 photo files to your images/ folder:</div></div>
-        <div class="code">Kwaning.jpg  → Dr. Collins Kwaning  (Head of Department)
-Aboagye.jpg → Kwame Aboagye         (Lecturer)
-Baxey.jpg   → Raymond K. Baxey      (Lecturer)</div>
-        <div class="alert a-gold"><span class="alert-ic">⚠️</span><div>These filenames are <strong>case-sensitive</strong>: <strong>K</strong>waning.jpg, <strong>A</strong>boagye.jpg, <strong>B</strong>axey.jpg — start with capital letters exactly as shown. If the photo fails to load, the initials (CK, KA, RB) show as a fallback.</div></div>
-        <p style="font-size:.88rem;color:var(--muted);margin-top:16px">To <strong>update a lecturer's bio or specialisation tags</strong>, open executives.html and find the matching <strong>.lec-c</strong> div, then edit the <strong>.lec-bio</strong> paragraph and <strong>.spec-tag</strong> spans.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BLOG & GALLERY -->
-<section class="sp" id="blog" style="background:var(--surf)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 6</div><h2 class="h2">Blog &amp; <em>Gallery</em></h2></div>
-    <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic ic-blue">📝</div><div><div class="s-card-title">Adding Permanent Blog Posts with Flyers</div><div class="s-card-sub">blog.html — use the form at the bottom for quick posts, or edit HTML for permanent ones</div></div></div>
-      <div class="s-card-body">
-        <div class="step-list">
-          <div class="step"><div class="step-num">1</div><div><div class="step-title">Quick Posts (Session Only)</div><div class="step-desc">Scroll to the <strong>Add New Post</strong> form at the bottom of blog.html. Fill in the title, category, description, upload a flyer, and click "Publish Post". The post appears instantly — but disappears on page refresh.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div><div class="step-title">Permanent Posts (Recommended)</div><div class="step-desc">To make a post permanent, open blog.html in your editor. Find the <strong>#posts-grid</strong> section. Copy an existing <strong>.post-c</strong> div, paste it, then edit: the image src, data-title, data-cat, data-author, data-date, data-full (full content), and the visible title/description text.</div></div></div>
-        </div>
-        <div class="alert a-gold"><span class="alert-ic">💡</span><div>For permanent posts, put your flyer image in images/ (e.g. <strong>comsa60.jpg</strong>) and set it as the <strong>img src</strong> inside the post's <strong>.post-img</strong> div. The image shows in both the card and the read-more popup.</div></div>
-      </div>
-    </div>
-
-    <div class="s-card rv d2" id="gallery">
-      <div class="s-card-head"><div class="s-card-ic ic-gold">🖼️</div><div><div class="s-card-title">Gallery Photos — Two Methods</div><div class="s-card-sub">gallery.html — upload form for quick adds, edit HTML for permanent photos</div></div></div>
-      <div class="s-card-body">
-        <div class="step-list">
-          <div class="step"><div class="step-num">A</div><div><div class="step-title">Permanent Photos — Edit the HTML</div><div class="step-desc">Open gallery.html. Find the <strong>#gal-grid</strong> section. Each <strong>.gal-item</strong> has an img tag — just replace the <strong>src</strong> with your comsa image filename (e.g. <strong>comsa70.jpg</strong>). Change <strong>data-cat</strong> (events/executives/campus/flyers/academic) and <strong>data-title</strong> for the caption.</div></div></div>
-          <div class="step"><div class="step-num">B</div><div><div class="step-title">Quick Upload — Use the Form</div><div class="step-desc">Scroll to <strong>Upload to Gallery</strong> at the bottom of gallery.html. Drag multiple photos, set a caption and category, click Upload. Photos appear instantly — but disappear on page refresh.</div></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- STEP 7: ADMIN PASSWORD IN SUPABASE -->
-<section class="sp" id="adminpw" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 7</div><h2 class="h2">Admin Password — <em>In Supabase</em></h2></div>
-    <div class="alert a-green rv d1"><span class="alert-ic">🔒</span><div>The admin password is <strong>never stored in any HTML file</strong>. It lives in Supabase as a SHA-256 hash. Even if someone sees your source code, they cannot find the password.</div></div>
-
-    <div class="s-card rv d2">
-      <div class="s-card-head"><div class="s-card-ic ic-gold">🗄️</div><div><div class="s-card-title">7a — Create the admin_config table</div><div class="s-card-sub">Run this once in Supabase → SQL Editor</div></div></div>
-      <div class="s-card-body">
-        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button>CREATE TABLE IF NOT EXISTS admin_config (
-  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  password_hash text NOT NULL
+-- 2. CREATE TABLES
+CREATE TABLE events (
+  id          uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
+  title       text        NOT NULL,
+  description text,
+  category    text,
+  event_date  date        NOT NULL,
+  event_time  text,
+  venue       text,
+  audience    text,
+  status      text        DEFAULT 'upcoming',
+  icon        text        DEFAULT '🎉',
+  image_url   text,
+  week_group  text,
+  created_at  timestamptz DEFAULT now()
 );
-ALTER TABLE admin_config ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow read admin_config"
-  ON admin_config FOR SELECT USING (true);</div>
-      </div>
-    </div>
 
-    <div class="s-card rv d3">
-      <div class="s-card-head"><div class="s-card-ic ic-blue">🖥️</div><div><div class="s-card-title">7b — Generate your SHA-256 hash</div><div class="s-card-sub">Open any browser tab → press F12 → Console tab → paste this</div></div></div>
-      <div class="s-card-body">
-        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button>// Replace 'yourPasswordHere' with your real chosen password
-const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourPasswordHere'));
-const hash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-console.log(hash); // Copy the long string that appears below</div>
-        <div class="alert a-gold" style="margin-top:12px"><span class="alert-ic">📋</span><div>Copy the 64-character hash string that appears in the console. You will paste it in Step 7c. Keep your actual password somewhere safe — you will need it to log in.</div></div>
-      </div>
-    </div>
+CREATE TABLE posts (
+  id          uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
+  title       text        NOT NULL,
+  excerpt     text,
+  content     text,
+  category    text        DEFAULT 'news',
+  author      text        DEFAULT 'COMSA Secretariat',
+  image_url   text,
+  is_featured boolean     DEFAULT false,
+  tags        text[],
+  created_at  timestamptz DEFAULT now()
+);
 
-    <div class="s-card rv d4">
-      <div class="s-card-head"><div class="s-card-ic ic-green">💾</div><div><div class="s-card-title">7c — Insert the hash into Supabase</div><div class="s-card-sub">Supabase → SQL Editor → paste your hash below</div></div></div>
-      <div class="s-card-body">
-        <div class="code"><button class="copy-btn" onclick="copyCode(this)">Copy</button>-- Replace with YOUR hash from Step 7b
-INSERT INTO admin_config (password_hash) VALUES
-('paste_your_64_character_hash_here');</div>
-        <div class="alert a-green" style="margin-top:12px"><span class="alert-ic">✅</span><div>Only one row should exist. To <strong>change your password</strong> later: run <code style="font-family:monospace">DELETE FROM admin_config;</code> then insert the new hash. Done!</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DEPLOY -->
-<section class="sp" id="deploy" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv"><div class="lbl">Step 8</div><h2 class="h2">Deploy to <em>Vercel</em></h2></div>
-    <div class="s-card rv d1">
-      <div class="s-card-head"><div class="s-card-ic ic-green">🚀</div><div><div class="s-card-title">Go Live for Free on Vercel</div><div class="s-card-sub">Pure HTML/CSS/JS — deploys in under 2 minutes, completely free</div></div></div>
-      <div class="s-card-body">
-        <div class="step-list">
-          <div class="step"><div class="step-num">1</div><div><div class="step-title">Create a free account at vercel.com</div><div class="step-desc">Go to <strong>vercel.com</strong> and sign up with GitHub or email. It's completely free for static HTML sites — no credit card needed.</div></div></div>
-          <div class="step"><div class="step-num">2</div><div><div class="step-title">Click "Add New → Project" → "Upload Folder"</div><div class="step-desc">On your Vercel dashboard, click the New Project button, then choose "Upload" and drag your entire <strong>comsa/</strong> folder — all HTML files and the images/ folder together.</div></div></div>
-          <div class="step"><div class="step-num">3</div><div><div class="step-title">Make sure index.html is at the root</div><div class="step-desc">Vercel needs to see <strong>index.html</strong> directly — not inside a subfolder. If you zipped the folder, make sure the zip doesn't add an extra level.</div></div></div>
-          <div class="step"><div class="step-num">4</div><div><div class="step-title">Click Deploy — live in seconds!</div><div class="step-desc">Vercel gives you a free URL like <strong>comsa-atu.vercel.app</strong>. You can also connect a custom domain (e.g. comsa.atu.edu.gh) under Project Settings → Domains.</div></div></div>
-          <div class="step"><div class="step-num">5</div><div><div class="step-title">Update the OG tags with your live URL</div><div class="step-desc">After you get your live URL, open each HTML file and find <strong>og:url</strong> in the head — update it with your real URL. This helps when people share your site on WhatsApp and Facebook.</div></div></div>
-        </div>
-        <div class="alert a-green"><span class="alert-ic">🎉</span><div><strong>Alternatives:</strong> You can also host on <strong>Netlify</strong> (netlify.com) or <strong>GitHub Pages</strong> — same process, all free for static HTML sites.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES RECAP -->
-<section class="sp" style="background:var(--surf)">
-  <div class="container">
-    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto 36px">
-      <div class="lbl" style="justify-content:center">What's Included</div>
-      <h2 class="h2" style="text-align:center">Website <em>Features</em></h2>
-    </div>
-    <div class="feat-grid rv d1">
-      <div class="feat-c"><div class="feat-ic">🌙</div><div class="feat-title">Dark / Light Mode</div><div class="feat-desc">Toggle in navbar and mobile menu. Preference saved across all pages using localStorage.</div></div>
-      <div class="feat-c"><div class="feat-ic">⏳</div><div class="feat-title">3-Second Loader</div><div class="feat-desc">Animated COMSA loading screen on first visit. Shows only once per session using sessionStorage.</div></div>
-      <div class="feat-c"><div class="feat-ic">📢</div><div class="feat-title">First-Visit Popup</div><div class="feat-desc">News/flyer popup shows once per session. Supports a flyer image, headline, message, and CTA button.</div></div>
-      <div class="feat-c"><div class="feat-ic">🖼️</div><div class="feat-title">Hero Sliders</div><div class="feat-desc">Auto-advancing, swipeable on mobile, dot navigation. All 8 pages have their own 3-slide hero.</div></div>
-      <div class="feat-c"><div class="feat-ic">🔄</div><div class="feat-title">Flip Cards</div><div class="feat-desc">Executive cards flip on hover (desktop) or tap (mobile) to show phone & WhatsApp links.</div></div>
-      <div class="feat-c"><div class="feat-ic">🔍</div><div class="feat-title">Lightbox Gallery</div><div class="feat-desc">Click any photo to open full-size with arrows, keyboard navigation, and mobile swipe support.</div></div>
-      <div class="feat-c"><div class="feat-ic">📝</div><div class="feat-title">Blog with Upload</div><div class="feat-desc">Add posts with flyer images, categories, and full content. Read-more popup on click.</div></div>
-      <div class="feat-c"><div class="feat-ic">📤</div><div class="feat-title">Gallery Upload</div><div class="feat-desc">Upload up to 10 photos at once with category tags. Appear in the masonry grid instantly.</div></div>
-      <div class="feat-c"><div class="feat-ic">💬</div><div class="feat-title">AI Chatbot</div><div class="feat-desc">Smart chatbot on every page with pre-asked questions, keyword matching, and fallback to president's contact.</div></div>
-      <div class="feat-c"><div class="feat-ic">📱</div><div class="feat-title">Fully Responsive</div><div class="feat-desc">Optimised for all screen sizes — phones, tablets, and desktops. Touch-friendly throughout.</div></div>
-      <div class="feat-c"><div class="feat-ic">✨</div><div class="feat-title">Scroll Animations</div><div class="feat-desc">Elements animate in as you scroll using IntersectionObserver — smooth, no janky JS scroll listeners.</div></div>
-      <div class="feat-c"><div class="feat-ic">🎓</div><div class="feat-title">Programmes Section</div><div class="feat-desc">All 5 department programmes with expandable detail cards showing objectives, careers, and assessment breakdown.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CHECKLIST -->
-<section class="sp" id="checklist" style="background:var(--bg)">
-  <div class="container">
-    <div class="rv" style="text-align:center;max-width:600px;margin:0 auto 36px">
-      <div class="lbl" style="justify-content:center">Almost There!</div>
-      <h2 class="h2" style="text-align:center">Final Setup <em>Checklist</em></h2>
-      <p style="color:var(--muted);font-size:.9rem">Tick off each item as you complete it. Click any checkbox to mark it done.</p>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:44px">
-      <div class="rv d1">
-        <div style="font-weight:700;color:var(--txt);margin-bottom:12px;font-size:.95rem">📸 Images &amp; Photos</div>
-        <div class="checklist">
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>logo.jpg</code> placed in images/ folder</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>comsa1.jpg</code>, <code>comsa2.jpg</code>, <code>comsa3.jpg</code> hero slides added</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">All 9 exec photos added (<code>comsa5.jpg</code> – <code>comsa13.jpg</code>)</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>Kwaning.jpg</code> added (HOD photo)</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>Aboagye.jpg</code> added (Lecturer photo)</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>Baxey.jpg</code> added (Lecturer photo)</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text"><code>comsa20.jpg</code> department/campus photo added</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Gallery placeholder photos (<code>comsa70–75.jpg</code>) replaced</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Event card photos (<code>comsa40–45.jpg</code>) added</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Blog post images (<code>comsa60–64.jpg</code>) added</div></div>
-        </div>
-      </div>
-      <div class="rv d2">
-        <div style="font-weight:700;color:var(--txt);margin-bottom:12px;font-size:.95rem">📝 Content &amp; Settings</div>
-        <div class="checklist">
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Popup title, message &amp; flyer configured in <code>POPUP_CONFIG</code></div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Social media links updated (@comsa-atu) on all pages</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Lecturer bios reviewed and accurate</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Blog posts added (permanent HTML posts)</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Events updated with correct dates and venues</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">OG image tags updated with real images</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Tested on mobile device (all pages)</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Tested dark mode and light mode toggle</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">Website deployed to Vercel / Netlify</div></div>
-          <div class="cl-item"><div class="cl-chk" onclick="toggleCheck(this)"></div><div class="cl-text">OG url tags updated with live URL</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FINALE CARD -->
-    <div style="text-align:center;padding:52px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px;position:relative;overflow:hidden" class="rv d3">
-      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50%,rgba(244,180,0,.06),transparent 60%);pointer-events:none"></div>
-      <div style="position:relative;z-index:1">
-        <div style="font-size:3rem;margin-bottom:14px">🎓</div>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.7rem;color:#fff;margin-bottom:12px">You're All Set!</h3>
-        <p style="color:rgba(255,255,255,.48);max-width:480px;margin:0 auto 28px;font-size:.95rem">The COMSA website is fully built and ready. Add your photos, fill in your content, and launch it to the world. The entire COMSA family will be proud!</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-          <a href="index.html" class="btn btn-g">View the Website →</a>
-          <a href="executives.html#lecturers" class="btn btn-o">Check Lecturers</a>
-          <a href="about.html#programmes" class="btn" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)">View Programmes</a>
-        </div>
-        <p style="margin-top:24px;font-size:.76rem;color:rgba(255,255,255,.22)">Built with ❤️ by Ibrahim Mohammed Lotsu (Ibratech) · WhatsApp: 0544823484</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <div class="ft-links">
-      <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
-    </div>
-    <div class="ft-bot">
-      <div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div>
-      <div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">0544823484</a></div>
-    </div>
-  </div>
-</footer>
-
-<script>
-(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
-function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
-document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
-const ham=document.getElementById('ham'),mob=document.getElementById('mob');
-ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
-mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open')}));
-// Scroll reveal
-const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
-// Copy code
-function copyCode(btn){const block=btn.parentElement;const text=block.innerText.replace(/Copy$|Copied!$/,'').trim();navigator.clipboard.writeText(text).then(()=>{btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='Copy',2000)})}
-// Checklist
-function toggleCheck(el){el.classList.toggle('done');const lbl=el.nextElementSibling;if(el.classList.contains('done')){el.textContent='✓';lbl.classList.add('done');}else{el.textContent='';lbl.classList.remove('done');}}
-// Page fade
-document.body.style.opacity='0';requestAnimationFrame(()=>{document.body.style.transition='opacity .5s';document.body.style.opacity='1'});
-document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>window.location.href=h,380)}));
-</script>
-
-<!-- ADMIN DASHBOARD GUIDE SECTION -->
-<section style="padding:60px 0;background:var(--bg)">
-  <div style="max-width:900px;margin:0 auto;padding:0 28px">
-
-    <div style="background:linear-gradient(135deg,rgba(244,180,0,.1),rgba(244,180,0,.04));border:1px solid rgba(244,180,0,.25);border-radius:16px;padding:24px 28px;margin-bottom:36px;display:flex;gap:14px">
-      <div style="font-size:1.8rem">🚀</div>
-      <div>
-        <div style="font-weight:700;color:var(--gold);margin-bottom:4px">New: Full Admin Dashboard</div>
-        <div style="font-size:.88rem;color:var(--muted);line-height:1.7">The website now uses Supabase for events, blog posts, and past questions. The hidden admin dashboard (<code style="font-family:monospace;color:var(--gold)">admin.html</code>) controls everything. Follow the steps in the Supabase Setup tab of the admin panel to get everything working.</div>
-      </div>
-    </div>
-
-    <div style="display:flex;flex-direction:column;gap:20px">
-
-      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
-        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">📁 New Files in This Update</div>
-        <div style="display:flex;flex-direction:column;gap:8px;font-size:.86rem;color:var(--muted);line-height:1.7">
-          <div>• <code style="font-family:monospace;color:var(--gold)">admin.html</code> — Hidden admin dashboard. Controls events, blog, past questions. Password protected. Do NOT link this from nav.</div>
-          <div>• <code style="font-family:monospace;color:var(--gold)">past-questions.html</code> — Public past questions download page. Reads from Supabase. Add to nav on all pages.</div>
-          <div>• <code style="font-family:monospace;color:var(--gold)">404.html</code> — Custom branded error page for Vercel.</div>
-          <div>• <code style="font-family:monospace;color:var(--gold)">images/patron.jpg</code> — Add this image to your images folder (the patron photo you received).</div>
-        </div>
-      </div>
-
-      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
-        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">⚙️ Supabase Config — Required on ALL pages</div>
-        <div style="font-size:.86rem;color:var(--muted);line-height:1.7;margin-bottom:12px">Every dynamic page has a CONFIG section at the top of its &lt;script&gt; block. Open each file in VS Code, find the comment <code style="font-family:monospace;color:var(--gold)">// ===== SUPABASE CONFIG =====</code> and fill in your keys:</div>
-        <div style="background:var(--navy2);border:1px solid rgba(244,180,0,.1);border-radius:9px;padding:14px;font-family:monospace;font-size:.8rem;color:#a8d8a8;line-height:1.8">
-          const SUPA_URL = 'https://YOUR_PROJECT.supabase.co';<br/>
-          const SUPA_KEY = 'eyJhbGci...(your anon key)...';<br/>
-          <span style="color:#6a8f6a">// Find these in Supabase → Project Settings → API</span>
-        </div>
-        <div style="font-size:.82rem;color:var(--muted);margin-top:10px">Files that need this: <code style="font-family:monospace">admin.html</code>, <code style="font-family:monospace">events.html</code>, <code style="font-family:monospace">blog.html</code>, <code style="font-family:monospace">past-questions.html</code></div>
-      </div>
-
-      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
-        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">🔑 Admin Dashboard Access</div>
-        <div style="font-size:.86rem;color:var(--muted);line-height:1.7">
-          <div>• URL: <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code></div>
-          <div>• Password: stored <strong style="color:var(--txt)">in Supabase</strong> as a SHA-256 hash — NOT in any code file. See Step 7 below to set it up.</div>
-          <div>• Keep this URL and password <strong style="color:var(--txt)">private</strong>. Only share with authorized executives.</div>
-          <div style="margin-top:8px">• From the admin dashboard you can: Add/edit/delete Events, Blog Posts, and Past Questions. The Setup tab inside admin.html has the full SQL to run in Supabase.</div>
-        </div>
-      </div>
-
-      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
-        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">🖼️ Adding the Patron Photo</div>
-        <div style="font-size:.86rem;color:var(--muted);line-height:1.7">
-          <div>1. Rename the patron's photo to <code style="font-family:monospace;color:var(--gold)">patron.jpg</code></div>
-          <div>2. Place it in your <code style="font-family:monospace">images/</code> folder alongside all other COMSA photos</div>
-          <div>3. Deploy to Vercel — the card on the Executives page will automatically display it</div>
-        </div>
-      </div>
-
-      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px">
-        <div style="font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--txt)">📋 Deployment Checklist</div>
-        <div style="display:flex;flex-direction:column;gap:8px;font-size:.86rem;color:var(--muted)">
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Fill in SUPA_URL and SUPA_KEY in admin.html, events.html, blog.html, past-questions.html</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Run the SQL schema in Supabase SQL Editor (from admin.html → Supabase Setup tab)</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Create storage buckets: past-questions, blog-images, gallery (set all to Public)</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Seed Departmental Week 2026 events SQL (Step 4 in admin → Supabase Setup)</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Seed past questions placeholder records (Step 5 in admin → Supabase Setup)</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Add patron.jpg to images folder</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Upload past question PDFs via admin.html → Past Questions → Upload</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Set admin password in Supabase — create <code style="font-family:monospace">admin_config</code> table + insert your SHA-256 hash (see Step 7 in Admin → Setup)</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Deploy all updated files to Vercel</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Test admin.html → login → add a test event → confirm it shows on events.html</label>
-          <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400"/> Bookmark admin.html URL and share password only with authorized execs</label>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════
-     UPDATED SETUP GUIDE — Reflects all current changes
-═══════════════════════════════════════════════════════════ -->
-<section style="padding:60px 0 0;background:var(--bg)">
-<div style="max-width:900px;margin:0 auto;padding:0 28px">
-
-<div style="background:linear-gradient(135deg,rgba(244,180,0,.1),rgba(244,180,0,.04));border:1px solid rgba(244,180,0,.3);border-radius:16px;padding:24px 28px;margin-bottom:32px;display:flex;gap:14px;align-items:flex-start">
-  <div style="font-size:1.8rem">📋</div>
-  <div>
-    <div style="font-weight:700;color:var(--gold);margin-bottom:4px">Updated Setup Guide — Current Version</div>
-    <div style="font-size:.86rem;color:var(--muted);line-height:1.7">This reflects all changes made to the COMSA website as of the latest build. Follow every step in order before going live.</div>
-  </div>
-</div>
-
-<!-- ─── SECTION: WHAT'S NEW ─── -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🆕 What's New in This Build</div>
-  <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;color:var(--muted);line-height:1.7">
-    <div>✅ <strong style="color:var(--txt)">Admin Dashboard</strong> (<code style="font-family:monospace;color:var(--gold)">admin.html</code>) — hidden page to manage all content</div>
-    <div>✅ <strong style="color:var(--txt)">Events</strong> — fully Supabase-powered. Add, edit, delete from Admin Panel</div>
-    <div>✅ <strong style="color:var(--txt)">Blog Posts</strong> — Supabase-powered. Posts stay until YOU delete them</div>
-    <div>✅ <strong style="color:var(--txt)">Past Questions</strong> — upload PDFs from Admin Panel, auto-listed on <code style="font-family:monospace">past-questions.html</code></div>
-    <div>✅ <strong style="color:var(--txt)">Patron Card</strong> added to executives page (add <code style="font-family:monospace">patron.jpg</code> to images/)</div>
-    <div>✅ <strong style="color:var(--txt)">WhatsApp Float Button</strong> on every page (PRO: 0544 487 799)</div>
-    <div>✅ <strong style="color:var(--txt)">Hamburger menu</strong> now slides in from left on all pages</div>
-    <div>✅ <strong style="color:var(--txt)">Popup / Flyer</strong> — manageable from Admin Panel, fires 6 seconds after load</div>
-    <div>✅ <strong style="color:var(--txt)">404 page</strong> added for Vercel</div>
-    <div>✅ <strong style="color:var(--txt)">Student count</strong> updated to 1,708</div>
-    <div>✅ <strong style="color:var(--txt)">Chatbot KB</strong> — all 9 executives, patron, events, past questions, membership</div>
-  </div>
-</div>
-
-<!-- ─── SECTION: POPUP / FLYER MANAGEMENT ─── -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🎉 Managing the Homepage Popup / Flyer</div>
-  <div style="font-size:.85rem;color:var(--muted);line-height:1.8;margin-bottom:14px">The popup appears <strong style="color:var(--txt)">6 seconds after the homepage loads</strong>, once per browser session. You control it two ways:</div>
-  
-  <div style="background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:16px;margin-bottom:14px">
-    <div style="font-weight:700;font-size:.88rem;color:var(--gold);margin-bottom:10px">Method 1 — Edit directly in index.html (for text changes)</div>
-    <div style="font-family:monospace;font-size:.78rem;color:#a8d8a8;background:var(--navy2);border-radius:8px;padding:14px;line-height:1.8">
-      const POPUP_CONFIG = {<br/>
-      &nbsp;&nbsp;active: true,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#6a8f6a">// false = disable popup</span><br/>
-      &nbsp;&nbsp;badge: '🎉 Your badge text',<br/>
-      &nbsp;&nbsp;title: 'Your headline here',<br/>
-      &nbsp;&nbsp;message: 'Your message to students...',<br/>
-      &nbsp;&nbsp;image: 'images/your-flyer.jpg',&nbsp;&nbsp;<span style="color:#6a8f6a">// leave '' for no image</span><br/>
-      &nbsp;&nbsp;btnText: 'Learn More →',<br/>
-      &nbsp;&nbsp;btnLink: 'events.html',<br/>
-      };
-    </div>
-    <div style="font-size:.78rem;color:var(--muted);margin-top:10px">After editing, save and re-deploy to Vercel. The popup resets every browser session.</div>
-  </div>
-
-  <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:16px">
-    <div style="font-weight:700;font-size:.88rem;color:#3B82F6;margin-bottom:8px">Method 2 — Admin Panel (coming next: Supabase-controlled popup)</div>
-    <div style="font-size:.83rem;color:var(--muted);line-height:1.7">To control the popup fully from the Admin Panel without touching code:<br/>
-    1. Create a table called <code style="font-family:monospace;color:var(--gold)">announcements</code> in Supabase<br/>
-    2. The homepage will fetch the latest active announcement and use it as the popup<br/>
-    3. You can then update, enable, or disable announcements from <code style="font-family:monospace">admin.html</code> without redeploying<br/>
-    <em style="color:rgba(255,255,255,.3)">(Request this feature when you're ready to implement it)</em></div>
-  </div>
-</div>
-
-<!-- ─── SECTION: ADDING A FLYER IMAGE ─── -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🖼️ Displaying a Flyer in the Popup</div>
-  <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;color:var(--muted);line-height:1.7">
-    <div>1. Save your flyer image as a <strong style="color:var(--txt)">JPG or PNG</strong> (recommended: 800×600px or 4:3 ratio)</div>
-    <div>2. Add it to your <code style="font-family:monospace;color:var(--gold)">images/</code> folder in the project</div>
-    <div>3. In <code style="font-family:monospace">index.html</code>, find <code style="font-family:monospace;color:var(--gold)">POPUP_CONFIG</code> and set: <code style="font-family:monospace;color:#a8d8a8">image: 'images/your-flyer.jpg'</code></div>
-    <div>4. Deploy to Vercel — the flyer will show inside the popup</div>
-    <div>5. To <strong style="color:var(--txt)">remove the flyer</strong>, set <code style="font-family:monospace;color:#a8d8a8">image: ''</code> and redeploy</div>
-  </div>
-</div>
-
-<!-- ─── SECTION: ADMIN PANEL GUIDE ─── -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">🛡️ Admin Panel — Full Guide</div>
-  <div style="display:flex;flex-direction:column;gap:12px;font-size:.85rem;color:var(--muted);line-height:1.75">
-    <div><strong style="color:var(--txt)">Access:</strong> <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code> — not linked from any page</div>
-    <div><strong style="color:var(--txt)">Password:</strong> Stored in Supabase as a SHA-256 hash — no password lives in any code file. Follow <strong>Step 7</strong> in the Admin Panel → Supabase Setup tab to create the <code style="font-family:monospace;color:var(--gold)">admin_config</code> table and set your password.</div>
-    <div><strong style="color:var(--txt)">Events tab:</strong> Add, edit, delete any event. Events appear live on events.html immediately</div>
-    <div><strong style="color:var(--txt)">Blog tab:</strong> Create posts with text, flyer image URL, category (News/Flyer/Quote etc). Posts stay visible until you delete them — Supabase stores them permanently</div>
-    <div><strong style="color:var(--txt)">Past Questions tab:</strong> Upload PDFs (stored in Supabase Storage). Students can download from past-questions.html</div>
-    <div><strong style="color:var(--txt)">Supabase Setup tab:</strong> Contains all SQL to run — do this once before going live</div>
-  </div>
-</div>
-
-<!-- ─── SECTION: BLOG POSTS — HOW IT WORKS ─── -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">📝 Blog Posts — How They Stay Permanently</div>
-  <div style="font-size:.85rem;color:var(--muted);line-height:1.75">
-    <div style="margin-bottom:10px">Blog posts are stored in the <code style="font-family:monospace;color:var(--gold)">posts</code> table in Supabase. When you publish a post from the Admin Panel:</div>
-    <div style="margin-bottom:6px">• It is saved to the database and <strong style="color:var(--txt)">immediately visible</strong> on blog.html</div>
-    <div style="margin-bottom:6px">• It stays there <strong style="color:var(--txt)">permanently</strong> until you delete it from the Admin Panel</div>
-    <div style="margin-bottom:6px">• No code changes or redeployment needed — just post and it's live</div>
-    <div style="margin-bottom:6px">• You can post: text articles, flyer image links, quotes, announcements</div>
-    <div style="margin-bottom:6px">• To add a flyer image to a post: upload the image to Supabase Storage (blog-images bucket), copy the public URL, paste it in the Image URL field in Admin → Blog</div>
-    <div style="margin-top:14px;padding:12px;background:rgba(244,180,0,.06);border-radius:8px;border:1px solid rgba(244,180,0,.15)">
-      ⚠️ <strong style="color:var(--gold)">Important:</strong> Make sure Supabase is configured (SUPA_URL + SUPA_KEY filled in blog.html and admin.html) before posts will appear.
-    </div>
-  </div>
-</div>
-
-<!-- ─── SECTION: DEPLOYMENT CHECKLIST ─── -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:14px">✅ Deployment Checklist — Do This In Order</div>
-  <div style="display:flex;flex-direction:column;gap:9px;font-size:.84rem;color:var(--muted)">
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Fill in <code style="font-family:monospace;color:var(--gold)">SUPA_URL</code> and <code style="font-family:monospace;color:var(--gold)">SUPA_KEY</code> in: admin.html, events.html, blog.html, past-questions.html</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Open admin.html → Supabase Setup tab → run SQL Steps 2 through 5 in order</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Create 3 storage buckets in Supabase: <code style="font-family:monospace">past-questions</code>, <code style="font-family:monospace">blog-images</code>, <code style="font-family:monospace">gallery</code> — all set to Public</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Add <code style="font-family:monospace">patron.jpg</code> to your <code style="font-family:monospace">images/</code> folder</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Deploy all files to Vercel</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Go to admin.html → login → run Seed Events (Step 4) — Departmental Week 2026 events appear</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Go to admin.html → Past Questions → upload the 5 PDFs one by one</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Set admin password in Supabase: run the <code style="font-family:monospace">admin_config</code> SQL from Admin Panel → Setup → Step 7, generate your SHA-256 hash in the browser console, then insert it.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Update POPUP_CONFIG in index.html with your launch message and optional flyer</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test: visit homepage → 4s loader → content appears → 6s later popup appears</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test mobile: hamburger opens from left, all links work, chatbot responds correctly</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Bookmark admin.html — keep URL and password private, only share with authorized execs</label>
-  </div>
-</div>
-
-</div>
-</section>
-
-
-<!-- COMPLETE SQL SECTION -->
-<section style="padding:60px 0;background:var(--bg)">
-<div style="max-width:960px;margin:0 auto;padding:0 28px">
-
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;margin-bottom:28px">
-  <div style="padding:20px 24px;border-bottom:1px solid var(--bdr);background:rgba(0,0,0,.15)">
-    <div style="font-weight:700;font-size:1rem;color:var(--txt)">📋 Complete Supabase SQL — Copy &amp; Paste Everything Below</div>
-    <div style="font-size:.82rem;color:var(--muted);margin-top:4px">Supabase → SQL Editor → New Query → Paste → Run All</div>
-  </div>
-  <div style="padding:24px">
-    <pre style="background:var(--navy2);border:1px solid rgba(244,180,0,.1);border-radius:12px;padding:20px;font-family:'Courier New',monospace;font-size:.78rem;color:#a8d8a8;line-height:1.9;overflow-x:auto;white-space:pre">-- ═══════════════════════════════════════════════════════
--- COMSA ATU — COMPLETE SUPABASE SQL
--- Run this entire block in Supabase SQL Editor
--- ═══════════════════════════════════════════════════════
-
--- 1. EVENTS TABLE
-CREATE TABLE IF NOT EXISTS events (
+CREATE TABLE past_questions (
   id           uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
-  title        text        NOT NULL,
-  description  text,
-  category     text,
-  event_date   date        NOT NULL,
-  event_time   text,
-  venue        text,
-  audience     text,
-  status       text        DEFAULT 'upcoming',
-  icon         text        DEFAULT '🎉',
-  image_url    text,
-  week_group   text,
+  course_title text        NOT NULL,
+  course_code  text,
+  year_sem     text,
+  programme    text,
+  pdf_url      text,
+  storage_path text,
   created_at   timestamptz DEFAULT now()
 );
 
--- 2. BLOG POSTS TABLE
-CREATE TABLE IF NOT EXISTS posts (
+CREATE TABLE gallery_photos (
   id           uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
-  title        text        NOT NULL,
-  excerpt      text,
-  content      text,
-  category     text        DEFAULT 'news',
-  author       text        DEFAULT 'COMSA Secretariat',
+  caption      text,
   image_url    text,
-  is_featured  boolean     DEFAULT false,
-  tags         text[],
+  storage_path text,
   created_at   timestamptz DEFAULT now()
 );
 
--- 3. PAST QUESTIONS TABLE
-CREATE TABLE IF NOT EXISTS past_questions (
-  id            uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
-  course_title  text        NOT NULL,
-  course_code   text,
-  year_sem      text,
-  programme     text,
-  pdf_url       text,
-  storage_path  text,
-  created_at    timestamptz DEFAULT now()
-);
-
--- 4. GALLERY PHOTOS TABLE
-CREATE TABLE IF NOT EXISTS gallery_photos (
-  id            uuid        DEFAULT gen_random_uuid() PRIMARY KEY,
-  caption       text,
-  image_url     text        NOT NULL,
-  storage_path  text,
-  created_at    timestamptz DEFAULT now()
-);
-
--- ═══════════════════════════════════════════════════════
--- ROW LEVEL SECURITY
--- ═══════════════════════════════════════════════════════
+-- 3. ENABLE ROW LEVEL SECURITY
 ALTER TABLE events         ENABLE ROW LEVEL SECURITY;
 ALTER TABLE posts          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE past_questions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gallery_photos ENABLE ROW LEVEL SECURITY;
 
--- PUBLIC READ (anyone can view)
+-- 4. PUBLIC READ POLICIES (anyone can view content)
 CREATE POLICY "Public read events"         ON events         FOR SELECT USING (true);
 CREATE POLICY "Public read posts"          ON posts          FOR SELECT USING (true);
 CREATE POLICY "Public read past_questions" ON past_questions FOR SELECT USING (true);
 CREATE POLICY "Public read gallery_photos" ON gallery_photos FOR SELECT USING (true);
 
--- ADMIN WRITE (admin.html is the security layer — keep admin URL private)
-CREATE POLICY "Admin write events"         ON events         FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Admin write posts"          ON posts          FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Admin write past_questions" ON past_questions FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Admin write gallery_photos" ON gallery_photos FOR ALL USING (true) WITH CHECK (true);
+-- 5. AUTH WRITE POLICIES (only your logged-in admin can add/edit/delete)
+CREATE POLICY "Auth write events"
+  ON events FOR ALL
+  USING (auth.uid() IS NOT NULL)
+  WITH CHECK (auth.uid() IS NOT NULL);
 
--- ═══════════════════════════════════════════════════════
--- STORAGE BUCKETS
--- ═══════════════════════════════════════════════════════
-INSERT INTO storage.buckets (id, name, public) VALUES
-  ('past-questions', 'past-questions', true),
-  ('blog-images',    'blog-images',    true),
-  ('gallery',        'gallery',        true)
-ON CONFLICT DO NOTHING;
+CREATE POLICY "Auth write posts"
+  ON posts FOR ALL
+  USING (auth.uid() IS NOT NULL)
+  WITH CHECK (auth.uid() IS NOT NULL);
 
--- Public read all 3 buckets
-CREATE POLICY "Public read storage"
-  ON storage.objects FOR SELECT
-  USING (bucket_id IN ('past-questions', 'blog-images', 'gallery'));
+CREATE POLICY "Auth write past_questions"
+  ON past_questions FOR ALL
+  USING (auth.uid() IS NOT NULL)
+  WITH CHECK (auth.uid() IS NOT NULL);
 
--- Admin upload
-CREATE POLICY "Admin upload storage"
-  ON storage.objects FOR INSERT WITH CHECK (true);
+CREATE POLICY "Auth write gallery_photos"
+  ON gallery_photos FOR ALL
+  USING (auth.uid() IS NOT NULL)
+  WITH CHECK (auth.uid() IS NOT NULL);
 
--- Admin delete
-CREATE POLICY "Admin delete storage"
-  ON storage.objects FOR DELETE USING (true);
+-- 6. STORAGE BUCKETS
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES ('gallery', 'gallery', true, 10485760,
+  ARRAY['image/jpeg','image/jpg','image/png','image/webp','image/gif'])
+ON CONFLICT (id) DO UPDATE SET public=true;
 
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES ('past-questions', 'past-questions', true, 20971520,
+  ARRAY['application/pdf'])
+ON CONFLICT (id) DO UPDATE SET public=true;
 
--- ═══════════════════════════════════════════════════════
--- ADMIN PASSWORD CONFIG (password stored as SHA-256 hash)
--- ═══════════════════════════════════════════════════════
-CREATE TABLE IF NOT EXISTS admin_config (
-  id            uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  password_hash text NOT NULL
-);
-ALTER TABLE admin_config ENABLE ROW LEVEL SECURITY;
--- Allow the admin login page (anon key) to read the hash
-CREATE POLICY "Allow read admin_config"
-  ON admin_config FOR SELECT USING (true);
+-- 7. STORAGE POLICIES
+DROP POLICY IF EXISTS "Public read gallery"  ON storage.objects;
+DROP POLICY IF EXISTS "Auth upload gallery"  ON storage.objects;
+DROP POLICY IF EXISTS "Auth delete gallery"  ON storage.objects;
+DROP POLICY IF EXISTS "Public read pq"       ON storage.objects;
+DROP POLICY IF EXISTS "Auth upload pq"       ON storage.objects;
+DROP POLICY IF EXISTS "Auth delete pq"       ON storage.objects;
 
--- HOW TO SET YOUR PASSWORD (run in browser console, then paste hash below):
--- const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourPassword'));
--- console.log(Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join(''));
--- Then run: INSERT INTO admin_config (password_hash) VALUES ('paste_hash_here');
+CREATE POLICY "Public read gallery"  ON storage.objects FOR SELECT USING (bucket_id='gallery');
+CREATE POLICY "Auth upload gallery"  ON storage.objects FOR INSERT WITH CHECK (bucket_id='gallery' AND auth.uid() IS NOT NULL);
+CREATE POLICY "Auth delete gallery"  ON storage.objects FOR DELETE USING (bucket_id='gallery' AND auth.uid() IS NOT NULL);
+CREATE POLICY "Public read pq"       ON storage.objects FOR SELECT USING (bucket_id='past-questions');
+CREATE POLICY "Auth upload pq"       ON storage.objects FOR INSERT WITH CHECK (bucket_id='past-questions' AND auth.uid() IS NOT NULL);
+CREATE POLICY "Auth delete pq"       ON storage.objects FOR DELETE USING (bucket_id='past-questions' AND auth.uid() IS NOT NULL);
 
--- ═══════════════════════════════════════════════════════
--- SEED DATA — DEPARTMENTAL WEEK 2026
--- ═══════════════════════════════════════════════════════
-INSERT INTO events (title, description, category, event_date, event_time, venue, audience, status, icon, week_group) VALUES
-('Health Walk &amp; Clean-Up Exercise',
- 'Kick off Departmental Week with a community health walk and campus clean-up. Come in comfortable wear.',
- 'Health &amp; Wellness', '2026-06-29', 'Morning', 'ATU Campus, Accra',
- 'All COMSA Members', 'upcoming', '🏃', 'Departmental Week 2026'),
-('Inter-Class Debate',
- 'Classes compete head-to-head in a debate competition. Represent your class with pride!',
- 'Academic', '2026-06-30', 'TBA', 'Departmental Hall, ATU',
- 'All COMSA Members', 'upcoming', '🎙️', 'Departmental Week 2026'),
-('Professional Edge Conference &amp; Part-Time Summit',
- 'Professional development conference with industry speakers and a part-time student summit.',
- 'Conference', '2026-07-01', 'TBA', 'ATU Auditorium',
- 'All Students &amp; Part-Time Members', 'upcoming', '💼', 'Departmental Week 2026'),
-('Industrial Trip — Kasapreko Ltd',
- 'Industrial visit to Kasapreko Company Limited. See corporate communications in action.',
- 'Industrial Trip', '2026-07-02', 'All Day', 'Kasapreko Ltd, Accra',
- 'All COMSA Members', 'upcoming', '🏭', 'Departmental Week 2026'),
-('Rep Your Jersey Day',
- 'Wear your favourite football jersey! Fun casual day before the big Departmental Games.',
- 'Social', '2026-07-03', 'All Day', 'ATU Campus',
- 'All COMSA Members', 'upcoming', '👕', 'Departmental Week 2026'),
-('Departmental Games',
- 'Grand finale of Departmental Week! Football, athletics, indoor games. Cheer for your class!',
- 'Sports', '2026-07-04', 'All Day', 'ATU Sports Grounds',
- 'All COMSA Members', 'upcoming', '🏆', 'Departmental Week 2026'),
-('Media Tour',
- 'COMSA members visited leading media houses in Accra for practical exposure to newsroom operations.',
- 'Industrial Trip', '2026-05-15', 'All Day', 'Various Media Houses, Accra',
- 'All COMSA Members', 'past', '📺', ''),
-('Departmental Orientation',
- 'Welcome orientation for new and continuing students of Liberal Studies and Communication Technology.',
- 'Academic', '2026-02-10', 'Morning', 'ATU Main Hall',
- 'All Students', 'past', '🎓', '');
+-- 8. VERIFY (run this to confirm setup)
+SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
+SELECT tablename, policyname, cmd FROM pg_policies WHERE schemaname='public';
+SELECT id, name, public FROM storage.buckets;</div>
+  <div class="alert a-green"><span class="alert-ic">✅</span><div>After running, the verification at the bottom should show 4 tables, 8 table policies, and 2 storage buckets.</div></div>
+</div>
 
--- ═══════════════════════════════════════════════════════
--- SEED DATA — PAST QUESTIONS (upload PDFs via Admin Panel)
--- ═══════════════════════════════════════════════════════
-INSERT INTO past_questions (course_title, course_code, programme, year_sem) VALUES
-('Integrated Marketing Communications', 'BMC 301', 'All Programmes',    '2024/25'),
-('PR Theories and Practice',           'PRD 201', 'Public Relations',   '2024/25'),
-('Industrial and Organizational Psychology', 'PSY 301', 'All Programmes', '2024/25'),
-('Technical Report Writing',           'ENG 201', 'All Programmes',    '2024/25'),
-('Corporate Communication',            'PRD 401', 'Public Relations',   '2024/25');</pre>
+<!-- STEP 3 -->
+<div class="step-section" id="s3">
+  <div class="step-head"><div class="step-number">3</div><h2 class="step-title">Create Your Admin Account</h2></div>
+  <p class="step-desc">Your admin login uses Supabase Authentication. No passwords are stored in any code file — Supabase handles everything securely.</p>
+  <div class="steps-list">
+    <div class="step-li"><div class="step-li-n">1</div><div>In your Supabase project, click <strong>Authentication</strong> in the left sidebar.</div></div>
+    <div class="step-li"><div class="step-li-n">2</div><div>Click <strong>Settings</strong> → <strong>Email</strong> → turn <strong>OFF</strong> "Enable email confirmations" so you can log in immediately.</div></div>
+    <div class="step-li"><div class="step-li-n">3</div><div>Click <strong>Users</strong> in the Authentication sub-menu.</div></div>
+    <div class="step-li"><div class="step-li-n">4</div><div>Click <strong>Add user → Create new user</strong>. Enter your admin email and a strong password. Click <strong>Create User</strong>.</div></div>
+    <div class="step-li"><div class="step-li-n">5</div><div>Go to <code>admin.html</code> on your deployed site. Enter the email and password you just created. Click Sign In.</div></div>
+  </div>
+  <div class="alert a-gold"><span class="alert-ic">💡</span><div>Your password is managed entirely by Supabase. To reset it, go to Supabase → Authentication → Users → click your user → Send password recovery. No code changes needed.</div></div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step-section" id="s4">
+  <div class="step-head"><div class="step-number">4</div><h2 class="step-title">Configure Storage (for uploads)</h2></div>
+  <p class="step-desc">The SQL in Step 2 creates the buckets automatically. If photo or PDF uploads fail, verify these settings manually.</p>
+  <div class="steps-list">
+    <div class="step-li"><div class="step-li-n">1</div><div>Go to <strong>Supabase → Storage</strong>. You should see two buckets: <code>gallery</code> and <code>past-questions</code>.</div></div>
+    <div class="step-li"><div class="step-li-n">2</div><div>Click each bucket → <strong>Edit</strong> → confirm <strong>Public bucket</strong> is checked.</div></div>
+    <div class="step-li"><div class="step-li-n">3</div><div>If uploads still fail after deploying, go to <strong>Storage → Policies</strong> and confirm the INSERT and DELETE policies exist for both buckets.</div></div>
   </div>
 </div>
 
-<!-- HOW TO USE ADMIN PANEL -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:16px">🛡️ Admin Panel — How to Control the Website</div>
-  <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;color:var(--muted);line-height:1.75">
-    <div><strong style="color:var(--txt)">Access URL:</strong> <code style="font-family:monospace;color:var(--gold)">comsa-atu.vercel.app/admin.html</code> — not linked anywhere public</div>
-    <div><strong style="color:var(--txt)">Password:</strong> Stored in Supabase as a SHA-256 hash — never in any code file. See Admin Panel → Setup → Step 7 to set it up. Generate a hash in the browser console and insert it into the <code style="font-family:monospace;color:var(--gold)">admin_config</code> table.</div>
-    <div><strong style="color:var(--txt)">Events tab:</strong> Add, edit, delete events. They appear live on events.html immediately.</div>
-    <div><strong style="color:var(--txt)">Blog tab:</strong> Create posts with text, image URL, category. Posts stay permanently until you delete them.</div>
-    <div><strong style="color:var(--txt)">Past Questions tab:</strong> Upload PDFs → auto-stored in Supabase Storage → listed on past-questions.html.</div>
-    <div><strong style="color:var(--txt)">Gallery tab:</strong> Upload photos → stored in Supabase Storage → visible on gallery.html. Delete from here too.</div>
-    <div><strong style="color:var(--txt)">Contact forms:</strong> When students fill the contact form, it opens WhatsApp with the message pre-filled to the PRO (0544 487 799). No extra setup needed.</div>
+<!-- STEP 5 -->
+<div class="step-section" id="s5">
+  <div class="step-head"><div class="step-number">5</div><h2 class="step-title">Deploy to Vercel</h2></div>
+  <p class="step-desc">COMSA is a static site — just HTML, CSS, and JavaScript files. No build step required.</p>
+  <div class="steps-list">
+    <div class="step-li"><div class="step-li-n">1</div><div>Upload all your HTML files and the <code>images/</code> folder to a GitHub repository.</div></div>
+    <div class="step-li"><div class="step-li-n">2</div><div>Go to <strong>vercel.com</strong> → <strong>New Project</strong> → Import your GitHub repo.</div></div>
+    <div class="step-li"><div class="step-li-n">3</div><div>Leave all build settings as default (no framework, no build command). Click <strong>Deploy</strong>.</div></div>
+    <div class="step-li"><div class="step-li-n">4</div><div>Your site goes live at <code>your-project.vercel.app</code>. Every push to GitHub auto-redeploys.</div></div>
+  </div>
+  <div class="alert a-gold"><span class="alert-ic">💡</span><div>Make sure ALL your HTML files have the correct <code>SUPA_URL</code> and <code>SUPA_KEY</code> filled in before pushing to GitHub.</div></div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step-section" id="s6">
+  <div class="step-head"><div class="step-number">6</div><h2 class="step-title">Final Checklist</h2></div>
+  <p class="step-desc">Tick everything below before sharing your site publicly.</p>
+  <div class="checklist">
+    <label><input type="checkbox"/> Updated <code>SUPA_URL</code> and <code>SUPA_KEY</code> in all 9 HTML files</label>
+    <label><input type="checkbox"/> Ran the complete SQL in Supabase SQL Editor</label>
+    <label><input type="checkbox"/> Created admin user in Supabase → Authentication → Users</label>
+    <label><input type="checkbox"/> Turned OFF email confirmation in Authentication → Settings → Email</label>
+    <label><input type="checkbox"/> Confirmed <code>gallery</code> and <code>past-questions</code> buckets are public in Storage</label>
+    <label><input type="checkbox"/> Replaced all <code>images/comsa1.jpg</code> through <code>comsa30.jpg</code> with real COMSA photos</label>
+    <label><input type="checkbox"/> Added all executive photos: jalil.jpg, Kelvin.jpg, jochebed.jpg, martin.jpg, stephen.jpg, Theophilus.jpg, abigail.jpg, kennedy.jpg, isaac.jpg</label>
+    <label><input type="checkbox"/> Added logo.jpg to the images folder</label>
+    <label><input type="checkbox"/> Logged in to admin.html and confirmed the Connection Test shows all green ✅</label>
+    <label><input type="checkbox"/> Added at least one test event via admin panel and confirmed it shows on events.html</label>
+    <label><input type="checkbox"/> Updated social media links (Facebook, Instagram, TikTok, WhatsApp) in index.html footer</label>
+    <label><input type="checkbox"/> Deployed to Vercel and tested on mobile</label>
   </div>
 </div>
 
-<!-- DEPLOYMENT CHECKLIST -->
-<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:26px;margin-bottom:20px">
-  <div style="font-weight:700;font-size:1rem;color:var(--txt);margin-bottom:16px">✅ Deployment Checklist</div>
-  <div style="display:flex;flex-direction:column;gap:9px;font-size:.84rem;color:var(--muted)">
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Create Supabase project at supabase.com. Copy Project URL + anon key from Settings → API.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> In each file — admin.html, events.html, blog.html, past-questions.html, gallery.html — find <code style="font-family:monospace;color:var(--gold)">SUPA_URL</code> and <code style="font-family:monospace;color:var(--gold)">SUPA_KEY</code> and fill in your values.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Run the complete SQL above in Supabase SQL Editor.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Add <code style="font-family:monospace">patron.jpg</code> to your <code style="font-family:monospace">images/</code> folder.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Deploy all files to Vercel.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Visit admin.html → login → confirm all tabs load data from Supabase.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Upload the 5 past question PDFs via Admin → Past Questions.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Set admin password in Supabase: create <code style="font-family:monospace">admin_config</code> table, generate SHA-256 hash in browser console, insert it (Step 7 in Admin → Setup).</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test contact form — fill it in → WhatsApp should open with the message pre-filled.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Test on mobile — hamburger, gallery, events all working.</label>
-    <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input type="checkbox" style="margin-top:3px;accent-color:#F4B400;flex-shrink:0"/> Bookmark admin.html — share password only with authorized executives.</label>
+<!-- STEP 7 -->
+<div class="step-section" id="s7">
+  <div class="step-head"><div class="step-number">7</div><h2 class="step-title">Frequently Asked Questions</h2></div>
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px">
+      <div style="font-weight:700;color:var(--txt);margin-bottom:8px">Why is data not showing on the live website?</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.75">Make sure you filled in <code>SUPA_URL</code> and <code>SUPA_KEY</code> in each page file. Then go to Admin → Setup → Run Connection Test. If reads fail, check your public RLS policies are correctly set.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px">
+      <div style="font-weight:700;color:var(--txt);margin-bottom:8px">Why do writes fail ("Error saving") in the admin?</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.75">You must be logged in with a valid Supabase Auth account. The JWT token is stored in sessionStorage — if you refresh or open a new tab, log in again. Run the Connection Test to verify your write access.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px">
+      <div style="font-weight:700;color:var(--txt);margin-bottom:8px">How do I change my admin password?</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.75">Go to Supabase → Authentication → Users → click your user → Send password recovery or reset directly. No code changes needed.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px">
+      <div style="font-weight:700;color:var(--txt);margin-bottom:8px">Why do image/PDF uploads fail?</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.75">Confirm you are logged in to the admin (uploads require auth). Then go to Supabase → Storage → confirm both buckets are public and the INSERT policies exist. File sizes must be under 10MB (images) and 20MB (PDFs).</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px">
+      <div style="font-weight:700;color:var(--txt);margin-bottom:8px">How do I add a new executive next year?</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.75">Update the executive photos in the <code>images/</code> folder and edit the names/roles in <code>executives.html</code>. Push to GitHub and Vercel redeploys automatically.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:22px">
+      <div style="font-weight:700;color:var(--txt);margin-bottom:8px">Who built this website?</div>
+      <div style="font-size:.88rem;color:var(--muted);line-height:1.75">Built by <strong style="color:var(--gold)">Ibrahim Mohammed Lotsu</strong> (Ibratech &amp; Graphix) · <a href="https://wa.me/233544823484" target="_blank" style="color:var(--gold)">WhatsApp: 0544823484</a></div>
+    </div>
   </div>
 </div>
 
 </div>
-</section>
+</div>
 
+<script>
+(function(){var t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(function(i){i.checked=t==='light';});})();
+function setTheme(l){var t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(function(i){i.checked=l;});}
+document.querySelectorAll('.tog-in').forEach(function(i){i.addEventListener('change',function(){setTheme(this.checked);});});
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+function copyCode(btn){var code=btn.parentElement.textContent.replace('Copy All','').replace('Copy','').trim();navigator.clipboard.writeText(code).then(function(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);});}
+var navBtns=document.querySelectorAll('.step-nav-btn');
+var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var id=e.target.id;navBtns.forEach(function(b){b.classList.remove('act');});var btn=document.querySelector('.step-nav-btn[onclick*="'+id+'"]');if(btn)btn.classList.add('act');}});},{rootMargin:'-10% 0px -85% 0px'});
+document.querySelectorAll('.step-section').forEach(function(s){observer.observe(s);});
+</script>
 </body>
 </html>

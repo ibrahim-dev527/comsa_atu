@@ -1,769 +1,920 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Blog – COMSA | ATU</title>
-<meta name="description" content="Read the latest news, flyers, and announcements from COMSA – Communications Students' Association at Accra Technical University."/>
-<meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech"/>
+<title>Blog & News | COMSA – ATU</title>
+<meta name="description" content="Read the latest news, announcements, and updates from COMSA – Accra Technical University."/>
+<meta name="keywords" content="COMSA, Communications Students Association, Accra Technical University, ATU, Ghana"/>
+<meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+<meta http-equiv="X-Frame-Options" content="DENY"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech &amp; Graphix"/>
 <link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
-<link rel="apple-touch-icon" href="images/logo.jpg"/>
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://comsa-atu.vercel.app/blog.html"/>
-<meta property="og:title" content="Blog – COMSA ATU"/>
-<meta property="og:description" content="News, flyers, and announcements from the Communications Students' Association at ATU."/>
-<meta property="og:image" content="images/comsa1.jpg"/>
+<meta property="og:title" content="Blog & News | COMSA – ATU"/>
+<meta property="og:description" content="Read the latest news, announcements, and updates from COMSA – Accra Technical University."/>
+<meta property="og:image" content="images/comsa18.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="images/comsa1.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--r:14px;--nav:72px;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)}
-[data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
+:root{
+  --navy:#0B1F3B;--navy2:#071528;--navy3:#122847;
+  --gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;
+  --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);
+  --r:14px;--nav:70px;
+  --bg:#07101E;--card:#0F1E33;--surf:#152540;
+  --txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12)
+}
+[data-theme=light]{--bg:#F4F4F0;--card:#FFFFFF;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;transition:background .4s,color .4s}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
-button{cursor:pointer;border:none;background:none;font-family:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:rgba(244,180,0,.25);border-radius:3px}
+/* UTILS */
+.container{max-width:1280px;margin:0 auto;padding:0 28px}
+.sp{padding:96px 0}.sp-sm{padding:60px 0}
+.lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.15;margin-bottom:18px}
+.h2 em{color:var(--gold);font-style:italic}
+.divider{width:52px;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:4px;margin:18px 0}
+.desc{font-size:.97rem;color:var(--muted);line-height:1.82;max-width:640px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;cursor:pointer;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif;border:none}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.13);opacity:0;transition:opacity .3s}
+.btn:hover::after{opacity:1}.btn:hover{transform:translateY(-3px)}.btn:active{transform:translateY(-1px)}
+.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.28)}
+.btn-g:hover{box-shadow:0 12px 40px rgba(244,180,0,.44)}
+.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+.btn-o:hover{background:rgba(244,180,0,.08)}
+.btn-n{background:var(--navy);color:#fff;box-shadow:0 6px 22px rgba(0,0,0,.3)}
+/* REVEAL ANIMATIONS */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv-l.in{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rv-r.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
 /* NAV */
 #nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:1000;transition:background .4s,box-shadow .4s}
-#nav.scrolled{background:rgba(7,16,30,.93);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
-[data-theme=light] #nav.scrolled{background:rgba(244,244,240,.94)}
-.nav-i{max-width:1300px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+#nav.scrolled{background:rgba(7,16,30,.95);backdrop-filter:blur(20px);box-shadow:0 2px 30px rgba(0,0,0,.4)}
+[data-theme=light] #nav.scrolled{background:rgba(244,244,240,.96)}
+.nav-i{max-width:1280px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-logo-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.brand-logo-img{width:100%;height:100%;object-fit:cover}
-.brand-logo-fb{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--navy);display:none}
-.brand-txt strong{font-family:'Orbitron',monospace;font-size:1rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
-.brand-txt span{font-size:.6rem;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase}
-[data-theme=light] .brand-txt span{color:var(--muted)}
+.brand-logo{width:42px;height:42px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0}
+.brand-logo img{width:100%;height:100%;object-fit:cover}
+.brand-txt strong{font-family:'Orbitron',monospace;font-size:.95rem;color:var(--gold);letter-spacing:.1em;display:block;line-height:1.2}
+.brand-txt span{font-size:.58rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .nav-links{display:flex;align-items:center;gap:2px}
-.nav-links a{padding:7px 13px;font-size:.84rem;font-weight:500;color:rgba(255,255,255,.7);border-radius:8px;transition:all .3s;position:relative}
+.nav-links a{padding:7px 12px;font-size:.82rem;font-weight:500;color:rgba(255,255,255,.65);border-radius:8px;transition:all .3s;position:relative;white-space:nowrap}
 [data-theme=light] .nav-links a{color:var(--muted)}
-.nav-links a::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%) scaleX(0);width:calc(100% - 18px);height:2px;background:var(--gold);border-radius:2px;transition:transform .3s var(--spring)}
-.nav-links a:hover,.nav-links a.act{color:#fff;background:rgba(244,180,0,.08)}
-[data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.06)}
-.nav-links a:hover::after,.nav-links a.act::after{transform:translateX(-50%) scaleX(1)}
-.nav-r{display:flex;align-items:center;gap:10px}
-.tog{position:relative;width:50px;height:26px;cursor:pointer;flex-shrink:0}
+.nav-links a:hover,.nav-links a.act{color:#fff;background:rgba(244,180,0,.1)}
+[data-theme=light] .nav-links a:hover,[data-theme=light] .nav-links a.act{color:var(--navy);background:rgba(11,31,59,.07)}
+.nav-links a.act::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:18px;height:2px;background:var(--gold);border-radius:2px}
+.nav-r{display:flex;align-items:center;gap:8px}
+/* THEME TOGGLE */
+.tog{position:relative;width:48px;height:25px;cursor:pointer;flex-shrink:0}
 .tog input{opacity:0;width:0;height:0;position:absolute}
 .tog-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;transition:.3s}
-.tog-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:10px}
+.tog-thumb{position:absolute;top:3px;left:3px;width:17px;height:17px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:9px}
 .tog-thumb::before{content:'🌙'}
-.tog input:checked~.tog-thumb{transform:translateX(24px)}
+.tog input:checked~.tog-thumb{transform:translateX(23px)}
 .tog input:checked~.tog-thumb::before{content:'☀️'}
-.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px}
-.ham span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
-[data-theme=light] .ham span{background:var(--navy)}
+/* HAMBURGER */
+.ham{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px;transition:background .3s}
+.ham:hover{background:rgba(244,180,0,.1)}
+.ham span{display:block;width:22px;height:2px;background:currentColor;border-radius:2px;transition:.35s}
 .ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mob{position:fixed;top:0;left:0;bottom:0;width:80%;max-width:300px;background:rgba(7,16,30,.99);backdrop-filter:blur(24px);padding:80px 28px 36px;transform:translateX(-100%);opacity:1;transition:transform .38s cubic-bezier(.22,1,.36,1);z-index:1100;border-right:1px solid rgba(244,180,0,.15);overflow-y:auto}
+/* MOBILE MENU */
+.mob{position:fixed;top:0;left:0;bottom:0;width:82%;max-width:300px;background:rgba(7,16,30,.99);backdrop-filter:blur(24px);padding:80px 28px 36px;transform:translateX(-100%);transition:transform .38s var(--ease);z-index:1100;border-right:1px solid var(--bdr);overflow-y:auto}
 [data-theme=light] .mob{background:rgba(244,244,240,.99)}
 .mob.open{transform:translateX(0)}
-.mob a{display:block;padding:13px 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
-[data-theme=light] .mob a{color:var(--muted)}
+.mob a{display:block;padding:13px 0;font-size:.97rem;font-weight:500;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s,padding-left .3s}
+[data-theme=light] .mob a{color:var(--muted);border-bottom-color:rgba(0,0,0,.06)}
 .mob a:hover,.mob a.act{color:var(--gold);padding-left:10px}
-.mob-bot{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
-.mob-lbl{font-size:.72rem;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
-/* PAGE HERO */
-.page-hero{min-height:400px;position:relative;overflow:hidden;background:var(--navy2);display:flex;align-items:flex-end;padding-bottom:52px;padding-top:var(--nav)}
-.ph-slides{position:absolute;inset:0}
-.ph-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--ease)}
+.mob-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1099;opacity:0;visibility:hidden;transition:opacity .38s,visibility .38s}
+.mob-ov.open{opacity:1;visibility:visible}
+/* PAGE HERO SLIDER */
+.page-hero{position:relative;height:55vh;min-height:380px;overflow:hidden;background:var(--navy2)}
+.ph-slider{position:absolute;inset:0}
+.ph-slide{position:absolute;inset:0;opacity:0;transition:opacity .85s var(--ease)}
 .ph-slide.act{opacity:1}
 .ph-slide img{width:100%;height:100%;object-fit:cover;object-position:center}
-.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,30,.95) 30%,rgba(7,16,30,.5) 70%,rgba(7,16,30,.3));pointer-events:none;z-index:1}
-.ph-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(244,180,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(244,180,0,.03) 1px,transparent 1px);background-size:70px 70px;pointer-events:none;z-index:1}
-.ph-content{position:relative;z-index:2;max-width:1300px;margin:0 auto;padding:0 28px;width:100%}
-.breadcrumb{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:12px}
-.breadcrumb a{color:var(--gold)}.breadcrumb span{color:rgba(255,255,255,.2)}
-.ph-lbl{font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.ph-lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px}
-.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5.5vw,4rem);font-weight:900;color:#fff;line-height:1.08;margin-bottom:14px}
-.ph-h1 em{color:var(--gold);font-style:italic}
-.ph-p{font-size:1rem;color:rgba(255,255,255,.5);max-width:520px}
-.ph-dots{position:absolute;bottom:16px;right:28px;display:flex;gap:7px;z-index:5}
-.ph-dot{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.25);transition:all .4s var(--spring);cursor:pointer;border:none}
+.ph-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,16,30,.55),rgba(7,16,30,.85))}
+.ph-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:56px;text-align:center;z-index:2}
+.ph-lbl{font-size:.7rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.ph-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:0}
+.ph-title em{color:var(--gold);font-style:italic}
+.ph-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
+.ph-dot{width:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.3);transition:all .4s;border:none;cursor:pointer}
 .ph-dot.act{background:var(--gold);width:24px}
-/* UTILS */
-.container{max-width:1300px;margin:0 auto;padding:0 28px}
-.sp{padding:96px 0}
-.sp-sm{padding:60px 0}
-.lbl{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
-.lbl::before{content:'';width:22px;height:2px;background:var(--gold);border-radius:2px;flex-shrink:0}
-.h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:700;line-height:1.15;margin-bottom:18px}
-.h2 em{color:var(--gold);font-style:italic}
-.desc{font-size:.98rem;color:var(--muted);line-height:1.82;max-width:600px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r);font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:transform .3s var(--spring),box-shadow .3s;position:relative;overflow:hidden;font-family:'Outfit',sans-serif}
-.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.13);opacity:0;transition:opacity .3s}
-.btn:hover::after{opacity:1}
-.btn:hover{transform:translateY(-3px)}
-.btn-g{background:linear-gradient(135deg,var(--gold),var(--gold3));color:var(--navy);box-shadow:0 8px 28px rgba(244,180,0,.3)}
-.btn-o{background:transparent;border:2px solid var(--gold);color:var(--gold)}
-.rv{opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.rv.in{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
-/* BLOG LAYOUT */
-.blog-layout{display:grid;grid-template-columns:1fr 320px;gap:44px;margin-top:52px}
-/* FILTER */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
-.filt{padding:7px 18px;border-radius:99px;font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;border:1px solid var(--bdr);background:transparent;transition:all .3s;font-family:'Outfit',sans-serif}
-.filt.act,.filt:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-/* POSTS GRID */
-.posts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-/* POST CARD */
-.post-c{background:var(--card);border:1px solid var(--bdr);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
-.post-c:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(0,0,0,.3);border-color:rgba(244,180,0,.28)}
-.post-c.featured{grid-column:span 2}
-/* =====================================================
-  POST CARD IMAGE AREA
-  Featured post → comsa60.jpg
-  Post 2 → comsa61.jpg  |  Post 3 → comsa62.jpg
-  Post 4 → comsa63.jpg  |  Post 5 → comsa64.jpg
-  Add your flyer by setting the img src below
-===================================================== */
-.post-img{height:200px;background:linear-gradient(135deg,var(--navy),var(--navy3));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.post-c.featured .post-img{height:280px}
-.post-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.post-c:hover .post-img img{transform:scale(1.05)}
-.post-img-ic{font-size:2.8rem;position:relative;z-index:1;opacity:.4}
-.post-cat-badge{position:absolute;top:14px;left:14px;z-index:2;padding:4px 12px;border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-.cat-news{background:rgba(244,180,0,.9);color:var(--navy)}
-.cat-event{background:rgba(59,130,246,.85);color:#fff}
-.cat-flyer{background:rgba(139,92,246,.85);color:#fff}
-.cat-academic{background:rgba(16,185,129,.85);color:#fff}
-.cat-social{background:rgba(239,68,68,.85);color:#fff}
-.feat-badge{position:absolute;top:14px;right:14px;z-index:2;padding:4px 12px;background:var(--gold);border-radius:99px;font-size:.65rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.1em}
-.post-body{padding:22px}
-.post-meta{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
-.post-author{font-size:.75rem;color:var(--gold);font-weight:600}
-.post-date{font-size:.72rem;color:var(--muted)}
-.post-read{font-size:.72rem;color:var(--muted)}
-.post-tt{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--txt);line-height:1.35;margin-bottom:9px}
-.post-c.featured .post-tt{font-size:1.3rem}
-.post-dd{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:14px;overflow:hidden;max-height:3.4em}
-.post-foot{display:flex;align-items:center;justify-content:space-between}
-.post-tags{display:flex;gap:6px;flex-wrap:wrap}
-.post-tag{font-size:.68rem;font-weight:500;padding:2px 9px;background:var(--surf);border-radius:99px;color:var(--muted)}
-.post-read-btn{font-size:.78rem;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:4px;transition:gap .3s;white-space:nowrap}
-.post-c:hover .post-read-btn{gap:8px}
-/* SIDEBAR */
-.blog-side{display:flex;flex-direction:column;gap:22px}
-.side-card{background:var(--card);border:1px solid var(--bdr);border-radius:18px;padding:22px;transition:border-color .3s}
-.side-card:hover{border-color:rgba(244,180,0,.22)}
-.side-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--txt);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid rgba(244,180,0,.15);display:flex;align-items:center;gap:8px}
-.side-post{display:flex;gap:12px;margin-bottom:14px;cursor:pointer;transition:transform .3s}
-.side-post:hover{transform:translateX(4px)}
-.side-post:last-child{margin-bottom:0}
-.side-post-img{width:58px;height:58px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy3));flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.4rem;position:relative}
-.side-post-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.side-post-tt{font-size:.82rem;font-weight:600;color:var(--txt);line-height:1.35;margin-bottom:4px}
-.side-post-date{font-size:.72rem;color:var(--muted)}
-.side-cats{display:flex;flex-direction:column;gap:8px}
-.side-cat{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:10px;background:var(--surf);cursor:pointer;transition:background .3s,transform .3s}
-.side-cat:hover{background:rgba(244,180,0,.08);transform:translateX(4px)}
-.side-cat-n{font-size:.84rem;font-weight:500;color:var(--txt)}
-.side-cat-c{font-size:.72rem;font-weight:700;color:var(--gold)}
-.side-tags{display:flex;flex-wrap:wrap;gap:8px}
-.side-tag{padding:5px 13px;border-radius:99px;background:var(--surf);border:1px solid var(--bdr);font-size:.76rem;color:var(--muted);cursor:pointer;transition:all .3s}
-.side-tag:hover{background:rgba(244,180,0,.1);border-color:rgba(244,180,0,.28);color:var(--gold)}
-/* POST MODAL */
-.modal-ov{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.modal-ov.show{opacity:1;visibility:visible}
-.modal-bg{position:absolute;inset:0;background:rgba(7,16,30,.88);backdrop-filter:blur(10px)}
-.modal-box{position:relative;z-index:1;background:var(--card);border:1px solid var(--bdr);border-radius:20px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(28px) scale(.96);transition:transform .45s var(--spring)}
-.modal-ov.show .modal-box{transform:translateY(0) scale(1)}
-.modal-hdr{height:220px;background:linear-gradient(135deg,var(--navy),var(--navy2));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.modal-hdr img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none}
-.modal-hdr img.show{display:block}
-.modal-hdr-ic{font-size:4rem;position:relative;z-index:1;opacity:.45}
-.modal-close{position:absolute;top:14px;right:14px;z-index:2;width:34px;height:34px;background:rgba(0,0,0,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;transition:background .3s,transform .3s;cursor:pointer;border:none}
-.modal-close:hover{background:rgba(244,180,0,.5);transform:rotate(90deg)}
-.modal-body{padding:32px}
-.modal-cat{font-size:.7rem;font-weight:700;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
-.modal-tt{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--txt);line-height:1.2;margin-bottom:14px}
-.modal-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--bdr)}
-.modal-meta span{font-size:.78rem;color:var(--muted)}
-.modal-meta strong{color:var(--txt)}
-.modal-content{font-size:.92rem;color:var(--muted);line-height:1.85}
-.modal-content p{margin-bottom:14px}
-/* ADD POST */
-.add-s{background:var(--surf)}
-.add-form-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:44px;max-width:820px;margin:0 auto}
-.fg{margin-bottom:20px}
-.fg label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
-.fg input,.fg select,.fg textarea{width:100%;padding:13px 16px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);font-family:'Outfit',sans-serif;font-size:.92rem;color:var(--txt);outline:none;transition:border-color .3s,box-shadow .3s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,180,0,.1)}
-.fg input::placeholder,.fg textarea::placeholder{color:var(--muted);opacity:.6}
-.fg textarea{min-height:130px;resize:vertical}
-.fg select option{background:var(--navy2)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-/* Upload zone */
-.upload-zone{border:2px dashed rgba(244,180,0,.3);border-radius:var(--r);padding:36px 24px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(244,180,0,.02);position:relative}
-.upload-zone:hover{border-color:var(--gold);background:rgba(244,180,0,.06)}
-.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
-.upload-ic{font-size:2.4rem;margin-bottom:10px}
-.upload-t{font-size:.9rem;font-weight:600;color:var(--txt);margin-bottom:5px}
-.upload-s{font-size:.78rem;color:var(--muted)}
-.upload-prev{margin-top:16px;border-radius:10px;overflow:hidden;max-height:200px;display:none}
-.upload-prev img{width:100%;object-fit:contain}
-.char-cnt{font-size:.72rem;color:var(--muted);text-align:right;margin-top:4px}
-.add-success{display:none;text-align:center;padding:44px;flex-direction:column;align-items:center;gap:14px}
-.add-success.show{display:flex}
-.as-ic{font-size:3rem;animation:pop .5s var(--spring)}
-@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
-.as-h{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--txt)}
-.as-p{color:var(--muted)}
-/* NO POSTS */
-.no-posts{display:none;text-align:center;padding:52px;color:var(--muted);grid-column:span 2}
-.no-posts-ic{font-size:3rem;margin-bottom:12px}
 /* FOOTER */
-footer{background:var(--navy2);padding:72px 0 0;position:relative;overflow:hidden}
+footer{background:var(--navy2);padding:68px 0 0;position:relative;overflow:hidden}
 footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:52px;padding-bottom:52px}
-.ft-brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.ft-logo-wrap{width:48px;height:48px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3));flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.ft-logo-img{width:100%;height:100%;object-fit:cover}
-.ft-logo-fb{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;color:var(--navy);display:none}
-.ft-p{font-size:.86rem;color:rgba(255,255,255,.4);line-height:1.8;max-width:290px;margin-bottom:20px}
-.ft-soc{display:flex;gap:10px}
-.ft-so{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .3s}
-.ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px)}
-.ft-col h4{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;margin-bottom:18px;padding-bottom:10px;position:relative}
-.ft-col h4::after{content:'';position:absolute;bottom:0;left:0;width:28px;height:2px;background:var(--gold);border-radius:2px}
-.ft-col li{margin-bottom:9px}
-.ft-col a{font-size:.84rem;color:rgba(255,255,255,.4);transition:color .3s,padding-left .3s}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:48px;padding-bottom:48px}
+.ft-brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.ft-logo{width:46px;height:46px;border-radius:11px;overflow:hidden;background:linear-gradient(135deg,var(--gold),var(--gold3))}
+.ft-logo img{width:100%;height:100%;object-fit:cover}
+.ft-p{font-size:.84rem;color:rgba(255,255,255,.38);line-height:1.8;max-width:280px;margin-bottom:18px}
+.ft-soc{display:flex;gap:9px}
+.ft-so{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;transition:all .3s;color:rgba(255,255,255,.6)}
+.ft-so:hover{background:rgba(244,180,0,.15);border-color:rgba(244,180,0,.28);transform:translateY(-4px);color:var(--gold)}
+.ft-so svg{width:16px;height:16px;fill:currentColor}
+.ft-col h4{font-family:'Playfair Display',serif;font-size:.92rem;color:#fff;margin-bottom:16px;padding-bottom:9px;position:relative}
+.ft-col h4::after{content:'';position:absolute;bottom:0;left:0;width:26px;height:2px;background:var(--gold);border-radius:2px}
+.ft-col li{margin-bottom:8px}
+.ft-col a{font-size:.82rem;color:rgba(255,255,255,.38);transition:color .3s,padding-left .3s}
 .ft-col a:hover{color:var(--gold);padding-left:5px}
-.ft-ci{display:flex;align-items:flex-start;gap:10px;margin-bottom:13px;font-size:.84rem}
-.ft-cion{width:32px;height:32px;flex-shrink:0;background:rgba(244,180,0,.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--gold)}
-.ft-ct{color:rgba(255,255,255,.45);line-height:1.5}
-.ft-ct strong{display:block;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:2px}
-.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.ft-copy{font-size:.78rem;color:rgba(255,255,255,.25)}
-.ft-dev{font-size:.75rem;color:rgba(255,255,255,.22)}
-.ft-dev a{color:var(--gold);opacity:.65;font-weight:500;transition:opacity .3s}
+.ft-ci{display:flex;align-items:flex-start;gap:9px;margin-bottom:12px;font-size:.82rem}
+.ft-cion{width:30px;height:30px;flex-shrink:0;background:rgba(244,180,0,.07);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--gold)}
+.ft-ct{color:rgba(255,255,255,.4);line-height:1.5}
+.ft-ct strong{display:block;color:rgba(255,255,255,.7);font-weight:500;font-size:.8rem;margin-bottom:1px}
+.ft-bot{border-top:1px solid rgba(255,255,255,.05);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:.76rem;color:rgba(255,255,255,.22)}
+.ft-dev{font-size:.73rem;color:rgba(255,255,255,.2)}
+.ft-dev a{color:var(--gold);opacity:.6;font-weight:500;transition:opacity .3s}
 .ft-dev a:hover{opacity:1}
-/* CHATBOT */
-#cb-toggle{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;z-index:4000;box-shadow:0 8px 28px rgba(244,180,0,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-#cb-toggle:hover{transform:scale(1.12)}
-#cb-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#EF4444;color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg,#07101E)}
-#chatbot{position:fixed;bottom:100px;right:28px;width:360px;max-width:calc(100vw - 40px);height:520px;max-height:calc(100vh - 130px);background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.18);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.5);z-index:3999;display:none;flex-direction:column;overflow:hidden}
-#chatbot.open{display:flex}
-#cb-head{padding:14px 16px;background:linear-gradient(135deg,#0B1F3B,#122847);display:flex;align-items:center;gap:11px;flex-shrink:0;border-bottom:1px solid rgba(244,180,0,.1)}
-#cb-head-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-#cb-logo{width:100%;height:100%;object-fit:cover;border-radius:50%}
-#cb-logo-fb{width:100%;height:100%;display:none;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;color:#0B1F3B}
-#cb-head-name{font-weight:700;font-size:.9rem;color:#F0EFE9}
-#cb-head-status{font-size:.68rem;color:#10B981;margin-top:1px}
-#cb-close{margin-left:auto;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:background .3s;flex-shrink:0}
-#cb-close:hover{background:rgba(239,68,68,.3);color:#fff}
-#cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
-#cb-msgs::-webkit-scrollbar{width:4px}
-#cb-msgs::-webkit-scrollbar-thumb{background:rgba(244,180,0,.2);border-radius:2px}
-.cb-msg{max-width:84%;animation:cbPop .3s cubic-bezier(.34,1.56,.64,1)}
-@keyframes cbPop{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-.cb-msg-bot{align-self:flex-start}.cb-msg-user{align-self:flex-end}
-.cb-bubble{padding:10px 13px;border-radius:16px;font-size:.84rem;line-height:1.65;word-break:break-word}
-.cb-bubble-bot{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.12);color:var(--txt,#F0EFE9);border-bottom-left-radius:4px}
-.cb-bubble-user{background:linear-gradient(135deg,#F4B400,#C99300);color:#0B1F3B;font-weight:500;border-bottom-right-radius:4px}
-.cb-time{font-size:.62rem;color:rgba(255,255,255,.28);margin-top:3px;padding:0 4px}
-.cb-msg-user .cb-time{text-align:right}
-.cb-typing{display:flex;align-items:center;gap:4px;padding:10px 13px;background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.1);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
-.cb-dot{width:7px;height:7px;border-radius:50%;background:rgba(244,180,0,.6);animation:cbDot 1.2s ease-in-out infinite}
-.cb-dot:nth-child(2){animation-delay:.2s}.cb-dot:nth-child(3){animation-delay:.4s}
-@keyframes cbDot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
-#cb-quick{padding:0 12px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
-.cb-qr{padding:6px 12px;background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.74rem;font-weight:600;color:#F4B400;cursor:pointer;transition:background .3s;white-space:nowrap;font-family:'Outfit',sans-serif}
-.cb-qr:hover{background:rgba(244,180,0,.22)}
-#cb-input-wrap{padding:10px 12px;border-top:1px solid rgba(244,180,0,.1);display:flex;gap:8px;align-items:center;flex-shrink:0}
-#cb-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:9px 13px;font-family:'Outfit',sans-serif;font-size:.84rem;color:var(--txt,#F0EFE9);outline:none;transition:border-color .3s}
-#cb-input:focus{border-color:#F4B400}
-#cb-input::placeholder{color:rgba(255,255,255,.3)}
-[data-theme=light] #cb-input{color:#0B1F3B;background:rgba(0,0,0,.05)}
-[data-theme=light] #cb-input::placeholder{color:rgba(0,0,0,.3)}
-#cb-send{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;color:#0B1F3B;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0}
-#cb-send:hover{transform:scale(1.08)}
-#cb-send:disabled{opacity:.5;cursor:not-allowed}
-@media(max-width:1024px){.blog-layout{grid-template-columns:1fr}.blog-side{display:grid;grid-template-columns:1fr 1fr}.ft-grid{grid-template-columns:1fr 1fr;gap:36px}}
-@media(max-width:768px){:root{--nav:62px}.container{padding:0 18px}.nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}.posts-grid{grid-template-columns:1fr}.post-c.featured{grid-column:span 1}.blog-side{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.add-form-wrap{padding:24px}.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;text-align:center}.no-posts{grid-column:span 1}}
-@media(max-width:480px){#chatbot{right:12px;bottom:88px;width:calc(100vw - 24px)}#cb-toggle{bottom:20px;right:20px}}
-
-/* Immediately reveal hero content — never block above-fold */
-.ph-content .rv,.ph-content .rv-l,.ph-content .rv-r,
-.hero-content .rv,.hero-body .rv,
-section:first-of-type .rv{
-  opacity:1!important;transform:none!important;
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:96px;right:26px;z-index:3000;display:flex;align-items:center;gap:9px}
+.wa-tip{background:var(--card);border:1px solid var(--bdr);border-radius:9px;padding:7px 12px;font-size:.74rem;color:var(--txt);white-space:nowrap;box-shadow:0 4px 18px rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:opacity .3s}
+.wa-btn{width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.38);transition:transform .3s}
+.wa-btn:hover{transform:scale(1.1)}
+.wa-btn svg{width:26px;height:26px;fill:white}
+/* RESPONSIVE */
+@media(max-width:1080px){.nav-links a{padding:6px 9px;font-size:.78rem}.ft-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:768px){
+  :root{--nav:62px}
+  .container{padding:0 18px}.sp{padding:68px 0}
+  .nav-links{display:none}.nav-r .tog{display:none}.ham{display:flex}
+  .ft-grid{grid-template-columns:1fr;gap:28px}
+  .ph-title{font-size:clamp(1.6rem,7vw,2.8rem)}
 }
+@media(max-width:480px){.ft-bot{flex-direction:column;text-align:center}}
 
-/* Mobile menu overlay */
-.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1099;opacity:0;visibility:hidden;transition:opacity .38s,visibility .38s}
-.mob-overlay.open{opacity:1;visibility:visible}
-/* Mobile menu close button */
-.mob-close{position:absolute;top:20px;right:20px;width:36px;height:36px;background:rgba(255,255,255,.08);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.blog-layout{display:grid;grid-template-columns:1fr 320px;gap:44px;align-items:start}
+.blog-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.blog-filter-btn{padding:7px 16px;border-radius:99px;font-size:.78rem;font-weight:600;border:1.5px solid var(--bdr);color:var(--muted);background:transparent;transition:all .3s;cursor:pointer;font-family:'Outfit',sans-serif}
+.blog-filter-btn:hover,.blog-filter-btn.act{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.bc{background:var(--card);border:1px solid var(--bdr);border-radius:18px;overflow:hidden;transition:transform .4s,border-color .4s,box-shadow .4s;display:flex;gap:0;flex-direction:column}
+.bc:hover{transform:translateY(-5px);border-color:rgba(244,180,0,.28);box-shadow:0 16px 44px rgba(0,0,0,.25)}
+.bc-img{height:150px;background:linear-gradient(135deg,var(--navy),var(--navy3));position:relative;overflow:hidden;flex-shrink:0}
+.bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.bc:hover .bc-img img{transform:scale(1.05)}
+.bc-cat{position:absolute;top:12px;left:12px;padding:4px 11px;border-radius:99px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(244,180,0,.9);color:var(--navy)}
+.bc-body{padding:14px 16px 18px}
+.bc-date{font-size:.72rem;color:var(--muted);margin-bottom:8px}
+.bc-title{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--txt);line-height:1.3;margin-bottom:6px}
+.bc-exc{font-size:.78rem;color:var(--muted);line-height:1.65;margin-bottom:10px}
+.bc-foot{display:flex;align-items:center;justify-content:space-between;font-size:.76rem;color:var(--muted)}
+.bc-author{display:flex;align-items:center;gap:7px}
+.bc-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold3));display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--navy)}
+.bc-feat{border-left:3px solid var(--gold)}
+.blog-aside{position:sticky;top:90px;display:flex;flex-direction:column;gap:22px}
+.aside-card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden}
+.aside-head{padding:16px 20px;border-bottom:1px solid var(--bdr);font-weight:700;font-size:.9rem;color:var(--txt);display:flex;align-items:center;gap:8px}
+.recent-item{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .3s;cursor:pointer}
+.recent-item:last-child{border-bottom:none}
+.recent-item:hover{background:rgba(244,180,0,.04)}
+.recent-title{font-size:.84rem;font-weight:600;color:var(--txt);margin-bottom:3px;line-height:1.35}
+.recent-date{font-size:.72rem;color:var(--muted)}
+.cat-list{padding:14px 20px;display:flex;flex-direction:column;gap:8px}
+.cat-row{display:flex;align-items:center;justify-content:space-between;font-size:.84rem;padding:7px 10px;border-radius:8px;cursor:pointer;transition:background .3s}
+.cat-row:hover{background:rgba(244,180,0,.06)}
+.cat-n{color:var(--txt);font-weight:500}
+.cat-c{background:rgba(244,180,0,.12);color:var(--gold);font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:99px}
+.blog-empty{text-align:center;padding:56px 28px;color:var(--muted);font-size:.9rem}
+.blog-loading{text-align:center;padding:44px;color:var(--muted)}
+@media(max-width:1024px){.blog-layout{grid-template-columns:1fr}.blog-aside{position:static}}
+@media(max-width:640px){.blog-grid{grid-template-columns:1fr}}
+</style>
 
-/* Above-fold content always visible */
-.ph-content *,.hero-content *{animation:none!important}
-
-/* SAFETY: if JS fails or is slow, content still shows */
-@keyframes forceShow{to{opacity:1;transform:none}}
-.rv,.rv-l,.rv-r{animation:forceShow 0s 1s forwards}
-/* Above-fold content always visible */
-.ph-content *,.hero-content *{animation:none!important}
-
-body{opacity:1!important} /* guarantee visibility */
+<style>
+#db-banner{position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:8888;padding:11px 22px;border-radius:10px;font-size:.83rem;font-weight:600;display:none;text-align:center;max-width:92vw;box-shadow:0 6px 24px rgba(0,0,0,.35);pointer-events:none}
+#db-banner.err{background:#EF4444;color:#fff}
+#db-banner.warn{background:#F59E0B;color:#0B1F3B}
+#db-banner.ok{background:#10B981;color:#fff}
 </style>
 </head>
 <body>
-<script>
-/* NAV — runs immediately, no DOMContentLoaded needed */
-window.__menuOpen = false;
-window.openMobMenu = function(){
-  var ham=document.getElementById('ham');
-  var mob=document.getElementById('mob');
-  var ov=document.getElementById('mob-overlay');
-  if(ham) ham.classList.add('open');
-  if(mob) mob.classList.add('open');
-  if(ov) ov.classList.add('open');
-  document.body.style.overflow='hidden';
-  window.__menuOpen=true;
-};
-window.closeMobMenu = function(){
-  var ham=document.getElementById('ham');
-  var mob=document.getElementById('mob');
-  var ov=document.getElementById('mob-overlay');
-  if(ham) ham.classList.remove('open');
-  if(mob) mob.classList.remove('open');
-  if(ov) ov.classList.remove('open');
-  document.body.style.overflow='';
-  window.__menuOpen=false;
-};
-window.toggleMobMenu = function(){
-  window.__menuOpen ? window.closeMobMenu() : window.openMobMenu();
-};
-</script>
+<div id="db-banner"></div>
+
 <nav id="nav">
   <div class="nav-i">
     <a href="index.html" class="brand">
-      <div class="brand-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="brand-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="brand-logo-fb">ATU</span></div>
+      <div class="brand-logo"><img src="images/logo.jpg" alt="COMSA"/></div>
       <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html" class="act">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-r"><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label><button class="ham" id="ham" onclick="toggleMobMenu()"><span></span><span></span><span></span></button></div>
+    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="patron-hod.html">Patron & HOD</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html" class="act">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <div class="nav-r">
+      <label class="tog" title="Toggle theme"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
+      <button class="ham" id="ham" aria-label="Menu" onclick="var m=document.getElementById('mob'),o=document.getElementById('mob-ov'),h=this;if(m.classList.contains('open')){m.classList.remove('open');o.classList.remove('open');h.classList.remove('open');document.body.style.overflow=''}else{m.classList.add('open');o.classList.add('open');h.classList.add('open');document.body.style.overflow='hidden'}"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<div class="mob-overlay" id="mob-overlay" onclick="closeMobMenu()"></div>
-<div class="mob" id="mob">
-  <button class="mob-close" onclick="closeMobMenu()">✕</button>
-  <a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="events.html">Events</a><a href="blog.html" class="act">Blog</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
-  <div class="mob-bot"><span class="mob-lbl">Dark / Light Mode</span><label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label></div>
+<div class="mob-ov" id="mob-ov" onclick="document.getElementById('mob').classList.remove('open');this.classList.remove('open');document.getElementById('ham').classList.remove('open');document.body.style.overflow=''"></div>
+<div class="mob" id="mob"><a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="patron-hod.html">Patron & HOD</a><a href="events.html">Events</a><a href="blog.html" class="act">Blog</a><a href="gallery.html">Gallery</a><a href="past-questions.html">Past Questions</a><a href="contact.html">Contact</a>
+  <div style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">
+    <span style="font-size:.7rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase">Dark / Light</span>
+    <label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
+  </div>
 </div>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <div class="ph-slides">
-    <div class="ph-slide act"><img src="images/comsa15.jpg" alt="COMSA Blog"/></div>
-    <div class="ph-slide"><img src="images/comsa8.jpg" alt="COMSA"/></div>
-    <div class="ph-slide"><img src="images/comsa17.jpg" alt="COMSA Campus"/></div>
-  </div>
-  <div class="ph-overlay"></div><div class="ph-mesh"></div>
+<section class="page-hero" id="ph">
+  <div class="ph-slider" id="ph-slider"><div class="ph-slide  act"><img src="images/comsa18.jpg" alt="COMSA"/></div><div class="ph-slide"><img src="images/comsa19.jpg" alt="COMSA"/></div><div class="ph-slide"><img src="images/comsa20.jpg" alt="COMSA"/></div></div>
+  <div class="ph-ov"></div>
   <div class="ph-content">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Blog</span></div>
-    <div class="ph-lbl">Latest Updates</div>
-    <h1 class="ph-h1">COMSA <em>Blog</em></h1>
-    <p class="ph-p">News, flyers, announcements, and stories from the Communications Students' Association.</p>
+    <div class="ph-lbl">Blog &amp; News</div>
+    <h1 class="ph-title">Latest <em>News &amp; Updates</em></h1>
   </div>
-  <div class="ph-dots" id="ph-dots"></div>
+  <div class="ph-dots" id="ph-dots"><button class="ph-dot  act" data-i="0"></button><button class="ph-dot" data-i="1"></button><button class="ph-dot" data-i="2"></button></div>
 </section>
-
-<!-- BLOG -->
 <section class="sp" style="background:var(--bg)">
   <div class="container">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px" class="rv">
-      <div><div class="lbl">All Posts</div><h2 class="h2">Latest from <em>COMSA</em></h2></div>
-    </div>
-
-    <!-- FILTERS -->
-    <div class="filters rv d1">
-      <button class="filt act" data-cat="all" onclick="setFilter(this,'all')">All Posts</button>
-      <button class="filt" data-cat="news" onclick="setFilter(this,'news')">📰 News</button>
-      <button class="filt" data-cat="flyer" onclick="setFilter(this,'flyer')">📢 Flyers</button>
-      <button class="filt" data-cat="event" onclick="setFilter(this,'event')">📅 Events</button>
-      <button class="filt" data-cat="academic" onclick="setFilter(this,'academic')">📚 Academic</button>
-      <button class="filt" data-cat="social" onclick="setFilter(this,'social')">🎊 Social</button>
-      <button class="filt" data-cat="quote" onclick="setFilter(this,'quote')">💬 Quotes</button>
-    </div>
-
     <div class="blog-layout">
       <div>
-        <!-- LOADING -->
-        <div id="blog-loading" style="text-align:center;padding:60px 20px;color:var(--muted)">
-          <div style="width:46px;height:46px;border-radius:50%;border:3px solid rgba(244,180,0,.15);border-top-color:#F4B400;animation:spin .9s linear infinite;margin:0 auto 14px"></div>
-          Loading posts…
+        <div class="lbl">Latest Updates</div>
+        <h2 class="h2">News &amp; <em>Announcements</em></h2>
+        <div class="divider" style="margin-bottom:28px"></div>
+        <div class="blog-filter" id="blog-filter">
+          <button class="blog-filter-btn act" data-cat="all" onclick="filterBlog(this,'all')">All</button>
+          <button class="blog-filter-btn" data-cat="news" onclick="filterBlog(this,'news')">📰 News</button>
+          <button class="blog-filter-btn" data-cat="event" onclick="filterBlog(this,'event')">📅 Events</button>
+          <button class="blog-filter-btn" data-cat="flyer" onclick="filterBlog(this,'flyer')">📢 Flyers</button>
+          <button class="blog-filter-btn" data-cat="academic" onclick="filterBlog(this,'academic')">📚 Academic</button>
         </div>
-        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-        <div class="posts-grid" id="posts-grid"></div>
-        <div class="no-posts" id="no-posts" style="display:none"><div class="no-posts-ic">📭</div><p>No posts in this category yet.</p></div>
-      </div>
-
-      <!-- SIDEBAR -->
-      <div class="blog-side rv">
-        <div class="side-card">
-          <div class="side-title">🔥 Recent Posts</div>
-          <div id="recent-posts"><div style="color:var(--muted);font-size:.82rem;padding:8px 0">Loading…</div></div>
-        </div>
-        <div class="side-card">
-          <div class="side-title">📂 Categories</div>
-          <div class="side-cats">
-            <div class="side-cat" onclick="setFilterByName('all')"><span class="side-cat-n">All Posts</span><span class="side-cat-c" id="count-all">—</span></div>
-            <div class="side-cat" onclick="setFilterByName('news')"><span class="side-cat-n">📰 News</span><span class="side-cat-c" id="count-news">0</span></div>
-            <div class="side-cat" onclick="setFilterByName('flyer')"><span class="side-cat-n">📢 Flyers</span><span class="side-cat-c" id="count-flyer">0</span></div>
-            <div class="side-cat" onclick="setFilterByName('event')"><span class="side-cat-n">📅 Events</span><span class="side-cat-c" id="count-event">0</span></div>
-            <div class="side-cat" onclick="setFilterByName('academic')"><span class="side-cat-n">📚 Academic</span><span class="side-cat-c" id="count-academic">0</span></div>
-            <div class="side-cat" onclick="setFilterByName('social')"><span class="side-cat-n">🎊 Social</span><span class="side-cat-c" id="count-social">0</span></div>
-            <div class="side-cat" onclick="setFilterByName('quote')"><span class="side-cat-n">💬 Quotes</span><span class="side-cat-c" id="count-quote">0</span></div>
-          </div>
-        </div>
-        <div class="side-card">
-          <div class="side-title">📢 Share a Past Question</div>
-          <p style="font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:14px">Help your fellow students! Send past questions to the PRO and we'll upload them for free.</p>
-          <a href="https://wa.me/233544487799" target="_blank" class="btn btn-g" style="width:100%;justify-content:center;font-size:.82rem">📲 WhatsApp PRO</a>
-        </div>
-        <div class="side-card">
-          <div class="side-title">🏷️ Quick Links</div>
-          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:4px">
-            <a href="events.html" class="side-tag">📅 Events</a>
-            <a href="past-questions.html" class="side-tag">📄 Past Qs</a>
-            <a href="executives.html" class="side-tag">👔 Executives</a>
-            <a href="gallery.html" class="side-tag">📸 Gallery</a>
-          </div>
+        <div class="blog-grid" id="blog-grid">
+          <div class="blog-loading" id="blog-loading" style="display:none"></div>
         </div>
       </div>
+      <aside class="blog-aside">
+        <div class="aside-card">
+          <div class="aside-head">🕐 Recent Posts</div>
+          <div id="recent-list"><div style="padding:18px 20px;font-size:.82rem;color:var(--muted)">Loading…</div></div>
+        </div>
+        <div class="aside-card">
+          <div class="aside-head">📁 Categories</div>
+          <div class="cat-list" id="cat-list">
+            <div class="cat-row" onclick="filterBlogByName('news')"><span class="cat-n">📰 News</span><span class="cat-c" id="cnt-news">—</span></div>
+            <div class="cat-row" onclick="filterBlogByName('event')"><span class="cat-n">📅 Events</span><span class="cat-c" id="cnt-event">—</span></div>
+            <div class="cat-row" onclick="filterBlogByName('flyer')"><span class="cat-n">📢 Flyers</span><span class="cat-c" id="cnt-flyer">—</span></div>
+            <div class="cat-row" onclick="filterBlogByName('academic')"><span class="cat-n">📚 Academic</span><span class="cat-c" id="cnt-academic">—</span></div>
+            <div class="cat-row" onclick="filterBlogByName('social')"><span class="cat-n">🎊 Social</span><span class="cat-c" id="cnt-social">—</span></div>
+          </div>
+        </div>
+        <div class="aside-card" style="padding:22px 20px">
+          <div style="font-weight:700;font-size:.9rem;color:var(--txt);margin-bottom:10px">📬 Stay Connected</div>
+          <p style="font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:14px">Follow us on social media for the latest COMSA news, flyers, and announcements.</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <a href="https://wa.me/233544487799" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);border-radius:10px;font-size:.82rem;color:#25D366;font-weight:600">💬 WhatsApp PRO</a>
+            <a href="https://instagram.com/comsa-atu" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;font-size:.82rem;color:var(--gold);font-weight:600">📸 Instagram @comsa-atu</a>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
-
-<!-- POST MODAL -->
-<div class="post-modal" id="post-modal">
-  <div class="post-modal-bg" onclick="closePost()"></div>
-  <div class="post-modal-box">
-    <div class="post-modal-img-wrap">
-      <img id="pm-img" src="" alt="" style="display:none"/>
-      <div id="pm-img-ic" style="font-size:3rem;opacity:.4">📝</div>
-      <button class="post-modal-close" onclick="closePost()">✕</button>
-    </div>
-    <div class="post-modal-body">
-      <div class="post-modal-meta">
-        <span id="pm-cat-badge" class="post-cat-badge"></span>
-        <span id="pm-author"></span>
-        <span id="pm-date"></span>
-      </div>
-      <h2 id="pm-title" class="post-modal-tt"></h2>
-      <div id="pm-content" class="post-modal-content"></div>
-      <div id="pm-tags" style="display:flex;flex-wrap:wrap;gap:7px;margin-top:20px"></div>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="container">
     <div class="ft-grid">
-      <div><div class="ft-brand"><div class="ft-logo-wrap"><img src="images/logo.jpg" alt="COMSA Logo" class="ft-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><span class="ft-logo-fb">ATU</span></div><div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div></div><p class="ft-p">Communications Students' Association — empowering students to communicate, persuade, and transform.</p><div class="ft-soc"><a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a><a href="https://wa.me/233544487799" target="_blank" class="ft-so"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a></div></div>
-      <div class="ft-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div class="ft-col"><h4>Blog Categories</h4><ul><li><a href="#" onclick="setFilterByName('news');return false">📰 News</a></li><li><a href="#" onclick="setFilterByName('flyer');return false">📢 Flyers</a></li><li><a href="#" onclick="setFilterByName('event');return false">📅 Events</a></li><li><a href="#" onclick="setFilterByName('academic');return false">📚 Academic</a></li><li><a href="#" onclick="setFilterByName('social');return false">🎊 Social</a></li><li><a href="#" onclick="setFilterByName('quote');return false">💬 Quotes</a></li></ul></div>
-      <div class="ft-col"><h4>Contact</h4><div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div><div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>PRO</strong><a href="tel:+233544487799" style="color:var(--gold)">0544 487 799</a></div></div></div>
+      <div>
+        <div class="ft-brand">
+          <div class="ft-logo"><img src="images/logo.jpg" alt="COMSA"/></div>
+          <div class="brand-txt"><strong style="font-family:'Orbitron',monospace;font-size:.95rem;color:var(--gold);letter-spacing:.1em">COMSA</strong><span style="font-size:.58rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Accra Technical University</span></div>
+        </div>
+        <p class="ft-p">Communications Students' Association — empowering students to communicate with confidence, persuade with purpose, and transform their world.</p>
+        <div class="ft-soc">
+          <a href="https://facebook.com/comsa-atu" target="_blank" class="ft-so" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://instagram.com/comsa-atu" target="_blank" class="ft-so" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://tiktok.com/@comsa-atu" target="_blank" class="ft-so" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.05a8.19 8.19 0 004.78 1.52V7.12a4.85 4.85 0 01-1.01-.43z"/></svg></a>
+          <a href="https://wa.me/233530099371" target="_blank" class="ft-so" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About COMSA</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="patron-hod.html">Patron &amp; HOD</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="past-questions.html">Past Questions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Association</h4>
+        <ul>
+          <li><a href="about.html#mission">Mission &amp; Vision</a></li>
+          <li><a href="about.html#history">Our History</a></li>
+          <li><a href="about.html#values">Core Values</a></li>
+          <li><a href="about.html#souvenirs">Souvenirs</a></li>
+          <li><a href="executives.html">2025/26 Executives</a></li>
+          <li><a href="patron-hod.html">Patron &amp; HOD</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <div class="ft-ci"><div class="ft-cion">📍</div><div class="ft-ct"><strong>Location</strong>Barnes Road, Accra, Ghana</div></div>
+        <div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>President</strong><a href="tel:+233530099371" style="color:var(--gold)">0530 099 371</a></div></div>
+        <div class="ft-ci"><div class="ft-cion">📞</div><div class="ft-ct"><strong>P.R.O</strong><a href="tel:+233544487799" style="color:var(--gold)">0544 487 799</a></div></div>
+        <div class="ft-ci"><div class="ft-cion">🌐</div><div class="ft-ct"><strong>Social</strong>@comsa-atu</div></div>
+      </div>
     </div>
-    <div class="ft-bot"><div class="ft-copy">© 2026 COMSA – Accra Technical University. All rights reserved.</div><div class="ft-dev">Built with ❤️ by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> · <a href="https://wa.me/233544823484" target="_blank">Ibratech</a></div></div>
+    <div class="ft-bot">
+      <div class="ft-copy">&copy; 2026 COMSA &ndash; Accra Technical University. All rights reserved.</div>
+      <div class="ft-dev">Built by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> &middot; <a href="https://wa.me/233544823484" target="_blank">Ibratech &amp; Graphix</a></div>
+    </div>
   </div>
 </footer>
-
-<!-- WA FLOAT -->
-<div id="wa-float" style="position:fixed;bottom:100px;right:28px;z-index:3000;display:flex;align-items:center;gap:10px">
-  <div id="wa-tip" style="background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.12);border-radius:10px;padding:8px 13px;font-size:.76rem;color:var(--txt,#F0EFE9);white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s">Chat with PRO · Theophilus Mensah</div>
-  <a href="https://wa.me/233544487799" target="_blank" style="width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(37,211,102,.4);transition:transform .3s;font-size:1.4rem;text-decoration:none" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+<div class="wa-float">
+  <div class="wa-tip" id="wa-tip">Chat with PRO &middot; Theophilus Mensah</div>
+  <a href="https://wa.me/233544487799" target="_blank" class="wa-btn" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 </div>
+<script>
+/* THEME */
+(function(){
+  var t=localStorage.getItem('comsa-theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.tog-in').forEach(function(i){i.checked=t==='light';});
+})();
+function setTheme(l){
+  var t=l?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('comsa-theme',t);
+  document.querySelectorAll('.tog-in').forEach(function(i){i.checked=l;});
+}
+document.querySelectorAll('.tog-in').forEach(function(i){
+  i.addEventListener('change',function(){setTheme(this.checked);});
+});
+/* NAV */
+var ham,mob,mobOv,navEl;
+function openMenu(){ham&&ham.classList.add('open');mob&&mob.classList.add('open');mobOv&&mobOv.classList.add('open');document.body.style.overflow='hidden';}
+function closeMenu(){ham&&ham.classList.remove('open');mob&&mob.classList.remove('open');mobOv&&mobOv.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('DOMContentLoaded',function(){
+  ham=document.getElementById('ham');mob=document.getElementById('mob');
+  mobOv=document.getElementById('mob-ov');navEl=document.getElementById('nav');
+  if(ham)ham.addEventListener('click',function(){mob&&mob.classList.contains('open')?closeMenu():openMenu();});
+  if(mobOv)mobOv.addEventListener('click',closeMenu);
+  if(mob)mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
+  window.addEventListener('scroll',function(){navEl&&navEl.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+});
+/* PAGE HERO SLIDER */
+(function(){
+  var slides=Array.from(document.querySelectorAll('.ph-slide')),dots=Array.from(document.querySelectorAll('.ph-dot')),cur=0,timer;
+  if(!slides.length)return;
+  function go(n){
+    slides[cur].classList.remove('act');dots[cur]&&dots[cur].classList.remove('act');
+    cur=(n+slides.length)%slides.length;
+    slides[cur].classList.add('act');dots[cur]&&dots[cur].classList.add('act');
+  }
+  dots.forEach(function(d,i){d.addEventListener('click',function(){go(i);reset();});});
+  function reset(){clearInterval(timer);timer=setInterval(function(){go(cur+1);},4500);}
+  reset();
+  /* Touch swipe */
+  var sx=0;
+  var phEl=document.getElementById('ph');
+  if(phEl){
+    phEl.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+    phEl.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50){go(dx<0?cur+1:cur-1);reset();}});
+  }
+})();
+/* SCROLL REVEAL */
+(function(){
+  var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:0,rootMargin:'0px 0px 50px 0px'});
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){ro.observe(el);});
+  function revNow(){document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<window.innerHeight+80)el.classList.add('in');});}
+  revNow();setTimeout(revNow,300);window.addEventListener('load',revNow);
+})();
 
-<!-- CHATBOT -->
-<button id="cb-toggle"><span id="cb-ico">💬</span><span id="cb-badge" style="display:none">1</span></button>
-<div id="chatbot">
-  <div id="cb-head"><div id="cb-head-av"><img src="images/logo.jpg" id="cb-logo" onerror="this.style.display='none';document.getElementById('cb-logo-fb').style.display='flex'"/><div id="cb-logo-fb">C</div></div><div id="cb-head-info"><div id="cb-head-name">COMSA Assistant</div><div id="cb-head-status">● Online — Here to help</div></div><button id="cb-close">✕</button></div>
-  <div id="cb-msgs"></div><div id="cb-quick"></div>
-  <div id="cb-input-wrap"><input type="text" id="cb-input" placeholder="Type your question…" autocomplete="off" maxlength="200"/><button id="cb-send">➤</button></div>
+// ── SUPABASE CONFIG ── fill in your real values here ──────────────────────────
+// Supabase config loaded from supabase-config.js
+
+function dbBanner(msg, type){
+  var b = document.getElementById('db-banner');
+  if(!b) return;
+  b.className = type; b.textContent = msg; b.style.display = 'block';
+  if(type === 'ok') setTimeout(function(){ b.style.display='none'; }, 3000);
+}
+
+async function supa(path){
+  if(typeof SUPA_URL === 'undefined' || !SUPA_URL || SUPA_URL.includes('YOUR_PROJECT_ID')){
+    dbBanner('⚠️ Supabase not configured — open supabase-config.js and fill in your URL and key', 'warn');
+    console.warn('[COMSA] supabase-config.js not filled in.');
+    return null;
+  }
+  try{
+    const r = await fetch(SUPA_URL + '/rest/v1/' + path, {
+      headers: {
+        'apikey': SUPA_KEY,
+        'Authorization': 'Bearer ' + SUPA_KEY
+      }
+    });
+    if(!r.ok){
+      const txt = await r.text();
+      let msg = 'Database error ' + r.status;
+      try{ const j = JSON.parse(txt); msg += ': ' + (j.message||j.msg||''); }catch(e){}
+      if(r.status === 401 || r.status === 403){
+        dbBanner('⚠️ ' + msg + ' — check public RLS policies in Supabase', 'err');
+      } else {
+        dbBanner('⚠️ ' + msg, 'err');
+      }
+      console.error('[COMSA supa]', r.status, path, txt);
+      return null;
+    }
+    return await r.json();
+  } catch(e){
+    dbBanner('⚠️ Cannot reach Supabase — check SUPA_URL in supabase-config.js', 'err');
+    console.error('[COMSA supa]', e.message);
+    return null;
+  }
+}
+
+  try{
+    const r = await fetch(SUPA_URL + '/rest/v1/' + path, {
+      headers: {
+        'apikey': SUPA_KEY,
+        'Authorization': 'Bearer ' + SUPA_KEY
+      }
+    });
+    if(!r.ok){
+      const txt = await r.text();
+      console.error('[COMSA] Supabase error', r.status, path, txt);
+      return null;
+    }
+    return await r.json();
+  } catch(e){
+    console.error('[COMSA] Fetch failed:', e.message);
+    return null;
+  }
+}
+
+
+var allPosts=[];
+
+function safeUrl(u){
+  if(!u) return '';
+  var s=String(u).trim();
+  if(/^(javascript|data|vbscript):/i.test(s)) return '';
+  if(!/^https?:\/\//i.test(s)) return '';
+  return s;
+}
+function safeImg(u){ return safeUrl(u)||''; }
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmtDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}catch{return '';}}
+function catIcon(c){var m={'news':'📰','event':'📅','flyer':'📢','academic':'📚','social':'🎊','quote':'💬'};return m[c]||'📄';}
+
+function renderBlog(posts){
+  var grid=document.getElementById('blog-grid');
+  document.getElementById('blog-loading').style.display='none';
+  if(!posts.length){grid.innerHTML='<div class="blog-empty">No posts yet. Content will appear here once added via the admin panel.</div>';return;}
+  grid.innerHTML=posts.map(function(p){
+    return '<div class="bc'+(p.is_featured?' bc-feat':'')+'">'+
+      '<div class="bc-img">'+
+      (p.image_url?'<img src="'+safeImg(p.image_url)+'" alt="'+esc(p.title)+'"/>':'')+
+      '<div class="bc-cat">'+catIcon(p.category)+' '+esc(p.category||'news')+'</div></div>'+
+      '<div class="bc-body">'+
+      '<div class="bc-date">'+fmtDate(p.created_at)+(p.is_featured?' &middot; <span style="color:var(--gold)">⭐ Featured</span>':'')+'</div>'+
+      '<div class="bc-title">'+esc(p.title)+'</div>'+
+      (p.excerpt?'<div class="bc-exc">'+esc(p.excerpt)+'</div>':'')+
+      '<div class="bc-foot"><div class="bc-author"><div class="bc-av">'+esc((p.author||'C').charAt(0))+'</div>'+esc(p.author||'COMSA')+'</div>'+
+      (p.tags&&p.tags.length?'<div style="font-size:.72rem;color:var(--muted)">'+(p.tags.slice(0,2).map(function(t){return '#'+esc(t);}).join(' '))+'</div>':'')+
+      '</div></div></div>';
+  }).join('');
+}
+
+function renderRecent(posts){
+  var el=document.getElementById('recent-list');
+  el.innerHTML=posts.slice(0,5).map(function(p){
+    return '<div class="recent-item"><div class="recent-title">'+esc(p.title)+'</div><div class="recent-date">'+fmtDate(p.created_at)+'</div></div>';
+  }).join('');
+}
+
+function updateCounts(posts){
+  ['news','event','flyer','academic','social'].forEach(function(c){
+    var el=document.getElementById('cnt-'+c);
+    if(el)el.textContent=posts.filter(function(p){return p.category===c;}).length;
+  });
+}
+
+function filterBlog(btn,cat){
+  document.querySelectorAll('.blog-filter-btn').forEach(function(b){b.classList.remove('act');});
+  btn.classList.add('act');
+  renderBlog(cat==='all'?allPosts:allPosts.filter(function(p){return p.category===cat;}));
+}
+function filterBlogByName(cat){
+  var btn=document.querySelector('.blog-filter-btn[data-cat="'+cat+'"]');
+  if(btn)filterBlog(btn,cat);
+}
+
+async function loadBlog(){
+  var loadEl=document.getElementById('blog-loading');
+  try{
+    var data=await supa('posts?order=created_at.desc');
+    if(loadEl) loadEl.style.display='none';
+    allPosts=Array.isArray(data)?data:[];
+    renderBlog(allPosts);
+    renderRecent(allPosts);
+    updateCounts(allPosts);
+  }catch(e){
+    console.error('[loadBlog]',e);
+    if(loadEl) loadEl.style.display='none';
+    renderBlog([]);
+  }
+}
+document.addEventListener('DOMContentLoaded',loadBlog);
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     COMSA CHATBOT — appears on every page
+     Knowledge-base driven, no API, falls back to PRO WhatsApp
+═══════════════════════════════════════════════════════════ -->
+<button id="cb-toggle" aria-label="Chat with COMSA Assistant">
+  <span id="cb-ico">💬</span>
+  <span id="cb-badge">1</span>
+</button>
+
+<div id="chatbot" role="dialog" aria-label="COMSA Assistant">
+  <div id="cb-head">
+    <div id="cb-av">
+      <img src="images/logo.jpg" alt="COMSA" id="cb-logo" onerror="this.style.display='none'"/>
+    </div>
+    <div id="cb-info">
+      <div id="cb-name">COMSA Assistant</div>
+      <div id="cb-status">● Online — Ask me anything!</div>
+    </div>
+    <button id="cb-close" onclick="cbClose()" aria-label="Close">✕</button>
+  </div>
+  <div id="cb-msgs"></div>
+  <div id="cb-quick-wrap"></div>
+  <div id="cb-input-wrap">
+    <input type="text" id="cb-input" placeholder="Type your question…" autocomplete="off" maxlength="300"/>
+    <button id="cb-send" onclick="cbSend()" aria-label="Send">➤</button>
+  </div>
 </div>
 
 <style>
-/* POST MODAL */
-.post-modal{position:fixed;inset:0;z-index:6000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.post-modal.open{opacity:1;visibility:visible}
-.post-modal-bg{position:absolute;inset:0;background:rgba(7,16,30,.9);backdrop-filter:blur(10px)}
-.post-modal-box{position:relative;z-index:1;background:var(--card);border:1px solid var(--bdr);border-radius:20px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(28px) scale(.96);transition:transform .4s var(--spring,cubic-bezier(.34,1.56,.64,1))}
-.post-modal.open .post-modal-box{transform:translateY(0) scale(1)}
-.post-modal-img-wrap{height:200px;background:var(--surf);display:flex;align-items:center;justify-content:center;border-radius:20px 20px 0 0;overflow:hidden;position:relative}
-.post-modal-img-wrap img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.post-modal-close{position:absolute;top:12px;right:12px;z-index:2;width:34px;height:34px;background:rgba(0,0,0,.5);border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background .3s}
-.post-modal-close:hover{background:rgba(239,68,68,.5)}
-.post-modal-body{padding:28px 32px 32px}
-.post-modal-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-size:.78rem;color:var(--muted)}
-.post-modal-tt{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--txt);line-height:1.2;margin-bottom:16px}
-.post-modal-content{font-size:.9rem;color:var(--muted);line-height:1.85;white-space:pre-wrap}
+#cb-toggle{position:fixed;bottom:26px;right:26px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;z-index:4000;box-shadow:0 8px 28px rgba(244,180,0,.45);display:flex;align-items:center;justify-content:center;font-size:1.45rem;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+#cb-toggle:hover{transform:scale(1.12)}
+#cb-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#EF4444;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg,#07101E)}
+#chatbot{position:fixed;bottom:96px;right:26px;width:360px;max-width:calc(100vw - 36px);height:530px;max-height:calc(100vh - 120px);background:var(--card,#0F1E33);border:1px solid rgba(244,180,0,.18);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.5);z-index:3999;display:none;flex-direction:column;overflow:hidden}
+#chatbot.cb-open{display:flex}
+#cb-head{padding:13px 15px;background:linear-gradient(135deg,#0B1F3B,#122847);display:flex;align-items:center;gap:10px;flex-shrink:0;border-bottom:1px solid rgba(244,180,0,.1)}
+#cb-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F4B400,#C99300);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+#cb-logo{width:100%;height:100%;object-fit:cover;border-radius:50%}
+#cb-name{font-weight:700;font-size:.88rem;color:#F0EFE9}
+#cb-status{font-size:.65rem;color:#10B981;margin-top:1px}
+#cb-close{margin-left:auto;width:27px;height:27px;border-radius:50%;background:rgba(255,255,255,.08);border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:.82rem;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+#cb-close:hover{background:rgba(239,68,68,.3);color:#fff}
+#cb-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth}
+#cb-msgs::-webkit-scrollbar{width:3px}
+#cb-msgs::-webkit-scrollbar-thumb{background:rgba(244,180,0,.2);border-radius:2px}
+.cb-msg{max-width:86%;animation:cbPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cbPop{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.cb-bot{align-self:flex-start}
+.cb-user{align-self:flex-end}
+.cb-bubble{padding:9px 13px;border-radius:16px;font-size:.83rem;line-height:1.65;word-break:break-word}
+.cb-bot .cb-bubble{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.12);color:var(--txt,#F0EFE9);border-bottom-left-radius:4px}
+.cb-user .cb-bubble{background:linear-gradient(135deg,#F4B400,#C99300);color:#0B1F3B;font-weight:500;border-bottom-right-radius:4px}
+.cb-time{font-size:.6rem;color:rgba(255,255,255,.28);margin-top:2px;padding:0 3px}
+.cb-user .cb-time{text-align:right}
+.cb-typing{display:flex;align-items:center;gap:4px;padding:9px 13px;background:rgba(244,180,0,.06);border:1px solid rgba(244,180,0,.1);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+.cb-dot{width:6px;height:6px;border-radius:50%;background:rgba(244,180,0,.6);animation:cbDot 1.2s ease-in-out infinite}
+.cb-dot:nth-child(2){animation-delay:.2s}.cb-dot:nth-child(3){animation-delay:.4s}
+@keyframes cbDot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+#cb-quick-wrap{padding:0 10px 8px;display:flex;flex-wrap:wrap;gap:5px;flex-shrink:0}
+.cb-qr{padding:5px 11px;background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.2);border-radius:99px;font-size:.72rem;font-weight:600;color:#F4B400;cursor:pointer;transition:background .2s;white-space:nowrap;font-family:'Outfit',sans-serif}
+.cb-qr:hover{background:rgba(244,180,0,.2)}
+#cb-input-wrap{padding:9px 11px;border-top:1px solid rgba(244,180,0,.1);display:flex;gap:7px;align-items:center;flex-shrink:0}
+#cb-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(244,180,0,.15);border-radius:10px;padding:8px 13px;font-family:'Outfit',sans-serif;font-size:.83rem;color:var(--txt,#F0EFE9);outline:none;transition:border-color .3s}
+#cb-input:focus{border-color:#F4B400}
+#cb-input::placeholder{color:rgba(255,255,255,.3)}
+[data-theme=light] #cb-input{color:#0B1F3B;background:rgba(0,0,0,.05)}
+[data-theme=light] #cb-input::placeholder{color:var(--muted,#5A6B82)}
+[data-theme=light] .cb-bot .cb-bubble{color:var(--txt,#0B1F3B)}
+#cb-send{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#F4B400,#C99300);border:none;cursor:pointer;color:#0B1F3B;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0}
+#cb-send:hover{transform:scale(1.08)}
+@media(max-width:480px){#chatbot{right:10px;bottom:90px;width:calc(100vw - 20px)}#cb-toggle{bottom:18px;right:18px}}
 </style>
 
 <script>
-// =====================================================
-//   SUPABASE CONFIG — FILL THESE IN
-// =====================================================
-const SUPA_URL = 'https://jnggqrtmvuseqfivkbof.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpuZ2dxcnRtdnVzZXFmaXZrYm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NTk0NjgsImV4cCI6MjA5ODQzNTQ2OH0.U7ZvFVQMgGp27UqT2EAD7enH-PiSO_D3D4WZ-hk22N4';
+(function(){
+// ── KNOWLEDGE BASE ──────────────────────────────────────────────────────────────
+var KB=[
+  // GREETINGS
+  {k:['hello','hi','hey','good morning','good afternoon','good evening','howdy','sup','whats up','what\'s up'],
+   r:'Hello! 👋 Welcome to <strong>COMSA</strong>! I\'m your COMSA Assistant. Ask me anything — executives, history, events, programmes, past questions, souvenirs, and more!'},
 
-(function(){const t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=t==='light')})();
+  // WHAT IS COMSA
+  {k:['what is comsa','what\'s comsa','comsa mean','comsa stands','about comsa','tell me about comsa','explain comsa','who is comsa'],
+   r:'<strong>COMSA</strong> stands for the <strong>Communications Students\' Association</strong> — the official students\' association for the Department of Liberal Studies and Communication Technology at <strong>Accra Technical University (ATU)</strong>.<br/><br/>We serve <strong>1,708 students</strong> across 5 programmes. Our motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/><br/><a href="about.html" style="color:#F4B400">→ Learn more about COMSA</a>'},
 
-/* ===== NAV ===== */
-document.addEventListener('DOMContentLoaded', function() {
-  var nav    = document.getElementById('nav');
-  var ham    = document.getElementById('ham');
-  var mob    = document.getElementById('mob');
-  var mobOv  = document.getElementById('mob-overlay');
+  // HISTORY
+  {k:['history','presa','renamed','rebranded','how did comsa start','origin','founded','when was comsa','old name','previous name','former name'],
+   r:'📖 <strong>COMSA History:</strong><br/><br/>For many years, the association was known as <strong>PRESA</strong> (Public Relations Students\' Association), reflecting the department\'s composition at the time.<br/><br/>Under the <strong>Sani–Oti Administration</strong>, a bold decision was made to rename it <strong>COMSA</strong>, recognising the department now included Multimedia and Graphic Communication students. The rebranding was driven by a vision of <strong>inclusivity</strong>.<br/><br/>Two historic identity symbols were also introduced: the first-ever <strong>COMSA Lapel Pin</strong> and the <strong>COMSA Association Cloth</strong>.<br/><br/><a href="about.html#history" style="color:#F4B400">→ Read the full history</a>'},
 
-  /* Scroll effect */
-  window.addEventListener('scroll', function() {
-    if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, {passive: true});
+  // MISSION
+  {k:['mission','vision','goal','purpose','objective','aim','target'],
+   r:'🎯 <strong>COMSA Mission:</strong><br/>To promote academic excellence, foster leadership, and create a unified platform for all communication students at ATU to thrive and grow.<br/><br/>🔭 <strong>COMSA Vision:</strong><br/>To be the most impactful and inclusive communication students\' association in Ghana\'s technical university space, shaping the future of media and communication.'},
 
-  /* Open / close helpers */
-  function openMenu() {
-    if (!ham || !mob) return;
-    ham.classList.add('open');
-    mob.classList.add('open');
-    if (mobOv) mobOv.classList.add('open');
-    document.body.style.overflow = 'hidden';
+  // CORE VALUES
+  {k:['values','core values','principles','beliefs','what does comsa stand for','stand for'],
+   r:'⭐ <strong>COMSA Core Values:</strong><br/>🎯 <strong>Leadership</strong> — developing tomorrow\'s leaders<br/>🤝 <strong>Unity</strong> — one voice, many strengths<br/>💡 <strong>Innovation</strong> — creative solutions<br/>🌟 <strong>Excellence</strong> — highest standards<br/>🏛️ <strong>Integrity</strong> — honesty and transparency<br/>🌍 <strong>Inclusivity</strong> — every student belongs<br/>💬 <strong>Communication</strong> — purposeful communication<br/>🚀 <strong>Growth</strong> — continuous development'},
+
+  // MOTTO / THEME
+  {k:['motto','slogan','communicate persuade transform','theme','all inclusive','sani oti','sani-oti','administration','2025 2026'],
+   r:'✨ <strong>COMSA Motto:</strong><br/><em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/><br/><strong>2025/26 Theme:</strong> The All Inclusive Administration<br/><strong>Led by:</strong> The Sani-Oti Administration — President Abdul Jalil Sani and VP Kelvin Otiboateng.<br/><br/>This administration rebranded the association from PRESA to COMSA, introduced the lapel pin, association cloth, and launched this official website.'},
+
+  // PRESIDENT
+  {k:['president','jalil','sani','abdul jalil','who is the president','current president'],
+   r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>The visionary leader of the Sani-Oti Administration, driving inclusivity and transformation across all COMSA programmes.<br/><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> &nbsp;·&nbsp; <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // VICE PRESIDENT
+  {k:['vice president','vp','kelvin','otiboateng','who is the vp','second in command'],
+   r:'<strong>Vice President: Kelvin Otiboateng</strong><br/>Supports the President in strategic leadership and ensures seamless coordination across all executive portfolios.<br/><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> &nbsp;·&nbsp; <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // SECRETARY
+  {k:['secretary','jochebed','ofori','who is the secretary'],
+   r:'<strong>Secretary: Jochebed Ofori</strong><br/>Manages official correspondence, documentation, and record-keeping for the association with precision and diligence.<br/><br/>📞 <a href="tel:+233537868041" style="color:#F4B400">0537 868 041</a> &nbsp;·&nbsp; <a href="https://wa.me/233537868041" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // ORGANIZER
+  {k:['organizer','organiser','martin','laryea','martin laryea','who is the organizer'],
+   r:'<strong>Organizer: Martin Laryea Mensah</strong><br/>Coordinates events, programmes, and logistics to ensure every COMSA activity runs smoothly and successfully.<br/><br/>📞 <a href="tel:+233533241149" style="color:#F4B400">0533 241 149</a> &nbsp;·&nbsp; <a href="https://wa.me/233533241149" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // WELFARE
+  {k:['welfare','stephen','ato','stephen ato','welfare officer','who handles welfare','student welfare'],
+   r:'<strong>Welfare Officer: Stephen Ato Mensah</strong><br/>Champions student welfare and well-being, ensuring every COMSA member is heard, supported, and cared for.<br/><br/>📞 <a href="tel:+233205915904" style="color:#F4B400">0205 915 904</a> &nbsp;·&nbsp; <a href="https://wa.me/233205915904" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // PRO
+  {k:['pro','public relations officer','theophilus','theophilus mensah','media','press','communications officer','who is the pro'],
+   r:'📣 <strong>P.R.O: Theophilus Mensah</strong><br/>Manages COMSA\'s public image, communications, media relations, and keeps all members informed and connected.<br/><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a> &nbsp;·&nbsp; <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // WOCOM
+  {k:['wocom','women','abigail','ninson','abigail enu','women commissioner','women officer','who is wocom'],
+   r:'<strong>WOCOM: Abigail Enu Ninson</strong><br/>Advocates for women\'s rights, inclusion, and empowerment within the association and the wider department.<br/><br/>📞 <a href="tel:+233537646489" style="color:#F4B400">0537 646 489</a> &nbsp;·&nbsp; <a href="https://wa.me/233537646489" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // FINANCE
+  {k:['finance','kennedy','holdbrook','kennedy holdbrook','financial officer','money','treasurer','dues','levy'],
+   r:'<strong>Finance Officer: Kennedy A. Holdbrook</strong><br/>Manages the association\'s finances, budgeting, and souvenir sales with transparency and accountability.<br/><br/>📞 <a href="tel:+233200632333" style="color:#F4B400">0200 632 333</a> &nbsp;·&nbsp; <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // PART-TIME REP
+  {k:['part time','part-time','evening','isaac','quansah','isaac quansah','part time rep','part time representative'],
+   r:'<strong>Part-Time Representative: Isaac N. Quansah</strong><br/>Bridges the gap between part-time students and the executive body, ensuring their voices and interests are represented.<br/><br/>📞 <a href="tel:+233556720552" style="color:#F4B400">0556 720 552</a> &nbsp;·&nbsp; <a href="https://wa.me/233556720552" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // ALL EXECUTIVES
+  {k:['all executives','list of executives','executive team','executive members','who are the executives','executive names','9 executives'],
+   r:'👔 <strong>COMSA Executives 2025/26 — The All Inclusive Administration:</strong><br/><br/>• 🏛️ President: Abdul Jalil Sani — 0530 099 371<br/>• VP: Kelvin Otiboateng — 0550 081 165<br/>• Secretary: Jochebed Ofori — 0537 868 041<br/>• Organizer: Martin Laryea Mensah — 0533 241 149<br/>• Welfare: Stephen Ato Mensah — 0205 915 904<br/>• P.R.O: Theophilus Mensah — 0544 487 799<br/>• WOCOM: Abigail Enu Ninson — 0537 646 489<br/>• Finance: Kennedy A. Holdbrook — 0200 632 333<br/>• Part-Time Rep: Isaac N. Quansah — 0556 720 552<br/><br/><a href="executives.html" style="color:#F4B400">→ View full executive profiles</a>'},
+
+  // PATRON
+  {k:['patron','ashong','theophilus ashong','mr ashong','lecturer','academic guide','faculty advisor'],
+   r:'🎓 <strong>COMSA Patron: Mr. Theophilus Ashong</strong><br/>Lecturer, Department of Liberal Studies & Communication Technology, ATU.<br/><br/>• MPhil — University of Ghana<br/>• MEd — UCC (2026)<br/>• PhD Candidate<br/>• 2020 Andrew W. Mellon PhD Fellowship Recipient<br/><br/>Mr. Ashong provides strategic academic guidance and mentorship to the association.<br/><br/><a href="patron-hod.html" style="color:#F4B400">→ View full profile</a>'},
+
+  // HOD
+  {k:['hod','head of department','department head','head of dept','who is the hod'],
+   r:'🏛️ <strong>Head of Department</strong><br/>The HOD leads the academic direction, curriculum development, and departmental policies for the Department of Liberal Studies and Communication Technology at ATU. Works closely with COMSA on student matters.<br/><br/><a href="patron-hod.html" style="color:#F4B400">→ Visit Patron & HOD page</a>'},
+
+  // PROGRAMMES
+  {k:['programme','programs','courses','btech','what do you study','what can i study','disciplines','department','course offered','what course'],
+   r:'📚 <strong>5 BTech Programmes under COMSA:</strong><br/><br/>1. 📢 BTech Public Relations with Digital Communication<br/>2. 📰 BTech Journalism & Media Studies<br/>3. 📊 BTech Marketing Communication<br/>4. 🌱 BTech Development Communication<br/>5. 🎨 BTech Graphic Communication<br/><br/><a href="about.html" style="color:#F4B400">→ Learn more about COMSA programmes</a>'},
+
+  // MEMBERSHIP / HOW TO JOIN
+  {k:['join','member','membership','how to join','register','registration','am i a member','become a member','how do i join','eligible'],
+   r:'🎓 <strong>How to Join COMSA:</strong><br/><br/>Every student admitted into the Department of Liberal Studies and Communication Technology at ATU is <strong>automatically a COMSA member</strong> from Level 100 onwards.<br/><br/>✅ No registration fee<br/>✅ No form to fill<br/>✅ You are already part of the family!<br/><br/>Welcome to COMSA! 🏆'},
+
+  // NUMBER OF STUDENTS
+  {k:['how many students','total students','1708','population','how many members','student count','size'],
+   r:'👥 COMSA proudly serves <strong style="color:#F4B400">1,708 students</strong> across all 5 BTech programmes and all levels at Accra Technical University.'},
+
+  // DEPARTMENTAL WEEK
+  {k:['departmental week','dept week','week schedule','activities','june','july','2026','week event','what is happening','programme of events'],
+   r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/><br/>🏃 <strong>Mon 29 June</strong> — Health Walk & Clean Up<br/>🎙️ <strong>Tue 30 June</strong> — Inter-Class Debate<br/>💼 <strong>Wed 1 July</strong> — Professional Edge Conference & Part-Time Submit<br/>🏭 <strong>Thu 2 July</strong> — Industrial Trip (Kasapreko LTD)<br/>👕 <strong>Fri 3 July</strong> — Rep Your Jersey Day<br/>🏆 <strong>Sat 4 July</strong> — Departmental Games<br/><br/><a href="events.html" style="color:#F4B400">→ View all events</a>'},
+
+  // HEALTH WALK
+  {k:['health walk','clean up','monday','29 june','day 1'],
+   r:'🏃 <strong>Day 1 — Health Walk & Clean Up Exercise</strong><br/>📅 Monday, 29th June 2026<br/><br/>Kick off Departmental Week with a morning health walk and campus clean-up drive. A healthy community is a thriving community!'},
+
+  // DEBATE
+  {k:['debate','inter class','tuesday','30 june','day 2'],
+   r:'🎙️ <strong>Day 2 — Inter-Class Debate</strong><br/>📅 Tuesday, 30th June 2026<br/><br/>Level vs level — battle of communication skills, critical thinking, and persuasion. Which class will take the crown?'},
+
+  // CONFERENCE
+  {k:['conference','professional edge','wednesday','1 july','day 3','part time submit'],
+   r:'💼 <strong>Day 3 — Professional Edge Conference & Part-Time Submit</strong><br/>📅 Wednesday, 1st July 2026<br/><br/>Industry professionals share career insights. Part-time students: this is your assignment submission day.'},
+
+  // INDUSTRIAL TRIP
+  {k:['industrial','kasapreko','trip','thursday','2 july','day 4','company'],
+   r:'🏭 <strong>Day 4 — Industrial Trip (Kasapreko LTD)</strong><br/>📅 Thursday, 2nd July 2026<br/><br/>Behind-the-scenes at one of Ghana\'s top beverage companies. See communications and marketing in real corporate action!'},
+
+  // JERSEY DAY
+  {k:['jersey','rep','friday','3 july','day 5','wear'],
+   r:'👕 <strong>Day 5 — Rep Your Jersey Day</strong><br/>📅 Friday, 3rd July 2026<br/><br/>Rock your favourite club, national, or custom jersey! Show off your colours and vibe with coursemates in style.'},
+
+  // DEPARTMENTAL GAMES
+  {k:['games','sports','saturday','4 july','day 6','departmental games','compete'],
+   r:'🏆 <strong>Day 6 — Departmental Games</strong><br/>📅 Saturday, 4th July 2026<br/><br/>The grand sporting finale! Compete for glory across multiple disciplines. Cheer your level on and celebrate the COMSA family!'},
+
+  // SOUVENIRS
+  {k:['souvenir','souvenirs','lapel','pin','cloth','lacoste','merch','merchandise','buy','purchase','sell','available','shop'],
+   r:'🎽 <strong>Official COMSA Souvenirs (3 items):</strong><br/><br/>👔 COMSA Lacoste<br/>📌 COMSA Lapel Pin<br/>🧣 COMSA Association Cloth<br/><br/>To purchase, contact the Finance Officer:<br/>📞 <a href="tel:+233200632333" style="color:#F4B400">Kennedy A. Holdbrook — 0200 632 333</a><br/><a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // LAPEL PIN
+  {k:['lapel pin','pin','badge','comsa pin'],
+   r:'📌 <strong>COMSA Lapel Pin</strong><br/>The first-ever official COMSA Lapel Pin — introduced under the Sani-Oti Administration as a historic identity symbol. It strengthens the association\'s brand and gives members a greater sense of pride and belonging.<br/><br/>Available for purchase through Finance Officer Kennedy A. Holdbrook: <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">0200 632 333</a>'},
+
+  // ASSOCIATION CLOTH
+  {k:['association cloth','cloth','fabric','comsa cloth'],
+   r:'🧣 <strong>COMSA Association Cloth</strong><br/>The official COMSA Association Cloth was introduced under the Sani-Oti Administration to foster unity and give every member a greater sense of belonging.<br/><br/>Available through Finance Officer Kennedy A. Holdbrook: <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">0200 632 333</a>'},
+
+  // PAST QUESTIONS
+  {k:['past question','past questions','exam','exams','pdf','download','study','revision','old questions','previous questions','question paper'],
+   r:'📄 <strong>Past Questions — Free Downloads!</strong><br/><br/>COMSA provides free past examination question papers for all students. Visit the Past Questions page to download PDFs for your courses.<br/><br/><a href="past-questions.html" style="color:#F4B400">→ Download Past Questions</a><br/><br/>If a course is missing, message the P.R.O: <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">0544 487 799</a>'},
+
+  // GALLERY
+  {k:['gallery','photos','pictures','images','media','photo album'],
+   r:'📸 View photos and memories from COMSA events and activities on the Gallery page!<br/><br/><a href="gallery.html" style="color:#F4B400">→ Browse Gallery</a>'},
+
+  // BLOG / NEWS
+  {k:['blog','news','announcement','announcements','update','updates','flyer','post','posts','latest news','what\'s new'],
+   r:'📰 Read the latest COMSA news, announcements, flyers, and blog posts!<br/><br/><a href="blog.html" style="color:#F4B400">→ Visit Blog & News</a><br/><br/>You can also follow us on social media <strong>@comsa-atu</strong> for real-time updates.'},
+
+  // EVENTS
+  {k:['events','upcoming events','what events','event page','schedule'],
+   r:'📅 Check out all COMSA events — upcoming and past!<br/><br/><a href="events.html" style="color:#F4B400">→ View Events Page</a>'},
+
+  // CONTACT
+  {k:['contact','reach','phone','call','number','how to contact','get in touch','reach out'],
+   r:'📞 <strong>Contact COMSA:</strong><br/><br/>• President (Abdul Jalil Sani): <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/>• P.R.O (Theophilus Mensah): <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/><br/><a href="contact.html" style="color:#F4B400">→ Contact any executive directly</a>'},
+
+  // WHATSAPP
+  {k:['whatsapp','chat','message','dm','text'],
+   r:'💬 <strong>WhatsApp COMSA:</strong><br/><br/>• President: <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">0530 099 371</a><br/>• P.R.O: <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">0544 487 799</a><br/><br/><a href="contact.html" style="color:#F4B400">→ Message any executive</a>'},
+
+  // LOCATION
+  {k:['location','where','address','atu','accra technical','campus','school','find','directions','where is comsa'],
+   r:'📍 <strong>Our Location:</strong><br/>Department of Liberal Studies & Communication Technology<br/>Accra Technical University (ATU)<br/>Barnes Road, Accra, Ghana'},
+
+  // SOCIAL MEDIA
+  {k:['social media','facebook','instagram','tiktok','follow','online','social','platform','handle'],
+   r:'📱 <strong>Follow COMSA on Social Media:</strong><br/><br/>📘 Facebook: <a href="https://facebook.com/comsa-atu" target="_blank" style="color:#F4B400">facebook.com/comsa-atu</a><br/>📸 Instagram: <a href="https://instagram.com/comsa-atu" target="_blank" style="color:#F4B400">instagram.com/comsa-atu</a><br/>🎵 TikTok: <a href="https://tiktok.com/@comsa-atu" target="_blank" style="color:#F4B400">tiktok.com/@comsa-atu</a><br/>💬 WhatsApp: <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">0530 099 371</a>'},
+
+  // ATU
+  {k:['atu','accra technical university','accra technical','university','school','institution'],
+   r:'🏛️ <strong>Accra Technical University (ATU)</strong><br/>Located on Barnes Road, Accra, Ghana. ATU is one of Ghana\'s leading technical universities. COMSA is the official association for the Department of Liberal Studies and Communication Technology at ATU.'},
+
+  // WELFARE ISSUES
+  {k:['problem','issue','complain','complaint','harassment','bullying','help me','i need help','assist me','struggling','welfare issue'],
+   r:'🤝 We\'re sorry to hear you\'re having an issue. COMSA is here for every student!<br/><br/>Please reach out to our <strong>Welfare Officer</strong>:<br/>📞 <a href="tel:+233205915904" style="color:#F4B400">Stephen Ato Mensah — 0205 915 904</a><br/><a href="https://wa.me/233205915904" target="_blank" style="color:#F4B400">💬 WhatsApp</a><br/><br/>Or contact the President directly at <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a>.'},
+
+  // WEBSITE
+  {k:['website','who built','developer','who made this','site','web'],
+   r:'💻 This website was built by <strong>Ibrahim Mohammed Lotsu (Ibratech & Graphix)</strong> — a student at ATU and web developer for COMSA.<br/><br/>📞 <a href="https://wa.me/233544823484" target="_blank" style="color:#F4B400">0544 823 484</a>'},
+
+  // THANK YOU
+  {k:['thank you','thanks','thank','appreciated','helpful','you are helpful','great','awesome','perfect'],
+   r:'You\'re very welcome! 😊 Happy to help. Feel free to ask anything else about COMSA!'},
+
+  // GOODBYE
+  {k:['bye','goodbye','later','see you','take care','exit','leave'],
+   r:'Goodbye! 👋 Remember our motto: <em style="color:#F4B400">Communicate, Persuade, Transform!</em> 🌟<br/><br/>See you on campus!'},
+];
+
+var QUICK_QS=[
+  {label:'📅 Departmental Week',q:'Tell me about departmental week 2026'},
+  {label:'👔 All Executives',q:'Who are all the executives?'},
+  {label:'📖 COMSA History',q:'Tell me the history of COMSA'},
+  {label:'🎓 How to Join',q:'How do I join COMSA?'},
+  {label:'📄 Past Questions',q:'Where can I get past questions?'},
+  {label:'🎽 Souvenirs',q:'What souvenirs does COMSA have?'},
+];
+
+var FALLBACK='I don\'t have a specific answer for that, but I can connect you with our P.R.O who can help!<br/><br/>📣 <strong>P.R.O: Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>💬 <a href="https://wa.me/233544487799?text=Hi%20Theophilus%2C%20I%20have%20a%20question%20about%20COMSA." target="_blank" style="color:#F4B400">Chat on WhatsApp</a>';
+
+// ── CHATBOT ENGINE ──────────────────────────────────────────────────────────────
+var cbOpen=false, cbBadgeDone=false;
+
+function cbGetReply(text){
+  var t=text.toLowerCase().trim();
+  for(var i=0;i<KB.length;i++){
+    var entry=KB[i];
+    for(var j=0;j<entry.k.length;j++){
+      if(t.includes(entry.k[j])) return entry.r;
+    }
   }
-  function closeMenu() {
-    if (!ham || !mob) return;
-    ham.classList.remove('open');
-    mob.classList.remove('open');
-    if (mobOv) mobOv.classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  return FALLBACK;
+}
 
-  /* Ham button click */
-  if (ham) {
-    ham.addEventListener('click', function() {
-      mob && mob.classList.contains('open') ? closeMenu() : openMenu();
-    });
-  }
+function cbNow(){
+  var d=new Date();
+  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
 
-  /* Overlay click closes menu */
-  if (mobOv) mobOv.addEventListener('click', closeMenu);
+function cbAddMsg(html,role){
+  var msgs=document.getElementById('cb-msgs');
+  var w=document.createElement('div');w.className='cb-msg cb-'+role;
+  var b=document.createElement('div');b.className='cb-bubble';b.innerHTML=html;
+  var t=document.createElement('div');t.className='cb-time';t.textContent=cbNow();
+  w.appendChild(b);w.appendChild(t);msgs.appendChild(w);
+  msgs.scrollTop=msgs.scrollHeight;
+}
 
-  /* Links inside menu close it */
-  if (mob) {
-    mob.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', closeMenu);
-    });
-  }
+function cbShowTyping(){
+  var msgs=document.getElementById('cb-msgs');
+  var el=document.createElement('div');el.id='cb-typ';el.className='cb-msg cb-bot';
+  el.innerHTML='<div class="cb-typing"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>';
+  msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;
+}
 
-  /* mob-close button (inline onclick fallback) */
-  window.closeMobMenu = closeMenu;
-  window.openMobMenu  = openMenu;
-});
+function cbRemoveTyping(){var el=document.getElementById('cb-typ');if(el)el.remove();}
 
-function setTheme(l){const t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(i=>i.checked=l)}
-document.querySelectorAll('.tog-in').forEach(i=>i.addEventListener('change',function(){setTheme(this.checked)}));
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
-/* nav handled by DOMContentLoaded block below */
-let phCur=0;const phSlides=Array.from(document.querySelectorAll('.ph-slide'));const phDots=document.getElementById('ph-dots');
-phSlides.forEach((_,i)=>{const d=document.createElement('button');d.className='ph-dot'+(i===0?' act':'');d.onclick=()=>phGo(i);phDots.appendChild(d)});
-function phGo(n){phSlides[phCur].classList.remove('act');document.querySelectorAll('.ph-dot')[phCur].classList.remove('act');phCur=(n+phSlides.length)%phSlides.length;phSlides[phCur].classList.add('act');document.querySelectorAll('.ph-dot')[phCur].classList.add('act')}
-setInterval(()=>phGo(phCur+1),5000);
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
-},{threshold:0,rootMargin:'0px 0px 40px 0px'});
-document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
-// Immediately reveal elements in viewport
-function revealVisible(){
-  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>{
-    const r=el.getBoundingClientRect();
-    if(r.top<window.innerHeight+80){el.classList.add('in');try{ro.unobserve(el);}catch(e){}}
+function cbBotReply(html){
+  var send=document.getElementById('cb-send');
+  var inp=document.getElementById('cb-input');
+  if(send)send.disabled=true;if(inp)inp.disabled=true;
+  cbShowTyping();
+  setTimeout(function(){
+    cbRemoveTyping();
+    cbAddMsg(html,'bot');
+    if(send)send.disabled=false;if(inp){inp.disabled=false;inp.focus();}
+  }, 700+Math.random()*400);
+}
+
+function cbBuildQuick(){
+  var wrap=document.getElementById('cb-quick-wrap');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  QUICK_QS.forEach(function(q){
+    var btn=document.createElement('button');
+    btn.className='cb-qr';btn.textContent=q.label;
+    btn.onclick=function(){cbHandle(q.q);};
+    wrap.appendChild(btn);
   });
 }
-revealVisible();
-window.addEventListener('load',revealVisible);
-setTimeout(revealVisible,200);
-setTimeout(revealVisible,600);
-/* page loads fully visible — transitions handled by CSS */
-document.querySelectorAll('a[href$=".html"]').forEach(a=>a.addEventListener('click',function(e){const h=this.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http')||h.startsWith('tel')||h.startsWith('mailto')||h.startsWith('https://wa'))return;}));
 
-// =====================================================
-//   BLOG POSTS — SUPABASE
-// =====================================================
-let allPosts=[],activeFilter='all';
-const catIcons={news:'📰',flyer:'📢',event:'📅',academic:'📚',social:'🎊',quote:'💬'};
-const catBadgeClass={news:'cat-news',flyer:'cat-flyer',event:'cat-event',academic:'cat-academic',social:'cat-social',quote:'cat-news'};
-
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-function fmtDate(s){if(!s)return'';try{return new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}catch{return s.split('T')[0]}}
-
-function makePostCard(p,i,featured){
-  const delay=['rv','rv d1','rv d2','rv d3'][i%4];
-  const ic=catIcons[p.category]||'📝';
-  const bc=catBadgeClass[p.category]||'cat-news';
-  const catLabel=(p.category||'news').charAt(0).toUpperCase()+(p.category||'news').slice(1);
-  return `<div class="post-c ${featured?'featured':''} ${delay}" data-cat="${esc(p.category||'news')}" onclick='openPost(${JSON.stringify(p).replace(/'/g,"&#39;")})' style="cursor:pointer">
-    <div class="post-img">
-      ${p.image_url?`<img src="${esc(p.image_url)}" alt="${esc(p.title)}" onerror="this.style.display='none'"/>`:''}
-      <div class="post-img-ic">${ic}</div>
-      <span class="post-cat-badge ${bc}">${catLabel}</span>
-      ${featured?'<span class="feat-badge">⭐ Featured</span>':''}
-    </div>
-    <div class="post-body">
-      <div class="post-meta">
-        <span class="post-author">${esc(p.author||'COMSA')}</span>
-        <span class="post-date">${fmtDate(p.created_at)}</span>
-      </div>
-      <h3 class="post-tt">${esc(p.title)}</h3>
-      <p class="post-dd">${esc((p.excerpt||p.content||'').substring(0,120))}${(p.excerpt||p.content||'').length>120?'…':''}</p>
-      <div class="post-foot">
-        <div class="post-tags">${(p.tags||[]).slice(0,3).map(t=>`<span class="post-tag">${esc(t)}</span>`).join('')}</div>
-        <span class="post-read-btn">Read More →</span>
-      </div>
-    </div>
-  </div>`;
+function cbHandle(text){
+  var inp=document.getElementById('cb-input');
+  var t=(text||(inp?inp.value:'')).trim();
+  if(!t)return;
+  cbAddMsg(t,'user');
+  if(inp)inp.value='';
+  var qw=document.getElementById('cb-quick-wrap');if(qw)qw.innerHTML='';
+  cbBotReply(cbGetReply(t));
 }
 
-function renderPosts(){
-  const grid=document.getElementById('posts-grid');
-  const noEl=document.getElementById('no-posts');
-  let filtered=activeFilter==='all'?allPosts:allPosts.filter(p=>p.category===activeFilter);
-  if(!filtered.length){grid.innerHTML='';noEl.style.display='flex';return;}
-  noEl.style.display='none';
-  const featured=filtered.find(p=>p.is_featured);
-  const rest=filtered.filter(p=>!p.is_featured||p!==featured);
-  let html='';
-  if(featured)html+=makePostCard(featured,0,true);
-  rest.forEach((p,i)=>html+=makePostCard(p,featured?i+1:i,false));
-  grid.innerHTML=html;
-  grid.querySelectorAll('.rv,.rv.d1,.rv.d2,.rv.d3').forEach(el=>ro.observe(el));
-}
+function cbSend(){cbHandle();}
 
-function updateCounts(){
-  const cats=['news','flyer','event','academic','social','quote'];
-  document.getElementById('count-all').textContent=allPosts.length;
-  cats.forEach(c=>document.getElementById('count-'+c).textContent=allPosts.filter(p=>p.category===c).length);
-}
-
-function renderRecent(){
-  const recent=allPosts.slice(0,3);
-  const el=document.getElementById('recent-posts');
-  if(!recent.length){el.innerHTML='<div style="color:var(--muted);font-size:.82rem">No posts yet.</div>';return;}
-  el.innerHTML=recent.map(p=>`
-    <div class="side-post" onclick='openPost(${JSON.stringify(p).replace(/'/g,"&#39;")})' style="cursor:pointer">
-      <div class="side-post-img">${p.image_url?`<img src="${p.image_url}" alt="" onerror="this.style.display='none'"/>`:''}${catIcons[p.category]||'📝'}</div>
-      <div><div class="side-post-tt">${esc(p.title)}</div><div class="side-post-date">${fmtDate(p.created_at)}</div></div>
-    </div>`).join('');
-}
-
-async function loadPosts(){
-  try{
-    const r=await fetch(`${SUPA_URL}/rest/v1/posts?order=created_at.desc`,{
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
-    });
-    allPosts=await r.json();
-    document.getElementById('blog-loading').style.display='none';
-    renderPosts();updateCounts();renderRecent();
-  }catch(err){
-    document.getElementById('blog-loading').innerHTML='<div style="color:#EF4444;font-size:.85rem;padding:40px">Failed to load posts. Check your Supabase config.</div>';
+function cbOpen_fn(){
+  cbOpen=true;
+  var bot=document.getElementById('chatbot');
+  var ico=document.getElementById('cb-ico');
+  var badge=document.getElementById('cb-badge');
+  if(bot)bot.classList.add('cb-open');
+  if(ico)ico.textContent='✕';
+  if(badge)badge.style.display='none';
+  cbBadgeDone=true;
+  // Greet on first open
+  var msgs=document.getElementById('cb-msgs');
+  if(msgs&&!msgs.children.length){
+    cbAddMsg('👋 Hi! I\'m the <strong>COMSA Assistant</strong>.<br/>Ask me about our executives, history, events, programmes, past questions, souvenirs, or anything COMSA-related!','bot');
+    cbBuildQuick();
   }
+  setTimeout(function(){var inp=document.getElementById('cb-input');if(inp)inp.focus();},400);
 }
 
-function setFilter(btn,cat){
-  document.querySelectorAll('.filt').forEach(b=>b.classList.remove('act'));
-  btn.classList.add('act');
-  activeFilter=cat;
-  renderPosts();
-}
-function setFilterByName(cat){
-  const btn=document.querySelector(`.filt[data-cat="${cat}"]`);
-  if(btn)setFilter(btn,cat);
-  window.scrollTo({top:document.getElementById('posts-grid').offsetTop-120,behavior:'smooth'});
+function cbClose(){
+  cbOpen=false;
+  var bot=document.getElementById('chatbot');
+  var ico=document.getElementById('cb-ico');
+  if(bot)bot.classList.remove('cb-open');
+  if(ico)ico.textContent='💬';
 }
 
-// POST MODAL
-function openPost(p){
-  document.getElementById('pm-title').textContent=p.title||'';
-  document.getElementById('pm-author').textContent=p.author||'COMSA';
-  document.getElementById('pm-date').textContent=fmtDate(p.created_at);
-  const cat=(p.category||'news');
-  const badge=document.getElementById('pm-cat-badge');
-  badge.textContent=(cat.charAt(0).toUpperCase()+cat.slice(1));
-  badge.className='post-cat-badge '+(catBadgeClass[cat]||'cat-news');
-  document.getElementById('pm-content').textContent=p.content||p.excerpt||'';
-  const tags=document.getElementById('pm-tags');
-  tags.innerHTML=(p.tags||[]).map(t=>`<span class="post-tag">${esc(t)}</span>`).join('');
-  const img=document.getElementById('pm-img');
-  const ic=document.getElementById('pm-img-ic');
-  if(p.image_url){img.src=p.image_url;img.style.display='block';ic.style.display='none';}
-  else{img.style.display='none';ic.style.display='block';ic.textContent=catIcons[cat]||'📝';}
-  document.getElementById('post-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closePost(){document.getElementById('post-modal').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePost()});
-
-loadPosts();
-
-// =====================================================
-//   CHATBOT
-// =====================================================
-(function(){
-const toggle=document.getElementById('cb-toggle'),bot=document.getElementById('chatbot'),closeBtn=document.getElementById('cb-close'),msgs=document.getElementById('cb-msgs'),input=document.getElementById('cb-input'),send=document.getElementById('cb-send'),quickWrap=document.getElementById('cb-quick'),badge=document.getElementById('cb-badge');
-let open=false,badgeShown=false;
-const KB=[
-  {k:['hello','hi','hey'],r:'Hello! 👋 I\'m the COMSA Assistant. Ask me anything!'},
-  {k:['blog','post','news','announcement','flyer'],r:'📰 You\'re on the Blog page! Browse all posts above, or filter by category. New posts are added regularly by COMSA Secretariat.'},
-  {k:['president','jalil','abdul'],r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> · <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-  {k:['vice president','kelvin','vp'],r:'<strong>Vice President: Kelvin Otiboateng</strong><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> · <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-  {k:['secretary','jochebed'],r:'<strong>Secretary: Jochebed Ofori</strong><br/>📞 <a href="tel:+233537868041" style="color:#F4B400">0537 868 041</a> · <a href="https://wa.me/233537868041" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-  {k:['pro','public relations','theophilus mensah'],r:'📣 <strong>P.R.O: Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a> · <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">WhatsApp</a>'},
-  {k:['patron','ashong','theophilus ashong'],r:'🎓 <strong>Patron: Mr. Theophilus Ashong</strong><br/>Lecturer, Liberal Studies & Communication Technology<br/>MPhil African History (UG) · MEd (UCC 2026) · PhD Candidate (UG)<br/>2020 Andrew W. Mellon PhD Fellowship recipient.<br/><a href="executives.html" style="color:#F4B400">See full profile →</a>'},
-  {k:['organizer','martin','laryea'],r:'<strong>Organizer: Martin Laryea Mensah</strong><br/>📞 <a href="tel:+233533241149" style="color:#F4B400">0533 241 149</a>'},
-  {k:['welfare','stephen'],r:'<strong>Welfare Officer: Stephen Ato Mensah</strong><br/>📞 <a href="tel:+233205915904" style="color:#F4B400">0205 915 904</a>'},
-  {k:['wocom','abigail'],r:'<strong>WOCOM: Abigail Enu Ninson</strong><br/>📞 <a href="tel:+233537646489" style="color:#F4B400">0537 646 489</a>'},
-  {k:['finance','kennedy'],r:'<strong>Finance: Kennedy A. Holdbrook</strong><br/>📞 <a href="tel:+233200632333" style="color:#F4B400">0200 632 333</a>'},
-  {k:['part time','isaac'],r:'<strong>Part-Time Rep: Isaac N. Quansah</strong><br/>📞 <a href="tel:+233556720552" style="color:#F4B400">0556 720 552</a>'},
-  {k:['executive','executives'],r:'👔 <strong>COMSA Executives 2025/26:</strong><br/>• President: Abdul Jalil Sani (0530 099 371)<br/>• VP: Kelvin Otiboateng (0550 081 165)<br/>• Secretary: Jochebed Ofori (0537 868 041)<br/>• Organizer: Martin Laryea Mensah (0533 241 149)<br/>• Welfare: Stephen Ato Mensah (0205 915 904)<br/>• P.R.O: Theophilus Mensah (0544 487 799)<br/>• WOCOM: Abigail Enu Ninson (0537 646 489)<br/>• Finance: Kennedy A. Holdbrook (0200 632 333)<br/>• Part-Time Rep: Isaac N. Quansah (0556 720 552)<br/><a href="executives.html" style="color:#F4B400">Full profiles →</a>'},
-  {k:['event','departmental week'],r:'📅 Departmental Week 2026 runs <strong>June 29 – July 4</strong>! See the <a href="events.html" style="color:#F4B400">Events page →</a>'},
-  {k:['member','join','membership'],r:'🎓 Every student admitted into the Department of Communication Studies at ATU is <strong>automatically a COMSA member</strong> from Level 100!'},
-  {k:['past question','past questions','exam'],r:'📄 Download past questions free on the <a href="past-questions.html" style="color:#F4B400">Past Questions page →</a>'},
-  {k:['student','how many','1708'],r:'👥 COMSA has <strong style="color:#F4B400">1,708 students</strong> across all programmes and levels.'},
-  {k:['contact','reach','phone'],r:'📞 Contact COMSA:<br/>• PRO: <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>• President: <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a><br/><a href="contact.html" style="color:#F4B400">Contact page →</a>'},
-  {k:['thank','thanks'],r:'You\'re welcome! 😊'},
-  {k:['bye','goodbye'],r:'Goodbye! 👋 Communicate, Persuade, Transform! 🌟'},
-];
-const FALLBACK=`For more info, contact our P.R.O:<br/><strong>Theophilus Mensah</strong><br/>📞 <a href="tel:+233544487799" style="color:#F4B400">0544 487 799</a><br/>💬 <a href="https://wa.me/233544487799" target="_blank" style="color:#F4B400">WhatsApp</a>`;
-const QUICK_Qs=[
-  {label:'👔 All Executives',q:'Who are all the executives?'},
-  {label:'📅 Events',q:'Tell me about departmental week'},
-  {label:'🎓 Membership',q:'How do I join COMSA?'},
-  {label:'📄 Past Questions',q:'Where are past questions?'},
-  {label:'📞 Contact',q:'How do I contact COMSA?'},
-];
-function getReply(t){const l=t.toLowerCase().trim();for(const e of KB)if(e.k.some(k=>l.includes(k)))return e.r;return FALLBACK;}
-function now(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
-function addMsg(html,role){const w=document.createElement('div');w.className='cb-msg cb-msg-'+role;const b=document.createElement('div');b.className='cb-bubble cb-bubble-'+role;b.innerHTML=html;const t=document.createElement('div');t.className='cb-time';t.textContent=now();w.appendChild(b);w.appendChild(t);msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;}
-function showTyping(){const el=document.createElement('div');el.id='cb-typ';el.className='cb-msg cb-msg-bot';el.innerHTML='<div class="cb-typing"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div>';msgs.appendChild(el);msgs.scrollTop=msgs.scrollHeight;}
-function removeTyping(){const el=document.getElementById('cb-typ');if(el)el.remove();}
-function botReply(html){send.disabled=true;input.disabled=true;showTyping();setTimeout(()=>{removeTyping();addMsg(html,'bot');send.disabled=false;input.disabled=false;input.focus();},900+Math.random()*500);}
-function buildQR(){quickWrap.innerHTML='';QUICK_Qs.forEach(q=>{const btn=document.createElement('button');btn.className='cb-qr';btn.textContent=q.label;btn.onclick=()=>handleSend(q.q);quickWrap.appendChild(btn)});}
-function handleSend(text){const t=(text||input.value).trim();if(!t)return;addMsg(t,'user');input.value='';quickWrap.innerHTML='';botReply(getReply(t));}
-function greet(){if(!msgs.children.length){addMsg('👋 Hi! I\'m the <strong>COMSA Assistant</strong>.<br/>Ask me about executives, events, past questions and more!','bot');buildQR();}}
-toggle.addEventListener('click',()=>{open=!open;bot.classList.toggle('open',open);document.getElementById('cb-ico').textContent=open?'✕':'💬';if(open){greet();badge.style.display='none';badgeShown=true;setTimeout(()=>input.focus(),400);}});
-closeBtn.addEventListener('click',()=>{open=false;bot.classList.remove('open');document.getElementById('cb-ico').textContent='💬';});
-send.addEventListener('click',()=>handleSend());
-input.addEventListener('keydown',e=>{if(e.key==='Enter')handleSend()});
-setTimeout(()=>{if(!badgeShown&&!open)badge.style.display='flex';},5000);
+document.addEventListener('DOMContentLoaded',function(){
+  var toggle=document.getElementById('cb-toggle');
+  var inp=document.getElementById('cb-input');
+  if(toggle) toggle.addEventListener('click',function(){cbOpen?cbClose():cbOpen_fn();});
+  if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')cbSend();});
+  // Show badge after 4 seconds if not opened
+  setTimeout(function(){
+    if(!cbBadgeDone){
+      var badge=document.getElementById('cb-badge');
+      if(badge)badge.style.display='flex';
+    }
+  },4000);
+});
 })();
 </script>
+
 </body>
 </html>

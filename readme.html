@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>README – Developer Docs | COMSA ATU</title>
+<meta name="description" content="Developer documentation for the COMSA ATU website."/>
+<link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B1F3B;--navy2:#071528;--navy3:#122847;--gold:#F4B400;--gold2:#FFD04D;--gold3:#C99300;--bg:#07101E;--card:#0F1E33;--surf:#152540;--txt:#F0EFE9;--muted:#8BAFC8;--bdr:rgba(244,180,0,.12);--spring:cubic-bezier(.34,1.56,.64,1)}
+[data-theme=light]{--bg:#F4F4F0;--card:#fff;--surf:#ECEAE4;--txt:#0B1F3B;--muted:#5A6B82;--bdr:rgba(11,31,59,.1)}
+html{scroll-behavior:smooth}body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--txt);line-height:1.7}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:rgba(244,180,0,.25);border-radius:3px}
+a{text-decoration:none;color:var(--gold)}a:hover{opacity:.8}
+code{font-family:monospace;font-size:.84em;background:rgba(244,180,0,.1);color:var(--gold);padding:2px 7px;border-radius:4px}
+.code-block{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 20px;font-family:monospace;font-size:.82rem;color:#93c5fd;white-space:pre;overflow-x:auto;line-height:1.8;margin:14px 0;position:relative}
+[data-theme=light] .code-block{background:rgba(0,0,0,.04);color:#1d4ed8}
+.copy-btn{position:absolute;top:10px;right:10px;padding:4px 10px;border-radius:7px;font-size:.7rem;font-weight:700;background:rgba(244,180,0,.15);border:1px solid rgba(244,180,0,.28);color:var(--gold);cursor:pointer;font-family:'Outfit',sans-serif}
+.copy-btn:hover{background:rgba(244,180,0,.28)}
+/* LAYOUT */
+.rm-wrap{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.rm-sidebar{background:var(--navy2);border-right:1px solid var(--bdr);padding:0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0}
+.rm-sidebar-head{padding:24px 20px;border-bottom:1px solid var(--bdr)}
+.rm-logo{font-family:'Orbitron',monospace;font-size:.9rem;font-weight:700;color:var(--gold);letter-spacing:.1em}
+.rm-logo-sub{font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.rm-nav{padding:12px 0}
+.rm-nav-section{padding:10px 20px 4px;font-size:.65rem;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.25);text-transform:uppercase}
+.rm-nav a{display:block;padding:9px 20px;font-size:.82rem;color:var(--muted);transition:all .2s;border-left:3px solid transparent}
+.rm-nav a:hover,.rm-nav a.act{color:var(--gold);background:rgba(244,180,0,.06);border-left-color:var(--gold);opacity:1}
+.rm-sidebar-foot{padding:16px 20px;border-top:1px solid var(--bdr);margin-top:auto}
+.rm-main{padding:52px 56px 80px;max-width:860px}
+/* TOP BAR MOBILE */
+.rm-topbar{display:none;background:var(--navy2);border-bottom:1px solid var(--bdr);padding:14px 20px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+/* CONTENT */
+.rm-section{margin-bottom:60px;scroll-margin-top:24px}
+.rm-h1{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--txt);margin-bottom:14px}
+.rm-h1 em{color:var(--gold);font-style:italic}
+.rm-h2{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--txt);margin:32px 0 12px;padding-bottom:10px;border-bottom:1px solid var(--bdr)}
+.rm-p{font-size:.92rem;color:var(--muted);line-height:1.85;margin-bottom:14px}
+.rm-ul{list-style:none;margin:10px 0 16px;display:flex;flex-direction:column;gap:7px}
+.rm-ul li{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;color:var(--muted);line-height:1.65}
+.rm-ul li::before{content:'→';color:var(--gold);flex-shrink:0;font-weight:700}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.badge-gold{background:rgba(244,180,0,.12);border:1px solid rgba(244,180,0,.22);color:var(--gold)}
+.badge-green{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.22);color:#34d399}
+.badge-blue{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.22);color:#60a5fa}
+/* FILE TREE */
+.file-tree{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:18px 20px;font-family:monospace;font-size:.82rem;color:var(--muted);line-height:2}
+.ft-folder{color:#fbbf24}.ft-file{color:#93c5fd}.ft-comment{color:rgba(255,255,255,.25);font-style:italic}
+/* TABLE */
+.rm-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem}
+.rm-table th{padding:11px 14px;text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--bdr);background:rgba(255,255,255,.02)}
+.rm-table td{padding:12px 14px;color:var(--txt);border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
+.rm-table tr:last-child td{border-bottom:none}
+/* ALERT */
+.alert{padding:13px 17px;border-radius:11px;font-size:.86rem;display:flex;gap:11px;line-height:1.7;margin:14px 0}
+.a-gold{background:rgba(244,180,0,.08);border:1px solid rgba(244,180,0,.18);color:rgba(255,255,255,.82)}
+[data-theme=light] .a-gold{color:var(--navy)}
+/* THEME TOGGLE */
+.tog{position:relative;width:48px;height:25px;cursor:pointer}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-track{position:absolute;inset:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;transition:.3s}
+.tog-thumb{position:absolute;top:3px;left:3px;width:17px;height:17px;background:var(--gold);border-radius:50%;transition:transform .35s var(--spring);display:flex;align-items:center;justify-content:center;font-size:9px}
+.tog-thumb::before{content:'🌙'}.tog input:checked~.tog-thumb{transform:translateX(23px)}.tog input:checked~.tog-thumb::before{content:'☀️'}
+@media(max-width:900px){.rm-wrap{grid-template-columns:1fr}.rm-sidebar{display:none}.rm-topbar{display:flex}.rm-main{padding:32px 20px 60px}}
+</style>
+<meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+<meta http-equiv="X-Frame-Options" content="DENY"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+</head>
+<body>
+
+<div class="rm-topbar">
+  <span style="font-family:'Orbitron',monospace;font-size:.82rem;font-weight:700;color:var(--gold);letter-spacing:.1em">COMSA README</span>
+  <div style="display:flex;align-items:center;gap:14px">
+    <a href="index.html" style="font-size:.82rem;color:var(--muted)">← Site</a>
+    <label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
+  </div>
+</div>
+
+<div class="rm-wrap">
+
+  <!-- SIDEBAR -->
+  <div class="rm-sidebar">
+    <div class="rm-sidebar-head">
+      <div class="rm-logo">COMSA</div>
+      <div class="rm-logo-sub">Developer README</div>
+    </div>
+    <nav class="rm-nav">
+      <div class="rm-nav-section">Overview</div>
+      <a href="#overview" class="act">Introduction</a>
+      <a href="#pages">Pages</a>
+      <a href="#images">Images</a>
+      <div class="rm-nav-section">Tech Stack</div>
+      <a href="#stack">Stack & Tools</a>
+      <a href="#supabase">Supabase</a>
+      <a href="#schema">Database Schema</a>
+      <div class="rm-nav-section">Content</div>
+      <a href="#executives">Executives</a>
+      <a href="#updating">Updating Content</a>
+      <a href="#admin">Admin Panel</a>
+      <div class="rm-nav-section">Deploy</div>
+      <a href="#deploy">Vercel Deploy</a>
+      <a href="#contact">Developer</a>
+    </nav>
+    <div class="rm-sidebar-foot">
+      <label class="tog" style="margin-left:auto;display:block;width:fit-content"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="rm-main">
+
+    <div class="rm-section" id="overview">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+        <span class="badge badge-gold">v1.0</span>
+        <span class="badge badge-green">Static Site</span>
+        <span class="badge badge-blue">Supabase Backend</span>
+      </div>
+      <h1 class="rm-h1">COMSA Website<br/><em>Developer Documentation</em></h1>
+      <p class="rm-p">The official website for the <strong>Communications Students' Association (COMSA)</strong> at Accra Technical University. Built as a fully static HTML/CSS/JavaScript site with a Supabase backend for dynamic content management. The admin panel allows the executives to manage events, blog posts, past questions, and gallery photos without touching any code.</p>
+      <div class="alert a-gold"><span>ℹ️</span><div>This is a static site — no framework, no build step, no Node.js required. Every page is a self-contained HTML file that can be opened directly in a browser or deployed as-is to any static host.</div></div>
+    </div>
+
+    <div class="rm-section" id="pages">
+      <h2 class="rm-h2">📄 All Pages</h2>
+      <table class="rm-table">
+        <thead><tr><th>File</th><th>Purpose</th><th>Supabase</th></tr></thead>
+        <tbody>
+          <tr><td><code>index.html</code></td><td>Home page — hero slider, exec spotlight, dept. week cards, stats, CTA</td><td>—</td></tr>
+          <tr><td><code>about.html</code></td><td>COMSA history, mission, values, souvenirs, programmes</td><td>—</td></tr>
+          <tr><td><code>executives.html</code></td><td>All 9 executives with photos, roles, bios, and contact links</td><td>—</td></tr>
+          <tr><td><code>patron-hod.html</code></td><td>Patron (Mr. Theophilus Ashong) and Head of Department profiles</td><td>—</td></tr>
+          <tr><td><code>events.html</code></td><td>Static dept. week schedule + live events from Supabase with filter</td><td>✅ Read</td></tr>
+          <tr><td><code>blog.html</code></td><td>News and announcements fetched from Supabase with category filter</td><td>✅ Read</td></tr>
+          <tr><td><code>gallery.html</code></td><td>Photo gallery from Supabase with lightbox and filter</td><td>✅ Read</td></tr>
+          <tr><td><code>past-questions.html</code></td><td>PDF past exam questions from Supabase with search and programme filter</td><td>✅ Read</td></tr>
+          <tr><td><code>contact.html</code></td><td>Contact form (routes to WhatsApp), exec contact cards, location</td><td>—</td></tr>
+          <tr><td><code>admin.html</code></td><td>Full admin dashboard — CRUD for events, posts, past questions, gallery</td><td>✅ Read/Write</td></tr>
+          <tr><td><code>setup.html</code></td><td>Step-by-step setup guide for Supabase, auth, and deployment</td><td>—</td></tr>
+          <tr><td><code>readme.html</code></td><td>This developer documentation file</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rm-section" id="images">
+      <h2 class="rm-h2">🖼️ Images — How They're Organised</h2>
+      <p class="rm-p">All images live in the <code>images/</code> folder. Replace each placeholder with a real COMSA photo.</p>
+      <div class="file-tree">
+images/
+├── <span class="ft-file">logo.jpg</span>              <span class="ft-comment">← COMSA logo (navbar + footer + favicon)</span>
+│
+├── <span class="ft-comment">── SLIDER IMAGES (unique per page, not shared) ──</span>
+├── <span class="ft-file">comsa1.jpg</span> – <span class="ft-file">comsa5.jpg</span>   <span class="ft-comment">← index.html hero slider</span>
+├── <span class="ft-file">comsa6.jpg</span> – <span class="ft-file">comsa9.jpg</span>   <span class="ft-comment">← about.html slider</span>
+├── <span class="ft-file">comsa10.jpg</span> – <span class="ft-file">comsa12.jpg</span>  <span class="ft-comment">← executives.html slider</span>
+├── <span class="ft-file">comsa13.jpg</span> – <span class="ft-file">comsa14.jpg</span>  <span class="ft-comment">← patron-hod.html slider</span>
+├── <span class="ft-file">comsa15.jpg</span> – <span class="ft-file">comsa17.jpg</span>  <span class="ft-comment">← events.html slider</span>
+├── <span class="ft-file">comsa18.jpg</span> – <span class="ft-file">comsa20.jpg</span>  <span class="ft-comment">← blog.html slider</span>
+├── <span class="ft-file">comsa21.jpg</span> – <span class="ft-file">comsa25.jpg</span>  <span class="ft-comment">← gallery.html slider</span>
+├── <span class="ft-file">comsa26.jpg</span> – <span class="ft-file">comsa27.jpg</span>  <span class="ft-comment">← past-questions.html slider</span>
+├── <span class="ft-file">comsa28.jpg</span> – <span class="ft-file">comsa30.jpg</span>  <span class="ft-comment">← contact.html slider</span>
+│
+└── <span class="ft-comment">── EXECUTIVE PHOTOS ──</span>
+    ├── <span class="ft-file">jalil.jpg</span>           <span class="ft-comment">← Abdul Jalil Sani (President)</span>
+    ├── <span class="ft-file">Kelvin.jpg</span>          <span class="ft-comment">← Kelvin Otiboateng (VP)</span>
+    ├── <span class="ft-file">jochebed.jpg</span>        <span class="ft-comment">← Jochebed Ofori (Secretary)</span>
+    ├── <span class="ft-file">martin.jpg</span>          <span class="ft-comment">← Martin Laryea Mensah (Organizer)</span>
+    ├── <span class="ft-file">stephen.jpg</span>         <span class="ft-comment">← Stephen Ato Mensah (Welfare)</span>
+    ├── <span class="ft-file">Theophilus.jpg</span>      <span class="ft-comment">← Theophilus Mensah (PRO)</span>
+    ├── <span class="ft-file">abigail.jpg</span>         <span class="ft-comment">← Abigail Enu Ninson (WOCOM)</span>
+    ├── <span class="ft-file">kennedy.jpg</span>         <span class="ft-comment">← Kennedy A. Holdbrook (Finance)</span>
+    └── <span class="ft-file">isaac.jpg</span>           <span class="ft-comment">← Isaac N. Quansah (Part-Time Rep)</span></div>
+      <p class="rm-p" style="margin-top:14px">To change a slider image, simply replace the file in the <code>images/</code> folder with the same filename. No code changes needed.</p>
+    </div>
+
+    <div class="rm-section" id="stack">
+      <h2 class="rm-h2">🛠️ Tech Stack</h2>
+      <table class="rm-table">
+        <thead><tr><th>Layer</th><th>Technology</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Frontend</td><td>Vanilla HTML5 + CSS3 + JavaScript</td><td>No build step, works everywhere, fast load</td></tr>
+          <tr><td>Fonts</td><td>Google Fonts — Playfair Display, Outfit, Orbitron</td><td>Premium look, free CDN delivery</td></tr>
+          <tr><td>Backend</td><td>Supabase (PostgreSQL + REST API)</td><td>Free tier, instant REST, built-in auth and storage</td></tr>
+          <tr><td>Auth</td><td>Supabase Auth (email + password)</td><td>Secure JWT, no passwords in code</td></tr>
+          <tr><td>Storage</td><td>Supabase Storage</td><td>Photo and PDF uploads directly from admin</td></tr>
+          <tr><td>Hosting</td><td>Vercel</td><td>Free, CDN, auto-deploy from GitHub</td></tr>
+          <tr><td>Design</td><td>Custom CSS (dark/light mode, gold theme)</td><td>Fully branded, no UI framework bloat</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rm-section" id="supabase">
+      <h2 class="rm-h2">🗄️ Supabase Configuration</h2>
+      <p class="rm-p">Each page that reads or writes data has these two lines at the top of its <code>&lt;script&gt;</code> block:</p>
+      <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>const SUPA_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+const SUPA_KEY = 'your-anon-public-key-here';</div>
+      <p class="rm-p">Find these values at: <strong>Supabase → Project Settings → API</strong>. The anon key is safe to put in frontend code — it cannot write data unless the user is authenticated (enforced by RLS policies).</p>
+      <div class="alert a-gold"><span>🔒</span><div>Write operations (add, edit, delete) require a valid Supabase Auth JWT. Visitors with only the anon key can only <em>read</em> content — they cannot modify anything.</div></div>
+    </div>
+
+    <div class="rm-section" id="schema">
+      <h2 class="rm-h2">📊 Database Schema</h2>
+      <p class="rm-p">Four tables power the dynamic content on the site:</p>
+      <div class="code-block">events
+  id          uuid PRIMARY KEY
+  title       text NOT NULL
+  description text
+  category    text
+  event_date  date NOT NULL
+  event_time  text
+  venue       text
+  audience    text
+  status      text  DEFAULT 'upcoming'
+  icon        text  DEFAULT '🎉'
+  image_url   text
+  week_group  text
+  created_at  timestamptz
+
+posts
+  id          uuid PRIMARY KEY
+  title       text NOT NULL
+  excerpt     text
+  content     text
+  category    text  DEFAULT 'news'
+  author      text  DEFAULT 'COMSA Secretariat'
+  image_url   text
+  is_featured boolean DEFAULT false
+  tags        text[]
+  created_at  timestamptz
+
+past_questions
+  id           uuid PRIMARY KEY
+  course_title text NOT NULL
+  course_code  text
+  year_sem     text
+  programme    text
+  pdf_url      text
+  storage_path text
+  created_at   timestamptz
+
+gallery_photos
+  id           uuid PRIMARY KEY
+  caption      text
+  image_url    text
+  storage_path text
+  created_at   timestamptz</div>
+    </div>
+
+    <div class="rm-section" id="executives">
+      <h2 class="rm-h2">👔 Executive Team 2025/26</h2>
+      <table class="rm-table">
+        <thead><tr><th>Name</th><th>Role</th><th>Photo File</th><th>Phone</th></tr></thead>
+        <tbody>
+          <tr><td>Abdul Jalil Sani</td><td>President</td><td><code>jalil.jpg</code></td><td>0530 099 371</td></tr>
+          <tr><td>Kelvin Otiboateng</td><td>Vice President</td><td><code>Kelvin.jpg</code></td><td>0550 081 165</td></tr>
+          <tr><td>Jochebed Ofori</td><td>Secretary</td><td><code>jochebed.jpg</code></td><td>0537 868 041</td></tr>
+          <tr><td>Martin Laryea Mensah</td><td>Organizer</td><td><code>martin.jpg</code></td><td>0533 241 149</td></tr>
+          <tr><td>Stephen Ato Mensah</td><td>Welfare Officer</td><td><code>stephen.jpg</code></td><td>0205 915 904</td></tr>
+          <tr><td>Theophilus Mensah</td><td>P.R.O</td><td><code>Theophilus.jpg</code></td><td>0544 487 799</td></tr>
+          <tr><td>Abigail Enu Ninson</td><td>WOCOM</td><td><code>abigail.jpg</code></td><td>0537 646 489</td></tr>
+          <tr><td>Kennedy A. Holdbrook</td><td>Finance Officer</td><td><code>kennedy.jpg</code></td><td>0200 632 333</td></tr>
+          <tr><td>Isaac N. Quansah</td><td>Part-Time Rep</td><td><code>isaac.jpg</code></td><td>0556 720 552</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rm-section" id="updating">
+      <h2 class="rm-h2">✏️ How to Update Static Content</h2>
+      <ul class="rm-ul">
+        <li><strong>Change a slider image:</strong> Replace the file in <code>images/</code> with the same filename. Push to GitHub.</li>
+        <li><strong>Change executive name/role/phone:</strong> Edit <code>executives.html</code> and <code>contact.html</code> directly.</li>
+        <li><strong>Update history or about text:</strong> Edit the text inside <code>about.html</code>.</li>
+        <li><strong>Add a static event card (dept. week):</strong> Copy an existing <code>.dw-card</code> block in <code>index.html</code> and edit the content.</li>
+        <li><strong>Add dynamic content (events, posts, PDFs, photos):</strong> Log in to <code>admin.html</code> and use the admin panel — no code editing needed.</li>
+        <li><strong>Change social media links:</strong> Search for <code>facebook.com/comsa-atu</code> across all files and replace with the correct handles.</li>
+        <li><strong>Change WhatsApp numbers:</strong> Search for <code>wa.me/233</code> across all files.</li>
+      </ul>
+    </div>
+
+    <div class="rm-section" id="admin">
+      <h2 class="rm-h2">🔐 Admin Panel</h2>
+      <p class="rm-p">Access the admin panel at <code>/admin.html</code>. Features:</p>
+      <ul class="rm-ul">
+        <li><strong>Login:</strong> Supabase Auth email + password. No passwords stored in code.</li>
+        <li><strong>Overview:</strong> Live count of all events, posts, past questions, and gallery photos.</li>
+        <li><strong>Events:</strong> Add, edit, delete events. Status (upcoming/past), date, venue, icon, week group.</li>
+        <li><strong>Blog / Posts:</strong> Publish news, announcements, flyers. Set featured, add tags, categories.</li>
+        <li><strong>Past Questions:</strong> Upload PDF files directly to Supabase Storage. Filter by programme.</li>
+        <li><strong>Gallery:</strong> Upload multiple photos at once. Lightbox on the public gallery page.</li>
+        <li><strong>Connection Tester:</strong> Setup tab → Run Connection Test — verifies auth, reads, and writes.</li>
+        <li><strong>Mobile sidebar:</strong> Hamburger navigation for managing content from a phone.</li>
+      </ul>
+    </div>
+
+    <div class="rm-section" id="deploy">
+      <h2 class="rm-h2">🚀 Deployment</h2>
+      <p class="rm-p">Deploying to Vercel is a 3-step process:</p>
+      <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button># 1. Push all files to GitHub
+git add .
+git commit -m "COMSA website initial deploy"
+git push origin main
+
+# 2. Go to vercel.com → New Project → Import GitHub repo
+# 3. Leave all settings default → Deploy
+# Done! Site is live at your-project.vercel.app</div>
+      <p class="rm-p">Every subsequent <code>git push</code> to the <code>main</code> branch automatically triggers a new deployment on Vercel.</p>
+    </div>
+
+    <div class="rm-section" id="contact">
+      <h2 class="rm-h2">👨‍💻 Developer</h2>
+      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:28px">
+        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--txt);margin-bottom:4px">Ibrahim Mohammed Lotsu</div>
+        <div style="font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:14px">Web Developer · Ibratech &amp; Graphix</div>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:18px">Student at Accra Technical University (BTech Accounting) and web developer specialising in student organisations, local businesses, and digital platforms. Built using vanilla HTML/CSS/JavaScript with Supabase as the backend.</p>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="font-size:.86rem;color:var(--muted)">📧 <a href="mailto:lotsuibrahim2@gmail.com">lotsuibrahim2@gmail.com</a></div>
+          <div style="font-size:.86rem;color:var(--muted)">📞 <a href="tel:+233544823484">0544 823 484</a> &middot; <a href="tel:+233554196068">0554 196 068</a></div>
+          <div style="font-size:.86rem;color:var(--muted)">💬 <a href="https://wa.me/233544823484" target="_blank">WhatsApp: 0544 823 484</a></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+(function(){var t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(function(i){i.checked=t==='light';});})();
+function setTheme(l){var t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(function(i){i.checked=l;});}
+document.querySelectorAll('.tog-in').forEach(function(i){i.addEventListener('change',function(){setTheme(this.checked);});});
+function copyCode(btn){var code=btn.parentElement.textContent.replace('Copy','').trim();navigator.clipboard.writeText(code).then(function(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);});}
+var rmLinks=document.querySelectorAll('.rm-nav a');
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;rmLinks.forEach(function(a){a.classList.toggle('act',a.getAttribute('href')===id);});}}); },{rootMargin:'-5% 0px -90% 0px'});
+document.querySelectorAll('.rm-section').forEach(function(s){obs.observe(s);});
+</script>
+</body>
+</html>
