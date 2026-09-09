@@ -268,31 +268,7 @@ function dbBanner(msg, type){
 }
 
 
-const SUPA_URL = 'https://wbyklkohfxcaaxxgaodu.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndieWtsa29oZnhjYWF4eGdhb2R1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzMzU4NTMsImV4cCI6MjA5OTkxMTg1M30.9Bl7hHshfl45sZMH4WDbwgQSnWtfSJ4qFuha7zeqXKM';
 
-function safeUrl(u){
-  if(!u) return '';
-  var s = String(u).trim();
-  if(/^(javascript|data|vbscript):/i.test(s)) return '';
-  if(!/^https?:\/\//i.test(s)) return '';
-  return s;
-}
-function safeImg(u){ return safeUrl(u) || ''; }
-function esc(s){
-  return String(s||'')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
-}
-
-async function supa(path){
-  try{
-    var r = await fetch(SUPA_URL + '/rest/v1/' + path, {
-      headers: {
-        'apikey':        SUPA_KEY,
-        'Authorization': 'Bearer ' + SUPA_KEY
-      }
     });
     if(!r.ok){
       console.error('[COMSA] Supabase error', r.status, path);
@@ -326,15 +302,6 @@ async function supa(path){
 }
 var allPQs=[];
 
-function safeUrl(u){
-  if(!u) return '';
-  var s=String(u).trim();
-  if(/^(javascript|data|vbscript):/i.test(s)) return '';
-  if(!/^https?:\/\//i.test(s)) return '';
-  return s;
-}
-function safeImg(u){ return safeUrl(u)||''; }
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function renderPQ(items){
   var grid=document.getElementById('pq-grid');
   if(!items.length){grid.innerHTML='<div class="pq-empty">No past questions found.</div>';return;}
@@ -461,6 +428,40 @@ document.addEventListener('DOMContentLoaded',loadPQ);</script>
 </style>
 
 <script>
+
+/* safeUrl, safeImg, esc, supa — reads SUPA_URL and SUPA_KEY from supabase-config.js */
+function safeUrl(u){
+  if(!u) return '';
+  var s=String(u).trim();
+  if(/^(javascript|data|vbscript):/i.test(s)) return '';
+  if(!/^https?:\/\//i.test(s)) return '';
+  return s;
+}
+function safeImg(u){ return safeUrl(u)||''; }
+function esc(s){
+  return String(s||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+async function supa(path){
+  try{
+    var r=await fetch(SUPA_URL+'/rest/v1/'+path,{
+      headers:{
+        'apikey':        SUPA_KEY,
+        'Authorization': 'Bearer '+SUPA_KEY
+      }
+    });
+    if(!r.ok){
+      console.error('[COMSA] Supabase error',r.status,path);
+      return null;
+    }
+    return await r.json();
+  }catch(e){
+    console.error('[COMSA] Fetch failed:',e.message);
+    return null;
+  }
+}
 (function(){
 // ── KNOWLEDGE BASE ──────────────────────────────────────────────────────────────
 var KB=[
