@@ -170,7 +170,10 @@ tr:hover td{background:rgba(244,180,0,.02)}
     <label class="login-label" for="le">Admin Email</label>
     <input class="login-input" type="email" id="le" placeholder="your@email.com" autocomplete="email"/>
     <label class="login-label" for="lp">Password</label>
-    <input class="login-input" type="password" id="lp" placeholder="Enter password…" autocomplete="current-password"/>
+    <div style="position:relative;margin-bottom:14px">
+  <input class="login-input" type="password" id="lp" placeholder="Enter password…" autocomplete="current-password" style="margin-bottom:0;padding-right:46px"/>
+  <button type="button" id="pw-eye" onclick="(function(){var i=document.getElementById('lp'),e=document.getElementById('pw-eye');i.type=i.type==='password'?'text':'password';e.textContent=i.type==='password'?'👁️':'🙈';})()" style="position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:var(--muted);padding:0;line-height:1" title="Show/hide password">👁️</button>
+</div>
     <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In →</button>
     <div class="login-err" id="login-err"></div>
   </div>
@@ -445,19 +448,37 @@ async function supa(path, method, body){
 
 async function supaUpload(bucket, filePath, file){
   try{
+    /* Single correct upload request */
     var res = await fetch(SUPA_URL + '/storage/v1/object/' + bucket + '/' + filePath, {
       method: 'POST',
-      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer '+getToken(), 'Content-Type': file.type }
-    }, file);
-    // workaround: fetch with body
-    var res2 = await fetch(SUPA_URL + '/storage/v1/object/' + bucket + '/' + filePath, {
-      method: 'POST',
-      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer '+getToken(), 'Content-Type': file.type },
+      headers: {
+        'apikey': SUPA_KEY,
+        'Authorization': 'Bearer ' + getToken(),
+        'Content-Type': file.type,
+        'Cache-Control': '3600'
+      },
       body: file
     });
-    if(!res2.ok){ var t=await res2.text(); console.error('[Upload]', bucket, res2.status, t); return null; }
+    if(!res.ok){
+      var errText = await res.text();
+      var errJson = {};
+      try{ errJson = JSON.parse(errText); }catch(e){}
+      var msg = errJson.message || errJson.error || errText || ('HTTP ' + res.status);
+      console.error('[Upload failed]', bucket, '/', filePath, res.status, msg);
+      /* Helpful tip for common errors */
+      if(res.status === 400 && msg.includes('Bucket')){
+        console.error('[HINT] Bucket "' + bucket + '" does not exist. Create it in Supabase → Storage.');
+      }
+      if(res.status === 403){
+        console.error('[HINT] Storage INSERT policy missing. Run the SQL from the Setup panel to recreate storage policies.');
+      }
+      return null;
+    }
     return SUPA_URL + '/storage/v1/object/public/' + bucket + '/' + filePath;
-  }catch(e){ console.error('[Upload error]', e.message); return null; }
+  }catch(e){
+    console.error('[Upload error]', e.message);
+    return null;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -509,8 +530,13 @@ async function doLogin(){
   }
   btn.textContent='Sign In →'; btn.disabled=false;
 }
-document.getElementById('lp').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
-document.getElementById('le').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('lp').focus();});
+document.addEventListener('DOMContentLoaded',function(){
+  var lp=document.getElementById('lp');
+  var le=document.getElementById('le');
+  if(lp)lp.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+  if(le)le.addEventListener('keydown',function(e){if(e.key==='Enter'&&lp)lp.focus();});
+});
+
 
 async function logout(){
   var tok=sessionStorage.getItem('comsa_admin_token');
@@ -774,7 +800,7 @@ async function savePQ(){
     storagePath='pq_'+Date.now()+'_'+safe;
     pdfUrl=await supaUpload('past-questions',storagePath,file);
     if(btn){btn.textContent='Upload & Save';btn.disabled=false;}
-    if(!pdfUrl){showMsg('pq-form-msg','PDF upload failed. Make sure the "past-questions" storage bucket exists and is set to public.','err');return;}
+    if(!pdfUrl){showMsg('pq-form-msg','PDF upload failed. Fix: go to Supabase → Storage, create a bucket named exactly "past-questions", set it to Public, then go to Storage → Policies and add an INSERT policy for authenticated users. See Setup panel for the SQL.','err');return;}
   }
   var body={course_title:title,course_code:document.getElementById('pq-code').value.trim()||null,year_sem:document.getElementById('pq-year').value.trim()||null,programme:document.getElementById('pq-prog').value||null,pdf_url:pdfUrl};
   if(storagePath)body.storage_path=storagePath;

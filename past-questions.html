@@ -5,7 +5,6 @@
 <title>Past Questions | COMSA – ATU</title>
 <meta name="description" content="Download free past examination questions for COMSA students at Accra Technical University."/>
 <link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
-<meta http-equiv="X-Frame-Options" content="DENY"/>
 <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
 <style>
@@ -107,6 +106,7 @@ footer{background:var(--navy2);padding:60px 0 0;border-top:1px solid var(--bdr)}
 .wa-float{position:fixed;bottom:88px;right:22px;z-index:3000}
 .wa-btn{width:48px;height:48px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 6px 18px rgba(37,211,102,.38);transition:transform .25s}
 .wa-btn:hover{transform:scale(1.1)}
+.wa-btn svg{width:26px;height:26px;fill:#fff}
 /* REVEAL */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
 .rv.in{opacity:1;transform:none}
@@ -142,8 +142,65 @@ footer{background:var(--navy2);padding:60px 0 0;border-top:1px solid var(--bdr)}
 .pq-empty{grid-column:1/-1;text-align:center;padding:56px;color:var(--muted)}
 @media(max-width:1024px){.pq-grid{grid-template-columns:1fr 1fr}.pq-stats{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.pq-grid{grid-template-columns:1fr}.pq-stats{grid-template-columns:1fr 1fr}}
+
+/* ═══ LIGHT MODE VISIBILITY FIXES ═══ */
+[data-theme=light] .h2,[data-theme=light] h1,[data-theme=light] h2,[data-theme=light] h3,[data-theme=light] h4{color:var(--txt)}
+[data-theme=light] p,[data-theme=light] .desc,[data-theme=light] .history-p{color:var(--muted)}
+[data-theme=light] .val-d,[data-theme=light] .vc-d,[data-theme=light] .prog-d,[data-theme=light] .mission-d,[data-theme=light] .souv-d{color:var(--muted)}
+[data-theme=light] .val-t,[data-theme=light] .vc-t,[data-theme=light] .prog-t{color:var(--txt)}
+[data-theme=light] .exec-bio,[data-theme=light] .exec-name,[data-theme=light] .exec-role{color:var(--txt)}
+[data-theme=light] .exec-bio{color:var(--muted)}
+[data-theme=light] .phod-body,[data-theme=light] .phod-name{color:var(--txt)}
+[data-theme=light] .phod-bio,[data-theme=light] .phod-mi-t{color:var(--muted)}
+[data-theme=light] .ev-title,[data-theme=light] .ev-week{color:var(--txt)}
+[data-theme=light] .ev-meta-r{color:var(--muted)}
+[data-theme=light] .bc-title,[data-theme=light] .aside-head{color:var(--txt)}
+[data-theme=light] .bc-exc,[data-theme=light] .bc-date,[data-theme=light] .bc-foot,[data-theme=light] .recent-date{color:var(--muted)}
+[data-theme=light] .recent-title{color:var(--txt)}
+[data-theme=light] .pq-title{color:var(--txt)}
+[data-theme=light] .pq-mr,[data-theme=light] .pq-code{color:var(--muted)}
+[data-theme=light] .dw-tt{color:var(--txt)}
+[data-theme=light] .dw-dd,[data-theme=light] .dw-date{color:var(--muted)}
+[data-theme=light] .con-card-title{color:var(--txt)}
+[data-theme=light] .con-card-sub{color:var(--muted)}
+[data-theme=light] .ec-name{color:var(--txt)}
+[data-theme=light] .ec-role{color:var(--muted)}
+[data-theme=light] .mob a{color:var(--muted)}
+[data-theme=light] .mob a:hover,[data-theme=light] .mob a.act{color:var(--gold)}
+[data-theme=light] .gal-cap{color:#fff}
+[data-theme=light] .brand-name{color:var(--gold)}
+[data-theme=light] .brand-sub{color:var(--muted)}
+[data-theme=light] td{color:var(--txt)}
+[data-theme=light] .tbl-title{color:var(--txt)}
+[data-theme=light] .ov-l,[data-theme=light] .pq-stat-l{color:var(--muted)}
+[data-theme=light] .setup-box-body,[data-theme=light] .alert{color:var(--muted)}
+[data-theme=light] .empty-row td{color:var(--muted)}
+/* Cards get subtle shadow in light mode */
+[data-theme=light] .val-c,[data-theme=light] .ov-card,[data-theme=light] .dw-card,[data-theme=light] .ev-card,
+[data-theme=light] .bc,[data-theme=light] .pq-card,[data-theme=light] .vc,[data-theme=light] .prog-c,
+[data-theme=light] .souv-c,[data-theme=light] .aside-card,[data-theme=light] .setup-box,[data-theme=light] .tbl-wrap{
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+
+
+/* ── HERO IMAGE FALLBACK ── */
+.ph-slide{background:linear-gradient(135deg,var(--navy),var(--navy3))}
+.ph-slide img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.ph-slide img[src=""]{display:none}
+/* Ensure hero always has minimum height even without images */
+.ph,.page-hero{min-height:340px}
+.hero{min-height:520px}
+.hero-slider .h-slide{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.hero-slider .h-slide img{width:100%;height:100%;object-fit:cover}
+
+/* ── EXECUTIVE / PROFILE IMAGES FALLBACK ── */
+.exec-img,.phod-img,.ab-img-wrap{background:linear-gradient(135deg,var(--navy),var(--navy3))}
+.exec-img img,.phod-img img,.ab-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.pres-av img,.mini-av img,.ec-av img{width:100%;height:100%;object-fit:cover;object-position:top center}
+
 </style>
 <script>(function(){var t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+
 </head>
 <body>
 <nav id="nav">
@@ -152,7 +209,7 @@ footer{background:var(--navy2);padding:60px 0 0;border-top:1px solid var(--bdr)}
       <div class="brand-logo"><img src="images/logo.jpg" alt="COMSA" onerror="this.style.display='none'"/></div>
       <div><span class="brand-name">COMSA</span><span class="brand-sub">Accra Technical University</span></div>
     </a>
-    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="patron-hod.html">Patron & HOD</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html" class=act>Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html">Executives</a></li><li><a href="patron-hod.html">Patron &amp; HOD</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html" class=act>Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul>
     <div class="nav-r">
       <label class="tog" title="Dark/Light mode">
         <input type="checkbox" class="tog-chk" aria-label="Toggle theme"/>
@@ -168,13 +225,13 @@ footer{background:var(--navy2);padding:60px 0 0;border-top:1px solid var(--bdr)}
 <div class="mob-ov" id="mob-ov"
   onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');this.classList.remove('show');document.body.style.overflow=''">
 </div>
-<div class="mob" id="mob"><a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html">Executives</a><a href="patron-hod.html">Patron & HOD</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="past-questions.html" class=act>Past Questions</a><a href="contact.html">Contact</a>
+<div class="mob" id="mob"><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="index.html">Home</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="about.html">About</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="executives.html">Executives</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="patron-hod.html">Patron &amp; HOD</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="events.html">Events</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="blog.html">Blog</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="gallery.html">Gallery</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="past-questions.html" class=act>Past Questions</a><a onclick="document.getElementById('mob').classList.remove('open');document.getElementById('ham').classList.remove('open');document.getElementById('mob-ov').classList.remove('show');document.body.style.overflow='';" href="contact.html">Contact</a>
   <div style="margin-top:18px;display:flex;align-items:center;justify-content:space-between">
     <span style="font-size:.7rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase">Dark / Light</span>
     <label class="tog"><input type="checkbox" class="tog-chk"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
   </div>
 </div>
-<section class="ph" id="ph"><div class="ph-slide  act"><img src="images/comsa26.jpg" alt="COMSA" onerror="this.style.background='var(--navy3)'"/></div><div class="ph-slide"><img src="images/comsa27.jpg" alt="COMSA" onerror="this.style.background='var(--navy3)'"/></div><div class="ph-ov"></div><div class="ph-txt"><div class="ph-lbl">Past Questions</div><h1 class="ph-title">Download <em>Past Exam Questions</em></h1></div><div class="ph-dots"><button class="ph-dot  act" onclick="phGo(0)"></button><button class="ph-dot" onclick="phGo(1)"></button></div></section>
+<section class="ph" id="ph"><div class="ph-slide  act"><img src="images/comsa4.jpg" alt="COMSA" onerror="this.style.background='var(--navy3)'"/></div><div class="ph-slide"><img src="images/comsa5.jpg" alt="COMSA" onerror="this.style.background='var(--navy3)'"/></div><div class="ph-ov"></div><div class="ph-txt"><div class="ph-lbl">Past Questions</div><h1 class="ph-title">Download <em>Past Exam Questions</em></h1></div><div class="ph-dots"><button class="ph-dot  act" onclick="phGo(0)"></button><button class="ph-dot" onclick="phGo(1)"></button></div></section>
 <section class="sp" style="background:var(--bg)">
   <div class="container">
     <div style="text-align:center;margin-bottom:40px" class="rv">
@@ -354,7 +411,16 @@ async function loadPQ(){
   renderPQ(allPQs);
   updateStats(allPQs);
 }
-document.addEventListener('DOMContentLoaded',loadPQ);
+
+document.addEventListener('DOMContentLoaded',function(){
+  var _t=setTimeout(function(){
+    var l=document.getElementById('pq-loading');
+    var g=document.getElementById('pq-grid');
+    if(l)l.style.display='none';
+    if(g&&g.innerHTML.indexOf('Loading')>-1)g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Could not load content. Check your Supabase configuration.</div>';
+  },8000);
+  loadPQ().then(function(){clearTimeout(_t);}).catch(function(e){clearTimeout(_t);console.error('[loadPQ]',e);});
+});
 </script>
 </body>
 </html>

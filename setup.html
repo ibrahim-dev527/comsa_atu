@@ -67,7 +67,7 @@ code{font-family:monospace;font-size:.85em;background:rgba(244,180,0,.1);color:v
 @media(max-width:768px){.container{padding:0 18px}.setup-title{font-size:1.8rem}}
 </style>
 <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
-<meta http-equiv="X-Frame-Options" content="DENY"/>
+<meta name="robots" content="noindex,nofollow"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 </head>
 <body>
@@ -93,13 +93,13 @@ code{font-family:monospace;font-size:.85em;background:rgba(244,180,0,.1);color:v
 </div>
 
 <nav class="step-nav">
-  <button class="step-nav-btn act" onclick="scrollTo('s1')">1. Keys</button>
-  <button class="step-nav-btn" onclick="scrollTo('s2')">2. SQL</button>
-  <button class="step-nav-btn" onclick="scrollTo('s3')">3. Auth</button>
-  <button class="step-nav-btn" onclick="scrollTo('s4')">4. Storage</button>
-  <button class="step-nav-btn" onclick="scrollTo('s5')">5. Deploy</button>
-  <button class="step-nav-btn" onclick="scrollTo('s6')">6. Checklist</button>
-  <button class="step-nav-btn" onclick="scrollTo('s7')">7. FAQ</button>
+  <button class="step-nav-btn act" onclick="goStep('s1')">1. Keys</button>
+  <button class="step-nav-btn" onclick="goStep('s2')">2. SQL</button>
+  <button class="step-nav-btn" onclick="goStep('s3')">3. Auth</button>
+  <button class="step-nav-btn" onclick="goStep('s4')">4. Storage</button>
+  <button class="step-nav-btn" onclick="goStep('s5')">5. Deploy</button>
+  <button class="step-nav-btn" onclick="goStep('s6')">6. Checklist</button>
+  <button class="step-nav-btn" onclick="goStep('s7')">7. FAQ</button>
 </nav>
 
 <div class="setup-body">
@@ -348,7 +348,7 @@ SELECT id, name, public FROM storage.buckets;</div>
 (function(){var t=localStorage.getItem('comsa-theme')||'dark';document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.tog-in').forEach(function(i){i.checked=t==='light';});})();
 function setTheme(l){var t=l?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('comsa-theme',t);document.querySelectorAll('.tog-in').forEach(function(i){i.checked=l;});}
 document.querySelectorAll('.tog-in').forEach(function(i){i.addEventListener('change',function(){setTheme(this.checked);});});
-function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+function goStep(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
 function copyCode(btn){var code=btn.parentElement.textContent.replace('Copy All','').replace('Copy','').trim();navigator.clipboard.writeText(code).then(function(){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy';},2000);});}
 var navBtns=document.querySelectorAll('.step-nav-btn');
 var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var id=e.target.id;navBtns.forEach(function(b){b.classList.remove('act');});var btn=document.querySelector('.step-nav-btn[onclick*="'+id+'"]');if(btn)btn.classList.add('act');}});},{rootMargin:'-10% 0px -85% 0px'});

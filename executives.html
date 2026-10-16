@@ -7,7 +7,6 @@
 <meta name="description" content="Meet the COMSA 2025/26 executive team — The All Inclusive Administration at Accra Technical University."/>
 <meta name="keywords" content="COMSA, Communications Students Association, Accra Technical University, ATU, Ghana"/>
 <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
-<meta http-equiv="X-Frame-Options" content="DENY"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta name="author" content="Ibrahim Mohammed Lotsu – Ibratech &amp; Graphix"/>
 <link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
@@ -184,6 +183,62 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .team-motto{font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--gold);margin-bottom:10px}
 @media(max-width:1024px){.exec-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){.exec-grid{grid-template-columns:1fr}.exec-card:first-child{max-width:100%}.exec-img{height:240px}}
+
+/* ═══ LIGHT MODE VISIBILITY FIXES ═══ */
+[data-theme=light] .h2,[data-theme=light] h1,[data-theme=light] h2,[data-theme=light] h3,[data-theme=light] h4{color:var(--txt)}
+[data-theme=light] p,[data-theme=light] .desc,[data-theme=light] .history-p{color:var(--muted)}
+[data-theme=light] .val-d,[data-theme=light] .vc-d,[data-theme=light] .prog-d,[data-theme=light] .mission-d,[data-theme=light] .souv-d{color:var(--muted)}
+[data-theme=light] .val-t,[data-theme=light] .vc-t,[data-theme=light] .prog-t{color:var(--txt)}
+[data-theme=light] .exec-bio,[data-theme=light] .exec-name,[data-theme=light] .exec-role{color:var(--txt)}
+[data-theme=light] .exec-bio{color:var(--muted)}
+[data-theme=light] .phod-body,[data-theme=light] .phod-name{color:var(--txt)}
+[data-theme=light] .phod-bio,[data-theme=light] .phod-mi-t{color:var(--muted)}
+[data-theme=light] .ev-title,[data-theme=light] .ev-week{color:var(--txt)}
+[data-theme=light] .ev-meta-r{color:var(--muted)}
+[data-theme=light] .bc-title,[data-theme=light] .aside-head{color:var(--txt)}
+[data-theme=light] .bc-exc,[data-theme=light] .bc-date,[data-theme=light] .bc-foot,[data-theme=light] .recent-date{color:var(--muted)}
+[data-theme=light] .recent-title{color:var(--txt)}
+[data-theme=light] .pq-title{color:var(--txt)}
+[data-theme=light] .pq-mr,[data-theme=light] .pq-code{color:var(--muted)}
+[data-theme=light] .dw-tt{color:var(--txt)}
+[data-theme=light] .dw-dd,[data-theme=light] .dw-date{color:var(--muted)}
+[data-theme=light] .con-card-title{color:var(--txt)}
+[data-theme=light] .con-card-sub{color:var(--muted)}
+[data-theme=light] .ec-name{color:var(--txt)}
+[data-theme=light] .ec-role{color:var(--muted)}
+[data-theme=light] .mob a{color:var(--muted)}
+[data-theme=light] .mob a:hover,[data-theme=light] .mob a.act{color:var(--gold)}
+[data-theme=light] .gal-cap{color:#fff}
+[data-theme=light] .brand-name{color:var(--gold)}
+[data-theme=light] .brand-sub{color:var(--muted)}
+[data-theme=light] td{color:var(--txt)}
+[data-theme=light] .tbl-title{color:var(--txt)}
+[data-theme=light] .ov-l,[data-theme=light] .pq-stat-l{color:var(--muted)}
+[data-theme=light] .setup-box-body,[data-theme=light] .alert{color:var(--muted)}
+[data-theme=light] .empty-row td{color:var(--muted)}
+/* Cards get subtle shadow in light mode */
+[data-theme=light] .val-c,[data-theme=light] .ov-card,[data-theme=light] .dw-card,[data-theme=light] .ev-card,
+[data-theme=light] .bc,[data-theme=light] .pq-card,[data-theme=light] .vc,[data-theme=light] .prog-c,
+[data-theme=light] .souv-c,[data-theme=light] .aside-card,[data-theme=light] .setup-box,[data-theme=light] .tbl-wrap{
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+
+
+/* ── HERO IMAGE FALLBACK ── */
+.ph-slide{background:linear-gradient(135deg,var(--navy),var(--navy3))}
+.ph-slide img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.ph-slide img[src=""]{display:none}
+/* Ensure hero always has minimum height even without images */
+.ph,.page-hero{min-height:340px}
+.hero{min-height:520px}
+.hero-slider .h-slide{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.hero-slider .h-slide img{width:100%;height:100%;object-fit:cover}
+
+/* ── EXECUTIVE / PROFILE IMAGES FALLBACK ── */
+.exec-img,.phod-img,.ab-img-wrap{background:linear-gradient(135deg,var(--navy),var(--navy3))}
+.exec-img img,.phod-img img,.ab-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.pres-av img,.mini-av img,.ec-av img{width:100%;height:100%;object-fit:cover;object-position:top center}
+
 </style>
 </head>
 <body>
@@ -194,7 +249,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="brand-logo"><img src="images/logo.jpg" alt="COMSA"/></div>
       <div class="brand-txt"><strong>COMSA</strong><span>Accra Technical University</span></div>
     </a>
-    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html" class="act">Executives</a></li><li><a href="patron-hod.html">Patron & HOD</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="executives.html" class="act">Executives</a></li><li><a href="patron-hod.html">Patron &amp; HOD</a></li><li><a href="events.html">Events</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="contact.html">Contact</a></li></ul>
     <div class="nav-r">
       <label class="tog" title="Toggle theme"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
       <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -202,7 +257,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </nav>
 <div class="mob-ov" id="mob-ov"></div>
-<div class="mob" id="mob"><a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html" class="act">Executives</a><a href="patron-hod.html">Patron & HOD</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="past-questions.html">Past Questions</a><a href="contact.html">Contact</a>
+<div class="mob" id="mob"><a href="index.html">Home</a><a href="about.html">About</a><a href="executives.html" class="act">Executives</a><a href="patron-hod.html">Patron &amp; HOD</a><a href="events.html">Events</a><a href="blog.html">Blog</a><a href="gallery.html">Gallery</a><a href="past-questions.html">Past Questions</a><a href="contact.html">Contact</a>
   <div style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">
     <span style="font-size:.7rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase">Dark / Light</span>
     <label class="tog"><input type="checkbox" class="tog-in"/><span class="tog-track"></span><span class="tog-thumb"></span></label>
@@ -328,7 +383,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </div></div>
     <div class="team-note rv">
       <div class="team-motto">"Communicate, Persuade, Transform"</div>
-      <p style="font-size:.88rem;color:var(--muted)">The All Inclusive Administration 2025/26 &mdash; serving 1,708 students across 5 programmes at ATU.</p>
+      <p style="font-size:.88rem;color:var(--muted)">The All Inclusive Administration 2025/26 &mdash; serving 1,800+ students across 5 programmes at ATU.</p>
       <div style="display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap">
         <a href="contact.html" class="btn btn-g">Contact the Team</a>
         <a href="patron-hod.html" class="btn btn-o">Meet Patron &amp; HOD</a>
@@ -397,6 +452,27 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <a href="https://wa.me/233544487799" target="_blank" class="wa-btn" onmouseover="document.getElementById('wa-tip').style.opacity='1'" onmouseout="document.getElementById('wa-tip').style.opacity='0'" title="WhatsApp COMSA PRO"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 </div>
 <script>
+
+/* ── THEME: init before render to prevent flash ── */
+(function(){
+  var t=localStorage.getItem('comsa-theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+})();
+/* ── THEME: wire up all toggles after DOM ready ── */
+document.addEventListener('DOMContentLoaded',function(){
+  var stored=localStorage.getItem('comsa-theme')||'dark';
+  document.querySelectorAll('.tog-chk,.tog-in').forEach(function(inp){
+    inp.checked=stored==='light';
+    inp.removeEventListener('change',inp._themeHandler);
+    inp._themeHandler=function(){
+      var th=this.checked?'light':'dark';
+      document.documentElement.setAttribute('data-theme',th);
+      localStorage.setItem('comsa-theme',th);
+      document.querySelectorAll('.tog-chk,.tog-in').forEach(function(i){i.checked=th==='light';});
+    };
+    inp.addEventListener('change',inp._themeHandler);
+  });
+});
 /* THEME */
 (function(){
   var t=localStorage.getItem('comsa-theme')||'dark';
@@ -535,7 +611,7 @@ var KB=[
 
   // WHAT IS COMSA
   {k:['what is comsa','what\'s comsa','comsa mean','comsa stands','about comsa','tell me about comsa','explain comsa','who is comsa'],
-   r:'<strong>COMSA</strong> stands for the <strong>Communications Students\' Association</strong> — the official students\' association for the Department of Liberal Studies and Communication Technology at <strong>Accra Technical University (ATU)</strong>.<br/><br/>We serve <strong>1,708 students</strong> across 5 programmes. Our motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/><br/><a href="about.html" style="color:#F4B400">→ Learn more about COMSA</a>'},
+   r:'<strong>COMSA</strong> stands for the <strong>Communications Students\' Association</strong> — the official students\' association for the Department of Liberal Studies and Communication Technology at <strong>Accra Technical University (ATU)</strong>.<br/><br/>We serve <strong>1,800+ students</strong> across 5 programmes. Our motto: <em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/><br/><a href="about.html" style="color:#F4B400">→ Learn more about COMSA</a>'},
 
   // HISTORY
   {k:['history','presa','renamed','rebranded','how did comsa start','origin','founded','when was comsa','old name','previous name','former name'],
@@ -553,13 +629,13 @@ var KB=[
   {k:['motto','slogan','communicate persuade transform','theme','all inclusive','sani oti','sani-oti','administration','2025 2026'],
    r:'✨ <strong>COMSA Motto:</strong><br/><em style="color:#F4B400">"Communicate, Persuade, Transform"</em><br/><br/><strong>2025/26 Theme:</strong> The All Inclusive Administration<br/><strong>Led by:</strong> The Sani-Oti Administration — President Abdul Jalil Sani and VP Kelvin Otiboateng.<br/><br/>This administration rebranded the association from PRESA to COMSA, introduced the lapel pin, association cloth, and launched this official website.'},
 
-  // PRESIDENT
-  {k:['president','jalil','sani','abdul jalil','who is the president','current president'],
-   r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>The visionary leader of the Sani-Oti Administration, driving inclusivity and transformation across all COMSA programmes.<br/><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> &nbsp;·&nbsp; <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
-
   // VICE PRESIDENT
   {k:['vice president','vp','kelvin','otiboateng','who is the vp','second in command'],
    r:'<strong>Vice President: Kelvin Otiboateng</strong><br/>Supports the President in strategic leadership and ensures seamless coordination across all executive portfolios.<br/><br/>📞 <a href="tel:+233550081165" style="color:#F4B400">0550 081 165</a> &nbsp;·&nbsp; <a href="https://wa.me/233550081165" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // PRESIDENT
+  {k:['president','jalil','sani','abdul jalil','who is the president','current president'],
+   r:'🏛️ <strong>President: Abdul Jalil Sani</strong><br/>The visionary leader of the Sani-Oti Administration, driving inclusivity and transformation across all COMSA programmes.<br/><br/>📞 <a href="tel:+233530099371" style="color:#F4B400">0530 099 371</a> &nbsp;·&nbsp; <a href="https://wa.me/233530099371" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
 
   // SECRETARY
   {k:['secretary','jochebed','ofori','who is the secretary'],
@@ -572,6 +648,10 @@ var KB=[
   // WELFARE
   {k:['welfare','stephen','ato','stephen ato','welfare officer','who handles welfare','student welfare'],
    r:'<strong>Welfare Officer: Stephen Ato Mensah</strong><br/>Champions student welfare and well-being, ensuring every COMSA member is heard, supported, and cared for.<br/><br/>📞 <a href="tel:+233205915904" style="color:#F4B400">0205 915 904</a> &nbsp;·&nbsp; <a href="https://wa.me/233205915904" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
+
+  // PATRON
+  {k:['patron','ashong','theophilus ashong','mr ashong','lecturer','academic guide','faculty advisor'],
+   r:'🎓 <strong>COMSA Patron: Mr. Theophilus Ashong</strong><br/>Lecturer, Department of Liberal Studies & Communication Technology, ATU.<br/><br/>• MPhil — University of Ghana<br/>• MEd — UCC (2026)<br/>• PhD Candidate<br/>• 2020 Andrew W. Mellon PhD Fellowship Recipient<br/><br/>Mr. Ashong provides strategic academic guidance and mentorship to the association.<br/><br/><a href="patron-hod.html" style="color:#F4B400">→ View full profile</a>'},
 
   // PRO
   {k:['pro','public relations officer','theophilus','theophilus mensah','media','press','communications officer','who is the pro'],
@@ -593,29 +673,25 @@ var KB=[
   {k:['all executives','list of executives','executive team','executive members','who are the executives','executive names','9 executives'],
    r:'👔 <strong>COMSA Executives 2025/26 — The All Inclusive Administration:</strong><br/><br/>• 🏛️ President: Abdul Jalil Sani — 0530 099 371<br/>• VP: Kelvin Otiboateng — 0550 081 165<br/>• Secretary: Jochebed Ofori — 0537 868 041<br/>• Organizer: Martin Laryea Mensah — 0533 241 149<br/>• Welfare: Stephen Ato Mensah — 0205 915 904<br/>• P.R.O: Theophilus Mensah — 0544 487 799<br/>• WOCOM: Abigail Enu Ninson — 0537 646 489<br/>• Finance: Kennedy A. Holdbrook — 0200 632 333<br/>• Part-Time Rep: Isaac N. Quansah — 0556 720 552<br/><br/><a href="executives.html" style="color:#F4B400">→ View full executive profiles</a>'},
 
-  // PATRON
-  {k:['patron','ashong','theophilus ashong','mr ashong','lecturer','academic guide','faculty advisor'],
-   r:'🎓 <strong>COMSA Patron: Mr. Theophilus Ashong</strong><br/>Lecturer, Department of Liberal Studies & Communication Technology, ATU.<br/><br/>• MPhil — University of Ghana<br/>• MEd — UCC (2026)<br/>• PhD Candidate<br/>• 2020 Andrew W. Mellon PhD Fellowship Recipient<br/><br/>Mr. Ashong provides strategic academic guidance and mentorship to the association.<br/><br/><a href="patron-hod.html" style="color:#F4B400">→ View full profile</a>'},
-
   // HOD
   {k:['hod','head of department','department head','head of dept','who is the hod'],
-   r:'🏛️ <strong>Head of Department</strong><br/>The HOD leads the academic direction, curriculum development, and departmental policies for the Department of Liberal Studies and Communication Technology at ATU. Works closely with COMSA on student matters.<br/><br/><a href="patron-hod.html" style="color:#F4B400">→ Visit Patron & HOD page</a>'},
+   r:'🏛️ <strong>Head of Department: Dr. Collins Meaning</strong><br/>The HOD leads the academic direction, curriculum development, and departmental policies for the Department of Liberal Studies and Communication Technology at ATU. Works closely with COMSA on student matters.<br/><br/><a href="patron-hod.html" style="color:#F4B400">→ Visit Patron &amp; HOD page</a>'},
+
+  // DEPARTMENTAL WEEK
+  {k:['departmental week','dept week','week schedule','activities','june','july','2026','week event','what is happening','programme of events'],
+   r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/><br/>🏃 <strong>Mon 29 June</strong> — Health Walk & Clean Up<br/>🎙️ <strong>Tue 30 June</strong> — Inter-Class Debate<br/>💼 <strong>Wed 1 July</strong> — Professional Edge Conference & Part-Time Submit<br/>🏭 <strong>Thu 2 July</strong> — Industrial Trip (Kasapreko LTD)<br/>👕 <strong>Fri 3 July</strong> — Rep Your Jersey Day<br/>🏆 <strong>Sat 4 July</strong> — Departmental Games<br/><br/><a href="events.html" style="color:#F4B400">→ View all events</a>'},
 
   // PROGRAMMES
   {k:['programme','programs','courses','btech','what do you study','what can i study','disciplines','department','course offered','what course'],
    r:'📚 <strong>5 BTech Programmes under COMSA:</strong><br/><br/>1. 📢 BTech Public Relations with Digital Communication<br/>2. 📰 BTech Journalism & Media Studies<br/>3. 📊 BTech Marketing Communication<br/>4. 🌱 BTech Development Communication<br/>5. 🎨 BTech Graphic Communication<br/><br/><a href="about.html" style="color:#F4B400">→ Learn more about COMSA programmes</a>'},
 
+  // NUMBER OF STUDENTS
+  {k:['how many students','total students','1800+','population','how many members','student count','size'],
+   r:'👥 COMSA proudly serves <strong style="color:#F4B400">1,800+ students</strong> across all 5 BTech programmes and all levels at Accra Technical University.'},
+
   // MEMBERSHIP / HOW TO JOIN
   {k:['join','member','membership','how to join','register','registration','am i a member','become a member','how do i join','eligible'],
    r:'🎓 <strong>How to Join COMSA:</strong><br/><br/>Every student admitted into the Department of Liberal Studies and Communication Technology at ATU is <strong>automatically a COMSA member</strong> from Level 100 onwards.<br/><br/>✅ No registration fee<br/>✅ No form to fill<br/>✅ You are already part of the family!<br/><br/>Welcome to COMSA! 🏆'},
-
-  // NUMBER OF STUDENTS
-  {k:['how many students','total students','1708','population','how many members','student count','size'],
-   r:'👥 COMSA proudly serves <strong style="color:#F4B400">1,708 students</strong> across all 5 BTech programmes and all levels at Accra Technical University.'},
-
-  // DEPARTMENTAL WEEK
-  {k:['departmental week','dept week','week schedule','activities','june','july','2026','week event','what is happening','programme of events'],
-   r:'📅 <strong>Departmental Week 2026 — Sani-Oti Led Administration:</strong><br/><br/>🏃 <strong>Mon 29 June</strong> — Health Walk & Clean Up<br/>🎙️ <strong>Tue 30 June</strong> — Inter-Class Debate<br/>💼 <strong>Wed 1 July</strong> — Professional Edge Conference & Part-Time Submit<br/>🏭 <strong>Thu 2 July</strong> — Industrial Trip (Kasapreko LTD)<br/>👕 <strong>Fri 3 July</strong> — Rep Your Jersey Day<br/>🏆 <strong>Sat 4 July</strong> — Departmental Games<br/><br/><a href="events.html" style="color:#F4B400">→ View all events</a>'},
 
   // HEALTH WALK
   {k:['health walk','clean up','monday','29 june','day 1'],
@@ -641,10 +717,6 @@ var KB=[
   {k:['games','sports','saturday','4 july','day 6','departmental games','compete'],
    r:'🏆 <strong>Day 6 — Departmental Games</strong><br/>📅 Saturday, 4th July 2026<br/><br/>The grand sporting finale! Compete for glory across multiple disciplines. Cheer your level on and celebrate the COMSA family!'},
 
-  // SOUVENIRS
-  {k:['souvenir','souvenirs','lapel','pin','cloth','lacoste','merch','merchandise','buy','purchase','sell','available','shop'],
-   r:'🎽 <strong>Official COMSA Souvenirs (3 items):</strong><br/><br/>👔 COMSA Lacoste<br/>📌 COMSA Lapel Pin<br/>🧣 COMSA Association Cloth<br/><br/>To purchase, contact the Finance Officer:<br/>📞 <a href="tel:+233200632333" style="color:#F4B400">Kennedy A. Holdbrook — 0200 632 333</a><br/><a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
-
   // LAPEL PIN
   {k:['lapel pin','pin','badge','comsa pin'],
    r:'📌 <strong>COMSA Lapel Pin</strong><br/>The first-ever official COMSA Lapel Pin — introduced under the Sani-Oti Administration as a historic identity symbol. It strengthens the association\'s brand and gives members a greater sense of pride and belonging.<br/><br/>Available for purchase through Finance Officer Kennedy A. Holdbrook: <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">0200 632 333</a>'},
@@ -652,6 +724,10 @@ var KB=[
   // ASSOCIATION CLOTH
   {k:['association cloth','cloth','fabric','comsa cloth'],
    r:'🧣 <strong>COMSA Association Cloth</strong><br/>The official COMSA Association Cloth was introduced under the Sani-Oti Administration to foster unity and give every member a greater sense of belonging.<br/><br/>Available through Finance Officer Kennedy A. Holdbrook: <a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">0200 632 333</a>'},
+
+  // SOUVENIRS
+  {k:['souvenir','souvenirs','lapel','pin','cloth','lacoste','merch','merchandise','buy','purchase','sell','available','shop'],
+   r:'🎽 <strong>Official COMSA Souvenirs (3 items):</strong><br/><br/>👔 COMSA Lacoste<br/>📌 COMSA Lapel Pin<br/>🧣 COMSA Association Cloth<br/><br/>To purchase, contact the Finance Officer:<br/>📞 <a href="tel:+233200632333" style="color:#F4B400">Kennedy A. Holdbrook — 0200 632 333</a><br/><a href="https://wa.me/233200632333" target="_blank" style="color:#F4B400">💬 WhatsApp</a>'},
 
   // PAST QUESTIONS
   {k:['past question','past questions','exam','exams','pdf','download','study','revision','old questions','previous questions','question paper'],
@@ -663,7 +739,7 @@ var KB=[
 
   // BLOG / NEWS
   {k:['blog','news','announcement','announcements','update','updates','flyer','post','posts','latest news','what\'s new'],
-   r:'📰 Read the latest COMSA news, announcements, flyers, and blog posts!<br/><br/><a href="blog.html" style="color:#F4B400">→ Visit Blog & News</a><br/><br/>You can also follow us on social media <strong>@comsa-atu</strong> for real-time updates.'},
+   r:'📰 Read the latest COMSA news, announcements, flyers, and blog posts!<br/><br/><a href="blog.html" style="color:#F4B400">→ Visit Blog &amp; News</a><br/><br/>You can also follow us on social media <strong>@comsa-atu</strong> for real-time updates.'},
 
   // EVENTS
   {k:['events','upcoming events','what events','event page','schedule'],
@@ -720,12 +796,17 @@ var FALLBACK='I don\'t have a specific answer for that, but I can connect you wi
 // ── CHATBOT ENGINE ──────────────────────────────────────────────────────────────
 var cbOpen=false, cbBadgeDone=false;
 
+function cbMatch(t,k){
+  if(k.length>4) return t.indexOf(k)>-1;
+  var re=new RegExp('(^|[^a-z0-9])'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'([^a-z0-9]|$)');
+  return re.test(t);
+}
 function cbGetReply(text){
   var t=text.toLowerCase().trim();
   for(var i=0;i<KB.length;i++){
     var entry=KB[i];
     for(var j=0;j<entry.k.length;j++){
-      if(t.includes(entry.k[j])) return entry.r;
+      if(cbMatch(t,entry.k[j])) return entry.r;
     }
   }
   return FALLBACK;
