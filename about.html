@@ -9,6 +9,11 @@
 <link rel="apple-touch-icon" href="images/logo.jpg"/>
 <link rel="canonical" href="https://YOUR-SITE-DOMAIN/about.html"/>
 <meta name="theme-color" content="#0B1F3B"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="COMSA"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="COMSA – ATU"/>
 <meta property="og:title" content="About COMSA | COMSA – ATU"/>
@@ -277,6 +282,20 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .dev-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(244,180,0,.35)}
 @media(max-width:600px){.dev-card{gap:14px;padding:16px}.dev-ph{flex-basis:92px;width:92px;height:122px;border-radius:12px}.dev-name{font-size:1.08rem}.dev-bio{font-size:.76rem;line-height:1.6}.dev-chips span{font-size:.62rem}}
 .ph-slide img,.h-slide img{object-position:center 22%}
+.dev-btns{display:flex;flex-wrap:wrap;gap:10px}
+.dev-btn.alt{background:transparent;border:1.5px solid #F4B400;color:#F4B400}
+.dev-btn.alt:hover{background:rgba(244,180,0,.12);box-shadow:none}
+.dev-ph img,.dev-mini-ph img{cursor:zoom-in}
+
+/* ── IMAGE ZOOM ── */
+.exec-img,.phod-img,.prev-av,.dev-ph,.dev-mini-ph,.ec-av,.pres-av,.mini-av{cursor:zoom-in}
+#zm{position:fixed;inset:0;z-index:9500;background:rgba(7,16,30,.96);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:16px}
+#zm.show{display:flex}
+#zm-img{max-width:92vw;max-height:78vh;width:auto;height:auto;border-radius:12px;object-fit:contain;box-shadow:0 24px 60px rgba(0,0,0,.55);animation:zmIn .28s ease}
+@keyframes zmIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+#zm-cap{color:rgba(255,255,255,.75);font-size:.9rem;text-align:center;font-weight:500}
+#zm-x{margin-top:2px;padding:10px 24px;border-radius:50px;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit}
+#zm-x:hover{background:rgba(239,68,68,.45);border-color:transparent}
 </style>
 </head>
 <body>
@@ -303,13 +322,13 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </div>
 
 <section class="page-hero" id="ph">
-  <div class="ph-slider" id="ph-slider"><div class="ph-slide  act"><img src="images/comsa33.jpg" alt="COMSA"/></div><div class="ph-slide"><img src="images/david.jpg" alt="COMSA"/></div><div class="ph-slide"><img src="images/comsa35.jpg" alt="COMSA"/></div><div class="ph-slide"><img src="images/comsa31.jpg" alt="COMSA"/></div></div>
+  <div class="ph-slider" id="ph-slider"><div class="ph-slide  act"><img src="images/david.jpg" alt="David Quartey — President"/></div><div class="ph-slide"><img src="images/samuel.jpg" alt="Samuel Opoku — Vice President"/></div><div class="ph-slide"><img src="images/kesseh.jpg" alt="Kesseh Pious — Finance Officer"/></div><div class="ph-slide"><img src="images/culley.jpg" alt="Culley Christabel — Welfare Officer"/></div><div class="ph-slide"><img src="images/abraham.jpg" alt="Abraham Yaw Bodzo — PRO"/></div></div>
   <div class="ph-ov"></div>
   <div class="ph-content">
     <div class="ph-lbl">About COMSA</div>
     <h1 class="ph-title">Our <em>Story</em> &amp; Mission</h1>
   </div>
-  <div class="ph-dots" id="ph-dots"><button class="ph-dot  act" data-i="0"></button><button class="ph-dot" data-i="1"></button><button class="ph-dot" data-i="2"></button><button class="ph-dot" data-i="3"></button></div>
+  <div class="ph-dots" id="ph-dots"><button class="ph-dot  act" data-i="0"></button><button class="ph-dot" data-i="1"></button><button class="ph-dot" data-i="2"></button><button class="ph-dot" data-i="3"></button><button class="ph-dot" data-i="4"></button></div>
 </section>
 <section class="sp" style="background:var(--bg)" id="mission">
   <div class="container">
@@ -459,12 +478,12 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <div class="dev-role">Web Developer &middot; Accounting &amp; Finance Student &middot; P.R.O, ATUAS</div>
         <p class="dev-bio">A full-time Accounting &amp; Finance student at ATU and the <strong>Public Relations Officer of ATUAS</strong> (Association of Technical University Accountancy Students). A leader who communicates clearly, organises well and delivers &mdash; and a passionate developer who turned a love for the web into real platforms. Numbers by day, code by night: <strong>I build things that work and I finish what I start.</strong></p>
         <div class="dev-chips"><span>COMSA Website</span><span>ATU PQ Hub</span><span>HostelPlug</span><span>LedgerLab</span><span>Barber Boss</span></div>
-        <a class="dev-btn" href="https://wa.me/233544823484?text=Hi%20Ibrahim%2C%20I%20saw%20the%20COMSA%20website%20and%20I%27d%20like%20to%20talk." target="_blank" rel="noopener">Let&rsquo;s work together &rarr;</a>
+        <div class="dev-btns"><a class="dev-btn" href="https://ibratechh.vercel.app" target="_blank" rel="noopener">Visit my website &rarr;</a><a class="dev-btn alt" href="https://wa.me/233544823484?text=Hi%20Ibrahim%2C%20I%20saw%20the%20COMSA%20website%20and%20I%27d%20like%20to%20talk." target="_blank" rel="noopener">WhatsApp me</a></div>
       </div>
     </div>
     <div class="ft-bot">
       <div class="ft-copy">&copy; 2026 COMSA &ndash; Accra Technical University. All rights reserved.<br/>Official website of The All Inclusive Administration 2025/26 &middot; currently managed by the Quart - Opoku Led Administration.</div>
-      <div class="ft-dev">Built by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> &middot; <a href="https://wa.me/233544823484" target="_blank">Ibratech &amp; Graphix</a></div>
+      <div class="ft-dev">Built by <a href="https://wa.me/233544823484" target="_blank">Ibrahim Mohammed Lotsu</a> &middot; <a href="https://ibratechh.vercel.app" target="_blank" rel="noopener">Ibratech &amp; Graphix</a></div>
     </div>
   </div>
 </footer>
@@ -796,7 +815,7 @@ var KB=[
 
   // WEBSITE
   {k:['website','who built','developer','who made this','site','web'],
-   r:'💻 This website was built by <strong>Ibrahim Mohammed Lotsu (Ibratech & Graphix)</strong> — a student at ATU and web developer for COMSA.<br/><br/>📞 <a href="https://wa.me/233544823484" target="_blank" style="color:#F4B400">0544 823 484</a>'},
+   r:'💻 This website was built by <strong>Ibrahim Mohammed Lotsu (Ibratech & Graphix)</strong> — a student at ATU and web developer for COMSA.<br/><br/>🌐 <a href="https://ibratechh.vercel.app" target="_blank" style="color:#F4B400">ibratechh.vercel.app</a><br/>📞 <a href="https://wa.me/233544823484" target="_blank" style="color:#F4B400">0544 823 484</a>'},
 
   // THANK YOU
   {k:['thank you','thanks','thank','appreciated','helpful','you are helpful','great','awesome','perfect'],
@@ -938,5 +957,21 @@ document.addEventListener('DOMContentLoaded',function(){
 })();
 </script>
 
+<div id="zm" onclick="if(event.target===this)zmClose()"><img id="zm-img" alt=""/><div id="zm-cap"></div><button id="zm-x" type="button" onclick="zmClose()">&#10005; Close</button></div>
+<script>
+(function(){
+  var SEL='.exec-img img,.prev-av img,.dev-ph img,.dev-mini-ph img,.phod-img img,.ec-av img,.pres-av img,.mini-av img';
+  var box=document.getElementById('zm'),im=document.getElementById('zm-img'),cp=document.getElementById('zm-cap');
+  window.zmClose=function(){box.classList.remove('show');im.src='';document.body.style.overflow='';};
+  document.addEventListener('click',function(e){
+    var c=e.target&&e.target.closest?e.target.closest('.exec-img,.phod-img,.prev-av,.dev-ph,.dev-mini-ph,.ec-av,.pres-av,.mini-av'):null;var t=c?c.querySelector('img'):null;
+    if(!t||t.style.display==='none')return;
+    e.preventDefault();im.src=t.currentSrc||t.src;im.alt=t.alt||'';cp.textContent=t.alt||'';
+    box.classList.add('show');document.body.style.overflow='hidden';
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')zmClose();});
+})();
+</script>
+<script src="/pwa.js" defer></script>
 </body>
 </html>
